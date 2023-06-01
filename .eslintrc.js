@@ -21,5 +21,6 @@ module.exports = {
         "process": true
     },
     "rules": {
+        "react/prop-types": "off"
     }
 }
