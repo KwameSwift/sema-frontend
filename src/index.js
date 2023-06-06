@@ -7,7 +7,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import store from './Redux/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ToastContainer } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './index.scss';
 
 let persist = persistStore(store);
@@ -19,6 +21,10 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persist}>
         <Router>
+          <ToastContainer 
+            hideProgressBar={true} 
+            autoClose={5000}
+          />
           <App />
         </Router>
       </PersistGate>
