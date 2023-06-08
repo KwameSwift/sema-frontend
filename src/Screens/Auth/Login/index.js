@@ -8,9 +8,10 @@ import { useDispatch } from "react-redux";
 import { setUserData } from "../../../Redux/slices/userSlice";
 import CustomButton from "../../../Components/Common/CustomButton";
 import { isRequiredFieldsPassed } from "../../../utils/helpers";
+import SocialLoginButtons from "../../../Components/SocialLoginButtons";
+import logo from "../../../Assets/images/logo-small.png"
 
 import "../style.scss";
-import SocialLoginButtons from "../../../Components/SocialLoginButtons";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -63,12 +64,16 @@ function LoginPage() {
       <AuthSidebar />
       <div className="login-content">
         <div className="content-wrapper">
+          <div className='logo-sect'>
+            <img src={logo} className='logo' alt="sema logo"/>
+            <h1 className='company-header'>SEMA</h1>
+          </div>
           <div className="head-sect">
             <h1>Login to your account</h1>
             <SocialLoginButtons />
             <p>
               Don&apos;t have an account?
-              <span onClick={() => navigate("/register")}>Sign up free!</span>
+              <span onClick={() => navigate("/register")}>Sign up!</span>
             </p>
           </div>
           <div className="input-group">

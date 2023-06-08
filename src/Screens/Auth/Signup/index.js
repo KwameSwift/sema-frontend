@@ -9,6 +9,7 @@ import { isRequiredFieldsPassed } from "../../../utils/helpers";
 import SocialLoginButtons from "../../../Components/SocialLoginButtons";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../../Redux/slices/userSlice";
+import logo from "../../../Assets/images/logo-small.png"
 import { toast } from "react-toastify";
 
 function SignupPage() {
@@ -73,8 +74,12 @@ function SignupPage() {
   return (
     <div className="auth-login">
       <AuthSidebar />
-      <div className="login-content">
+      <div className={`login-content ${progress && 'more-details'}`}>
         <div className="content-wrapper">
+          <div className='logo-sect'>
+            <img src={logo} className='logo' alt="sema logo"/>
+            <h1 className='company-header'>SEMA</h1>
+          </div>
           <div className="head-sect">
             <h1>{progress ? "Let's setup your account!" : "Sign up!"}</h1>
             {progress === 1 && (

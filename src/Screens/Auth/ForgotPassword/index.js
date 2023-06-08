@@ -7,9 +7,10 @@ import { isRequiredFieldsPassed } from "../../../utils/helpers";
 import { axiosClient } from "../../../libs/axiosClient";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { setUserEmail } from "../../../Redux/slices/userSlice";
+import logo from "../../../Assets/images/logo-small.png"
 
 import "../style.scss";
-import { setUserEmail } from "../../../Redux/slices/userSlice";
 
 function ForgotPasswordPage() {
   const navigate = useNavigate();
@@ -49,6 +50,10 @@ function ForgotPasswordPage() {
       <AuthSidebar />
       <div className="login-content">
         <div className="content-wrapper">
+          <div className='logo-sect'>
+            <img src={logo} className='logo' alt="sema logo"/>
+            <h1 className='company-header'>SEMA</h1>
+          </div>
           <div className="head-sect">
             <h1>Recover your password</h1>
             <p>

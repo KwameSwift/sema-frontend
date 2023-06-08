@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import AuthSidebar from "../../../Components/Auth/Sidebar";
 import UnBorderedInput from "../../../Components/Common/UnBorderedInput";
-import { useNavigate } from "react-router-dom";
+import CustomButton from "../../../Components/Common/CustomButton";
+import logo from "../../../Assets/images/logo-small.png"
+import { isRequiredFieldsPassed } from "../../../utils/helpers";
+import { axiosClient } from "../../../libs/axiosClient";
 
 import "../style.scss";
-import CustomButton from "../../../Components/Common/CustomButton";
-import { isRequiredFieldsPassed } from "../../../utils/helpers";
-import { toast } from "react-toastify";
-import { axiosClient } from "../../../libs/axiosClient";
-import { useSelector } from "react-redux";
 
 function ResetPasswordPage() {
   const navigate = useNavigate();
@@ -52,6 +53,10 @@ function ResetPasswordPage() {
       <AuthSidebar />
       <div className="login-content">
         <div className="content-wrapper">
+          <div className='logo-sect'>
+            <img src={logo} className='logo' alt="sema logo"/>
+            <h1 className='company-header'>SEMA</h1>
+          </div>
           <div className="head-sect">
             <h1>Reset Password</h1>
             <p>

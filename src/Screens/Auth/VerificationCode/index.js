@@ -6,6 +6,7 @@ import { axiosClient } from "../../../libs/axiosClient";
 import SocialLoginButtons from '../../../Components/SocialLoginButtons';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import logo from "../../../Assets/images/logo-small.png"
 
 
 function VerificationCode() {
@@ -64,6 +65,10 @@ function VerificationCode() {
       <AuthSidebar />
       <div className="login-content">
         <div className="content-wrapper">
+          <div className='logo-sect'>
+            <img src={logo} className='logo' alt="sema logo"/>
+            <h1 className='company-header'>SEMA</h1>
+          </div>
           <div className="head-sect">
             <h1>Verification Code</h1>
             <SocialLoginButtons />
