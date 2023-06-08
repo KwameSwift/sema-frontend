@@ -10,6 +10,7 @@ function RegisterSecondStep({ handleChange }) {
         onChange={handleChange}
         name="organization"
         placeholder="Organization"
+        autoFocus
       />
       <UnBorderedInput
         iconName="BsGeoAltFill"

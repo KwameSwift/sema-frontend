@@ -28,7 +28,7 @@ function LoginPage() {
   };
 
   const handleLogin = async () => {
-    setLoading (true);
+    setLoading(true);
     try {
       const resp = await axiosClient.post("auth/login/", { ...state });
       if (resp.status === 200) {
@@ -43,7 +43,7 @@ function LoginPage() {
         dispatch(setUserData(payload));
         setLoading(false);
         toast.success("Login successful");
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise((r) => setTimeout(r, 2000));
         navigate("/");
       } else {
         setLoading(false);
@@ -78,7 +78,7 @@ function LoginPage() {
               iconName="BsMailbox"
               onChange={handleChange}
               name="email"
-              autofocus
+              autoFocus
             />
             <UnBorderedInput
               type="password"

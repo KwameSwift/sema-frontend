@@ -17,7 +17,7 @@ function ForgotPasswordPage() {
 
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(false);
-  const [btnDisabled, setBtnDisabled] = useState(false); 
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   const handlePasswordChangeInitiate = async () => {
     setLoading(true);
@@ -31,12 +31,12 @@ function ForgotPasswordPage() {
       setLoading(false);
       toast.error(err.response.data.detail);
     }
-  }
+  };
 
   const handleChange = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -62,7 +62,7 @@ function ForgotPasswordPage() {
               iconName="BsMailbox"
               name="email"
               onChange={handleChange}
-              autofocus
+              autoFocus
             />
           </div>
 
@@ -79,7 +79,7 @@ function ForgotPasswordPage() {
             <span onClick={() => navigate("/login")}>
               Already have an account?
             </span>
-            <span  onClick={() => navigate("/register")}>
+            <span onClick={() => navigate("/register")}>
               Don&apos;t have an account?
             </span>
           </div>

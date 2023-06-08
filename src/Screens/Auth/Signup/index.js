@@ -58,7 +58,6 @@ function SignupPage() {
       }
     } catch (err) {
       setLoading(false);
-      console.log(err.response)
       toast.error(err.response.data.detail);
     }
   };
@@ -69,7 +68,7 @@ function SignupPage() {
 
   useEffect(() => {
     setBtnDisabled(!isRequiredFieldsPassed(state, requiredFieldsLength, "eq"));
-  }, [state]);
+  }, [state, progress]);
 
   return (
     <div className="auth-login">

@@ -21,28 +21,31 @@ function ResetPasswordPage() {
   const handlePasswordChange = async () => {
     setLoading(true);
     try {
-      await axiosClient.post('auth/reset-password/', { ...state, email: user.email });
+      await axiosClient.post("auth/reset-password/", {
+        ...state,
+        email: user.email,
+      });
       setLoading(false);
       toast.success("Password reset successfully");
-      await new Promise(r => setTimeout(r, 2000));
+      await new Promise((r) => setTimeout(r, 2000));
       navigate("/login");
     } catch (err) {
       console.error(err);
       setLoading(false);
-      toast.error(err.response.data.detail)
-    } 
-  }
+      toast.error(err.response.data.detail);
+    }
+  };
 
   const handleChange = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   useEffect(() => {
     setBtnDisabled(!isRequiredFieldsPassed(state, 2, "eq"));
-  }, [state])
+  }, [state]);
 
   return (
     <div className="auth-login">
@@ -51,7 +54,10 @@ function ResetPasswordPage() {
         <div className="content-wrapper">
           <div className="head-sect">
             <h1>Reset Password</h1>
-            <p>Regain control of your account with a secure and personalized new password.</p>
+            <p>
+              Regain control of your account with a secure and personalized new
+              password.
+            </p>
           </div>
           <div className="input-group">
             <UnBorderedInput
@@ -60,7 +66,7 @@ function ResetPasswordPage() {
               iconName="BsKey"
               name="new_password"
               onChange={handleChange}
-              autofocus
+              autoFocus
             />
             <UnBorderedInput
               type="password"
@@ -68,10 +74,10 @@ function ResetPasswordPage() {
               iconName="BsKey"
               name="confirm_password"
               onChange={handleChange}
-              autofocus
+              autoFocus
             />
           </div>
-        
+
           <div className="submit-btn">
             <CustomButton
               type="button"

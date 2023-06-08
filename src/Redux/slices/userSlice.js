@@ -17,7 +17,7 @@ export const userSlice = createSlice({
       state.email = action.payload
     },
     resetUserData: (state) => {
-      Object.assign(state, {});
+      Object.assign(state, initialState);
     },
   },
 });

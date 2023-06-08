@@ -10,6 +10,7 @@ function RegisterFirstStep({ handleChange }) {
         onChange={handleChange}
         name="email"
         placeholder="Email Address"
+        autoFocus
       />
       <UnBorderedInput
         type="text"
