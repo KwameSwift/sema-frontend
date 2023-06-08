@@ -1,29 +1,66 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import OTPInput from 'react-otp-input';
 import AuthSidebar from "../../../Components/Auth/Sidebar";
 import { useNavigate } from 'react-router-dom';
-import OTPInput from 'react-otp-input';
+import { axiosClient } from "../../../libs/axiosClient";
 import SocialLoginButtons from '../../../Components/SocialLoginButtons';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 function VerificationCode() {
   const navigate = useNavigate();
 
+  const [countdown, setCountdown] = useState(60);
   const [otp, setOtp] = useState("");
-  // const [state, setState] = useState({});
+  const user = useSelector((store) => store.user);
+  const intervalRef = useRef(null);
 
-  // const handleChange = (e) => {
-  //   setState({
-  //     ...state,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
+  const verifyCode = async () => {
+    try {
+      await axiosClient.post('/auth/verify-password-reset-code/', {
+        email: user.email,
+        reset_code: otp
+      });
+      toast.success("Code Verified");
+      await new Promise(r => setTimeout(r, 2000));
+      navigate("/reset-password");
+    } catch (err) {
+      toast.error(err.response.data.detail);
+    }
+  }
+  const getFormattedCountdown = () => {
+    // Format the countdown to display as mm:ss
+    const minutes = Math.floor(countdown / 60);
+    const seconds = countdown % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  const tick = () => {
+    setCountdown(prevCountdown => {
+      if (prevCountdown <= 0) {
+        clearInterval(intervalRef.current);
+        return 0;
+      }
+      return prevCountdown - 1;
+    });
+  };
 
   useEffect(() => {
-    console.log(otp);
+    if (otp.length === 6) {
+      verifyCode();
+    }
   }, [otp])
 
+
+  useEffect(() => {
+    intervalRef.current = setInterval(tick, 1000);
+
+    return () => clearInterval(intervalRef.current);
+  }, []);
+
   return ( 
-    <div className="auth-login">
+    <div className="auth-login verification-code">
       <AuthSidebar />
       <div className="login-content">
         <div className="content-wrapper">
@@ -36,23 +73,24 @@ function VerificationCode() {
           </div>
           <div className='otp-sect'>
             <OTPInput
+              inputType='tel'
               value={otp}
               onChange={setOtp}
               numInputs={6}
+              placeholder='000000'
               renderSeparator={<span>-</span>}
               inputStyle={{ 
-                width: 40, 
-                height: 40,
+                width: 60, 
+                height: 60,
                 borderRadius: 5,
+                fontSize: 50,
                 border: "1px solid #9EAAAC",
               }}
               renderInput={(props) => <input {...props} />}
             />
           </div>
           <div className="auth-bottom-text request-verification">
-            <span onClick={() => navigate("/login")}>
-              Request a new code in 00:10
-            </span>
+            <span>Request a new code {getFormattedCountdown() === "00:00" ? " " : `in ${getFormattedCountdown()}`}</span>
           </div>
         </div>
       </div>

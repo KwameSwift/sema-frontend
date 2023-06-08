@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthSidebar from "../../../Components/Auth/Sidebar";
 import UnBorderedInput from "../../../Components/Common/UnBorderedInput";
-
-import "../style.scss";
 import CustomButton from "../../../Components/Common/CustomButton";
 import { isRequiredFieldsPassed } from "../../../utils/helpers";
 import { axiosClient } from "../../../libs/axiosClient";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+
+import "../style.scss";
+import { setUserEmail } from "../../../Redux/slices/userSlice";
 
 function ForgotPasswordPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(false);
@@ -20,6 +23,7 @@ function ForgotPasswordPage() {
     setLoading(true);
     try {
       await axiosClient.post("auth/send-reset-password-mail/", { ...state });
+      dispatch(setUserEmail(state.email));
       setLoading(false);
       navigate("/verify-code");
     } catch (err) {

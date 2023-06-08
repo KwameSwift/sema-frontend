@@ -136,9 +136,18 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      input {
+        font-weight: 400;
+      }
     }
   }
 
+}
+
+.verification-code {
+  .content-wrapper {
+    min-width: 400px!important;
+  }
 }
 
 @media (max-width: 1000px) {
