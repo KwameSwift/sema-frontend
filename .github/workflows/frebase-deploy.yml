@@ -25,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: Authenticate with Google Cloud
-        uses: google-github-actions/setup-gcloud@v0.6.0
+        uses: google-github-actions/auth@v0.6.0
         with:
             service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
             project_id: sema-frontend  
