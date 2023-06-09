@@ -27,5 +27,6 @@ jobs:
       - name: Deploy to Firebase
         run: |
           npm install -g firebase-tools
+          echo $FIREBASE_TOKEN > firebase_token.json
           firebase use sema-frontend
-          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+          firebase deploy --token "$(cat firebase_token.json)"
