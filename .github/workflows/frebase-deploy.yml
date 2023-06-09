@@ -24,12 +24,10 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v0.5.2
-        with:
-          application-default: true
-
-      - name: Deploy to Firebase
+      - name: Select Firebase project
         run: |
           npm install -g firebase-tools
-          firebase deploy --project sema-frontend 
+          firebase use --token ${{ secrets.FIREBASE_TOKEN }} sema-frontend
+      - name: Deploy to Firebase
+        run: |
+          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
