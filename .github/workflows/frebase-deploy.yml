@@ -25,11 +25,11 @@ jobs:
         run: npm run build
 
       - name: Authenticate with Google Cloud
-        uses: actions/gcloud@v0.4.3
-        with:
-          version: '357.0.0'
-          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          project_id: sema-frontend  
+        
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: sema-frontend
+          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}  
 
       - name: Deploy to Firebase
         run: |
