@@ -16,17 +16,19 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '16'
 
       - name: Install dependencies
-        run: npm i
+        run: npm install
 
       - name: Build project
         run: npm run build
 
-      - name: Deploy to Firebase
+      - name: Select Firebase project
         run: |
           npm install -g firebase-tools
-          echo $FIREBASE_TOKEN > firebase_token.json
-          firebase use sema-frontend
-          firebase deploy --token "$(cat firebase_token.json)"
+          firebase use --token ${{ secrets.FIREBASE_TOKEN }} sema-frontend
+
+      - name: Deploy to Firebase
+        run: |
+          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
