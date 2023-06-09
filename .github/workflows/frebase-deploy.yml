@@ -24,10 +24,14 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Select Firebase project
-        run: |
-          npm install -g firebase-tools
-          firebase use --token ${{ secrets.FIREBASE_TOKEN }} sema-frontend
+      - name: Authenticate with Google Cloud
+        uses: actions/gcloud@v0.4.3
+        with:
+          version: '357.0.0'
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          project_id: sema-frontend  
+
       - name: Deploy to Firebase
         run: |
-          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+          npm install -g firebase-tools
+          firebase deploy --project sema-frontend 
