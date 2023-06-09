@@ -24,19 +24,10 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0
-        
-      - id: 'auth'
-        name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
-        with: 
-          credentials_json: '${{ secrets.FIREBASE_TOKEN }}'
-
       - name: Select Firebase project
         run: |
           npm install -g firebase-tools
-          firebase use sema-frontend
+          firebase use --token ${{ secrets.FIREBASE_TOKEN }} sema-frontend
       - name: Deploy to Firebase
         run: |
           firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
