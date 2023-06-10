@@ -4,14 +4,13 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { BrowserRouter as Router } from 'react-router-dom';
-import store from './Redux/store';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import firebaseConfig from '../firebaseConfig';
-
+import firebaseConfig from './firebaseConfig';
+import store from './Redux/store';
+import App from './App';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './index.scss';
