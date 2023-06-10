@@ -1,141 +1,160 @@
-import React from "react";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BsFillPersonFill, BsSearch } from 'react-icons/bs';
+import Logo from "../../../Assets/images/logo-small.png";
+import './style.scss';
+import { useNavigate } from 'react-router-dom';
+import { resetUserData } from '../../../Redux/slices/userSlice';
 
 function Navbar() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  let accountLinks = [];
+
+  const user = useSelector((store) => store.user);
+
+  const logout = () => {
+    dispatch(resetUserData());
+    navigate('/login');
+  }
+
+  if (user?.tokens?.access) {
+    accountLinks = [
+      {id: "profile", name: "Profile", route: '/profile'}, 
+      {id: "logout", name: "Logout", type: 'func', func: logout}
+    ]
+  } else {
+    accountLinks = [
+      {id: "login", name: "Login", route: '/login'}, 
+      {id: "signup", name: "Signup", route: "/register"}
+    ]
+  }
+
+
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" className="flex items-center">
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8 mr-3"
-            alt="Flowbite Logo"
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Flowbite
-          </span>
-        </a>
-        <button
-          data-collapse-toggle="navbar-dropdown"
-          type="button"
-          className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-dropdown"
-          aria-expanded="false"
-        >
-          <span className="sr-only">Open main menu</span>
-          <svg
-            className="w-6 h-6"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-        </button>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
-                aria-current="page"
-              >
-                Home
-              </a>
-            </li>
-            <li>
+    <nav className="navbar sticky top-0 z-50 bg-[#fff] h-[13vh]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex justify-between h-full">
+          <div className="flex items-center flex-col justify-center">
+            <img src={Logo} width={35} height={35} />
+            <p className='font-bold text-[1em] logo-text'>SEMA</p>
+          </div>
+          <div className="flex items-center">
+            <div className="relative nav-link">
               <button
-                id="dropdownNavbarLink"
-                data-dropdown-toggle="dropdownNavbar"
-                className="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                className="hidden sm:flex items-center nav-item selected focus:outline-none"
               >
-                Dropdown{" "}
+                <span className="mr-1">Feed</span>
+              </button>
+            </div>
+            <div className="relative nav-link">
+              <button
+                className="hidden sm:flex items-center nav-item focus:outline-none"
+              >
+                <span className="mr-1">Events</span>
+              </button>
+            </div>
+            <div className="relative nav-link">
+              <button
+                className="hidden sm:flex items-center nav-item focus:outline-none"
+              >
+                <span className="mr-1">Donations</span>
+              </button>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="relative flex">
+              <button
+                className="flex items-center text-black hover:text-gray-300 focus:outline-none sm:hidden"
+                onClick={toggleModal}
+              >
                 <svg
-                  className="w-5 h-5 ml-1"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
+                  <path d="M3 12h18M3 6h18M3 18h18"></path>
                 </svg>
               </button>
-              <div
-                id="dropdownNavbar"
-                className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+              <button
+                className="hidden mr-5 sm:flex items-center nav-link focus:outline-none"
+                onClick={toggleDropdown}
               >
-                <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-400"
-                  aria-labelledby="dropdownLargeButton"
-                >
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                <BsSearch size={18} className='account-icon' />
+              </button>
+              <button
+                className="hidden sm:flex items-center nav-links text-hover focus:outline-none"
+                onMouseEnter={toggleDropdown}
+                onClick={toggleDropdown}
+              >
+                <BsFillPersonFill size={24} className='account-icon' />
+              </button>
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-8 py-2 w-48 bg-white rounded-md shadow-lg">
+                  {accountLinks.map((elt) =>
+                    <button
+                      onClick={elt?.type ? () => elt.func : () => navigate(`${elt.route}`) }
+                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      key={elt.id}
                     >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Earnings
-                    </a>
-                  </li>
-                </ul>
-                <div className="py-1">
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
-                  >
-                    Sign out
-                  </a>
+                      {elt.name}
+                    </button>
+                  )}
                 </div>
-              </div>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Services
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
+              )}
+              {modalOpen && (
+                <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex items-center justify-center">
+                  <div className="bg-white rounded-lg p-6">
+                    <button
+                      className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700 focus:outline-none"
+                      onClick={toggleModal}
+                    >
+                      <svg
+                        className="w-6 h-6"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                    </button>
+                    <ul className="text-center">
+                      {accountLinks.map((elt, index) =>
+                      <li className="my-4" key={index}>
+                        <a
+                          href="#"
+                          className="text-gray-800 hover:text-gray-600"
+                          onClick={toggleModal}
+                        >
+                          {elt}
+                        </a>
+                      </li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </nav>

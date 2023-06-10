@@ -1,0 +1,60 @@
+
+.navbar {
+  .logo-text,
+   .nav-item {
+    color: var(--primary-blue-color);
+  }
+  .nav-link {
+    .nav-item {
+      position: relative;
+      cursor: pointer;
+      margin-right: 50px;
+  
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: width 0.3s;
+      }
+    
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    
+      &.selected {
+        font-weight: 700;
+        &::after {
+          width: 100%;
+        }
+      }
+
+    }
+
+    &:has(~ .nav-link:hover) {
+      .nav-item {
+        &::after {
+          width: 0;
+        }
+      }
+    }
+
+    &:hover ~ .nav-link {
+      .nav-item {
+        &::after {
+          width: 0;
+        }      
+      }
+    }
+
+  }
+  .account-icon {
+    stroke: var(--primary-blue-color);
+  }
+}
