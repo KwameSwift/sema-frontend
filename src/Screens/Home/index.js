@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { resetUserData } from '../../Redux/slices/userSlice';
+import Navbar from '../../Components/Common/Navbar';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -21,11 +22,11 @@ function HomePage() {
 
   return ( 
     <div>
-      <h1>Hello welcome to the HomePage</h1>
-      <button type='button' onClick={handleProceed}>
-        {user?.tokens?.access ? "Logout" : "Login" }
-      </button>
+      <Navbar />
+      <span onClick={handleProceed}></span>
     </div>
+    
+
   );
 }
 

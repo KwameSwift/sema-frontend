@@ -8,11 +8,21 @@ import store from './Redux/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import firebaseConfig from '../firebaseConfig';
+
 
 import 'react-toastify/dist/ReactToastify.css';
 import './index.scss';
 
 let persist = persistStore(store);
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Analytics and get a reference to the service
+export const analytics = getAnalytics(app);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
