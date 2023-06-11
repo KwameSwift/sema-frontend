@@ -25,7 +25,7 @@ function SocialLoginButtons() {
   ]
 
   return ( 
-    <div className="small-icons-social">
+    <div className="my-3 small-icons-social">
       {btnData.map((btn, index) => 
         <div 
           className={`social-button mobile ${btn.id} `} 

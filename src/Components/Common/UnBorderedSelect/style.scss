@@ -1,0 +1,20 @@
+.unbordered-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  select {
+    border: none;
+    border-bottom: 2px solid #D9D8DB;
+    outline: none;
+    width: 100%;
+    font-size: 18px;
+    padding: 8px;
+  }
+  .typing {
+    border-bottom: 2px solid var(--secondary-blue-color);
+  }
+  // select::placeholder {
+  //   color: #CDC8CE;
+  // }
+}

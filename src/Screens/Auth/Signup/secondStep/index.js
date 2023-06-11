@@ -1,7 +1,9 @@
 import React from "react";
 import UnBorderedInput from "../../../../Components/Common/UnBorderedInput";
+import UnBorderedSelect from "../../../../Components/Common/UnBorderedSelect";
 
-function RegisterSecondStep({ handleChange }) {
+function RegisterSecondStep({ handleChange, options }) {
+
   return (
     <>
       <UnBorderedInput
@@ -12,11 +14,13 @@ function RegisterSecondStep({ handleChange }) {
         placeholder="Organization"
         autoFocus
       />
-      <UnBorderedInput
+      <UnBorderedSelect
         iconName="BsGeoAltFill"
         type="text"
-        name="country"
+        name="country_id"
         onChange={handleChange}
+        options={options}
+        dataType={"country"}
         placeholder="Country"
       />
       <UnBorderedInput

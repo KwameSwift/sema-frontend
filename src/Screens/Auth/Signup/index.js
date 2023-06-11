@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthSidebar from "../../../Components/Auth/Sidebar";
 import RegisterFirstStep from "./firstStep";
@@ -18,6 +18,7 @@ function SignupPage() {
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [requiredFieldsLength, setRequiredFieldsLength] = useState(3);
   const [loading, setLoading] = useState(false);
+  const [countries, setCountries] = useState([]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,6 +31,17 @@ function SignupPage() {
       [e.target.name]: e.target.value,
     });
   };
+
+  const getCountries = async () => {
+    try {
+      const response = await axiosClient.get("users/dropdowns/2/");
+      const data = response.data.data;
+      setCountries(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
 
   const createUser = async () => {
     setLoading(true);
@@ -68,8 +80,13 @@ function SignupPage() {
   };
 
   useEffect(() => {
+    console.log(state);
     setBtnDisabled(!isRequiredFieldsPassed(state, requiredFieldsLength, "eq"));
   }, [state, progress]);
+
+  useLayoutEffect(() => {
+    getCountries();
+  }, [])
 
   return (
     <div className="auth-login">
@@ -94,7 +111,7 @@ function SignupPage() {
             {!progress ? (
               <RegisterFirstStep handleChange={handleChange} />
             ) : (
-              <RegisterSecondStep handleChange={handleChange} />
+              <RegisterSecondStep handleChange={handleChange} options={countries} />
             )}
             {progress === 0 && (
               <div className="row user-type-sect">

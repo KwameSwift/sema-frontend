@@ -69,7 +69,7 @@ function LoginPage() {
             <h1 className='company-header'>SEMA</h1>
           </div>
           <div className="head-sect">
-            <h1>Login to your account</h1>
+            <h1 className="mb-2">Login to your account</h1>
             <SocialLoginButtons />
             <p>
               Don&apos;t have an account?
@@ -107,7 +107,7 @@ function LoginPage() {
               onClick={handleLogin}
               loading={loading}
               disabled={loading || btnDisabled}
-              text="Login with email"
+              text="Login"
             />
           </div>
         </div>

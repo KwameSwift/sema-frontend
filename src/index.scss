@@ -1,6 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./Assets/fonts/GothamOffice-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 body {
   margin: 0;
   font-family: 'Gotham', sans-serif;
@@ -33,4 +42,9 @@ button:disabled {
 
 .text-hover:hover {
   color: var(--primary-color);
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
 }

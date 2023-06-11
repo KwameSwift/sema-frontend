@@ -7,19 +7,19 @@ function AuthSidebar() {
   const btnData = [
     {
       id: "fb-btn",
-      icon: <FaFacebookF fill='#fff' size={13}/>,
+      icon: <FaFacebookF fill='#fff' size={20}/>,
       name: "Facebook",
       color: "#3b5998"
     },
     {
       id: "tw-btn",
-      icon: <FaTwitter fill='#fff' size={13}/>,
+      icon: <FaTwitter fill='#fff' size={20}/>,
       name: "Twitter",
       color: "#00acee"
     },
     {
       id: "google-btn",
-      icon: <FaGoogle fill='#fff' size={13}/>,
+      icon: <FaGoogle fill='#fff' size={20}/>,
       name: "Google",
       color: "#EA4335"
     },
@@ -29,15 +29,15 @@ function AuthSidebar() {
     <div className='sidebar'>
       <div className='logo-sect'>
         <img src={logo} className='logo' alt="sema logo"/>
-        <h1 className='company-header'>SEMA</h1>
+        <h1 className='company-header font-bold text-[20px]'>SEMA</h1>
       </div>
-      <div className='header-text'>
+      <div className='header-text max-w-[90%]'>
         <p>Login using social media to get quick access</p>
       </div>
       <div className='social-buttons'>
         {btnData.map((btn, index) => 
           <div 
-            className={`social-button ${btn.id} `} 
+            className={`flex justify-center social-button ${btn.id} `} 
             key={index}
             style={{ backgroundColor: btn.color }}
           >

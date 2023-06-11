@@ -13,7 +13,7 @@
       padding: 25px;
       border-radius: 10px;
       width: 50%;
-      min-width: 300px;
+      min-width: 380px;
       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
       .logo-sect {
         display: none;
@@ -48,8 +48,8 @@
         align-items: center;
         flex-direction: column;
         margin-top: 10px;
-        input {
-          height: 50px;
+        input, select {
+          height: 60px;
         }
         .row {
           display: flex;
@@ -177,11 +177,12 @@
             color: var(--primary-blue-color);
             font-weight: 700;
             margin: 3px;
+            font-size: 18px;
           }
         }
         .input-group {
-          input {
-            height: 40px;
+          input, select {
+            height: 60px;
           }
         }
       }
