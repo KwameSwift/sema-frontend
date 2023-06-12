@@ -22,6 +22,7 @@ body {
 
 :root {
  --primary-color: #FC8A2B;
+ --primary-orange-color: #e14d2a;
  --primary-blue-color: #001253;
  --secondary-blue-color: #3e6d9c;
 }
@@ -47,4 +48,12 @@ button:disabled {
 h1 {
   font-size: 28px;
   font-weight: 700;
+}
+
+.bg-primary-blue-color {
+  background-color: var(--primary-blue-color);
+}
+
+.primary-color {
+  color: var(--primary-color);
 }

@@ -23,6 +23,7 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "sass": "^1.62.1",
+    "simplebar": "^6.2.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

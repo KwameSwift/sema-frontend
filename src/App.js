@@ -6,6 +6,7 @@ import SignupPage from './Screens/Auth/Signup';
 import ForgotPasswordPage from './Screens/Auth/ForgotPassword';
 import ResetPasswordPage from './Screens/Auth/ResetPassword';
 import VerificationCode from './Screens/Auth/VerificationCode';
+import DashboardPage from './Screens/Admin/Dashboard';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/verify-code" element={<VerificationCode />} />
+
+        {/* Dashboard */}
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </>
   );

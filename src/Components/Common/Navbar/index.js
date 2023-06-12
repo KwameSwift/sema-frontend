@@ -52,7 +52,10 @@ function Navbar() {
     <nav className="navbar sticky top-0 z-50 bg-[#fff] h-[13vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between h-full">
-          <div className="flex items-center flex-col justify-center">
+          <div
+            className="flex items-center flex-col justify-center"
+            onClick={() => navigate("/")}
+          >
             <img src={Logo} width={35} height={35} />
             <p className="font-bold text-[1em] logo-text">SEMA</p>
           </div>
@@ -93,7 +96,6 @@ function Navbar() {
               </button>
               <button
                 className="hidden mr-5 sm:flex items-center nav-link focus:outline-none"
-                onClick={toggleDropdown}
               >
                 <BsSearch size={18} className="account-icon" />
               </button>
@@ -163,6 +165,10 @@ function Navbar() {
                           {elt.name}
                         </button>
                       ))}
+
+                      <button className="underline mt-12 block w-full text-left px-4 py-2 text-white text-[30px] hover:bg-[#FC8A2B]">
+                        Search
+                      </button>
                     </ul>
                   </div>
                 </div>
