@@ -33,7 +33,7 @@ function Navbar() {
 
   const logout = () => {
     dispatch(resetUserData());
-    navigate("/login");
+    navigate("/");
   };
 
   if (user?.tokens?.access) {

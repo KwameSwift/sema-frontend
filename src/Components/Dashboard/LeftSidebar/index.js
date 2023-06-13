@@ -1,6 +1,7 @@
 import React from 'react';
 import { BiUserCircle } from 'react-icons/bi';
 import { FaUserShield, FaEdit } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { FiHome, FiLock, FiLogOut } from 'react-icons/fi';
 import { BsBarChartFill, BsCalendar2Event, BsChatDots, BsFileLock2, BsFillHeartFill, BsGear, BsPencilSquare } from 'react-icons/bs';
 import Logo from "../../../Assets/images/logo-small.png";
@@ -9,6 +10,13 @@ import './style.scss';
 
 
 function LeftSidebar({ isOpen }) {
+
+  const navigate = useNavigate()
+
+  const logout = () => {
+    dispatch(resetUserData());
+    navigate("/");
+  };
 
   return (
     <div className="flex h-screen">
@@ -84,7 +92,7 @@ function LeftSidebar({ isOpen }) {
                     <FiLock size={20} className="mr-2" />
                     {isOpen && <span>Change Password</span>}
                   </li>
-                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
+                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center" onClick={logout}>
                     <FiLogOut size={20} className="mr-2" />
                     {isOpen && <span>Logout</span>}
                   </li>
