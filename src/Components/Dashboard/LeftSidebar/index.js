@@ -30,14 +30,14 @@ function LeftSidebar({ isOpen }) {
                 <AccordionItem icon="BsGrid" title="APPS">
                   <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
                     <BsPencilSquare size={20} className="mr-2" />
-                    {isOpen && <span>Blog</span>}
+                    {isOpen && <span>Blogs</span>}
                   </li>
                   <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
                     <BsBarChartFill size={20} className="mr-2" />
                     {isOpen && <span>Polls</span>}
                   </li>
                   <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
-                    <BsCalendar size={20} className="mr-2" />
+                    <BsCalendar2Event size={20} className="mr-2" />
                     {isOpen && <span>Events</span>}
                   </li>
                   <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
@@ -50,11 +50,7 @@ function LeftSidebar({ isOpen }) {
                   </li>
                   <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
                     <BsChatDots size={20} className="mr-2" />
-                    {isOpen && <span>Forum</span>}
-                  </li>
-                  <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
-                    <BsCalendar2Event size={20} className="mr-2" />
-                    {isOpen && <span>Event</span>}
+                    {isOpen && <span>Forums</span>}
                   </li>
                 </AccordionItem>
               </div>
