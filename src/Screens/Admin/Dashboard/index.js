@@ -17,7 +17,7 @@ function DashboardPage() {
     },
     {
       cardFill: "#FC8A2B",
-      icon: "BsPeople",
+      icon: "BsPencilSquare",
       title: "Blogs",
       count: "0",
     },

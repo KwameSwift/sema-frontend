@@ -2,7 +2,7 @@ import React from 'react';
 import { BiUserCircle } from 'react-icons/bi';
 import { FaUserShield, FaEdit } from 'react-icons/fa';
 import { FiHome, FiLock, FiLogOut } from 'react-icons/fi';
-import { BsCalendar, BsFillHeartFill, BsGear, BsPencilSquare } from 'react-icons/bs';
+import { BsBarChartFill, BsCalendar, BsCalendar2Event, BsChatDots, BsFileLock2, BsFillHeartFill, BsGear, BsPencilSquare } from 'react-icons/bs';
 import Logo from "../../../Assets/images/logo-small.png";
 import AccordionItem from '../../Common/Accordion';
 import './style.scss';
@@ -26,18 +26,15 @@ function LeftSidebar({ isOpen }) {
                 <FiHome size={20} className="mr-2" />
                 {isOpen && <span>Home</span>}
               </li>
-              {/* <div className='mt-8'>
-                <span className='font-bold text-[15px]'>USERS</span>
-                <li className="px-6 py-2 mt-1 text-gray-200 nav-item flex justify-start items-center">
-                  <BsPeople size={25} className="mr-2" />
-                  {isOpen && <span>Managing Users</span>}
-                </li>
-              </div> */}
               <div className='mt-6'>
                 <AccordionItem icon="BsGrid" title="APPS">
                   <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
                     <BsPencilSquare size={20} className="mr-2" />
                     {isOpen && <span>Blog</span>}
+                  </li>
+                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
+                    <BsBarChartFill size={20} className="mr-2" />
+                    {isOpen && <span>Polls</span>}
                   </li>
                   <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
                     <BsCalendar size={20} className="mr-2" />
@@ -46,6 +43,18 @@ function LeftSidebar({ isOpen }) {
                   <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
                     <BsFillHeartFill size={20} className="mr-2" />
                     {isOpen && <span>Donations</span>}
+                  </li>
+                  <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
+                    <BsFileLock2 size={20} className="mr-2" />
+                    {isOpen && <span>Document Vault</span>}
+                  </li>
+                  <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
+                    <BsChatDots size={20} className="mr-2" />
+                    {isOpen && <span>Forum</span>}
+                  </li>
+                  <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
+                    <BsCalendar2Event size={20} className="mr-2" />
+                    {isOpen && <span>Event</span>}
                   </li>
                 </AccordionItem>
               </div>
