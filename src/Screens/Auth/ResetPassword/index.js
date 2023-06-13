@@ -89,7 +89,7 @@ function ResetPasswordPage() {
               onClick={handlePasswordChange}
               loading={loading}
               disabled={loading || btnDisabled}
-              text="Recover your password"
+              text="Recover your account"
             />
           </div>
           <div className="auth-bottom-text non-hover column">
