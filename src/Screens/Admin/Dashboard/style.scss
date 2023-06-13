@@ -1,0 +1,39 @@
+.dashboard-main {
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-auto-rows: 8rem;
+    div {
+      border-radius: 8px;
+      // .card-bg {
+      //   border-radius: 50%;
+      // }
+    }
+    div:nth-child(1) {
+      background-color: var(--primary-orange-color);
+      .card-bg {
+        background-color: var(--primary-color);
+      }
+    }
+    div:nth-child(2) {
+      background-color: var(--primary-blue-color);
+      .card-bg {
+        background-color: var(--secondary-blue-color);
+      }
+    }
+    div:nth-child(3) {
+      background-color: var(--secondary-blue-color);
+      .card-bg {
+        background-color: var(--primary-blue-color);
+      }
+    }
+    div:nth-child(4) {
+      background-color: var(--primary-color);
+      .card-bg {
+        background-color: var(--primary-orange-color);
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import ConstructionImage from "../../Assets/images/under-construction.png";
 
 function UnderConstructionPage() {
   return (
-    <div className="flex items-center h-[87vh] justify-center bg-gray-200 overflow-auto">
+    <div className="flex items-center h-[90vh] justify-center bg-gray-200 overflow-auto">
       <div className="flex flex-col items-center">
         <div className="">
           <img src={ConstructionImage} width={200} height={200} alt="Under Construction" />

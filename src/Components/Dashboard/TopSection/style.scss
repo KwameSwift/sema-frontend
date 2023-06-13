@@ -1,10 +1,16 @@
 .top-section {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   .nav-item {
     span {
       font-size: 12px;
     }
   }
-  // .nav-link {
-  //   margin-left: 5%;
-  // }
+  .nav-link {
+    &:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
 }
