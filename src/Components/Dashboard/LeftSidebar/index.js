@@ -7,11 +7,14 @@ import { BsBarChartFill, BsCalendar2Event, BsChatDots, BsFileLock2, BsFillHeartF
 import Logo from "../../../Assets/images/logo-small.png";
 import AccordionItem from '../../Common/Accordion';
 import './style.scss';
+import { useDispatch } from 'react-redux';
+import { resetUserData } from '../../../Redux/slices/userSlice';
 
 
 function LeftSidebar({ isOpen }) {
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const logout = () => {
     dispatch(resetUserData());
