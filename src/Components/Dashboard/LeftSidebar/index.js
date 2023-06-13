@@ -2,7 +2,7 @@ import React from 'react';
 import { BiUserCircle } from 'react-icons/bi';
 import { FaUserShield, FaEdit } from 'react-icons/fa';
 import { FiHome, FiLock, FiLogOut } from 'react-icons/fi';
-import { BsBarChartFill, BsCalendar, BsCalendar2Event, BsChatDots, BsFileLock2, BsFillHeartFill, BsGear, BsPencilSquare } from 'react-icons/bs';
+import { BsBarChartFill, BsCalendar2Event, BsChatDots, BsFileLock2, BsFillHeartFill, BsGear, BsPencilSquare } from 'react-icons/bs';
 import Logo from "../../../Assets/images/logo-small.png";
 import AccordionItem from '../../Common/Accordion';
 import './style.scss';
