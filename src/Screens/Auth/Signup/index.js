@@ -34,7 +34,7 @@ function SignupPage() {
 
   const getCountries = async () => {
     try {
-      const response = await axiosClient.get("users/dropdowns/2/");
+      const response = await axiosClient.get("utilities/dropdowns/2/");
       const data = response.data.data;
       setCountries(data);
     } catch (err) {
