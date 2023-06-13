@@ -23,13 +23,13 @@ function DashboardPage() {
     },
     {
       cardFill: "#FC8A2B",
-      icon: "BsPeople" ,
+      icon: "BsBarChartFill" ,
       title: "Polls",
       count: "0",
     },
     {
       cardFill: "#3e6d9c",
-      icon: "BsPeople" ,
+      icon: "BsFillHeartFill" ,
       title: "Donations",
       count: "0",
     },

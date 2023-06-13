@@ -35,5 +35,29 @@
         background-color: var(--primary-orange-color);
       }
     }
+    div:nth-child(5) {
+      background-color: var(--secondary-blue-color);
+      .card-bg {
+        background-color: var(--primary-blue-color);
+      }
+    }
+    div:nth-child(6) {
+      background-color: var(--primary-color);
+      .card-bg {
+        background-color: var(--primary-orange-color);
+      }
+    }
+    div:nth-child(7) {
+      background-color: var(--secondary-blue-color);
+      .card-bg {
+        background-color: var(--primary-blue-color);
+      }
+    }
+    div:nth-child(8) {
+      background-color: var(--primary-color);
+      .card-bg {
+        background-color: var(--primary-orange-color);
+      }
+    }
   }
 }
