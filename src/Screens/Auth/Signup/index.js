@@ -49,8 +49,8 @@ function SignupPage() {
     const data = response.data.data;
     const payload = {
       tokens: {
-        access: data.access_token,
-        refresh: data.refresh_token,
+        access: data.access,
+        refresh: data.refresh,
       },
       user: data?.user,
     };
