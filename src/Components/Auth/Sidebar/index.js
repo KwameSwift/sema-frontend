@@ -26,7 +26,7 @@ function AuthSidebar() {
   ]
 
   return ( 
-    <div className='sidebar'>
+    <div className='sidebar w-[30%]'>
       <div className='logo-sect'>
         <img src={logo} className='logo' alt="sema logo"/>
         <h1 className='company-header font-bold text-[20px]'>SEMA</h1>
