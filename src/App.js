@@ -1,12 +1,14 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom';
-import LoginPage from './Screens/Auth/Login';
-import HomePage from './Screens/Home';
-import SignupPage from './Screens/Auth/Signup';
-import ForgotPasswordPage from './Screens/Auth/ForgotPassword';
-import ResetPasswordPage from './Screens/Auth/ResetPassword';
-import VerificationCode from './Screens/Auth/VerificationCode';
-import DashboardPage from './Screens/Admin/Dashboard';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./Screens/Auth/Login";
+import HomePage from "./Screens/Home";
+import SignupPage from "./Screens/Auth/Signup";
+import ForgotPasswordPage from "./Screens/Auth/ForgotPassword";
+import ResetPasswordPage from "./Screens/Auth/ResetPassword";
+import VerificationCode from "./Screens/Auth/VerificationCode";
+import DashboardPage from "./Screens/Admin/Dashboard";
+import BlogsPage from "./Screens/Admin/Blogs";
+import AddBlogPage from "./Screens/Admin/Blogs/AddBlog";
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/verify-code" element={<VerificationCode />} />
 
-        {/* Dashboard */}
-        <Route path="/dashboard" element={<DashboardPage />} />
+        {/* Admin Dashboard */}
+        <Route path="/dashboard" exact element={<DashboardPage />} />
+        <Route path="/admin/blogs" exact element={<BlogsPage />} />
+        <Route path="/admin/blogs/add" exact element={<AddBlogPage />} />
       </Routes>
     </>
   );

@@ -6,9 +6,9 @@ function Layout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-start overflow-hidden">
       <LeftSidebar isOpen={isSidebarOpen} />
-      <div className="w-full">
+      <div className={isSidebarOpen ? "w-[83%]": "w-[100%]"}>
         <TopSection 
           isOpen={isSidebarOpen} 
           setIsOpen={setIsSidebarOpen} 

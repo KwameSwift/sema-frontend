@@ -1,6 +1,7 @@
+
 import React from 'react';
 
-function CustomTables() {
+function CustomTable() {
   const data = [
     { id: 1, name: 'John Doe', age: 25 },
     { id: 2, name: 'Jane Smith', age: 30 },
@@ -40,4 +41,4 @@ function CustomTables() {
   );
 }
 
-export default CustomTables;
+export default CustomTable;

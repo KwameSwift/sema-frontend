@@ -1,5 +1,11 @@
+.sidebar-container {
+  width: 16%;
+  min-width: 265px;
+  z-index: 99;
+}
 .sidebar {
   border-right: 1px solid #E5EBEE;
+  width: 16rem;
   .nav-item {
     font-size: 14px;
     font-weight: 700;
@@ -29,3 +35,17 @@
     color: #fff;
   }
 }
+
+
+// @media (max-width: 1203px) {
+//   .sidebar {
+//     width: 50px;
+//   }
+//   .sidebar-container {
+//     width: 50px;
+//     min-width: 0;
+//   }
+//   .admin-blog-page {
+//     width: 90%;
+//   }
+// }

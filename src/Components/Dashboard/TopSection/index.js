@@ -8,7 +8,7 @@ function TopSection({ isOpen, setIsOpen }) {
   // const navigate = useNavigate();
 
   return ( 
-    <nav className="top-section sticky top-2 mx-3 z-50 rounded-md bg-[#fff] h-[5vh]">
+    <nav className="top-section sticky top-2 z-50 rounded-md bg-[#fff] h-[5vh]">
       <div className="w-full flex items-center mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className='flex justify-between bg-[#fff] w-full p-2'>
           <div className="flex justify-start w-full h-full">
