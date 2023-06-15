@@ -35,3 +35,18 @@ export const calculateTime = (date) => {
     }
   }
 };
+
+
+export const isDocumentImage = (documents) => {
+  const image = documents?.find((file) => {
+    console.log(file);
+    const splittedName = file?.document_location?.split(".");
+    const imageExtensions = ["jpg", "jpeg", "png", "webp"];
+  
+    return imageExtensions?.includes(splittedName[splittedName.length - 1])
+  });
+
+  console.log(image)
+
+  return image || {};
+}

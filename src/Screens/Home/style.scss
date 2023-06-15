@@ -1,0 +1,50 @@
+.banner-img {
+  background-image: url("../../Assets/images/banner-main.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  }
+  
+  .text {
+    color: white;
+    text-align: center;
+    padding-top: 50%;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  .typing-animation {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(40, end);
+  }
+  
+}
+
+.recent-articles {
+  h1 {
+    font-family: 'Bison', sans-serif;
+  }
+  .blogs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-auto-rows: 38em;
+  }
+  .see-more-btn {
+    background-color: var(--primary-orange-color);
+    border-radius: 8px;
+    color: #fff;
+  }
+}

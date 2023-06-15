@@ -22,7 +22,7 @@ function App() {
         <Route path="/verify-code" element={<VerificationCode />} />
 
         {/* Admin Dashboard */}
-        <Route path="/dashboard" exact element={<DashboardPage />} />
+        <Route path="/admin/dashboard" exact element={<DashboardPage />} />
         <Route path="/admin/blogs" exact element={<BlogsPage />} />
         <Route path="/admin/blogs/add" exact element={<AddBlogPage />} />
       </Routes>

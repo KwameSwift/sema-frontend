@@ -45,7 +45,7 @@ function LoginPage() {
         setLoading(false);
         toast.success("Login successful");
         await new Promise((r) => setTimeout(r, 2000));
-        navigate(data.user.is_admin ? "/dashboard": "/");
+        navigate(data.user.is_admin ? "/admin/dashboard": "/");
       } else {
         setLoading(false);
       }

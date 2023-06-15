@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsFillPersonFill, BsSearch } from "react-icons/bs";
+import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../../Assets/images/logo-small.png";
-import "./style.scss";
-import { useNavigate } from "react-router-dom";
 import { resetUserData } from "../../../Redux/slices/userSlice";
+import "./style.scss";
 
 function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const location = useLocation();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function Navbar() {
   let accountLinks = [];
 
   const hyperLinks = [
+    { id: "home", name: "Home", route: "/" },
     { id: "feed", name: "Feed", route: "/feed" },
     { id: "events", name: "Events", route: "/events" },
     { id: "donations", name: "Donations", route: "/donations" },
@@ -60,21 +62,13 @@ function Navbar() {
             <p className="font-bold text-[1em] logo-text">SEMA</p>
           </div>
           <div className="flex items-center">
-            <div className="relative nav-link">
-              <button className="hidden sm:flex items-center nav-item selected focus:outline-none">
-                <span className="mr-1">Feed</span>
-              </button>
-            </div>
-            <div className="relative nav-link">
-              <button className="hidden sm:flex items-center nav-item focus:outline-none">
-                <span className="mr-1">Events</span>
-              </button>
-            </div>
-            <div className="relative nav-link">
-              <button className="hidden sm:flex items-center nav-item focus:outline-none">
-                <span className="mr-1">Donations</span>
-              </button>
-            </div>
+            {hyperLinks.map((elt, index) => 
+              <div className="relative nav-link" key={index}>
+                <button className={`hidden sm:flex items-center nav-item ${location.pathname === elt.route && "selected"} focus:outline-none`}>
+                  <span className="mr-1">{elt.name}</span>
+                </button>
+              </div>
+            )}
           </div>
           <div className="flex items-center">
             <div className="relative flex">

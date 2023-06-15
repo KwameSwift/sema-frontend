@@ -1,7 +1,7 @@
 import React from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { FaUserShield, FaEdit } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FiHome, FiLock, FiLogOut } from "react-icons/fi";
 import {
   BsBarChartFill,
@@ -22,6 +22,8 @@ function LeftSidebar({ isOpen }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const location = useLocation();
+
   const logout = () => {
     dispatch(resetUserData());
     navigate("/");
@@ -39,14 +41,14 @@ function LeftSidebar({ isOpen }) {
           <div className="w-full">
             <ul className="py-4 px-4 w-full">
               {/* Sidebar Items */}
-              <li className="px-6 py-2 nav-item selected text-gray-200 hover:bg-gray-700 flex items-center" onClick={() => navigate('/dashboard')}>
+              <li className={`px-6 py-2 nav-item ${location.pathname.startsWith("/admin/blogs") && "selected"} text-gray-200 hover:bg-gray-700 flex items-center`} onClick={() => navigate('/admin/dashboard')}>
                 <FiHome size={20} className="mr-2" />
                 {isOpen && <span>Home</span>}
               </li>
               <div className="mt-6">
                 <AccordionItem icon="BsGrid" title="APPS">
                   <li
-                    className="px-6 text-gray-200 nav-item flex justify-start items-center"
+                    className={`px-6 text-gray-200 ${location.pathname.startsWith("/admin/blogs") && "selected"} nav-item flex justify-start items-center`}
                     onClick={() => navigate("/admin/blogs")}
                   >
                     <BsPencilSquare size={20} className="mr-2" />

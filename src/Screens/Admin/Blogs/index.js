@@ -10,6 +10,7 @@ import "./style.scss";
 import { useNavigate } from "react-router";
 import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 import { useSelector } from "react-redux";
+import Modal from "../../../Components/Modal";
 
 function BlogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,27 +66,35 @@ function BlogsPage() {
     setCurrentPage(currentPage - 1);
   };
 
+  const handleModalApprovalClick = (id) => {
+    console.log(id);
+  }
+
   useEffect(() => {
     const getApprovedBlogs = async () => {
       try {
-        const resp = await axiosClientWithHeaders(user.tokens.access).get("/super-admin/all-blog-posts/1/1/");
+        const resp = await axiosClientWithHeaders(user.tokens.access).get(
+          "/super-admin/all-blog-posts/1/1/"
+        );
         const data = resp.data.data;
         console.log(data);
         setApprovedBlogs(data);
       } catch (err) {
         console.log(err);
       }
-    }
+    };
 
     const getUnApprovedBlogs = async () => {
       try {
-        const resp = await axiosClientWithHeaders(user.tokens.access).get("/super-admin/all-blog-posts/0/1/");
+        const resp = await axiosClientWithHeaders(user.tokens.access).get(
+          "/super-admin/all-blog-posts/0/1/"
+        );
         const data = resp.data.data;
         setUnApprovedBlogs(data);
       } catch (err) {
         console.log(err);
       }
-    }
+    };
 
     getApprovedBlogs();
     getUnApprovedBlogs();
@@ -105,16 +114,21 @@ function BlogsPage() {
           </button>
         </div>
         <div className="mt-8">
-          <h3 className="font-bold text-[23px] ml-3">UnApproved Blogs ({unApprovedBlogs.length}) </h3>
+          <h3 className="font-bold text-[23px] ml-3">
+            UnApproved Blogs ({unApprovedBlogs.length}){" "}
+          </h3>
           <div className="blog-content mt-5">
             {unApprovedBlogs.map((elt, index) => (
               <BlogCards
+                id={elt.id}
                 img={CardImg1}
                 title={elt.title}
                 description={elt.content}
-                author={elt.author__first_name + ' ' + elt.author__last_name}
+                author={elt.author__first_name + " " + elt.author__last_name}
                 posted_on={elt.created_on}
                 key={index}
+                onClick={handleModalApprovalClick}
+                status="Unapprove"
               />
             ))}
           </div>
@@ -138,16 +152,21 @@ function BlogsPage() {
           </div>
         </div>
         <div className="mt-8 mb-8">
-          <h3 className="font-bold text-[23px] ml-3">Approved Blogs ({approvedBlogs.length}) </h3>
+          <h3 className="font-bold text-[23px] ml-3">
+            Approved Blogs ({approvedBlogs.length}){" "}
+          </h3>
           <div className="blog-content mt-5">
             {approvedBlogs.map((elt, index) => (
               <BlogCards
+                id={elt.id}
                 img={CardImg1}
                 title={elt.title}
-                author={elt.author__first_name + ' ' + elt.author__last_name}
+                author={elt.author__first_name + " " + elt.author__last_name}
                 description={elt.content}
                 posted_on={elt.created_on}
                 key={index}
+                onClick={handleModalApprovalClick}
+                status="Approve"
               />
             ))}
           </div>
@@ -171,6 +190,7 @@ function BlogsPage() {
           </div>
         </div>
       </div>
+      <Modal />
     </Layout>
   );
 }
