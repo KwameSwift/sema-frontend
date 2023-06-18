@@ -10,8 +10,8 @@ import "./style.scss";
 
 function BlogPost(props) {
   return (
-    <div className="blog-post bg-[#fff] p-4">
-      <div>
+    <div className="blog-post">
+      <div className="bg-[#fff] p-4 inner-blog">
         <div className="profile-section flex">
           {props.author_profile_image?.document_location
            && <img src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`} width={50} height={50} /> }
@@ -27,8 +27,8 @@ function BlogPost(props) {
         </div>
         <div className="mt-5">
           <h3 className="font-bold text-[16px]">{props.title}</h3>
-          <p className="mb-5">{props.content}</p>
-          {Object.keys(isDocumentImage(props.documents)).length && (
+          <p className="mb-5 blog-desc">{props.content}</p>
+          {Object.keys(isDocumentImage(props.documents)).length > 0 && (
             <img
               src={`${process.env.REACT_APP_BACKEND_DOMAIN}${
                 isDocumentImage(props.documents)?.document_location

@@ -5,14 +5,12 @@ import { BsCloudUpload } from "react-icons/bs";
 import "./style.scss";
 import { useNavigate } from "react-router";
 import { axiosClientWithHeaders } from "../../../libs/axiosClient";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 function AddBlogPage() {
   const [state, setState] = useState({});
 
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
 
   const handleChange = (e) => {
     setState({
@@ -23,7 +21,7 @@ function AddBlogPage() {
 
   const handleSave = async () => {
     try {
-      await axiosClientWithHeaders(user.tokens.access).post('/blog/create-blog/', {
+      await axiosClientWithHeaders.post('/blog/create-blog/', {
         ...state
       });
 

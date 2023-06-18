@@ -1,0 +1,25 @@
+
+.creator-content {
+  padding: 20px;
+  .salutation {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    h1 {
+      font-weight: 700;
+      color: var(--primary-blue-color);
+    }
+  }
+  .add-blog-btn {
+    background-color: var(--primary-blue-color);
+    height: 50px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

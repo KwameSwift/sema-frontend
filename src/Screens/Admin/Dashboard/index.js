@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
 import Layout from '../../../Components/Dashboard/Layout';
 import DashboardSummaryCards from './components/Card';
 import { axiosClientWithHeaders } from '../../../libs/axiosClient';
-import CustomTable from "../../../Components/Common/CustomTable";
+// import CustomTable from "../../../Components/Common/CustomTable";
 
 import "./style.scss";
 
@@ -14,7 +13,6 @@ function DashboardPage() {
   const [eventsForums, setEventsForums] = useState(0);
   const [donations, setDonations] = useState(0);
 
-  const user = useSelector((store) => store.user);
 
   const data = [
     {
@@ -46,7 +44,7 @@ function DashboardPage() {
   useEffect(() => {
     const getAllUsers = async () => {
       try {
-        const resp = await axiosClientWithHeaders(user.tokens.access).get('super-admin/system-statistics/');
+        const resp = await axiosClientWithHeaders.get('super-admin/system-statistics/');
         const data = resp.data.data;
         console.log(data);
         setUsers(data.total_users);
@@ -72,14 +70,14 @@ function DashboardPage() {
           )}
         </div>
 
-        <div className='second-row flex justify-between mx-5'>
+        {/* <div className='second-row flex justify-between mx-5'>
           <div className='mt-8 w-full'>
             <CustomTable />
           </div>
           <div className='mt-8 w-full'>
             <CustomTable />
           </div>
-        </div>
+        </div> */}
       </div>
     </Layout>
   );

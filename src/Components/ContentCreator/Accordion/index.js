@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DynamicReactIcon from "../../Common/CustomIcon";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
-function AccordionItem({
+function CreatorAccordion({
+  isOpen,
+  setIsOpen,
   title,
   icon,
   children,
@@ -10,10 +12,7 @@ function AccordionItem({
   className,
   pClassName,
   cBg,
-  isDropOpen
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
@@ -26,14 +25,10 @@ function AccordionItem({
     }
   };
 
-  useEffect(() => {
-    setIsOpen(isDropOpen);
-  }, []);
-
   return (
     <div>
       <button
-        className={`${pClassName} flex items-center justify-between w-full px-3 py-2 mb-2 rounded-md focus:outline-none`}
+        className={`${pClassName} flex items-center justify-between w-full px-4 py-2 mb-2 rounded-md focus:outline-none`}
         style={{ backgroundColor: bg ? bg : "#fff" }}
         onClick={toggleAccordion}
         type="button"
@@ -67,10 +62,7 @@ function AccordionItem({
       </button>
       <div
         className="px-4 rounded-md"
-        style={{
-          backgroundColor: getContentBg(),
-          display: isOpen ? "block" : "none",
-        }}
+        style={{ backgroundColor: getContentBg(), display: isOpen ? "block" : "none" }}
       >
         {children}
       </div>
@@ -78,4 +70,4 @@ function AccordionItem({
   );
 }
 
-export default AccordionItem;
+export default CreatorAccordion;

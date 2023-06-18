@@ -1,0 +1,9 @@
+.creator-dashboard {
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-auto-rows: 8rem;
+  }
+}

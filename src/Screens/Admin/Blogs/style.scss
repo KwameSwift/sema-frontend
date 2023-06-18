@@ -17,13 +17,6 @@
     display: -webkit-box;
     width: 100%;
     overflow-x: auto;
-    .blog-card {
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      height: 380px;
-      width: 300px;
-      margin-right: 12px;
-      margin-bottom: 16px;
-    }
   }
   .btn-pagination {
     width: 50px;
@@ -48,5 +41,23 @@
     background-color: var(--primary-blue-color);
     border-radius: 8px;
     color: #fff;
+  }
+}
+
+.blog-card-wrapper,
+.admin.blog-card {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.blog-card {
+  width: 300px;
+  margin-right: 12px;
+  margin-bottom: 16px;
+  .blog-desc {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

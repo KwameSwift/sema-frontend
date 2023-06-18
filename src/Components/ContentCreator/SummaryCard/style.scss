@@ -1,0 +1,9 @@
+.summary-card {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  h3, .count {
+    color: var(--primary-blue-color);
+  }
+}

@@ -4,9 +4,6 @@ import React, { useEffect, useState } from "react";
 // import { resetUserData } from '../../Redux/slices/userSlice';
 import Navbar from "../../Components/Common/Navbar";
 import BlogPost from "../../Components/Blog/Post";
-// import CardImg from "../../Assets/images/test-blog/Pula-Croatia.webp";
-// import CardImg1 from "../../Assets/images/test-blog/dragon.webp";
-// import CardImg2 from "../../Assets/images/test-blog/tour-main.webp";
 import { axiosClient } from "../../libs/axiosClient";
 // import Poll from "../../Components/Poll";
 // import UnderConstructionPage from "../../Components/PageUnderConstruction";
@@ -14,21 +11,6 @@ import "./style.scss";
 
 function HomePage() {
   const [blogs, setBlogs] = useState([]);
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-
-  // const user = useSelector((store) => store.user);
-
-  // const logout = () => {
-  //   dispatch(resetUserData());
-  //   navigate('/login');
-  // }
-
-  // const handleProceed = () => {
-  //   if (user?.tokens?.access) logout();
-  //   else navigate('/login');
-  // }
-
   useEffect(() => {
     const getAllBlogs = async () => {
       try {
@@ -45,8 +27,6 @@ function HomePage() {
   return (
     <div className="h-full">
       <Navbar />
-      {/* <UnderConstructionPage /> */}
-      {/* <span onClick={handleProceed}></span> */}
       <div className="bg-gray-200 pb-8 h-full">
         <div className="banner-img h-[500px]">
           <div className="overlay flex">
