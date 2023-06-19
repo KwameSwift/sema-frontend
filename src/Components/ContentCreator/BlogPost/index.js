@@ -99,6 +99,7 @@ function ContentCreatorBlogCard({
               <span>{author}</span>
             </p>
           </div>
+          
           <span className="flex text-[14px] text-[gray] justify-end items-end">
             {calculateTime(posted_on)}
           </span>

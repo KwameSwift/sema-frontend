@@ -14,6 +14,7 @@ import "./style.scss";
 // import { isDocumentImage } from "../../../utils/helpers";
 import ContentCreatorBlogCard from "../../../Components/ContentCreator/BlogPost";
 import { BsPlus, BsSearch } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 function BlogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +26,7 @@ function BlogsPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [totalBlogs, setTotalBlogs] = useState(0);
   const [blogType, setBlogType] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const firstRunRef = useRef(true);
 
@@ -53,9 +55,16 @@ function BlogsPage() {
   };
 
   const deleteBlog = async () => {
+    setLoading(true);
     try {
-      await axiosClientWithHeaders.delete("/blog/delete-blog-post/");
+      await axiosClientWithHeaders.delete(`/blog/delete-blog-post/${selectedId}/`);
+      setLoading(false);
+      toast.success("Blog deleted successfully");
+      await new Promise((r) => setTimeout(r, 2000));
+      setModalOpen(false);
+      getAllBlogs(blogType, false);
     } catch (err) {
+      setLoading(false);
       console.error(err);
     }
   }
@@ -153,6 +162,7 @@ function BlogsPage() {
         setIsOpen={setModalOpen} 
         setRefetch={setRefetch}
         callbackAction={deleteBlog}
+        parentBtnLoading={loading}
       />
     </>
   );
