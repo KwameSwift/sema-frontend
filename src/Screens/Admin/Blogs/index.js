@@ -1,20 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router";
-import Layout from "../../../Components/Dashboard/Layout";
-// import BlogCards from "./components/blogCards";
-import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
-import { axiosClientWithHeaders } from "../../../libs/axiosClient";
-// import { useSelector } from "react-redux";
-import Modal from "../../../Components/Modal";
-// import CardImg2 from "../../../Assets/images/test-blog/tour-main.webp";
-// import CardImg3 from "../../../Assets/images/test-blog/dragon.webp";
-
-import "./style.scss";
-// import { isDocumentImage } from "../../../utils/helpers";
-import ContentCreatorBlogCard from "../../../Components/ContentCreator/BlogPost";
 import { BsPlus, BsSearch } from "react-icons/bs";
 import { toast } from "react-toastify";
+import Layout from "../../../Components/Dashboard/Layout";
+import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
+import { axiosClientWithHeaders } from "../../../libs/axiosClient";
+import Modal from "../../../Components/Modal";
+import AdminCreatorBlogCard from "../../../Components/Admin/BlogPost";
+
+import "./style.scss";
 
 function BlogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +40,6 @@ function BlogsPage() {
       if (prev) {
         setBlogs([...blogs, ...data.data]);
       } else {
-        console.log(data.data);
         setBlogs(data.data);
       }
     } catch (err) {
@@ -126,13 +119,16 @@ function BlogsPage() {
           <div className="creator-blogs mt-10">
             {blogs?.map((elt, index) => (
               <>
-                <ContentCreatorBlogCard
+                <AdminCreatorBlogCard
                   id={elt.id}
                   img={elt.cover_image
                       ? `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
                       : EmptyImg
                   }
                   title={elt.title}
+                  approved_and_published_by__first_name={elt.approved_and_published_by__first_name}
+                  approved_and_published_by__last_name={elt.approved_and_published_by__last_name}
+                  is_abusive={elt.is_abusive}
                   description={elt.content}
                   author={elt.author__first_name + " " + elt.author__last_name}
                   posted_on={elt.created_on}
