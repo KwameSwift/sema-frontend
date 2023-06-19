@@ -37,6 +37,8 @@ const Modal = ({
       name: "Delete",
       buttonText: "Delete",
       buttonBgFill: "#e14d2a",
+      func: callbackAction,
+      externalFunc: true,
       text: "Are you sure you want to delete this blog?",
     },
     approve: {

@@ -17,7 +17,6 @@ import { BsPlus, BsSearch } from "react-icons/bs";
 
 function BlogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  // const [approvedBlogs, setApprovedBlogs] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalState, setModalState] = useState("");
@@ -30,60 +29,6 @@ function BlogsPage() {
   const firstRunRef = useRef(true);
 
   const navigate = useNavigate();
-
-  // const cardsPerPage = 5;
-
-  // const navigate = useNavigate();
-  // const user = useSelector((store) => store.user);
-
-  // const data = [
-  //   {
-  //     img: CardImg1,
-  //     title: "Main Title",
-  //     description: "This is a description",
-  //   },
-  //   {
-  //     img: CardImg2,
-  //     title: "Main Title",
-  //     description: "This is a description",
-  //   },
-  //   {
-  //     img: CardImg3,
-  //     title: "Main Title",
-  //     description: "This is a description",
-  //   },
-  //   {
-  //     img: CardImg2,
-  //     title: "Main Title",
-  //     description: "This is a description",
-  //   },
-  //   {
-  //     img: CardImg1,
-  //     title: "Main Title",
-  //     description: "This is a description",
-  //   },
-  // ];
-
-  // Calculate the index range of blog cards to display based on the current page
-  // const startIndex = (currentPage - 1) * cardsPerPage;
-  // const endIndex = startIndex + cardsPerPage;
-
-  // Slice the data array to get the cards for the current page
-  // const visibleCards = data.slice(startIndex, endIndex);
-
-  // Function to handle next page
-  // const handleNextPage = () => {
-  //   setCurrentPage(currentPage + 1);
-  // };
-
-  // // Function to handle previous page
-  // const handlePrevPage = () => {
-  //   setCurrentPage(currentPage - 1);
-  // };
-
-  // const handleModalApprovalClick = (id) => {
-  //   console.log(id);
-  // }
 
   const getAllBlogs = async (type = blogType, prev = true) => {
     try {
@@ -99,12 +44,21 @@ function BlogsPage() {
       if (prev) {
         setBlogs([...blogs, ...data.data]);
       } else {
+        console.log(data.data);
         setBlogs(data.data);
       }
     } catch (err) {
       console.log(err);
     }
   };
+
+  const deleteBlog = async () => {
+    try {
+      await axiosClientWithHeaders.delete("/blog/delete-blog-post/");
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   const filterBlogs = (e) => {
     setBlogType(e.target.value);
@@ -119,7 +73,7 @@ function BlogsPage() {
 
   useEffect(() => {
     getAllBlogs(blogType, true);
-  }, [refetch, currentPage, blogType]);
+  }, [refetch, currentPage]);
 
   return (
     <>
@@ -198,6 +152,7 @@ function BlogsPage() {
         isOpen={modalOpen} 
         setIsOpen={setModalOpen} 
         setRefetch={setRefetch}
+        callbackAction={deleteBlog}
       />
     </>
   );
