@@ -85,8 +85,30 @@ function BlogsPage() {
   //   console.log(id);
   // }
 
+  const getAllBlogs = async (type = blogType, prev = true) => {
+    try {
+      const resp = await axiosClientWithHeaders.get(
+        `/super-admin/all-blog-posts/${type}/${currentPage}/`
+      );
+      const data = resp.data;
+      if (firstRunRef) {
+        setTotalPages(data.total_pages);
+        setTotalBlogs(data.total_data);
+        firstRunRef.current = false;
+      }
+      if (prev) {
+        setBlogs([...blogs, ...data.data]);
+      } else {
+        setBlogs(data.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const filterBlogs = (e) => {
     setBlogType(e.target.value);
+    getAllBlogs(e.target.value, false);
   }
 
   const handleModalOpen = (type, state, id) => {
@@ -96,25 +118,7 @@ function BlogsPage() {
   }
 
   useEffect(() => {
-    const getAllBlogs = async () => {
-      try {
-        const resp = await axiosClientWithHeaders.get(
-          `/super-admin/all-blog-posts/${blogType}/${currentPage}/`
-        );
-        const data = resp.data;
-        if (firstRunRef) {
-          console.log(data);
-          setTotalPages(data.total_pages);
-          setTotalBlogs(data.total_data);
-          firstRunRef.current = false;
-        }
-        setBlogs([...blogs, ...data.data]);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getAllBlogs();
+    getAllBlogs(blogType, true);
   }, [refetch, currentPage, blogType]);
 
   return (
