@@ -37,7 +37,7 @@ function AuthSidebar() {
       <div className='social-buttons'>
         {btnData.map((btn, index) => 
           <div 
-            className={`flex justify-center social-button ${btn.id} `} 
+            className={`flex items-center justify-start social-button ${btn.id} `} 
             key={index}
             style={{ backgroundColor: btn.color }}
           >

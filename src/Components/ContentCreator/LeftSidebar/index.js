@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { FaEdit } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -39,22 +39,33 @@ function LeftSidebar({ isOpen, user }) {
               <img src={Avatar} className="w-[90px] h-[90px]" />
             </div>
             <h2 className="ml-2 mt-3 font-bold flex items-center text-[#fff] text-[17px]">
-              <span>{user.first_name} {user.last_name}</span>
-              <span><BsCheckCircleFill className="ml-1" fill="#fff" /></span>
+              <span>
+                {user.first_name} {user.last_name}
+              </span>
+              <span>
+                <BsCheckCircleFill className="ml-1" fill="#fff" />
+              </span>
             </h2>
             <p className="text-[#fff] text-[15px]">{user.email}</p>
           </div>
           <div className="w-full">
             <ul className="py-4 px-4 w-full">
               {/* Sidebar Items */}
-              <li className={`px-6 py-2 nav-item ${location.pathname.startsWith("/admin/dashboard") && "selected"} text-gray-200 hover:bg-gray-700 flex items-center`} onClick={() => navigate('/admin/dashboard')}>
+              <li
+                className={`px-6 py-2 nav-item ${
+                  location.pathname.startsWith("/admin/dashboard") && "selected"
+                } text-gray-200 hover:bg-gray-700 flex items-center`}
+                onClick={() => navigate("/creator/dashboard")}
+              >
                 <FiHome size={20} className="mr-2" />
-                {isOpen && <span>Home</span>}
+                {isOpen && <span>HOME</span>}
               </li>
               <div className="mt-6">
                 <AccordionItem icon="BsGrid" title="APPS" bg="#001253">
                   <li
-                    className={`px-6 text-gray-200 ${location.pathname.startsWith("/admin/blogs") && "selected"} nav-item flex justify-start items-center`}
+                    className={`px-6 text-gray-200 ${
+                      location.pathname.startsWith("/admin/blogs") && "selected"
+                    } nav-item flex justify-start items-center`}
                     onClick={() => navigate("/creator/blogs")}
                   >
                     <BsPencilSquare size={20} className="mr-2" />

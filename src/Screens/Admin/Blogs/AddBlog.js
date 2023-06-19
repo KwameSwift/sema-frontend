@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Layout from "../../../Components/Dashboard/Layout";
-import { BsCloudUpload } from "react-icons/bs";
+import { BsCloudUpload, BsFillTrashFill, BsPlusCircle } from "react-icons/bs";
 
 import "./style.scss";
 import { useNavigate } from "react-router";
-import { axiosClientWithHeaders } from "../../../libs/axiosClient";
+import { axiosClientForm } from "../../../libs/axiosClient";
 import { toast } from "react-toastify";
+import AdminAccordionItem from "../../../Components/Admin/Accordion";
 
 function AddBlogPage() {
   const [state, setState] = useState({});
+  const [coverImage, setCoverImage] = useState(null);
+  const [coverImageFile, setCoverImgFile] = useState(null);
+  const [references, setReferences] = useState({});
+  const [referenceItems, setReferenceItems] = useState([]);
+  const [links, setLinks] = useState({});
+  const [linkItems, setLinkItems] = useState([]);
+  const [isOwned, setIsOwned] = useState(true);
+  const [fileItems, setFileItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const fileRef = useRef(null);
+
+  const [files, setFiles] = useState([]);
 
   const navigate = useNavigate();
 
@@ -19,36 +32,220 @@ function AddBlogPage() {
     });
   };
 
+  const handleLinkChange = (e) => {
+    setLinks({
+      ...links,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const removeItems = (id, items, itemsSet, setItems) => {
+    delete items[id];
+    const linkSplit = id.split("-");
+    const linkIndex = Number(linkSplit[linkSplit.length - 1]);
+    const newLinkItems = [...itemsSet];
+    newLinkItems.splice(linkIndex, 1);
+    setItems(newLinkItems);
+  };
+
   const handleSave = async () => {
+    setLoading(true);
+    if (!isOwned && Object.values(references).length === 0) {
+      toast.error("At least one reference link is required");
+    }
+
+    if (!state.title) {
+      toast.error("Blog title is empty");
+      return;
+    }
+
+    if (!state.content) {
+      toast.error("Blog content is empty");
+      return;
+    }
+
+    const reference = Object.values(references);
+
+    // Create a new FormData object
+    const formData = new FormData();
+    for (let [key, value] of Object.entries(state)) {
+      formData.append(key, value);
+    }
+
+    if (reference.length) {
+      formData.append("reference", reference);
+    }
+
+    files.forEach((file, index) => {
+      formData.append("files", file, `file${index}`);
+    });
+
+    if (coverImageFile) {
+      formData.append("cover_image", coverImageFile);
+    }
+
     try {
-      await axiosClientWithHeaders.post('/blog/create-blog/', {
-        ...state
-      });
+      await axiosClientForm.post("/blog/create-blog/", formData);
 
       toast.success("Blog Added successfully");
       await new Promise((r) => setTimeout(r, 2000));
-      navigate('/admin/blogs');
+      navigate("/admin/blogs");
     } catch (err) {
       console.log(err);
     }
   }
 
+  const handleReferenceChange = (e) => {
+    setReferences({
+      ...references,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSetFiles = (e) => {
+    const addFiles = [];
+    for (const file of e.target.files) {
+      addFiles.push(file);
+    }
+    setFiles(addFiles);
+  };
+
+
+  const linkItem = () => {
+    return (
+      <div className="flex items-center mb-3">
+        <input
+          type="text"
+          name={`link-${linkItems.length}`}
+          className="admin-link-input mr-3 border border-gray-700 p-2 w-[60%]"
+          placeholder="Enter link address"
+          onChange={handleLinkChange}
+        />
+        <BsFillTrashFill
+          onClick={() =>
+            removeItems(
+              `link-${linkItems.length}`,
+              links,
+              linkItems,
+              setLinkItems
+            )
+          }
+          className="cursor-pointer"
+          fill="#e14d2a"
+          size={25}
+        />
+      </div>
+    );
+  };
+
+  
+  const referenceItem = () => {
+    return (
+      <div className="flex items-center mb-3">
+        <input
+          type="text"
+          name={`reference-${referenceItems.length}`}
+          className="link-input mr-3 border border-gray-700"
+          placeholder="Enter reference address"
+          onChange={handleReferenceChange}
+        />
+        <BsFillTrashFill
+          onClick={() =>
+            removeItems(
+              `reference-${referenceItems.length}`,
+              references,
+              referenceItems,
+              setReferenceItems
+            )
+          }
+          className="cursor-pointer"
+          fill="#e14d2a"
+          size={25}
+        />
+      </div>
+    );
+  };
+
+  const fileItem = () => {
+    return (
+      <div className="flex items-center mb-3">
+        <input
+          type="file"
+          name={`file-${fileItems.length}`}
+          className="link-input mr-3"
+          onChange={handleSetFiles}
+          multiple
+        />
+        <BsFillTrashFill
+          onClick={() =>
+            removeItems(
+              `reference-${fileItems.length}`,
+              files,
+              fileItems,
+              setFileItems
+            )
+          }
+          className="cursor-pointer"
+          fill="#e14d2a"
+          size={25}
+        />
+      </div>
+    );
+  };
+
+  const handleLinkAddition = () => {
+    setLinkItems([...linkItems, linkItem()]);
+  };
+
+  const handleFileAddition = () => {
+    setFileItems([...fileItems, fileItem()]);
+  };
+
+  const handleSetImage = (e) => {
+    const file = e.target.files[0];
+    setCoverImgFile(file);
+    setCoverImage(URL.createObjectURL(file));
+  };
+
+  const handleReferenceAddition = () => {
+    setReferenceItems([...referenceItems, referenceItem()]);
+  };
+
   return (
     <Layout>
       <div className="admin-add-blog">
-        <div className="p-5 mt-5 flex justify-between blog-header">
-          <h1>Add Blog</h1>
-        </div>
         <form>
-          <div className="mt-5 mb-8">
-            <label>Cover Image</label>
+          <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>
+            <img src={coverImage} className="w-[500px] h-[350px]" />
+          </div>
+          <div
+            className={`cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
+            onClick={() => fileRef.current.click()}
+          >
+            <label className="text-[18px] font-bold">Cover Image</label>
             <div className="mt-5 flex rounded-lg justify-center items-center h-[200px] w-[380px] p-4 bg-gray-200">
-              <input type="file" className="hidden" />
+              <input
+                type="file"
+                ref={fileRef}
+                onChange={handleSetImage}
+                className="hidden"
+              />
               <BsCloudUpload size={70} />
             </div>
           </div>
+          {coverImage && (
+            <button
+              type="button"
+              onClick={() => fileRef.current.click()}
+              className="mb-8 ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
+            >
+              Change cover image
+            </button>
+          )}
           <div>
-            <label className="text-[18px]">Title</label>
+            <label className="text-[18px] font-bold">
+              Title<span className="text-[#e14d2a]">*</span>
+            </label>
             <input
               type="text"
               name="title"
@@ -58,27 +255,104 @@ function AddBlogPage() {
             />
           </div>
           <div className="mt-8">
-            <label className="text-[18px]">Description</label>
+            <label className="text-[18px] font-bold">Description</label>
             <textarea
               onChange={handleChange}
+              placeholder="Add blog description..."
               name="description"
-              rows={3}
+              rows={2}
               className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
             ></textarea>
           </div>
           <div className="mt-8">
-            <label className="text-[18px]">Blog Content</label>
+            <label className="text-[18px] font-bold">
+              Blog Content<span className="text-[#e14d2a]">*</span>
+            </label>
             <textarea
               onChange={handleChange}
+              placeholder="Add blog content..."
               name="content"
               rows={5}
               className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
             ></textarea>
           </div>
+          <div className="flex mt-8 items-center">
+            <p className="text-[18px] font-bold">
+              Are you the author of this blog?
+            </p>
+            <div className="toggle ml-3">
+              <input
+                type="checkbox"
+                checked={isOwned}
+                id="toggleSwitch"
+                onChange={() => setIsOwned(!isOwned)}
+                className="toggle-checkbox"
+              />
+              <label htmlFor="toggleSwitch" className="toggle-label"></label>
+            </div>
+          </div>
+          {!isOwned && (
+            <div className="reference_links flex flex-col justify-start mt-8">
+              <label className="text-[18px] font-bold">References</label>
+              <div className="mt-3">{referenceItems}</div>
+              <button
+                type="button"
+                onClick={handleReferenceAddition}
+                className="text-left mt-3 min-w-[200px] bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
+              >
+                <BsPlusCircle fill="#001253" className="mr-1" size={20} />
+                <span className="text-['#001253']">Add reference link</span>
+              </button>
+            </div>
+          )}
+          <div className="">
+            <AdminAccordionItem
+              cBg="#fff"
+              bg="#e5e7eb"
+              title="Links"
+              className="text-[18px] font-bold"
+              pClassName="mt-5"
+            >
+              <div className="mt-3">{linkItems}</div>
+              <button
+                type="button"
+                onClick={handleLinkAddition}
+                className="text-left mt-3 bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
+              >
+                <BsPlusCircle fill="#000" className="mr-1" size={20} />
+                <span className="text-[#000] mt-1">Add Link</span>
+              </button>
+            </AdminAccordionItem>
+            <AdminAccordionItem
+              cBg="#fff"
+              bg="#e5e7eb"
+              title="Other Files"
+              className="text-[18px] font-bold"
+              pClassName="mt-5"
+            >
+              <div className="mt-3">{fileItems}</div>
+              <button
+                type="button"
+                onClick={handleFileAddition}
+                className="text-left mt-3 bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
+              >
+                <BsPlusCircle fill="#001253" className="mr-1" size={20} />
+                <span className="text-['#001253']">Add Files</span>
+              </button>
+            </AdminAccordionItem>
+
+          </div>
           <div className="mt-5 flex justify-end">
             <div>
-              <button type="button" className="border rounded px-3 py-2">Cancel</button>
-              <button type="button" className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]" onClick={handleSave}>
+              <button type="button" className="border rounded px-3 py-2">
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
+                onClick={handleSave}
+                disabled={loading}
+              >
                 Save
               </button>
             </div>

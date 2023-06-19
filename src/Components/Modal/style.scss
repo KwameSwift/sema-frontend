@@ -7,3 +7,26 @@
     cursor: pointer;
   }
 }
+
+.access-levels-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-auto-rows: max-content;
+}
+
+.add-admin-form {
+  display: inline-flex;
+  flex-wrap: wrap;
+  label {
+    font-size: 14px;
+  }
+  input, select {
+    padding: 5px;
+  }
+  div {
+    margin: 5px 8px 10px 0;
+    height: 100%;
+  }
+}

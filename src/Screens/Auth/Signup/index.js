@@ -58,7 +58,7 @@ function SignupPage() {
     setLoading(false);
     toast.success("Registration successful");
     await new Promise(r => setTimeout(r, 2000));
-    navigate("/");
+    navigate(userType === "Guest" ? "/" : "/creator/dashboard");
   };
 
   const handleSubmit = async () => {
@@ -80,7 +80,6 @@ function SignupPage() {
   };
 
   useEffect(() => {
-    console.log(state);
     setBtnDisabled(!isRequiredFieldsPassed(state, requiredFieldsLength, "eq"));
   }, [state, progress]);
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
-import { isDocumentImage } from "../../../utils/helpers";
 import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
 import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 import ContentCreatorBlogCard from "../../../Components/ContentCreator/BlogPost";
@@ -29,7 +28,7 @@ function CreatorBlogs() {
     const getUserBlogs = async () => {
       try {
         const resp = await axiosClientWithHeaders.get(
-          `/users/my-blog-posts/${currentPage}/`
+          `/users/my-blog-posts/0/${currentPage}/`
         );
         const data = resp.data;
         if (firstRunRef) {
@@ -57,9 +56,8 @@ function CreatorBlogs() {
           <>
             <ContentCreatorBlogCard
               id={elt.id}
-              img={
-                Object.keys(isDocumentImage(elt.documents)).length > 0
-                  ? isDocumentImage(elt.documents)?.document_location
+              img={elt.cover_image
+                  ? `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
                   : EmptyImg
               }
               title={elt.title}

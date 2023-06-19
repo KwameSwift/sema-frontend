@@ -1,9 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BsCloudUpload, BsFillTrashFill, BsPlusCircle } from "react-icons/bs";
+import {
+  BsCloudUpload,
+  BsFillTrashFill,
+  BsPlusCircle,
+  BsTrash,
+} from "react-icons/bs";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { useParams } from 'react-router-dom';
-import { axiosClientForm, axiosClientWithHeaders } from "../../../libs/axiosClient";
+import { useParams } from "react-router-dom";
+import {
+  axiosClientForm,
+  axiosClientWithHeaders,
+} from "../../../libs/axiosClient";
 import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
 import AccordionItem from "../../../Components/Common/Accordion";
 
@@ -77,7 +85,7 @@ function EditCreatorBlogPage() {
     setItems(newLinkItems);
   };
 
-  const linkItem = (count=null) => {
+  const linkItem = (count = null) => {
     const itemCount = count === null ? linkItems.length : count;
 
     return (
@@ -92,12 +100,7 @@ function EditCreatorBlogPage() {
         />
         <BsFillTrashFill
           onClick={() =>
-            removeItems(
-              `link-${itemCount}`,
-              links,
-              linkItems,
-              setLinkItems
-            )
+            removeItems(`link-${itemCount}`, links, linkItems, setLinkItems)
           }
           className="cursor-pointer"
           fill="#e14d2a"
@@ -107,7 +110,7 @@ function EditCreatorBlogPage() {
     );
   };
 
-  const referenceItem = (count=null, defaultValue="") => {
+  const referenceItem = (count = null, defaultValue = "") => {
     const itemCount = count === null ? referenceItems.length : count;
     return (
       <div className="flex items-center mb-3">
@@ -205,7 +208,7 @@ function EditCreatorBlogPage() {
     }
 
     files.forEach((file, index) => {
-      formData.append('files', file, `file${index}`);
+      formData.append("files", file, `file${index}`);
     });
 
     if (coverImageFile) {
@@ -226,36 +229,46 @@ function EditCreatorBlogPage() {
     if (id) {
       const getBlog = async () => {
         try {
-          const resp = await axiosClientWithHeaders.get(`/blog/single-blog-post/${id}/`);
+          const resp = await axiosClientWithHeaders.get(
+            `/blog/single-blog-post/${id}/`
+          );
           const data = resp.data.data;
           setState({
             title: data.title,
             content: data.content,
-            description: data.description
+            description: data.description,
           });
-
+          setCoverImage(
+            `${process.env.REACT_APP_BACKEND_DOMAIN}${data.cover_image}`
+          );
           setBlog(resp.data.data);
           const splittedReference = data?.reference?.split(",") || [];
           if (data.reference !== null && splittedReference.length) {
             setIsOwned(false);
-            const prevReferences = splittedReference.reduce((prev, curr, index) => {
-              prev[`reference-${index}`] = curr;
-              return prev;
-            }, {});
+            const prevReferences = splittedReference.reduce(
+              (prev, curr, index) => {
+                prev[`reference-${index}`] = curr;
+                return prev;
+              },
+              {}
+            );
             setReferences(prevReferences);
-            const prevReferenceItems = splittedReference.reduce((prev, curr, index) => {
-              prev.push(referenceItem(index, curr));
-              return prev;
-            }, []);
+            const prevReferenceItems = splittedReference.reduce(
+              (prev, curr, index) => {
+                prev.push(referenceItem(index, curr));
+                return prev;
+              },
+              []
+            );
             setReferenceItems(prevReferenceItems);
           }
         } catch (err) {
           console.log(err);
         }
-      }
-      getBlog()
+      };
+      getBlog();
     }
-  }, [id])
+  }, [id]);
 
   return (
     <ContentCreatorLayout header="Update Blog">
@@ -280,13 +293,23 @@ function EditCreatorBlogPage() {
             </div>
           </div>
           {coverImage && (
-            <button
-              type="button"
-              onClick={() => fileRef.current.click()}
-              className="mb-8 ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
-            >
-              Change cover image
-            </button>
+            <div className="flex mb-8 items-center h-[40px]">
+              <button
+                type="button"
+                onClick={() => fileRef.current.click()}
+                className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
+              >
+                Change cover image
+              </button>
+              <span className="ml-3">
+                <BsTrash
+                  className="cursor-pointer"
+                  onClick={() => setCoverImage(null)}
+                  fill="#e14d2a"
+                  size={25}
+                />
+              </span>
+            </div>
           )}
           <div>
             <label className="text-[18px] font-bold">

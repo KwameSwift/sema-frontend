@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { BsCloudUpload, BsFillTrashFill, BsPlusCircle } from "react-icons/bs";
 import { useNavigate } from "react-router";
 import { axiosClientForm } from "../../../libs/axiosClient";
@@ -193,8 +193,6 @@ function AddCreatorBlogPage() {
       formData.append("reference", reference);
     }
 
-    console.log(files);
-
     files.forEach((file, index) => {
       formData.append("files", file, `file${index}`);
     });
@@ -214,12 +212,8 @@ function AddCreatorBlogPage() {
     }
   };
 
-  useEffect(() => {
-    console.log(references);
-  }, [references]);
-
   return (
-    <ContentCreatorLayout header="Add Blog">
+    <ContentCreatorLayout header="New Blog">
       <div className="admin-add-blog">
         <form>
           <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>

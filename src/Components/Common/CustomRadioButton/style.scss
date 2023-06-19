@@ -1,0 +1,28 @@
+.custom-radio {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    margin-left: 8px;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--primary-blue-color);
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+  }
+
+  input[type="radio"]:checked + label:before {
+    background-color: var(--primary-blue-color);
+  }
+}
