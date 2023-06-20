@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import Layout from "../../../Components/Dashboard/Layout";
-import { BsCloudUpload, BsFillTrashFill, BsPlusCircle } from "react-icons/bs";
+import { BsFillTrashFill, BsPlusCircle } from "react-icons/bs";
 
 import "./style.scss";
 import { useNavigate } from "react-router";
 import { axiosClientForm } from "../../../libs/axiosClient";
 import { toast } from "react-toastify";
 import AdminAccordionItem from "../../../Components/Admin/Accordion";
+import { MAXCHARACTERLENGTH } from "../../../utils/data";
 
 function AddBlogPage() {
   const [state, setState] = useState({});
@@ -26,9 +27,10 @@ function AddBlogPage() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
+    console.log(e.target.name)
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.slice(0, MAXCHARACTERLENGTH[e.target.name])
     });
   };
 
@@ -219,19 +221,15 @@ function AddBlogPage() {
             <img src={coverImage} className="w-[500px] h-[350px]" />
           </div>
           <div
-            className={`cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
+            className={`flex flex-col cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
             onClick={() => fileRef.current.click()}
           >
-            <label className="text-[18px] font-bold">Cover Image</label>
-            <div className="mt-5 flex rounded-lg justify-center items-center h-[200px] w-[380px] p-4 bg-gray-200">
-              <input
-                type="file"
-                ref={fileRef}
-                onChange={handleSetImage}
-                className="hidden"
-              />
-              <BsCloudUpload size={70} />
-            </div>
+            <label className="text-[18px] font-bold mb-5">Cover Image / Document</label>
+            <input
+              type="file"
+              ref={fileRef}
+              onChange={handleSetImage}
+            />
           </div>
           {coverImage && (
             <button
@@ -273,6 +271,7 @@ function AddBlogPage() {
               placeholder="Add blog content..."
               name="content"
               rows={5}
+              value={state.content}
               className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
             ></textarea>
           </div>

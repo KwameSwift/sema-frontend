@@ -15,6 +15,7 @@ import AddCreatorBlogPage from "./Screens/ContentCreator/Blogs/addBlog";
 import EditCreatorBlogPage from "./Screens/ContentCreator/Blogs/editBlog";
 import UsersPage from "./Screens/Admin/Users";
 import UserRolesPage from "./Screens/Admin/UserRoles";
+import SinglePost from "./Screens/Feed/SingleFeed";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/verify-code" element={<VerificationCode />} />
+
+        {/* Guest */}
+        <Route path="/blog/:id" element={<SinglePost />} />
 
         {/* Admin Dashboard */}
         <Route path="/admin/dashboard" exact element={<DashboardPage />} />

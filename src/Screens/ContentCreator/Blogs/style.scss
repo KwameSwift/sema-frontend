@@ -1,10 +1,12 @@
 .creator-blogs {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-  column-gap: 10px;
-  row-gap: 2em;
-  grid-auto-rows: max-content;
-  min-width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  // flex-grow: 1;
+  // grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  // column-gap: 40px;
+  // row-gap: 2em;
+  // grid-auto-rows: max-content;
+  // min-width: 700px;
 }
 
 .see-more-btn {

@@ -10,3 +10,6 @@ export const DAYS = [
   "Saturday",
 ]
 
+export const MAXCHARACTERLENGTH = {
+  content: 300
+};

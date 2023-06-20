@@ -53,6 +53,7 @@
   width: 300px;
   margin-right: 12px;
   margin-bottom: 16px;
+  flex: 0 1 calc(25% - 1em);
   .blog-desc {
     text-overflow: ellipsis;
     display: -webkit-box;

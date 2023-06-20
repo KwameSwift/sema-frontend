@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { calculateTime } from "../../../utils/helpers";
@@ -21,6 +21,8 @@ function AdminCreatorBlogCard({
   const location = useLocation();
   const [openDropdown, setOpenDropdown] = useState(false);
 
+  const dropdownRef = useRef(null);
+
   const deactivatePost = () => {
     setModalOpen(status.toLowerCase(), true, id);
   };
@@ -35,7 +37,7 @@ function AdminCreatorBlogCard({
 
   const accountLinks = [
     { id: "approve", name: status, type: "func", func: deactivatePost },
-    { id: "delete", name: "Delete", type: "func", func: deletePost },
+    { id: "edit", name: "Edit", type: "func", func: deletePost },
   ];
 
   const blogList = [
@@ -58,6 +60,24 @@ function AdminCreatorBlogCard({
       : accountLinks;
   };
 
+  const handleDropDownToggle = () => {
+    setOpenDropdown((prev) => !prev);
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpenDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
     <div className="blog-card">
       <div className="blog-card-wrapper">
@@ -76,11 +96,11 @@ function AdminCreatorBlogCard({
               {is_abusive && <FaExclamationTriangle fill="#e14d2a" />}
               <div
                 className="cursor-pointer p-2 h-[35px] rounded text-[#fff]"
-                onClick={() => setOpenDropdown((prev) => !prev)}
+                onClick={handleDropDownToggle}
               >
                 <BsThreeDotsVertical fill="#000" />
                 {openDropdown && (
-                  <div className="absolute z-20 right-0 top-[10px] h-[100px] mt-8 py-2 w-48 bg-white rounded-md shadow-lg">
+                  <div ref={dropdownRef} className="absolute z-20 right-0 top-[10px] h-[100px] mt-8 py-2 w-48 bg-white rounded-md shadow-lg">
                     {getDropList().map((elt) => (
                       <button
                         onClick={

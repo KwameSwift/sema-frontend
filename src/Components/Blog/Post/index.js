@@ -7,10 +7,12 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { calculateTime, isDocumentImage } from "../../../utils/helpers";
 
 import "./style.scss";
+import { useNavigate } from "react-router-dom";
 
 function BlogPost(props) {
+  const navigate = useNavigate();
   return (
-    <div className="blog-post">
+    <div className="blog-post" onClick={() => navigate(`blog/${props.id}`)}>
       <div className="bg-[#fff] p-4 inner-blog">
         <div className="profile-section flex">
           {props.author_profile_image?.document_location

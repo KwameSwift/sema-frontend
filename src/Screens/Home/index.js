@@ -11,6 +11,7 @@ import "./style.scss";
 
 function HomePage() {
   const [blogs, setBlogs] = useState([]);
+  
   useEffect(() => {
     const getAllBlogs = async () => {
       try {
