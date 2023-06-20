@@ -54,6 +54,7 @@ function AddBlogPage() {
     setLoading(true);
     if (!isOwned && Object.values(references).length === 0) {
       toast.error("At least one reference link is required");
+      return;
     }
 
     if (!state.title) {
@@ -147,7 +148,7 @@ function AddBlogPage() {
         <input
           type="text"
           name={`reference-${referenceItems.length}`}
-          className="link-input mr-3 border border-gray-700"
+          className="admin-link-input mr-3 border border-gray-700 p-2 w-[60%]"
           placeholder="Enter reference address"
           onChange={handleReferenceChange}
         />
@@ -222,7 +223,6 @@ function AddBlogPage() {
           </div>
           <div
             className={`flex flex-col cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
-            onClick={() => fileRef.current.click()}
           >
             <label className="text-[18px] font-bold mb-5">Cover Image / Document</label>
             <input

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { BsPlus, BsSearch } from "react-icons/bs";
 import { toast } from "react-toastify";
+import { debounce } from 'lodash';
 import Layout from "../../../Components/Dashboard/Layout";
 import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
 import { axiosClientWithHeaders } from "../../../libs/axiosClient";
@@ -21,6 +22,7 @@ function BlogsPage() {
   const [totalBlogs, setTotalBlogs] = useState(0);
   const [blogType, setBlogType] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const firstRunRef = useRef(true);
 
@@ -73,9 +75,34 @@ function BlogsPage() {
     setModalOpen(state);
   }
 
+  const searchBlogs = async (term) => {
+    try {
+      const resp = await axiosClientWithHeaders.post("/blog/search-blog-post/", {
+        search_query: term
+      });
+      setBlogs(resp.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const debouncedSearch = debounce((term) => {
+    // Perform your search logic here
+    searchBlogs(term);
+  }, 300); // Adjust the debounce delay as per your requirements
+  
+
+  useEffect(() => {
+    debouncedSearch(searchQuery);
+  }, [searchQuery])
+  
   useEffect(() => {
     getAllBlogs(blogType, true);
-  }, [refetch, currentPage]);
+  }, [currentPage])
+
+  useEffect(() => {
+    getAllBlogs(blogType, false);
+  }, [refetch]);
 
   return (
     <>
@@ -92,6 +119,7 @@ function BlogsPage() {
                 <input
                   type="text"
                   placeholder="Search..."
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="outline-none p-4 h-[40px] w-[100%]"
                 />
               </div>
@@ -129,6 +157,7 @@ function BlogsPage() {
                   approved_and_published_by__first_name={elt.approved_and_published_by__first_name}
                   approved_and_published_by__last_name={elt.approved_and_published_by__last_name}
                   is_abusive={elt.is_abusive}
+                  is_approved={elt.is_approved}
                   description={elt.content}
                   author={elt.author__first_name + " " + elt.author__last_name}
                   posted_on={elt.created_on}
