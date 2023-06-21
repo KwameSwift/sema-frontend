@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  BsCloudUpload,
   BsFillTrashFill,
   BsPlusCircle,
   BsTrash,
@@ -12,10 +11,11 @@ import {
   axiosClientForm,
   axiosClientWithHeaders,
 } from "../../../libs/axiosClient";
-import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
-import AccordionItem from "../../../Components/Common/Accordion";
+import Layout from "../../../Components/Dashboard/Layout";
 
 import "./style.scss";
+import AdminAccordionItem from "../../../Components/Admin/Accordion";
+import CustomEditor from "../../../Components/Common/CustomEditor";
 
 function EditAdminBlogPage() {
   const [state, setState] = useState({});
@@ -167,9 +167,29 @@ function EditAdminBlogPage() {
     );
   };
 
+  // const handleImageUpload = async (file) => {
+  //   const formData = new FormData();
+  //   formData.append('image', file);
+
+  //   try {
+  //     const response = await axios.post('/api/upload-image', formData);
+  //     const imageUrl = response.data.imageUrl;
+  //     const quill = document.querySelector('.ql-editor');
+  //     const range = quill.getSelection();
+  //     quill.insertEmbed(range.index, 'image', imageUrl);
+  //     quill.setSelection(range.index + 1);
+  //   } catch (error) {
+  //     console.log('Image upload failed:', error);
+  //   }
+  // };
+
   const handleLinkAddition = () => {
     setLinkItems([...linkItems, linkItem()]);
   };
+
+  const handleSetContent = (value) => {
+    setState({ ...state, content: value});
+  }
 
   const handleReferenceAddition = () => {
     setReferenceItems([...referenceItems, referenceItem()]);
@@ -211,16 +231,18 @@ function EditAdminBlogPage() {
       formData.append("files", file, `file${index}`);
     });
 
-    if (coverImageFile) {
-      formData.append("cover_image", coverImageFile);
-    }
+    formData.append("cover_image", coverImageFile);
+
+    formData.append("blog_post_id", id);
 
     try {
-      await axiosClientForm.post("/blog/create-blog/", formData);
-      toast.success("Blog Added successfully");
+      await axiosClientForm.put("/blog/update-blog-post/", formData);
+      setLoading(false);
+      toast.success("Blog updated successfully");
       await new Promise((r) => setTimeout(r, 2000));
-      navigate("/creator/blogs");
+      navigate("/admin/blogs");
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -237,10 +259,13 @@ function EditAdminBlogPage() {
             title: data.title,
             content: data.content,
             description: data.description,
+            censoredContent: data.censored_content
           });
-          setCoverImage(
-            `${process.env.REACT_APP_BACKEND_DOMAIN}${data.cover_image}`
-          );
+          if (data.cover_image !== null && data.cover_image !== "null") {
+            setCoverImage(
+              `${process.env.REACT_APP_BACKEND_DOMAIN}${data.cover_image}`
+            );
+          }
           setBlog(resp.data.data);
           const splittedReference = data?.reference?.split(",") || [];
           if (data.reference !== null && splittedReference.length) {
@@ -271,26 +296,22 @@ function EditAdminBlogPage() {
   }, [id]);
 
   return (
-    <ContentCreatorLayout header="Update Blog">
+    <Layout header="Update Blog">
       <div className="admin-add-blog">
         <form>
           <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>
             <img src={coverImage} className="w-[500px] h-[350px]" />
           </div>
           <div
-            className={`cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
-            onClick={() => fileRef.current.click()}
+            className={`cursor-pointer flex flex-col ${coverImage && "hidden"} mt-5 mb-8`}
           >
-            <label className="text-[18px] font-bold">Cover Image</label>
-            <div className="mt-5 flex rounded-lg justify-center items-center h-[200px] w-[380px] p-4 bg-[#fff]">
-              <input
-                type="file"
-                ref={fileRef}
-                onChange={handleSetImage}
-                className="hidden"
-              />
-              <BsCloudUpload size={70} />
-            </div>
+            <label className="text-[18px] font-bold">Cover Image / Document</label>
+            <input
+              type="file"
+              ref={fileRef}
+              className="mt-5"
+              onChange={handleSetImage}
+            />
           </div>
           {coverImage && (
             <div className="flex mb-8 items-center h-[40px]">
@@ -339,12 +360,23 @@ function EditAdminBlogPage() {
             <label className="text-[18px] font-bold">
               Blog Content<span className="text-[#e14d2a]">*</span>
             </label>
+            <CustomEditor 
+              className="mt-5" 
+              placeholder="Write here..." 
+              setData={handleSetContent}
+              data={state.content}
+            />
+          </div>
+          <div className="mt-8">
+            <label className="text-[18px] font-bold">
+              Censored Content
+            </label>
             <textarea
               onChange={handleChange}
-              placeholder="Add blog content..."
-              value={state.content}
-              name="content"
-              rows={5}
+              placeholder="Add blog description..."
+              name="description"
+              value={state.censoredContent}
+              rows={10}
               className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
             ></textarea>
           </div>
@@ -377,25 +409,27 @@ function EditAdminBlogPage() {
               </button>
             </div>
           )}
-          <AccordionItem
-            cBg="rgb(229 231 235)"
-            title="Links"
-            className="text-[18px] font-bold"
-            pClassName="mt-5"
-          >
-            <div className="mt-3">{linkItems}</div>
-            <button
-              type="button"
-              onClick={handleLinkAddition}
-              className="text-left mt-3 bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
+          <div className="">
+            <AdminAccordionItem
+              cBg="#fff"
+              bg="#e5e7eb"
+              title="Links"
+              className="text-[18px] font-bold"
+              pClassName="mt-5"
             >
-              <BsPlusCircle fill="#001253" className="mr-1" size={20} />
-              <span className="text-['#001253']">Add Link</span>
-            </button>
-          </AccordionItem>
-          <div className="mt-8">
-            <AccordionItem
-              cBg="rgb(229 231 235)"
+              <div className="mt-3">{linkItems}</div>
+              <button
+                type="button"
+                onClick={handleLinkAddition}
+                className="text-left mt-3 bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
+              >
+                <BsPlusCircle fill="#000" className="mr-1" size={20} />
+                <span className="text-[#000] mt-1">Add Link</span>
+              </button>
+            </AdminAccordionItem>
+            <AdminAccordionItem
+              cBg="#fff"
+              bg="#e5e7eb"
               title="Other Files"
               className="text-[18px] font-bold"
               pClassName="mt-5"
@@ -409,7 +443,8 @@ function EditAdminBlogPage() {
                 <BsPlusCircle fill="#001253" className="mr-1" size={20} />
                 <span className="text-['#001253']">Add Files</span>
               </button>
-            </AccordionItem>
+            </AdminAccordionItem>
+
           </div>
           <div className="mt-5 flex justify-end">
             <div>
@@ -422,13 +457,13 @@ function EditAdminBlogPage() {
                 onClick={handleSave}
                 disabled={loading}
               >
-                Save
+                {loading ? "Saving..." : "Save"}
               </button>
             </div>
           </div>
         </form>
       </div>
-    </ContentCreatorLayout>
+    </Layout>
   );
 }
 

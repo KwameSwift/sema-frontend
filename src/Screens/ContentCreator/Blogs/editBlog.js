@@ -16,6 +16,7 @@ import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
 import AccordionItem from "../../../Components/Common/Accordion";
 
 import "./style.scss";
+import CustomEditor from "../../../Components/Common/CustomEditor";
 
 function EditCreatorBlogPage() {
   const [state, setState] = useState({});
@@ -46,6 +47,10 @@ function EditCreatorBlogPage() {
     setCoverImgFile(file);
     setCoverImage(URL.createObjectURL(file));
   };
+
+  const handleSetContent = (value) => {
+    setState({ ...state, content: value});
+  }
 
   const handleChange = (e) => {
     setState({
@@ -207,20 +212,24 @@ function EditCreatorBlogPage() {
       formData.append("reference", reference);
     }
 
-    files.forEach((file, index) => {
-      formData.append("files", file, `file${index}`);
+    files.forEach((file) => {
+      formData.append("files[]", file);
     });
 
     if (coverImageFile) {
       formData.append("cover_image", coverImageFile);
     }
 
+    formData.append("blog_post_id", id);
+
     try {
-      await axiosClientForm.post("/blog/create-blog/", formData);
-      toast.success("Blog Added successfully");
+      await axiosClientForm.put("/blog/update-blog-post/", formData);
+      setLoading(false);
+      toast.success("Blog updated successfully");
       await new Promise((r) => setTimeout(r, 2000));
       navigate("/creator/blogs");
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -272,7 +281,7 @@ function EditCreatorBlogPage() {
 
   return (
     <ContentCreatorLayout header="Update Blog">
-      <div className="admin-add-blog">
+      <div className="creator admin-add-blog">
         <form>
           <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>
             <img src={coverImage} className="w-[500px] h-[350px]" />
@@ -339,14 +348,12 @@ function EditCreatorBlogPage() {
             <label className="text-[18px] font-bold">
               Blog Content<span className="text-[#e14d2a]">*</span>
             </label>
-            <textarea
-              onChange={handleChange}
-              placeholder="Add blog content..."
-              value={state.content}
-              name="content"
-              rows={5}
-              className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
-            ></textarea>
+            <CustomEditor 
+              className="mt-5" 
+              placeholder="Write here..." 
+              setData={handleSetContent}
+              data={state.content}
+            />
           </div>
           <div className="flex mt-8 items-center">
             <p className="text-[18px] font-bold">

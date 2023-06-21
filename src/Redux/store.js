@@ -11,9 +11,11 @@ import {
   REGISTER,
 } from "redux-persist";
 import userReducer from "./slices/userSlice";
+import blogReducer from "./slices/blogSlice";
 
 const reducers = combineReducers({
   user: userReducer,
+  blog: blogReducer,
 });
 
 const persistConfig = {

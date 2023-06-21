@@ -10,7 +10,7 @@
   }
   .sidebar {
     border-right: 1px solid #E5EBEE;
-    width: 16rem;
+    width: 18rem;
     .nav-item {
       font-size: 14px;
       font-weight: 700;
@@ -36,8 +36,8 @@
     }
     .nav-item:hover {
       // background-color: var(--secondary-blue-color);
-      background-color: #FDBF8D;
-      color: #fff;
+      background-color: #fff;
+      color: var(--primary-blue-color);
     }
   }
 }

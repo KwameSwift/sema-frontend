@@ -13,6 +13,7 @@ import store from './Redux/store';
 import App from './App';
 
 import 'react-toastify/dist/ReactToastify.css';
+import "react-quill/dist/quill.snow.css";
 import './index.scss';
 
 let persist = persistStore(store);

@@ -76,3 +76,7 @@ export const formatDateWithBar = (date, spaced) => {
 export const convertToSnakeCase = (inputString) => {
   return inputString.toLowerCase().replace(/\s+/g, '_');
 }
+
+export const getImageUrl = (url) => {
+  return `${process.env.REACT_APP_BACKEND_DOMAIN}${url}`
+}

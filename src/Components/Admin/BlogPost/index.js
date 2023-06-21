@@ -16,7 +16,7 @@ function AdminCreatorBlogCard({
   posted_on,
   setModalOpen,
   approved_and_published_by__first_name,
-  approved_and_published_by__last_name
+  approved_and_published_by__last_name,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,7 +38,12 @@ function AdminCreatorBlogCard({
 
   const accountLinks = [
     { id: "approve", name: status, type: "func", func: deactivatePost },
-    { id: "edit", name: "Edit", type: "func", func: deletePost },
+    { id: "edit", name: "Edit", route: `/admin/blogs/edit/${id}` },
+    {
+      id: "view",
+      name: status === "Approve" ? "Preview" : "View",
+      route: status === "Approve" ? `/admin/blogs/preview/${id}`: `/blogs/${id}`,
+    },
   ];
 
   const blogList = [
@@ -63,7 +68,7 @@ function AdminCreatorBlogCard({
 
   const handleDropDownToggle = () => {
     setOpenDropdown((prev) => !prev);
-  }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -72,10 +77,10 @@ function AdminCreatorBlogCard({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
 
@@ -100,7 +105,10 @@ function AdminCreatorBlogCard({
               >
                 <BsThreeDotsVertical fill="#000" />
                 {openDropdown && (
-                  <div ref={dropdownRef} className="absolute z-20 right-0 top-[10px] h-[100px] mt-8 py-2 w-48 bg-white rounded-md shadow-lg">
+                  <div
+                    ref={dropdownRef}
+                    className="absolute z-20 right-0 top-[20px] h-[140px] mt-8 py-2 w-48 bg-white rounded-md shadow-lg"
+                  >
                     {getDropList().map((elt) => (
                       <button
                         onClick={
@@ -126,20 +134,25 @@ function AdminCreatorBlogCard({
             </p>
           </div>
           <div className="mt-3 px-4">
-            {is_approved 
-            ?
-            <>
-              <span className="font-bold">Approved by: </span>
-              <p className="text-[15px]">
-                <span>{approved_and_published_by__first_name} {approved_and_published_by__last_name}</span>
-              </p>
-            </>
-            : <span className="font-bold">Not Approved</span>
-            }
+            {is_approved ? (
+              <>
+                <span className="font-bold">Approved by: </span>
+                <p className="text-[15px]">
+                  <span>
+                    {approved_and_published_by__first_name}{" "}
+                    {approved_and_published_by__last_name}
+                  </span>
+                </p>
+              </>
+            ) : (
+              <span className="font-bold">Not Approved</span>
+            )}
           </div>
         </div>
         <div className="flex justify-between">
-          <span className="flex justify-start p-3 items-end">{is_abusive && <FaExclamationTriangle fill="#e14d2a" />}</span>
+          <span className="flex justify-start p-3 items-end">
+            {is_abusive && <FaExclamationTriangle fill="#e14d2a" />}
+          </span>
           <span className="flex text-[14px] p-3 text-[gray] justify-end items-end">
             {calculateTime(posted_on)}
           </span>

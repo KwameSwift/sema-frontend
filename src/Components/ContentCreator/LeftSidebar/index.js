@@ -42,9 +42,9 @@ function LeftSidebar({ isOpen, user }) {
               <span>
                 {user.first_name} {user.last_name}
               </span>
-              <span>
+              {user.is_verified && <span>
                 <BsCheckCircleFill className="ml-1" fill="#fff" />
-              </span>
+              </span>}
             </h2>
             <p className="text-[#fff] text-[15px]">{user.email}</p>
           </div>

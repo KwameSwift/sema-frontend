@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import Layout from "../../../Components/Dashboard/Layout";
 import { BsFillTrashFill, BsPlusCircle } from "react-icons/bs";
-
-import "./style.scss";
 import { useNavigate } from "react-router";
 import { axiosClientForm } from "../../../libs/axiosClient";
 import { toast } from "react-toastify";
 import AdminAccordionItem from "../../../Components/Admin/Accordion";
-import { MAXCHARACTERLENGTH } from "../../../utils/data";
+import CustomEditor from "../../../Components/Common/CustomEditor";
+
+import "./style.scss";
 
 function AddBlogPage() {
   const [state, setState] = useState({});
@@ -27,10 +27,9 @@ function AddBlogPage() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    console.log(e.target.name)
     setState({
       ...state,
-      [e.target.name]: e.target.value.slice(0, MAXCHARACTERLENGTH[e.target.name])
+      [e.target.name]: e.target.value
     });
   };
 
@@ -89,12 +88,13 @@ function AddBlogPage() {
 
     try {
       await axiosClientForm.post("/blog/create-blog/", formData);
-
+      setLoading(false);
       toast.success("Blog Added successfully");
       await new Promise((r) => setTimeout(r, 2000));
       navigate("/admin/blogs");
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   }
 
@@ -196,6 +196,10 @@ function AddBlogPage() {
     );
   };
 
+  const handleSetContent = (value) => {
+    setState({ ...state, content: value});
+  }
+
   const handleLinkAddition = () => {
     setLinkItems([...linkItems, linkItem()]);
   };
@@ -263,17 +267,15 @@ function AddBlogPage() {
             ></textarea>
           </div>
           <div className="mt-8">
-            <label className="text-[18px] font-bold">
+            <label className="text-[18px] mb-5 font-bold">
               Blog Content<span className="text-[#e14d2a]">*</span>
             </label>
-            <textarea
-              onChange={handleChange}
-              placeholder="Add blog content..."
-              name="content"
-              rows={5}
-              value={state.content}
-              className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
-            ></textarea>
+            <CustomEditor 
+              className="mt-5" 
+              placeholder="Write here..." 
+              setData={handleSetContent}
+              data={state.content}
+            />
           </div>
           <div className="flex mt-8 items-center">
             <p className="text-[18px] font-bold">

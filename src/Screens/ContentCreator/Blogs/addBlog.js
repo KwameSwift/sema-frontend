@@ -7,6 +7,7 @@ import AccordionItem from "../../../Components/Common/Accordion";
 import { toast } from "react-toastify";
 
 import "./style.scss";
+import CustomEditor from "../../../Components/Common/CustomEditor";
 
 function AddCreatorBlogPage() {
   const [state, setState] = useState({});
@@ -153,6 +154,10 @@ function AddCreatorBlogPage() {
     );
   };
 
+  const handleSetContent = (value) => {
+    setState({ ...state, content: value});
+  }
+
   const handleLinkAddition = () => {
     setLinkItems([...linkItems, linkItem()]);
   };
@@ -269,13 +274,12 @@ function AddCreatorBlogPage() {
             <label className="text-[18px] font-bold">
               Blog Content<span className="text-[#e14d2a]">*</span>
             </label>
-            <textarea
-              onChange={handleChange}
-              placeholder="Add blog content..."
-              name="content"
-              rows={5}
-              className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
-            ></textarea>
+            <CustomEditor 
+              className="mt-5" 
+              placeholder="Write here..." 
+              setData={handleSetContent}
+              data={state.content}
+            />
           </div>
           <div className="flex mt-8 items-center">
             <p className="text-[18px] font-bold">

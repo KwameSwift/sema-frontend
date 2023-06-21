@@ -17,6 +17,7 @@ import UsersPage from "./Screens/Admin/Users";
 import UserRolesPage from "./Screens/Admin/UserRoles";
 import SinglePost from "./Screens/Feed/SingleFeed";
 import EditAdminBlogPage from "./Screens/Admin/Blogs/editBlog";
+import PreviewBlogDataPage from "./Screens/Admin/Blogs/previewBlog";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/admin/blogs" exact element={<BlogsPage />} />
         <Route path="/admin/blogs/add" exact element={<AddBlogPage />} />
         <Route path="/admin/blogs/edit/:id" exact element={<EditAdminBlogPage />} />
+        <Route path="/admin/blogs/preview/:id" exact element={<PreviewBlogDataPage />} />
 
         {/* Content Creator */}
         <Route path="/creator/dashboard" exact element={<ContentCreatorDashboardPage />} />

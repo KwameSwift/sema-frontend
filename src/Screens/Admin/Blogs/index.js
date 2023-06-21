@@ -91,6 +91,9 @@ function BlogsPage() {
     searchBlogs(term);
   }, 300); // Adjust the debounce delay as per your requirements
   
+  const testImageRetrieve = (data) => {
+    return data?.cover_image === "null" || data?.cover_image === null;
+  }
 
   useEffect(() => {
     debouncedSearch(searchQuery);
@@ -149,20 +152,20 @@ function BlogsPage() {
               <>
                 <AdminCreatorBlogCard
                   id={elt.id}
-                  img={elt.cover_image
-                      ? `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
-                      : EmptyImg
+                  img={testImageRetrieve(elt)
+                      ? EmptyImg
+                      : `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
                   }
                   title={elt.title}
                   approved_and_published_by__first_name={elt.approved_and_published_by__first_name}
                   approved_and_published_by__last_name={elt.approved_and_published_by__last_name}
                   is_abusive={elt.is_abusive}
                   is_approved={elt.is_approved}
-                  description={elt.content}
+                  description={elt.description}
                   author={elt.author__first_name + " " + elt.author__last_name}
                   posted_on={elt.created_on}
                   key={index}
-                  status="Approve"
+                  status={elt.is_approved ? "Unapprove" : "Approve"}
                   setModalOpen={handleModalOpen}
                 />
               </>

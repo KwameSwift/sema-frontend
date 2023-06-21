@@ -29,8 +29,9 @@ function LeftSidebar({ isOpen }) {
       },
       []
     );
-    return linksRoutes.includes(route);
+    return linksRoutes.some((currentRoute) => (currentRoute === route) || route.startsWith(currentRoute));
   };
+
 
   return (
     <div className={`flex h-screen`}>

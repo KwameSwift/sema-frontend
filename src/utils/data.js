@@ -11,5 +11,5 @@ export const DAYS = [
 ]
 
 export const MAXCHARACTERLENGTH = {
-  content: 300
+  content: 100000000
 };

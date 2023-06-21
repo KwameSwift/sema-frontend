@@ -68,3 +68,9 @@
 .toggle-checkbox:checked + .toggle-label::before {
   transform: translateX(20px);
 }
+
+.creator {
+  .text-editor {
+    background-color: #fff;
+  }
+}

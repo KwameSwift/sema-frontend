@@ -42,6 +42,9 @@
     border-radius: 8px;
     color: #fff;
   }
+  .ql-container {
+    height: 300px;
+  }
 }
 
 .blog-card-wrapper,
@@ -61,4 +64,16 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+}
+
+
+.head-details {
+  border-bottom: none;
+  border-bottom: 1px solid #ccc;
+}
+.hyphen {
+  display: inline-block;
+  width: 2em;
+  height: 3px;
+  background-color: #ccc;
 }
