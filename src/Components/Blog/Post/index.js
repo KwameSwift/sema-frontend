@@ -29,7 +29,7 @@ function BlogPost(props) {
         </div>
         <div className="mt-5">
           <h3 className="font-bold text-[16px]">{props.title}</h3>
-          <p className="mb-5 blog-desc">{props.content}</p>
+          <p className="mb-5 blog-desc">{props.description}</p>
           {Object.keys(isDocumentImage(props.documents)).length > 0 && (
             <img
               src={`${process.env.REACT_APP_BACKEND_DOMAIN}${
