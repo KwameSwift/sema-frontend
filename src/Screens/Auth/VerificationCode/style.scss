@@ -1,0 +1,206 @@
+.auth-login {
+  display: flex;
+  justify-content: flex-start;
+  .login-content {
+    background-color: #F4F4F4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+    .content-wrapper {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 50%;
+      min-width: 350px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      .logo-sect {
+        display: none;
+      }
+      .head-sect {
+        h1 {
+          text-align: center;
+        }
+        p {
+          text-align: center;
+          span {
+            color: var(--secondary-blue-color);
+            margin-left: 5px;
+            cursor: pointer;
+            font-weight: 500;
+          }
+          span:hover {
+            color: var(--primary-color);
+          }
+        }
+        .small-icons-social {
+          display: none;
+        }
+        .verify-code.subtext {
+          
+        }
+      }
+      .input-group {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 10px;
+        input, select {
+          height: 60px;
+        }
+        .row {
+          display: flex;
+          justify-content: flex-start;
+        }
+        .user-type-sect {
+          margin-top: 30px;
+          width: 80%;
+          .type-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;          
+          }
+          .type-item:nth-child(2) {
+            margin-left: 10px;
+          }
+          .type-item.selected {
+            background-color: var(--secondary-blue-color);
+            color: #fff;
+          }
+        }
+      }
+      .other-input-group {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        width: 100%;
+        span {
+          font-size: 15px;
+        }
+        span:nth-child(2) {
+          color: var(--secondary-blue-color);
+          cursor: pointer;
+        }
+        span:nth-child(2):hover {
+          color: var(--primary-color);
+          font-weight: 500;
+        }
+      }
+      .submit-btn {
+        margin: 35px 0 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button {
+          background-color: var(--primary-color);
+          color: #fff;
+          padding: 10px;
+          font-size: 16px;
+          height: 50px;
+          width: 250px;
+          border: none;
+          border-radius: 5px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;        
+        }
+        // button:hover {
+        //   background-color: var(--primary-color);
+        // }
+      }
+      .auth-bottom-text {
+        color: var(--secondary-blue-color);
+        text-align: center;
+        cursor: pointer;
+        span:nth-child(2) {
+          margin-top: 8px;
+        }
+      }
+      .auth-bottom-text span:hover {
+        color: var(--primary-color);
+        font-weight: 500;
+      }
+      .non-hover:hover{
+        color: var(--secondary-blue-color);
+      }
+      .request-verification {
+        margin-top: 20px;
+        font-size: 13px;
+      }
+    }
+    .otp-sect {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      input {
+        font-weight: 400;
+      }
+    }
+  }
+
+}
+
+.verification-code {
+  .content-wrapper {
+    min-width: 400px!important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .auth-login {
+    .sidebar {
+      display: none;
+    }
+    .login-content {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--primary-blue-color);
+      .content-wrapper {
+        .logo-sect {
+          margin-bottom: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          .logo {
+            width: 70px;
+            height: 70px;
+          }
+          .company-header {
+            color: var(--primary-blue-color);
+            font-weight: 700;
+            margin: 3px;
+            font-size: 20px;
+          }
+        }
+        .input-group {
+          input, select {
+            height: 60px;
+          }
+        }
+      }
+    }
+    .login-content.more-details {
+      padding: 20px 0;
+    }
+    .small-icons-social {
+      display: flex!important;
+      justify-content: space-evenly;
+      .social-button {
+        width: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        padding: 8px 0;
+      }
+    }
+  }
+}

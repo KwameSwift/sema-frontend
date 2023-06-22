@@ -4,15 +4,18 @@ import { AiOutlineHeart } from "react-icons/ai";
 // import PersonImg from "../../../Assets/images/person-img.png";
 import { FaRegCommentAlt } from "react-icons/fa";
 import { RiShareForwardLine } from "react-icons/ri";
-import { calculateTime, isDocumentImage } from "../../../utils/helpers";
+import { useNavigate } from "react-router-dom";
+import { calculateTime } from "../../../utils/helpers";
 
 import "./style.scss";
-import { useNavigate } from "react-router-dom";
 
 function BlogPost(props) {
   const navigate = useNavigate();
+  const testImageRetrieve = (data) => {
+    return data?.cover_image === "null" || data?.cover_image === null;
+  }
   return (
-    <div className="blog-post" onClick={() => navigate(`blog/${props.id}`)}>
+    <div className="blog-post cursor-pointer" onClick={() => navigate(`blog/${props.id}`)}>
       <div className="bg-[#fff] p-4 inner-blog">
         <div className="profile-section flex">
           {props.author_profile_image?.document_location
@@ -23,44 +26,49 @@ function BlogPost(props) {
               {props.author__is_verified && <BsCheckCircleFill className="ml-1" fill="#3e6d9c" />}
             </span>
             <span className="text-[13px] text-[#7d7c7c]">
-              {calculateTime(props.created_on)}
+              {props.author__organization}
             </span>
           </span>
         </div>
         <div className="mt-5">
           <h3 className="font-bold text-[16px]">{props.title}</h3>
-          <p className="mb-5 blog-desc">{props.description}</p>
-          {Object.keys(isDocumentImage(props.documents)).length > 0 && (
+          <p className="mb-5 blog-desc">{props.preview_text}</p>
+          {!testImageRetrieve(props) && (
             <img
               src={`${process.env.REACT_APP_BACKEND_DOMAIN}${
-                isDocumentImage(props.documents)?.document_location
+                props?.cover_image
               }`}
               alt=""
               className="post-img"
             />
           )}
         </div>
-        <div className="mt-3 flex blog-stats">
-          <div className="icon-wrapper flex flex-col">
-            <div className="icon">
-              <AiOutlineHeart size={22} />
+        <div className="flex justify-between items-center">
+          <div className="mt-3 flex blog-stats">
+            <div className="icon-wrapper flex flex-col">
+              <div className="icon">
+                <AiOutlineHeart size={22} />
+              </div>
+              <span className="mt-1 text-center text-[13px]">{props.total_likes}</span>
             </div>
-            <span className="mt-1 text-center text-[13px]">{props.total_likes}</span>
-          </div>
-          <div className="icon-wrapper flex flex-col">
-            <div className="icon ml-3">
-              <FaRegCommentAlt size={16} />
+            <div className="icon-wrapper flex flex-col">
+              <div className="icon ml-3">
+                <FaRegCommentAlt size={16} />
+              </div>
+              <span className="mt-1 text-center text-[13px]">
+                {props.total_comments}
+              </span>
             </div>
-            <span className="mt-1 text-center text-[13px]">
-              {props.total_comments}
-            </span>
-          </div>
-          <div className="icon-wrapper flex flex-col">
-            <div className="icon ml-3">
-              <RiShareForwardLine size={22} />
+            <div className="icon-wrapper flex flex-col">
+              <div className="icon ml-3">
+                <RiShareForwardLine size={22} />
+              </div>
+              <span className="mt-1 text-center text-[13px]">{props.total_shares}</span>
             </div>
-            <span className="mt-1 text-center text-[13px]">3</span>
           </div>
+          <span className="text-[13px] text-[#7d7c7c]">
+            {calculateTime(props.created_on)}
+          </span>
         </div>
       </div>
     </div>

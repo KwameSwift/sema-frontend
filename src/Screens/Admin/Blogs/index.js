@@ -161,7 +161,7 @@ function BlogsPage() {
                   approved_and_published_by__last_name={elt.approved_and_published_by__last_name}
                   is_abusive={elt.is_abusive}
                   is_approved={elt.is_approved}
-                  description={elt.description}
+                  description={elt.preview_text}
                   author={elt.author__first_name + " " + elt.author__last_name}
                   posted_on={elt.created_on}
                   key={index}

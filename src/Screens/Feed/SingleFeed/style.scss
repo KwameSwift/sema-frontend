@@ -1,0 +1,63 @@
+.single-blog {
+  // display: flex;
+  // justify-content: center;
+  // flex-direction: column;
+  margin: 80px 15%;
+  max-width: 1200px;
+  min-width: 350px;
+  .blog-image {
+    border-radius: 20px;
+  }
+  /* Assuming a class name of "quill-editor" for the React Quill component */
+  .ql-container.ql-disabled {
+    border: none;
+  }
+
+  /* Optionally, you can remove the outline as well */
+  .ql-container.ql-disabled .ql-editor {
+    outline: none;
+  }
+  .other-blogs-sect {
+    .other-blogs {
+      display: inline-flex;
+      .other-post {
+        margin: 20px;
+        .blog-desc {
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .post-img {
+          width: 250px;
+          height: 180px;
+        }
+      }
+    }
+  }
+  .comment-sect {
+    margin-top: 10px;
+    .element {
+      display: flex;
+      align-items: center;
+    }
+    
+    .left-bar,
+    .right-bar {
+      width: 100%;
+      height: 1px;
+      background-color: #ccc;
+    }
+    
+    .text {
+      width: 100%;
+      max-width: 170px;
+      flex-grow: 1;
+      text-align: center;
+      padding: 0 10px;
+      color: #333;
+    }
+    
+  }
+}

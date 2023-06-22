@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { axiosClientWithHeaders } from '../../../libs/axiosClient';
 import { setUserInfo } from '../../../Redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 
 function ContentCreatorLayout({ header, subChild, children, contentType }) {
@@ -19,14 +18,13 @@ function ContentCreatorLayout({ header, subChild, children, contentType }) {
       <p onClick={() => navigate("/creator/blogs/add")}>Add Blog</p>
     )
   }
-
+  
   const contentTypes = {
     "isBlog": addBlog(),
   }
 
   useEffect(() => {
-    if (!user?.tokens?.access) {
-      toast.error("Unauthorized to access this page");
+    if (!user?.tokens?.access && !user.user.is_admin) {
       navigate("/login");
     }
   }, [user])

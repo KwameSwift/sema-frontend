@@ -20,6 +20,7 @@ function AddBlogPage() {
   const [isOwned, setIsOwned] = useState(true);
   const [fileItems, setFileItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  // const [coverImageType, setCoverImageType] = useState("");
   const fileRef = useRef(null);
 
   const [files, setFiles] = useState([]);

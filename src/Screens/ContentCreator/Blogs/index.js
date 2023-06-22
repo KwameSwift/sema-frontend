@@ -89,7 +89,6 @@ function CreatorBlogs() {
     <ContentCreatorLayout
       header="Blogs"
       subChild={`Total Count (${totalBlogs})`}
-      contentType="isBlog"
     >
       <div className="flex justify-between mt-3 items-center">
         <div className="flex w-[80%]">
@@ -117,7 +116,7 @@ function CreatorBlogs() {
         <div className="mt-5 mr-3">
           <button
               className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
-              onClick={() => navigate("/admin/blogs/add")}
+              onClick={() => navigate("/creator/blogs/add")}
             >
             <BsPlus size={25}/>Blogs
           </button>
@@ -133,7 +132,7 @@ function CreatorBlogs() {
                 : `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
               }
               title={elt.title}
-              description={elt.description}
+              description={elt.preview_text}
               author={elt.author__first_name + " " + elt.author__last_name}
               posted_on={elt.created_on}
               key={index}

@@ -1,10 +1,12 @@
-import { setUserTokens } from '../Redux/slices/userSlice';
-import store from '../Redux/store';
-
+import { setUserTokens } from "../Redux/slices/userSlice";
+import store from "../Redux/store";
 
 export const isRequiredFieldsPassed = (obj, fields, type) => {
-  if (type === 'eq') {
-    return Object.keys(obj).length === fields && Object.values(obj).every((elt) => elt !== '');
+  if (type === "eq") {
+    return (
+      Object.keys(obj).length === fields &&
+      Object.values(obj).every((elt) => elt !== "")
+    );
   }
 
   return false;
@@ -40,43 +42,50 @@ export const calculateTime = (date) => {
   }
 };
 
+export const isDocumentImage = (file) => {
+  const splittedName = file?.split(".");
+  const imageExtensions = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "tiff",
+    "bmp",
+    "svg",
+    "raw",
+    "webp",
+  ];
 
-export const isDocumentImage = (documents) => {
-  const image = documents?.find((file) => {
-    const splittedName = file?.document_location?.split(".");
-    const imageExtensions = ["jpg", "jpeg", "png", "webp"];
-  
-    return imageExtensions?.includes(splittedName[splittedName.length - 1])
-  });
-  return image || {};
-}
+  return imageExtensions?.includes(splittedName[splittedName.length - 1]);
+};
 
 export const getUserData = () => {
-  return store.getState().user.tokens
-}
-
+  return store.getState().user.tokens;
+};
 
 export const setUserTokenData = (token) => {
   store.dispatch(setUserTokens(token));
-}
+};
 
 export const formatDateWithBar = (date, spaced) => {
-  const dateNow = date.toString().split(" ")
-  const monthDay = dateNow[1] + " " + dateNow[2]
-  let time = dateNow[4].split(":")
-  let hour = time[0]
+  const dateNow = date.toString().split(" ");
+  const monthDay = dateNow[1] + " " + dateNow[2];
+  let time = dateNow[4].split(":");
+  let hour = time[0];
 
-  const ampm = parseInt(hour) >= 12 ? 'pm' : 'am';
-  hour %= 12
-  hour = hour || 12
+  const ampm = parseInt(hour) >= 12 ? "pm" : "am";
+  hour %= 12;
+  hour = hour || 12;
 
-  return `${monthDay}, ${dateNow[3]} ${spaced ? " " : "|" } ${hour}:${time[1]} ${ampm}`
-}
+  return `${monthDay}, ${dateNow[3]} ${spaced ? " " : "|"} ${hour}:${
+    time[1]
+  } ${ampm}`;
+};
 
 export const convertToSnakeCase = (inputString) => {
-  return inputString.toLowerCase().replace(/\s+/g, '_');
-}
+  return inputString.toLowerCase().replace(/\s+/g, "_");
+};
 
 export const getImageUrl = (url) => {
-  return `${process.env.REACT_APP_BACKEND_DOMAIN}${url}`
-}
+  return `${process.env.REACT_APP_BACKEND_DOMAIN}${url}`;
+};

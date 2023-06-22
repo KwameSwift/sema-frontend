@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { BsCloudUpload, BsFillTrashFill, BsPlusCircle } from "react-icons/bs";
+import { BsFillTrashFill, BsPlusCircle, BsTrash } from "react-icons/bs";
 import { useNavigate } from "react-router";
 import { axiosClientForm } from "../../../libs/axiosClient";
 import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
@@ -217,36 +217,46 @@ function AddCreatorBlogPage() {
     }
   };
 
+  const clearFile = () => {
+    fileRef.current.value = null;
+    setCoverImage(null);
+  }
+
   return (
     <ContentCreatorLayout header="New Blog">
-      <div className="admin-add-blog">
+      <div className="creator admin-add-blog">
         <form>
           <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>
             <img src={coverImage} className="w-[500px] h-[350px]" />
           </div>
           <div
-            className={`cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
-            onClick={() => fileRef.current.click()}
+            className={`flex flex-col cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
           >
-            <label className="text-[18px] font-bold">Cover Image</label>
-            <div className="mt-5 flex rounded-lg justify-center items-center h-[200px] w-[380px] p-4 bg-[#fff]">
-              <input
-                type="file"
-                ref={fileRef}
-                onChange={handleSetImage}
-                className="hidden"
-              />
-              <BsCloudUpload size={70} />
-            </div>
+            <label className="text-[18px] font-bold mb-5">Cover Image / Document</label>
+            <input
+              type="file"
+              ref={fileRef}
+              onChange={handleSetImage}
+            />
           </div>
           {coverImage && (
-            <button
-              type="button"
-              onClick={() => fileRef.current.click()}
-              className="mb-8 ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
-            >
-              Change cover image
-            </button>
+            <div className="flex mb-8 items-center h-[40px]">
+              <button
+                type="button"
+                onClick={() => fileRef.current.click()}
+                className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
+              >
+                Change cover image
+              </button>
+              <span className="ml-3">
+                <BsTrash
+                  className="cursor-pointer"
+                  onClick={clearFile}
+                  fill="#e14d2a"
+                  size={25}
+                />
+              </span>
+            </div>
           )}
           <div>
             <label className="text-[18px] font-bold">

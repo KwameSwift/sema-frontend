@@ -51,7 +51,7 @@ function HomePage() {
             <p className="text-center">Most Recent Posts</p>
           </div>
           <div className="blogs mt-8 px-8">
-            {blogs.map((elt, index) => 
+            {blogs.slice(0,3).map((elt, index) => 
               <BlogPost { ...elt } key={index} />
             )}
           </div>

@@ -3,7 +3,6 @@ import LeftSidebar from "../LeftSidebar";
 import TopSection from "../TopSection";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 function Layout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -11,8 +10,7 @@ function Layout({ children }) {
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    if (!user?.tokens?.access) {
-      toast.error("Unauthorized to access this page");
+    if (!user?.tokens?.access || !user.user.is_admin) {
       navigate("/login");
     }
   }, [user])
