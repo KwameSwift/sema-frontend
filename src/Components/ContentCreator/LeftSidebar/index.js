@@ -3,20 +3,13 @@ import { useDispatch } from "react-redux";
 import { FaEdit } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiHome, FiLock, FiLogOut } from "react-icons/fi";
-import {
-  BsBarChartFill,
-  BsCalendar2Event,
-  BsChatDots,
-  BsCheckCircleFill,
-  BsFileLock2,
-  BsFillHeartFill,
-  BsPencilSquare,
-} from "react-icons/bs";
+import { BsCheckCircleFill } from "react-icons/bs";
 import AccordionItem from "../../Common/Accordion";
 import { resetUserData } from "../../../Redux/slices/userSlice";
 import Avatar from "../../../Assets/images/person-img.png";
 
 import "./style.scss";
+import { creatorBlogLinks } from "../../../utils/appData/admin/leftNavData";
 
 function LeftSidebar({ isOpen, user }) {
   const navigate = useNavigate();
@@ -29,10 +22,22 @@ function LeftSidebar({ isOpen, user }) {
     navigate("/");
   };
 
-  // const isModuleAllowed = (name) => {
-  //   const currentModule = user.permissions.find((elt) => elt.module__name === name);
-  //   return currentModule?.access_level > 0;
-  // }
+  const getSelectedMenu = (route, category) => {
+    const linksRoutes = category.reduce((prev, curr) => {
+      prev.push(curr.route);
+      return prev;
+    }, []);
+    return linksRoutes.some(
+      (currentRoute) => currentRoute === route || route.startsWith(currentRoute)
+    );
+  };
+
+  const isModuleAllowed = (name) => {
+    const currentModule = user.permissions.find(
+      (elt) => elt.module__name === name
+    );
+    return currentModule?.access_level > 0;
+  };
 
   return (
     <div className="flex h-full content-creator-bg">
@@ -45,43 +50,57 @@ function LeftSidebar({ isOpen, user }) {
             </div>
             <h2 className="ml-2 mt-3 font-bold flex items-center text-[#fff] text-[17px]">
               <span>
-                {user.first_name} {user.last_name}
+                {user.user.first_name} {user.user.last_name}
               </span>
-              {user.is_verified && <span>
-                <BsCheckCircleFill className="ml-1" fill="#fff" />
-              </span>}
+              {user.user.is_verified && (
+                <span>
+                  <BsCheckCircleFill className="ml-1" fill="#fff" />
+                </span>
+              )}
             </h2>
-            <p className="text-[#fff] text-[15px]">{user.email}</p>
+            <p className="text-[#fff] text-[15px]">{user.user.email}</p>
           </div>
           <div className="w-full">
             <ul className="py-4 px-4 w-full">
               {/* Sidebar Items */}
               <li
                 className={`px-6 py-2 nav-item ${
-                  location.pathname.startsWith("/admin/dashboard") && "selected"
+                  location.pathname.startsWith("/creator/dashboard") && "selected"
                 } text-gray-200 hover:bg-gray-700 flex items-center`}
                 onClick={() => navigate("/creator/dashboard")}
               >
                 <FiHome size={20} className="mr-2" />
                 {isOpen && <span>HOME</span>}
               </li>
-              {/* <div className="mt-6">
-                <AccordionItem isDropOpen={getSelectedMenu(location.pathname, blogLinks)} icon="BsGrid" title="APPS">
-                  {blogLinks.map((elt) => (
-                    isModuleAllowed(elt.name) && <li
-                      className={`px-6 text-gray-200 ${
-                        location.pathname.startsWith(elt.route) && "selected"
-                      } nav-item flex justify-start items-center`}
-                      onClick={() => navigate(elt.route)}
-                      key={elt.id}
-                    >
-                      {elt.icon}
-                      {isOpen && <span>{elt.name}</span>}
-                    </li>
-                  ))}
-                </AccordionItem>
-              </div> */}
               <div className="mt-6">
+                <AccordionItem
+                  isDropOpen={getSelectedMenu(
+                    location.pathname,
+                    creatorBlogLinks
+                  )}
+                  icon="BsGrid"
+                  title="APPS"
+                  bg="#001253"
+                >
+                  {creatorBlogLinks.map(
+                    (elt) =>
+                      isModuleAllowed(elt.name) && (
+                        <li
+                          className={`px-6 text-gray-200 ${
+                            location.pathname.startsWith(elt.route) &&
+                            "selected"
+                          } nav-item flex justify-start items-center`}
+                          onClick={() => navigate(elt.route)}
+                          key={elt.id}
+                        >
+                          {elt.icon}
+                          {isOpen && <span>{elt.name}</span>}
+                        </li>
+                      )
+                  )}
+                </AccordionItem>
+              </div>
+              {/* <div className="mt-6">
                 <AccordionItem icon="BsGrid" title="APPS" bg="#001253">
                   <li
                     className={`px-6 text-gray-200 ${
@@ -113,7 +132,7 @@ function LeftSidebar({ isOpen, user }) {
                     {isOpen && <span>Forums</span>}
                   </li>
                 </AccordionItem>
-              </div>
+              </div> */}
               <div className="mt-6">
                 <AccordionItem icon="BsPeople" title="PROFILE" bg="#001253">
                   <li className="px-6 text-gray-200 nav-item flex justify-start items-center">

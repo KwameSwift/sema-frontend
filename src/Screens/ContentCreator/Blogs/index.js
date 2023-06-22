@@ -8,17 +8,20 @@ import "./style.scss";
 import { BsPlus, BsSearch } from "react-icons/bs";
 import { debounce } from "lodash";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../../Components/Modal";
+import { toast } from "react-toastify";
 
 function CreatorBlogs() {
   const [blogs, setBlogs] = useState([]);
-  const [, setModalState] = useState("");
-  const [, setSelectedId] = useState(0);
-  const [, setModalOpen] = useState(false);
+  const [modalState, setModalState] = useState("");
+  const [selectedId, setSelectedId] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalBlogs, setTotalBlogs] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [blogType, setBlogType] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -77,6 +80,21 @@ function CreatorBlogs() {
     searchBlogs(term);
   }, 300); 
 
+  const deleteBlog = async () => {
+    setLoading(true);
+    try {
+      await axiosClientWithHeaders.delete(`/blog/delete-blog-post/${selectedId}/`);
+      setLoading(false);
+      toast.success("Blog deleted successfully");
+      await new Promise((r) => setTimeout(r, 2000));
+      setModalOpen(false);
+      getAllBlogs(blogType, false);
+    } catch (err) {
+      setLoading(false);
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
     getAllBlogs();
   }, [currentPage]);
@@ -86,72 +104,82 @@ function CreatorBlogs() {
   }, [searchQuery])
 
   return (
-    <ContentCreatorLayout
-      header="Blogs"
-      subChild={`Total Count (${totalBlogs})`}
-    >
-      <div className="flex justify-between mt-3 items-center">
-        <div className="flex w-[80%]">
-          <div className="border bg-[#fff] rounded-lg items-center w-[60%] flex mt-5">
-            <BsSearch size={22} className="ml-3" />
-            <input
-              type="text"
-              placeholder="Search..."
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="outline-none p-4 h-[40px] w-[100%]"
-            />
+    <>
+      <ContentCreatorLayout
+        header="Blogs"
+        subChild={`Total Count (${totalBlogs})`}
+      >
+        <div className="flex justify-between mt-3 items-center">
+          <div className="flex w-[80%]">
+            <div className="border bg-[#fff] rounded-lg items-center w-[60%] flex mt-5">
+              <BsSearch size={22} className="ml-3" />
+              <input
+                type="text"
+                placeholder="Search..."
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="outline-none p-4 h-[40px] w-[100%]"
+              />
+            </div>
+            <div className="ml-10 flex flex-col">
+              <label>Blog Type</label>
+              <select
+                className="border rounded-lg p-1 w-[200px] h-[40px]"
+                onChange={filterBlogs}
+              >
+                <option value={0}>All</option>
+                <option value={1}>Approved</option>
+                <option value={2}>Unapproved</option>
+              </select>
+            </div>
           </div>
-          <div className="ml-10 flex flex-col">
-            <label>Blog Type</label>
-            <select
-              className="border rounded-lg p-1 w-[200px] h-[40px]"
-              onChange={filterBlogs}
-            >
-              <option value={0}>All</option>
-              <option value={1}>Approved</option>
-              <option value={2}>Unapproved</option>
-            </select>
+          <div className="mt-5 mr-3">
+            <button
+                className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
+                onClick={() => navigate("/creator/blogs/add")}
+              >
+              <BsPlus size={25}/>Blogs
+            </button>
           </div>
         </div>
-        <div className="mt-5 mr-3">
+        <div className="creator-blogs mt-10">
+          {blogs.map((elt, index) => (
+            <>
+              <ContentCreatorBlogCard
+                id={elt.id}
+                img={testImageRetrieve(elt)
+                  ? EmptyImg
+                  : `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
+                }
+                title={elt.title}
+                description={elt.preview_text}
+                author={elt.author__first_name + " " + elt.author__last_name}
+                posted_on={elt.created_on}
+                key={index}
+                status="Approve"
+                setModalOpen={handleModalOpen}
+              />
+            </>
+          ))}
+        </div>
+        {totalPages !== currentPage
+        && <div className="flex justify-center">
           <button
-              className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
-              onClick={() => navigate("/creator/blogs/add")}
-            >
-            <BsPlus size={25}/>Blogs
+            className="see-more-btn"
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+          >
+            See More...
           </button>
-        </div>
-      </div>
-      <div className="creator-blogs mt-10">
-        {blogs.map((elt, index) => (
-          <>
-            <ContentCreatorBlogCard
-              id={elt.id}
-              img={testImageRetrieve(elt)
-                ? EmptyImg
-                : `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
-              }
-              title={elt.title}
-              description={elt.preview_text}
-              author={elt.author__first_name + " " + elt.author__last_name}
-              posted_on={elt.created_on}
-              key={index}
-              status="Approve"
-              setModalOpen={handleModalOpen}
-            />
-          </>
-        ))}
-      </div>
-      {totalPages !== currentPage
-      && <div className="flex justify-center">
-        <button
-          className="see-more-btn"
-          onClick={() => setCurrentPage((prev) => prev + 1)}
-        >
-          See More...
-        </button>
-      </div>}
-    </ContentCreatorLayout>
+        </div>}
+      </ContentCreatorLayout>
+      <Modal 
+        data={selectedId}
+        type={modalState} 
+        isOpen={modalOpen} 
+        setIsOpen={setModalOpen} 
+        callbackAction={deleteBlog}
+        parentBtnLoading={loading}
+      />
+    </>
   );
 }
 

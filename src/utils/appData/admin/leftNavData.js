@@ -60,6 +60,45 @@ export const blogLinks = [
   },
 ];
 
+export const creatorBlogLinks = [
+  {
+    id: "blogs",
+    name: "Blogs",
+    route: "/creator/blogs",
+    icon: <BsPencilSquare size={20} className="mr-2" />,
+  },
+  {
+    id: "polls",
+    name: "Polls",
+    route: "/creator/polls",
+    icon: <BsBarChartFill size={20} className="mr-2" />,
+  },
+  {
+    id: "events",
+    name: "Events",
+    route: "/creator/events",
+    icon: <BsCalendar2Event size={20} className="mr-2" />,
+  },
+  {
+    id: "forums",
+    name: "Forums",
+    route: "/creator/forums",
+    icon: <BsChatDots size={20} className="mr-2" />,
+  },
+  {
+    id: "donations",
+    name: "Donations",
+    route: "/creator/donations",
+    icon: <BsFillHeartFill size={20} className="mr-2" />,
+  },
+  {
+    id: "documentVault",
+    name: "Documents Vault",
+    route: "/creator/document-vault",
+    icon: <BsFileLock2 size={20} className="mr-2" />,
+  },
+];
+
 export const roleLinks = [
   {
     id: "managing-roles",

@@ -44,7 +44,7 @@ function ContentCreatorLayout({ header, subChild, children, contentType }) {
 
   return ( 
     <div className="flex h-full justify-start">
-      <LeftSidebar isOpen={true} user={user.user} />
+      <LeftSidebar isOpen={true} user={user} />
       <div className='creator-content h-[100vh] overflow-auto w-full bg-gray-200'>
         <div className='salutation flex justify-between'>
           <div>

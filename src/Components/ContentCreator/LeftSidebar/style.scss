@@ -21,8 +21,8 @@
       cursor: pointer;
   
       &.selected {
-        color: #fff;
-        background-color: var(--primary-color);
+        color: var(--primary-blue-color);
+        background-color: #fff;
       }
   
       &:has(~ .nav-item:hover) {
@@ -35,7 +35,6 @@
   
     }
     .nav-item:hover {
-      // background-color: var(--secondary-blue-color);
       background-color: #fff;
       color: var(--primary-blue-color);
     }
