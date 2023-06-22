@@ -12,7 +12,7 @@ function ContentCreatorLayout({ header, subChild, children, contentType }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((store) => store.user.user);
+  const user = useSelector((store) => store.user);
 
   const addBlog = () => {
     return (
@@ -46,7 +46,7 @@ function ContentCreatorLayout({ header, subChild, children, contentType }) {
 
   return ( 
     <div className="flex h-full justify-start">
-      <LeftSidebar isOpen={true} user={user} />
+      <LeftSidebar isOpen={true} user={user.user} />
       <div className='creator-content h-[100vh] overflow-auto w-full bg-gray-200'>
         <div className='salutation flex justify-between'>
           <div>
