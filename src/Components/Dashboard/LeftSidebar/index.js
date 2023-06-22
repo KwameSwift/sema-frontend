@@ -7,9 +7,10 @@ import Logo from "../../../Assets/images/logo-small.png";
 import AccordionItem from "../../Common/Accordion";
 import { resetUserData } from "../../../Redux/slices/userSlice";
 import { blogLinks, roleLinks, userLinks } from "../../../utils/appData/admin/leftNavData";
+
 import "./style.scss";
 
-function LeftSidebar({ isOpen }) {
+function LeftSidebar({ isOpen, user }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,7 +20,6 @@ function LeftSidebar({ isOpen }) {
     dispatch(resetUserData());
     navigate("/");
   };
-
 
   const getSelectedMenu = (route, category) => {
     const linksRoutes = category.reduce(
@@ -31,6 +31,11 @@ function LeftSidebar({ isOpen }) {
     );
     return linksRoutes.some((currentRoute) => (currentRoute === route) || route.startsWith(currentRoute));
   };
+
+  const isModuleAllowed = (name) => {
+    const currentModule = user.permissions.find((elt) => elt.module__name === name);
+    return currentModule?.access_level > 0;
+  }
 
 
   return (
@@ -57,7 +62,7 @@ function LeftSidebar({ isOpen }) {
               <div className="mt-6">
                 <AccordionItem isDropOpen={getSelectedMenu(location.pathname, blogLinks)} icon="BsGrid" title="APPS">
                   {blogLinks.map((elt) => (
-                    <li
+                    isModuleAllowed(elt.name) && <li
                       className={`px-6 text-gray-200 ${
                         location.pathname.startsWith(elt.route) && "selected"
                       } nav-item flex justify-start items-center`}

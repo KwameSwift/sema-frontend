@@ -7,6 +7,7 @@ import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 import Modal from "../../../Components/Modal";
 
 import "./style.scss";
+import { debounce } from "lodash";
 
 function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -21,6 +22,7 @@ function UsersPage() {
   const [modalState, setModalState] = useState("");
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const headers = ["Name", "Email", "Country", "Role", "Account Type", ""];
 
@@ -62,11 +64,16 @@ function UsersPage() {
   }
 
   const deleteUser = async (userKey) => {
+    setLoading(true);
     try {
-      await axiosClientWithHeaders.delete("/users/delete-user/", {
-        user_key: userKey
-      })
+      await axiosClientWithHeaders.delete(`/super-admin/delete-single-user/${userKey}/`);
+      setLoading(false);
+      toast.success("User deleted successfully");
+      getAllUsers();
+      await new Promise((r) => setTimeout(r, 2000));
+      setModalOpen(false);
     } catch (err) {
+      setLoading(false);
       console.error(err);
     }
   }
@@ -147,6 +154,26 @@ function UsersPage() {
       console.log(err);
     }
   };
+
+  const searchUsers = async (term) => {
+    try {
+      const resp = await axiosClientWithHeaders.post("/super-admin/search-users/1/", {
+        search_query: term
+      });
+      setUsers(resp.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const debouncedSearch = debounce((term) => {
+    // Perform your search logic here
+    searchUsers(term);
+  }, 300); // Adjust the debounce delay as per your requirements
+
+  useEffect(() => {
+    debouncedSearch(searchQuery);
+  }, [searchQuery])
   
   useEffect(() => {
     getAllUsers();
@@ -166,6 +193,7 @@ function UsersPage() {
                 <input
                   type="text"
                   placeholder="Search..."
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="outline-none p-4 h-[40px] w-[100%]"
                 />
               </div>

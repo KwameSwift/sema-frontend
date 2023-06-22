@@ -24,6 +24,7 @@ function EditAdminBlogPage() {
   const [isOwned, setIsOwned] = useState(true);
   const [references, setReferences] = useState({});
   const [referenceItems, setReferenceItems] = useState([]);
+  const [censoredContent, setCensoredContent] = useState("");
 
   const [files, setFiles] = useState([]);
   const [fileItems, setFileItems] = useState([]);
@@ -231,7 +232,9 @@ function EditAdminBlogPage() {
       formData.append("files", file, `file${index}`);
     });
 
-    formData.append("cover_image", coverImageFile);
+    if (coverImageFile) {
+      formData.append("cover_image", coverImageFile);
+    }
 
     formData.append("blog_post_id", id);
 
@@ -259,8 +262,8 @@ function EditAdminBlogPage() {
             title: data.title,
             content: data.content,
             description: data.description,
-            censoredContent: data.censored_content
           });
+          setCensoredContent(data.censored_content);
           if (data.cover_image !== null && data.cover_image !== "null") {
             setCoverImage(
               `${process.env.REACT_APP_BACKEND_DOMAIN}${data.cover_image}`
@@ -375,7 +378,8 @@ function EditAdminBlogPage() {
               onChange={handleChange}
               placeholder="Add blog description..."
               name="description"
-              value={state.censoredContent}
+              value={censoredContent}
+              disabled
               rows={10}
               className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
             ></textarea>

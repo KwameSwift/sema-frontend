@@ -9,7 +9,6 @@ import {
   BsPencilSquare,
   BsGear
 } from "react-icons/bs";
-import { FaUserShield } from 'react-icons/fa';
 
 
 
@@ -55,7 +54,7 @@ export const blogLinks = [
   },
   {
     id: "documentVault",
-    name: "Document Vault",
+    name: "Documents Vault",
     route: "/admin/document-vault",
     icon: <BsFileLock2 size={20} className="mr-2" />,
   },
@@ -68,10 +67,4 @@ export const roleLinks = [
     route: "/admin/user-roles",
     icon: <BiUserCircle size={20} className="mr-2" />,
   },
-  {
-    id: "assigning-roles",
-    name: "Assigning Roles",
-    route: "/admin/assign-roles",
-    icon: <FaUserShield size={20} className="mr-2" />,
-  }
 ]

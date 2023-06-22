@@ -53,6 +53,7 @@ function SignupPage() {
         refresh: data.refresh,
       },
       user: data?.user,
+      permissions: data.permissions
     };
     dispatch(setUserData(payload));
     setLoading(false);

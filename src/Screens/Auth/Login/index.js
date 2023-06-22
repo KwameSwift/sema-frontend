@@ -40,7 +40,9 @@ function LoginPage() {
             refresh: data.refresh,
           },
           user: data.user,
+          permissions: data.permissions
         };
+        console.log(data.permissions);
         dispatch(setUserData(payload));
         setLoading(false);
         toast.success("Login successful");
