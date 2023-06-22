@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { axiosClientWithHeaders } from '../../../libs/axiosClient';
 import ReactQuill from 'react-quill';
 import { useParams } from 'react-router-dom';
-import Navbar from '../../../Components/Common/Navbar';
 import Avatar from "../../../Assets/images/person-img.png";
 import { BsChat, BsHeartFill } from 'react-icons/bs';
 import { getImageUrl } from '../../../utils/helpers';
+import Layout from '../../../Components/Dashboard/Layout';
 
 // import { useParams } from 'react-router-dom';
 
@@ -29,8 +29,7 @@ function PreviewBlogDataPage() {
   }, [id])
   
   return ( 
-    <>
-      <Navbar />
+    <Layout>
       <div className='mt-8 pb-8'>
         <div className='head-details mx-20 pb-3 border-gray-200'>
           <h1 className='text-[35px] font-bold text-center'>{blog.title}</h1>
@@ -69,7 +68,7 @@ function PreviewBlogDataPage() {
           />
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
 
