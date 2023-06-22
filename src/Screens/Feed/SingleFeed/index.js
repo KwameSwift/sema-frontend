@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import ReactQuill from "react-quill";
+import { BsChat, BsHeartFill } from "react-icons/bs";
 import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 import Navbar from "../../../Components/Common/Navbar";
 import Avatar from "../../../Assets/images/person-img.png";
-import { BsChat, BsHeartFill } from "react-icons/bs";
 import { getImageUrl } from "../../../utils/helpers";
-import ReactQuill from "react-quill";
 import BlogPost from "./components/blogPost";
 
 import "./style.scss";
@@ -14,8 +16,40 @@ function SinglePost() {
   const { id } = useParams();
   const [blog, setBlog] = useState({});
   const [bgImg, setBgImg] = useState("");
-
+  const [comment, setComment] = useState("");
   const [blogs, setBlogs] = useState([]);
+
+  const user = useSelector((store) => store.user);
+
+  const getSingleBlog = async () => {
+    try {
+      const resp = await axiosClientWithHeaders.get(
+        `/blog/single-blog-post/${id}/`
+      );
+      setBlog(resp.data.data);
+      setBgImg(resp.data.data.cover_image);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const addComment = async () => {
+    if (!user?.tokens?.access) {
+      toast.error("Please login to add a comment")
+    } else {
+      try {
+        setComment("");
+        await axiosClientWithHeaders.post("/blog/comment-on-blog-post/", {
+          comment,
+          blog_post_id: id,
+        });
+        toast.success("Comment added successfully");
+        getSingleBlog();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
 
   useEffect(() => {
     const getAllBlogs = async () => {
@@ -32,18 +66,6 @@ function SinglePost() {
 
   useEffect(() => {
     if (id) {
-      const getSingleBlog = async () => {
-        try {
-          const resp = await axiosClientWithHeaders.get(
-            `/blog/single-blog-post/${id}/`
-          );
-          setBlog(resp.data.data);
-          setBgImg(resp.data.data.cover_image);
-        } catch (err) {
-          console.error(err);
-        }
-      };
-
       getSingleBlog();
     }
   }, [id]);
@@ -75,7 +97,7 @@ function SinglePost() {
             </div>
             <div className="flex ml-3 items-center">
               <BsChat fill="#ccc" />
-              <span className="ml-2 text-[#ccc]">0</span>
+              <span className="ml-2 text-[#ccc]">{blog.total_comments}</span>
             </div>
           </div>
         </div>
@@ -104,9 +126,12 @@ function SinglePost() {
             </div>
           </div>
           <div className="other-blogs mt-8 px-8">
-            {blogs.filter((elt) => elt.id !== blog.id).slice(0, 3).map((elt, index) => (
-              <BlogPost {...elt} key={index} />
-            ))}
+            {blogs
+              .filter((elt) => elt.id !== blog.id)
+              .slice(0, 3)
+              .map((elt, index) => (
+                <BlogPost {...elt} key={index} />
+              ))}
           </div>
         </div>
         <div className="comments">
@@ -118,103 +143,62 @@ function SinglePost() {
             </div>
           </div>
           <div className="mt-8">
-            <div className="flex items-center">
-              <img
-                src={Avatar}
-                className="w-[60px] h-[60px]"
-                alt="avatar"
-                title="avatar"
-              />
-              <div className="ml-2">
-                <div>
-                  <p className="text-[15px]">Author</p>
-                  <span className="text-[13px] text-[#7d7c7c]">
-                    {/* {calculateTime(props.created_on)} */}2 days ago
-                  </span>
+            {blog?.comments?.map((elt) =>
+            <>
+              <div className="flex items-center ">
+                <img
+                  src={Avatar}
+                  className="w-[60px] h-[60px]"
+                  alt="avatar"
+                  title="avatar"
+                />
+                <div className="ml-2">
+                  <div>
+                    <p className="text-[15px]">{elt.commentor__first_name} {elt.commentor__last_name}</p>
+                    <span className="text-[13px] text-[#7d7c7c]">
+                      {/* {calculateTime(props.created_on)} */}2 days ago
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="ml-[65px]">
-              <div>
-                <p>
-                  Duis autem vel eum iriure dolor in hendrerit in vulputate
-                  velit esse molestie consequat, vel illum dolore eu feugiat
-                  nulla facilisis at vero eros et accumsan et iusto odio
-                  dignissim qui blandit praesent luptatum zzril delenit augue
-                  duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit
-                  amet, consectetuer adipiscing elit
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="mt-8">
-            <div className="flex items-center">
-              <img
-                src={Avatar}
-                className="w-[60px] h-[60px]"
-                alt="avatar"
-                title="avatar"
-              />
-              <div className="ml-2">
+              <div className="ml-[65px] mb-8">
                 <div>
-                  <p className="text-[15px]">Author</p>
-                  <span className="text-[13px] text-[#7d7c7c]">
-                    {/* {calculateTime(props.created_on)} */}2 days ago
-                  </span>
+                  <p>
+                    {elt.comment}
+                  </p>
                 </div>
               </div>
-            </div>
-            <div className="ml-[65px]">
-              <div>
-                <p>
-                  Duis autem vel eum iriure dolor in hendrerit in vulputate
-                  velit esse molestie consequat, vel illum dolore eu feugiat
-                  nulla facilisis at vero eros et accumsan et iusto odio
-                  dignissim qui blandit praesent luptatum zzril delenit augue
-                  duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit
-                  amet, consectetuer adipiscing elit
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="mt-8">
-            <div className="flex items-center">
-              <img
-                src={Avatar}
-                className="w-[60px] h-[60px]"
-                alt="avatar"
-                title="avatar"
-              />
-              <div className="ml-2">
-                <div>
-                  <p className="text-[15px]">Author</p>
-                  <span className="text-[13px] text-[#7d7c7c]">
-                    {/* {calculateTime(props.created_on)} */}2 days ago
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="ml-[65px]">
-              <div>
-                <p>
-                  Duis autem vel eum iriure dolor in hendrerit in vulputate
-                  velit esse molestie consequat, vel illum dolore eu feugiat
-                  nulla facilisis at vero eros et accumsan et iusto odio
-                  dignissim qui blandit praesent luptatum zzril delenit augue
-                  duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit
-                  amet, consectetuer adipiscing elit
-                </p>
-              </div>
-            </div>
+            </>
+            )}
+
           </div>
         </div>
         <div className="mt-10">
           <div className="comment-sect">
             <div className="element">
               <div className="left-bar"></div>
-              <div className="text">{blog.total_comments} Comments</div>
+              <div className="text">Leave a reply</div>
               <div className="right-bar"></div>
             </div>
+          </div>
+          <div className="flex flex-col mt-8">
+            <label className="text-[16px]">Comment</label>
+            <textarea
+              value={comment}
+              placeholder="Leave a comment"
+              onChange={(e) => setComment(e.target.value)}
+              className="mt-3 leave-comment border border-gray-700"
+              rows={4}
+            ></textarea>
+          </div>
+          <div className="flex mt-3 justify-end">
+            <button
+              onClick={addComment}
+              type="button"
+              className="bg-[#e14d2a] text-[#fff] py-1 px-3"
+            >
+              Send
+            </button>
           </div>
         </div>
       </div>

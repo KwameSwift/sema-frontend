@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
 import Layout from "../../../Components/Dashboard/Layout";
-import { BsFillTrashFill, BsPlusCircle } from "react-icons/bs";
+import { BsFillTrashFill, BsPlusCircle, BsTrash } from "react-icons/bs";
 import { useNavigate } from "react-router";
 import { axiosClientForm } from "../../../libs/axiosClient";
 import { toast } from "react-toastify";
 import AdminAccordionItem from "../../../Components/Admin/Accordion";
 import CustomEditor from "../../../Components/Common/CustomEditor";
+import { isDocumentImage } from "../../../utils/helpers";
 
 import "./style.scss";
 
@@ -20,7 +21,7 @@ function AddBlogPage() {
   const [isOwned, setIsOwned] = useState(true);
   const [fileItems, setFileItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [coverImageType, setCoverImageType] = useState("");
+  const [coverImageType, setCoverImageType] = useState("");
   const fileRef = useRef(null);
 
   const [files, setFiles] = useState([]);
@@ -68,6 +69,7 @@ function AddBlogPage() {
     }
 
     const reference = Object.values(references);
+    const linkVals = Object.values(links);
 
     // Create a new FormData object
     const formData = new FormData();
@@ -79,8 +81,12 @@ function AddBlogPage() {
       formData.append("reference", reference);
     }
 
-    files.forEach((file, index) => {
-      formData.append("files", file, `file${index}`);
+    linkVals.forEach((file) => {
+      formData.append("links[]", file);
+    });
+
+    files.forEach((file) => {
+      formData.append("files[]", file);
     });
 
     if (coverImageFile) {
@@ -212,6 +218,7 @@ function AddBlogPage() {
   const handleSetImage = (e) => {
     const file = e.target.files[0];
     setCoverImgFile(file);
+    setCoverImageType(isDocumentImage(file.name));
     setCoverImage(URL.createObjectURL(file));
   };
 
@@ -219,15 +226,21 @@ function AddBlogPage() {
     setReferenceItems([...referenceItems, referenceItem()]);
   };
 
+  const clearFile = () => {
+    fileRef.current.value = null;
+    setCoverImageType("");
+    setCoverImage(null);
+  }
+
   return (
     <Layout>
       <div className="admin-add-blog">
         <form>
-          <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>
+          <div className={`mt-5 mb-8 ${!coverImageType && "hidden"}`}>
             <img src={coverImage} className="w-[500px] h-[350px]" />
           </div>
           <div
-            className={`flex flex-col cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
+            className={`flex flex-col cursor-pointer ${coverImageType && "hidden"} mt-5 mb-8`}
           >
             <label className="text-[18px] font-bold mb-5">Cover Image / Document</label>
             <input
@@ -236,14 +249,24 @@ function AddBlogPage() {
               onChange={handleSetImage}
             />
           </div>
-          {coverImage && (
-            <button
-              type="button"
-              onClick={() => fileRef.current.click()}
-              className="mb-8 ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
-            >
-              Change cover image
-            </button>
+          {coverImageType && (
+            <div className="flex mb-8 items-center h-[40px]">
+              <button
+                type="button"
+                onClick={() => fileRef.current.click()}
+                className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
+              >
+                Change cover image
+              </button>
+              <span className="ml-3">
+                <BsTrash
+                  className="cursor-pointer"
+                  onClick={clearFile}
+                  fill="#e14d2a"
+                  size={25}
+                />
+              </span>
+            </div>
           )}
           <div>
             <label className="text-[18px] font-bold">

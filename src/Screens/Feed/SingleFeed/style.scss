@@ -17,6 +17,12 @@
   .ql-container.ql-disabled .ql-editor {
     outline: none;
   }
+  .leave-comment {
+    &::placeholder{
+      padding: 2px;
+    }
+    padding: 10px;
+  }
   .other-blogs-sect {
     .other-blogs {
       display: inline-flex;

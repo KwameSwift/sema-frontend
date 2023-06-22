@@ -56,7 +56,7 @@ export const isDocumentImage = (file) => {
     "webp",
   ];
 
-  return imageExtensions?.includes(splittedName[splittedName.length - 1]);
+  return imageExtensions?.includes((splittedName[splittedName.length - 1])?.toLowerCase());
 };
 
 export const getUserData = () => {

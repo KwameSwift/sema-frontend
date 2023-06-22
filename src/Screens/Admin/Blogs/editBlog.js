@@ -290,6 +290,26 @@ function EditAdminBlogPage() {
             );
             setReferenceItems(prevReferenceItems);
           }
+          if (data?.links) {
+            const splittedLinks = data?.links?.split(",") || [];
+            console.log(data.links);
+            const prevLinks = splittedLinks.reduce(
+              (prev, curr, index) => {
+                prev[`link-${index}`] = curr;
+                return prev;
+              },
+              {}
+            );
+            setLinks(prevLinks);
+            const prevLinkItems = splittedLinks.reduce(
+              (prev, curr, index) => {
+                prev.push(linkItem(index, curr));
+                return prev;
+              },
+              []
+            );
+            setLinkItems(prevLinkItems);
+          }
         } catch (err) {
           console.log(err);
         }
