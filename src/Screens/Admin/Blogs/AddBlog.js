@@ -81,8 +81,8 @@ function AddBlogPage() {
       formData.append("reference", reference);
     }
 
-    linkVals.forEach((file) => {
-      formData.append("links[]", file);
+    linkVals.forEach((link) => {
+      formData.append("links[]", link);
     });
 
     files.forEach((file) => {
@@ -365,7 +365,6 @@ function AddBlogPage() {
                 <span className="text-['#001253']">Add Files</span>
               </button>
             </AdminAccordionItem>
-
           </div>
           <div className="mt-5 flex justify-end">
             <div>

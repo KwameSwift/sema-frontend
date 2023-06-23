@@ -95,7 +95,7 @@ function EditAdminBlogPage() {
           type="text"
           name={`link-${itemCount}`}
           value={links[`link-${itemCount}`]}
-          className="link-input mr-3"
+          className="admin-link-input border border-gray-700 mr-3 p-2 w-[60%]"
           placeholder="Enter link address"
           onChange={handleLinkChange}
         />
@@ -118,7 +118,7 @@ function EditAdminBlogPage() {
         <input
           type="text"
           name={`reference-${itemCount}`}
-          className="link-input mr-3"
+          className="admin-link-input border border-gray-700 mr-3 p-2 w-[60%]"
           value={references[`reference-${itemCount}`]}
           defaultValue={defaultValue}
           placeholder="Enter reference address"
@@ -147,7 +147,7 @@ function EditAdminBlogPage() {
         <input
           type="file"
           name={`file-${fileItems.length}`}
-          className="link-input mr-3"
+          className="admin-link-input border border-gray-700 mr-3 p-2 w-[60%]"
           onChange={handleSetFiles}
           multiple
         />
@@ -226,8 +226,8 @@ function EditAdminBlogPage() {
       formData.append(key, value);
     }
 
-    linkVals.forEach((file) => {
-      formData.append("links[]", file);
+    linkVals.forEach((link) => {
+      formData.append("links[]", link);
     });
 
     if (reference.length) {
@@ -235,7 +235,7 @@ function EditAdminBlogPage() {
     }
 
     files.forEach((file, index) => {
-      formData.append("files", file, `file${index}`);
+      formData.append("files[]", file, `file${index}`);
     });
 
     if (coverImageFile) {
