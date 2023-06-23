@@ -155,8 +155,8 @@ function AddCreatorBlogPage() {
   };
 
   const handleSetContent = (value) => {
-    setState({ ...state, content: value});
-  }
+    setState({ ...state, content: value });
+  };
 
   const handleLinkAddition = () => {
     setLinkItems([...linkItems, linkItem()]);
@@ -225,7 +225,7 @@ function AddCreatorBlogPage() {
   const clearFile = () => {
     fileRef.current.value = null;
     setCoverImage(null);
-  }
+  };
 
   return (
     <ContentCreatorLayout header="New Blog">
@@ -235,14 +235,14 @@ function AddCreatorBlogPage() {
             <img src={coverImage} className="w-[500px] h-[350px]" />
           </div>
           <div
-            className={`flex flex-col cursor-pointer ${coverImage && "hidden"} mt-5 mb-8`}
+            className={`flex flex-col cursor-pointer ${
+              coverImage && "hidden"
+            } mt-5 mb-8`}
           >
-            <label className="text-[18px] font-bold mb-5">Cover Image / Document</label>
-            <input
-              type="file"
-              ref={fileRef}
-              onChange={handleSetImage}
-            />
+            <label className="text-[18px] font-bold mb-5">
+              Cover Image / Document
+            </label>
+            <input type="file" ref={fileRef} onChange={handleSetImage} />
           </div>
           {coverImage && (
             <div className="flex mb-8 items-center h-[40px]">
@@ -289,9 +289,9 @@ function AddCreatorBlogPage() {
             <label className="text-[18px] font-bold">
               Blog Content<span className="text-[#e14d2a]">*</span>
             </label>
-            <CustomEditor 
-              className="mt-5" 
-              placeholder="Write here..." 
+            <CustomEditor
+              className="mt-5"
+              placeholder="Write here..."
               setData={handleSetContent}
               data={state.content}
             />
@@ -361,7 +361,11 @@ function AddCreatorBlogPage() {
           </div>
           <div className="mt-5 flex justify-end">
             <div>
-              <button type="button" className="border rounded px-3 py-2">
+              <button
+                type="button bg-[#fff]"
+                onClick={() => navigate("/creator/blogs")}
+                className="border rounded px-3 py-2"
+              >
                 Cancel
               </button>
               <button

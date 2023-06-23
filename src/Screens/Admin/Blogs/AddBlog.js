@@ -31,7 +31,7 @@ function AddBlogPage() {
   const handleChange = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -103,7 +103,7 @@ function AddBlogPage() {
       console.log(err);
       setLoading(false);
     }
-  }
+  };
 
   const handleReferenceChange = (e) => {
     setReferences({
@@ -119,7 +119,6 @@ function AddBlogPage() {
     }
     setFiles(addFiles);
   };
-
 
   const linkItem = () => {
     return (
@@ -148,7 +147,6 @@ function AddBlogPage() {
     );
   };
 
-  
   const referenceItem = () => {
     return (
       <div className="flex items-center mb-3">
@@ -204,8 +202,8 @@ function AddBlogPage() {
   };
 
   const handleSetContent = (value) => {
-    setState({ ...state, content: value});
-  }
+    setState({ ...state, content: value });
+  };
 
   const handleLinkAddition = () => {
     setLinkItems([...linkItems, linkItem()]);
@@ -230,7 +228,7 @@ function AddBlogPage() {
     fileRef.current.value = null;
     setCoverImageType("");
     setCoverImage(null);
-  }
+  };
 
   return (
     <Layout>
@@ -240,14 +238,14 @@ function AddBlogPage() {
             <img src={coverImage} className="w-[500px] h-[350px]" />
           </div>
           <div
-            className={`flex flex-col cursor-pointer ${coverImageType && "hidden"} mt-5 mb-8`}
+            className={`flex flex-col cursor-pointer ${
+              coverImageType && "hidden"
+            } mt-5 mb-8`}
           >
-            <label className="text-[18px] font-bold mb-5">Cover Image / Document</label>
-            <input
-              type="file"
-              ref={fileRef}
-              onChange={handleSetImage}
-            />
+            <label className="text-[18px] font-bold mb-5">
+              Cover Image / Document
+            </label>
+            <input type="file" ref={fileRef} onChange={handleSetImage} />
           </div>
           {coverImageType && (
             <div className="flex mb-8 items-center h-[40px]">
@@ -294,9 +292,9 @@ function AddBlogPage() {
             <label className="text-[18px] mb-5 font-bold">
               Blog Content<span className="text-[#e14d2a]">*</span>
             </label>
-            <CustomEditor 
-              className="mt-5" 
-              placeholder="Write here..." 
+            <CustomEditor
+              className="mt-5"
+              placeholder="Write here..."
               setData={handleSetContent}
               data={state.content}
             />
@@ -368,7 +366,11 @@ function AddBlogPage() {
           </div>
           <div className="mt-5 flex justify-end">
             <div>
-              <button type="button" className="border rounded px-3 py-2">
+              <button
+                type="button"
+                onClick={() => navigate("/admin/blogs")}
+                className="border rounded px-3 py-2"
+              >
                 Cancel
               </button>
               <button

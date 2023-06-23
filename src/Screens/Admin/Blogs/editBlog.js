@@ -478,7 +478,7 @@ function EditAdminBlogPage() {
           </div>
           <div className="mt-5 flex justify-end">
             <div>
-              <button type="button" className="border rounded px-3 py-2">
+              <button type="button" onClick={() => navigate("/admin/blogs")} className="border rounded px-3 py-2">
                 Cancel
               </button>
               <button

@@ -49,8 +49,8 @@ function EditCreatorBlogPage() {
   };
 
   const handleSetContent = (value) => {
-    setState({ ...state, content: value});
-  }
+    setState({ ...state, content: value });
+  };
 
   const handleChange = (e) => {
     setState({
@@ -353,9 +353,9 @@ function EditCreatorBlogPage() {
             <label className="text-[18px] font-bold">
               Blog Content<span className="text-[#e14d2a]">*</span>
             </label>
-            <CustomEditor 
-              className="mt-5" 
-              placeholder="Write here..." 
+            <CustomEditor
+              className="mt-5"
+              placeholder="Write here..."
               setData={handleSetContent}
               data={state.content}
             />
@@ -425,7 +425,11 @@ function EditCreatorBlogPage() {
           </div>
           <div className="mt-5 flex justify-end">
             <div>
-              <button type="button" className="border rounded px-3 py-2">
+              <button
+                type="button"
+                onClick={() => navigate("/creator/blogs")}
+                className="border rounded px-3 py-2"
+              >
                 Cancel
               </button>
               <button

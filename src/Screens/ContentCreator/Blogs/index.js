@@ -120,7 +120,7 @@ function CreatorBlogs() {
                 className="outline-none p-4 h-[40px] w-[100%]"
               />
             </div>
-            <div className="ml-10 flex flex-col">
+            <div className="ml-10 mt-4 flex flex-col">
               <label>Blog Type</label>
               <select
                 className="border rounded-lg p-1 w-[200px] h-[40px]"
