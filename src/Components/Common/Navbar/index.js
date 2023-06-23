@@ -51,7 +51,7 @@ function Navbar() {
   }
 
   return (
-    <nav className="navbar sticky top-0 z-50 bg-[#fff] h-[10vh]">
+    <nav className="navbar-wrapper sticky top-0 z-50 bg-[#fff] h-[10vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between h-full">
           <div

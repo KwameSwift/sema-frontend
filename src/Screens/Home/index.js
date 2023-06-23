@@ -7,6 +7,7 @@ import BlogPost from "../../Components/Blog/Post";
 import { axiosClient } from "../../libs/axiosClient";
 // import Poll from "../../Components/Poll";
 // import UnderConstructionPage from "../../Components/PageUnderConstruction";
+import HomeBanners from "./components/bannerSection";
 import "./style.scss";
 
 function HomePage() {
@@ -29,7 +30,7 @@ function HomePage() {
     <div className="h-full">
       <Navbar />
       <div className="bg-gray-200 pb-8 h-full">
-        <div className="banner-img h-[500px]">
+        {/* <div className="banner-img h-[500px]">
           <div className="overlay flex">
             <div className="flex flex-col mx-[20%] justify-center items-center">
               <h1 className="text-[#fff] text-[2.5em] typing-animation">
@@ -44,7 +45,8 @@ function HomePage() {
               <p className="mt-5 text-[15px] text-[#f8f8f8]">John Doe - 3 days ago. </p>
             </div>
           </div>
-        </div>
+        </div> */}
+        <HomeBanners />
         <div className="recent-articles flex flex-col justify-center mt-20">
           <div className="flex flex-col justify-center align-items">
             <h1 className="text-[40px] text-center">Recent Blogs</h1>

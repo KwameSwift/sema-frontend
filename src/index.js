@@ -14,6 +14,7 @@ import App from './App';
 
 import 'react-toastify/dist/ReactToastify.css';
 import "react-quill/dist/quill.snow.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.scss';
 
 let persist = persistStore(store);
