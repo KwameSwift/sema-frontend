@@ -62,13 +62,18 @@ function Navbar() {
             <p className="font-bold text-[1em] logo-text">SEMA</p>
           </div>
           <div className="flex items-center">
-            {hyperLinks.map((elt, index) => 
+            {hyperLinks.map((elt, index) => (
               <div className="relative nav-link" key={index}>
-                <button className={`hidden sm:flex items-center nav-item ${location.pathname === elt.route && "selected"} focus:outline-none`}>
+                <button
+                  onClick={() => navigate(elt.route)}
+                  className={`hidden sm:flex items-center nav-item ${
+                    location.pathname === elt.route && "selected"
+                  } focus:outline-none`}
+                >
                   <span className="mr-1">{elt.name}</span>
                 </button>
               </div>
-            )}
+            ))}
           </div>
           <div className="flex items-center">
             <div className="relative flex">
@@ -88,9 +93,7 @@ function Navbar() {
                   <path d="M3 12h18M3 6h18M3 18h18"></path>
                 </svg>
               </button>
-              <button
-                className="hidden mr-5 sm:flex items-center nav-link focus:outline-none"
-              >
+              <button className="hidden mr-5 sm:flex items-center nav-link focus:outline-none">
                 <BsSearch size={18} className="account-icon" />
               </button>
               <button
