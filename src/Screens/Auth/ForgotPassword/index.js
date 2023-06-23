@@ -56,7 +56,7 @@ function ForgotPasswordPage() {
           </div>
           <div className="head-sect">
             <h1>Recover your password</h1>
-            <p>
+            <p className="mt-2">
               Enter your email address below to receive further instructions
             </p>
           </div>

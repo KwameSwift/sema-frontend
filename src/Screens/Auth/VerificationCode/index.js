@@ -72,7 +72,7 @@ function VerificationCode() {
           <div className="head-sect">
             <h1>Verification Code</h1>
             <SocialLoginButtons />
-            <p className='verify-code subtext'>
+            <p className='mt-3 mb-3 verify-code subtext'>
               Enter your verification code.
             </p>
           </div>

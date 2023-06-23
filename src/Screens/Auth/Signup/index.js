@@ -114,7 +114,7 @@ function SignupPage() {
               <RegisterSecondStep handleChange={handleChange} options={countries} />
             )}
             {progress === 0 && (
-              <div className="row user-type-sect">
+              <div className="flex user-type-sect">
                 <div
                   className={`type-item ${
                     userType === "Guest" ? "selected" : ""
