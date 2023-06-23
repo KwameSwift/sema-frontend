@@ -42,7 +42,7 @@ function AdminCreatorBlogCard({
     {
       id: "view",
       name: status === "Approve" ? "Preview" : "View",
-      route: status === "Approve" ? `/admin/blogs/preview/${id}`: `/blogs/${id}`,
+      route: status === "Approve" ? `/admin/blogs/preview/${id}`: `/blog/${id}`,
     },
   ];
 

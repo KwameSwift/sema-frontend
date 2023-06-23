@@ -16,9 +16,9 @@ function Layout({ children }) {
   }, [user])
 
   return (
-    <div className="flex justify-start overflow-hidden">
+    <div className="flex h-full justify-start overflow-hidden">
       <LeftSidebar isOpen={isSidebarOpen} user={user} />
-      <div className={isSidebarOpen ? "w-[83%]": "w-[100%]"}>
+      <div className={`creator-content p-0 h-[100vh] overflow-auto w-full ${isSidebarOpen ? "w-[83%]": "w-[100%]"}`}>
         <TopSection 
           isOpen={isSidebarOpen} 
           setIsOpen={setIsSidebarOpen} 

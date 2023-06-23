@@ -39,7 +39,7 @@ function LeftSidebar({ isOpen, user }) {
 
 
   return (
-    <div className={`flex h-screen`}>
+    <div className="flex h-screen">
       {isOpen && (
         <div className="sidebar overflow-auto bg-[#fff] flex-shrink-0 flex flex-col justify-start items-start">
           {/* Sidebar Content */}
