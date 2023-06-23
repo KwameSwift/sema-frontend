@@ -117,6 +117,14 @@ function SinglePost() {
             modules={{ toolbar: false }}
           />
         </div>
+        <div>
+          <p>Links</p>
+          <ul>
+            {blog?.links?.map((elt) => 
+              <li className="text-[blue] underline" key={elt}>{elt}</li>
+            )}
+          </ul>
+        </div>
         <div className="other-blogs-sect mt-20">
           <div className="comment-sect">
             <div className="element">

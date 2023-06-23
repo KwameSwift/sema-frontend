@@ -187,6 +187,7 @@ function AddCreatorBlogPage() {
     }
 
     const reference = Object.values(references);
+    const linkVals = Object.values(links);
 
     // Create a new FormData object
     const formData = new FormData();
@@ -200,6 +201,10 @@ function AddCreatorBlogPage() {
 
     files.forEach((file, index) => {
       formData.append("files", file, `file${index}`);
+    });
+
+    linkVals.forEach((file) => {
+      formData.append("links[]", file);
     });
 
     if (coverImageFile) {

@@ -217,12 +217,18 @@ function EditAdminBlogPage() {
     }
 
     const reference = Object.values(references);
+    const linkVals = Object.values(links);
+
 
     // Create a new FormData object
     const formData = new FormData();
     for (let [key, value] of Object.entries(state)) {
       formData.append(key, value);
     }
+
+    linkVals.forEach((file) => {
+      formData.append("links[]", file);
+    });
 
     if (reference.length) {
       formData.append("reference", reference);
