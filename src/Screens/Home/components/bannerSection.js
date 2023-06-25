@@ -9,7 +9,7 @@ function HomeBanners() {
     <Carousel>
       <Carousel.Item interval={2000}>
         <img
-          className="d-block w-100 max-h-[750px]"
+          className="d-block w-100 max-h-[900px]"
           src={TestImg}
           alt="First slide"
         />
@@ -20,7 +20,7 @@ function HomeBanners() {
       </Carousel.Item>
       <Carousel.Item interval={2000}>
         <img
-          className="d-block w-100 max-h-[750px]"
+          className="d-block w-100 max-h-[900px]"
           src={TestImgOne}
           alt="Second slide"
         />
@@ -31,7 +31,7 @@ function HomeBanners() {
       </Carousel.Item>
       <Carousel.Item interval={2000}>
         <img
-          className="d-block w-100 max-h-[750px]"
+          className="d-block w-100 max-h-[900px]"
           src={TestImgTwo}
           alt="Third slide"
         />

@@ -117,6 +117,8 @@ function SinglePost() {
             modules={{ toolbar: false }}
           />
         </div>
+        {blog?.links?.length > 0
+        && 
         <div>
           <p>Links</p>
           <ul>
@@ -124,7 +126,7 @@ function SinglePost() {
               <li className="text-[blue] underline" key={elt}>{elt}</li>
             )}
           </ul>
-        </div>
+        </div>}
         <div className="other-blogs-sect mt-20">
           <div className="comment-sect">
             <div className="element">
@@ -185,7 +187,7 @@ function SinglePost() {
           <div className="comment-sect">
             <div className="element">
               <div className="left-bar"></div>
-              <div className="text">Leave a reply</div>
+              <div className="text">Leave a comment</div>
               <div className="right-bar"></div>
             </div>
           </div>

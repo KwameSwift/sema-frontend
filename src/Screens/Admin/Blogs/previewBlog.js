@@ -167,7 +167,7 @@ function PreviewBlogDataPage() {
           <div className="comment-sect">
             <div className="element">
               <div className="left-bar"></div>
-              <div className="text">Leave a reply</div>
+              <div className="text">Leave a comment</div>
               <div className="right-bar"></div>
             </div>
           </div>
