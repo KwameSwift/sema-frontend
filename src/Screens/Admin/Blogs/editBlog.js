@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   BsFillTrashFill,
+  BsLink45Deg,
   BsPlusCircle,
   BsTrash,
 } from "react-icons/bs";
@@ -12,10 +13,10 @@ import {
   axiosClientWithHeaders,
 } from "../../../libs/axiosClient";
 import Layout from "../../../Components/Dashboard/Layout";
-
-import "./style.scss";
 import AdminAccordionItem from "../../../Components/Admin/Accordion";
 import CustomEditor from "../../../Components/Common/CustomEditor";
+
+import "./style.scss";
 
 function EditAdminBlogPage() {
   const [state, setState] = useState({});
@@ -28,6 +29,8 @@ function EditAdminBlogPage() {
 
   const [files, setFiles] = useState([]);
   const [fileItems, setFileItems] = useState([]);
+  const [existingFiles, setExistingFiles] = useState([]);
+  const [, setDeletedFiles] = useState([]);
 
   const [, setBlog] = useState({});
 
@@ -190,8 +193,8 @@ function EditAdminBlogPage() {
   };
 
   const handleSetContent = (value) => {
-    setState({ ...state, content: value});
-  }
+    setState({ ...state, content: value });
+  };
 
   const handleReferenceAddition = () => {
     setReferenceItems([...referenceItems, referenceItem()]);
@@ -219,7 +222,6 @@ function EditAdminBlogPage() {
 
     const reference = Object.values(references);
     const linkVals = Object.values(links);
-
 
     // Create a new FormData object
     const formData = new FormData();
@@ -255,6 +257,13 @@ function EditAdminBlogPage() {
       setLoading(false);
       console.log(err);
     }
+  };
+
+  const removeExistingItems = (id) => {
+    const filesExisted = [...existingFiles];
+    setExistingFiles(filesExisted.filter((elt) => elt.id !== id));
+    const file = existingFiles.find((elt) => elt.id === id);
+    setDeletedFiles([ ...existingFiles, file ]);
   };
 
   useEffect(() => {
@@ -297,23 +306,18 @@ function EditAdminBlogPage() {
             );
             setReferenceItems(prevReferenceItems);
           }
+          setExistingFiles(data?.documents);
           if (data?.links) {
             const splittedLinks = data?.links || [];
-            const prevLinks = splittedLinks.reduce(
-              (prev, curr, index) => {
-                prev[`link-${index}`] = curr;
-                return prev;
-              },
-              {}
-            );
+            const prevLinks = splittedLinks.reduce((prev, curr, index) => {
+              prev[`link-${index}`] = curr;
+              return prev;
+            }, {});
             setLinks(prevLinks);
-            const prevLinkItems = splittedLinks.reduce(
-              (prev, curr, index) => {
-                prev.push(linkItem(index, curr));
-                return prev;
-              },
-              []
-            );
+            const prevLinkItems = splittedLinks.reduce((prev, curr, index) => {
+              prev.push(linkItem(index, curr));
+              return prev;
+            }, []);
             setLinkItems(prevLinkItems);
           }
         } catch (err) {
@@ -332,9 +336,13 @@ function EditAdminBlogPage() {
             <img src={coverImage} className="w-[500px] h-[350px]" />
           </div>
           <div
-            className={`cursor-pointer flex flex-col ${coverImage && "hidden"} mt-5 mb-8`}
+            className={`cursor-pointer flex flex-col ${
+              coverImage && "hidden"
+            } mt-5 mb-8`}
           >
-            <label className="text-[18px] font-bold">Cover Image / Document</label>
+            <label className="text-[18px] font-bold">
+              Cover Image / Document
+            </label>
             <input
               type="file"
               ref={fileRef}
@@ -389,17 +397,15 @@ function EditAdminBlogPage() {
             <label className="text-[18px] font-bold">
               Blog Content<span className="text-[#e14d2a]">*</span>
             </label>
-            <CustomEditor 
-              className="mt-5" 
-              placeholder="Write here..." 
+            <CustomEditor
+              className="mt-5"
+              placeholder="Write here..."
               setData={handleSetContent}
               data={state.content}
             />
           </div>
           <div className="mt-8">
-            <label className="text-[18px] font-bold">
-              Censored Content
-            </label>
+            <label className="text-[18px] font-bold">Censored Content</label>
             <textarea
               onChange={handleChange}
               placeholder="Add blog description..."
@@ -464,6 +470,19 @@ function EditAdminBlogPage() {
               className="text-[18px] font-bold"
               pClassName="mt-5"
             >
+              <div>
+                {existingFiles.map((elt) => (
+                  <ul className="flex items-center" key={elt.id}>
+                    <BsLink45Deg className="mr-2" />
+                    {elt.document_location}
+                    <BsTrash
+                      onClick={() => removeExistingItems(elt.id)}
+                      className="ml-2 cursor-pointer"
+                      fill="red"
+                    />
+                  </ul>
+                ))}
+              </div>
               <div className="mt-3">{fileItems}</div>
               <button
                 type="button"
@@ -474,11 +493,14 @@ function EditAdminBlogPage() {
                 <span className="text-['#001253']">Add Files</span>
               </button>
             </AdminAccordionItem>
-
           </div>
           <div className="mt-5 flex justify-end">
             <div>
-              <button type="button" onClick={() => navigate("/admin/blogs")} className="border rounded px-3 py-2">
+              <button
+                type="button"
+                onClick={() => navigate("/admin/blogs")}
+                className="border rounded px-3 py-2"
+              >
                 Cancel
               </button>
               <button
