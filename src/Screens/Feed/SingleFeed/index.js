@@ -123,7 +123,7 @@ function SinglePost() {
           <p>Links</p>
           <ul>
             {blog?.links?.map((elt) => 
-              <li className="text-[blue] underline" key={elt}>{elt}</li>
+              <li className="text-[blue] underline cursor-pointer" key={elt}>{elt}</li>
             )}
           </ul>
         </div>}

@@ -86,7 +86,7 @@ function EditAdminBlogPage() {
     setItems(newLinkItems);
   };
 
-  const linkItem = (count = null) => {
+  const linkItem = (count = null, defaultValue = "") => {
     const itemCount = count === null ? linkItems.length : count;
 
     return (
@@ -95,6 +95,7 @@ function EditAdminBlogPage() {
           type="text"
           name={`link-${itemCount}`}
           value={links[`link-${itemCount}`]}
+          defaultValue={defaultValue}
           className="admin-link-input border border-gray-700 mr-3 p-2 w-[60%]"
           placeholder="Enter link address"
           onChange={handleLinkChange}
@@ -297,8 +298,7 @@ function EditAdminBlogPage() {
             setReferenceItems(prevReferenceItems);
           }
           if (data?.links) {
-            const splittedLinks = data?.links?.split(",") || [];
-            console.log(data.links);
+            const splittedLinks = data?.links || [];
             const prevLinks = splittedLinks.reduce(
               (prev, curr, index) => {
                 prev[`link-${index}`] = curr;
