@@ -109,7 +109,7 @@ function LeftSidebar({ isOpen, user }) {
               </div>
               <div className="mt-6">
                 <AccordionItem icon="BsPersonDash" title="PROFILE">
-                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
+                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center" onClick={() => navigate("/admin/profile")}>
                     <FaEdit size={20} className="mr-2" />
                     {isOpen && <span>Update Profile</span>}
                   </li>
