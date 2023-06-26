@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "../../../Assets/images/person-img.png";
 import { BsTrash } from "react-icons/bs";
-import "./style.scss";
 import { axiosClient } from "../../../libs/axiosClient";
+import "./style.scss";
 
 function Profile() {
   const [countries, setCountries] = useState([]);

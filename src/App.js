@@ -20,6 +20,7 @@ import PreviewBlogDataPage from "./Screens/Admin/Blogs/previewBlog";
 import AdminBlogsPage from "./Screens/Admin/Blogs";
 import BlogsPage from "./Screens/Feed";
 import AdminProfilePage from "./Screens/Admin/Profile";
+import CreatorProfilePage from "./Screens/ContentCreator/Profile";
 
 function App() {
   return (
@@ -51,6 +52,8 @@ function App() {
         <Route path="/creator/blogs" exact element={<CreatorBlogs />} />
         <Route path="/creator/blogs/add" exact element={<AddCreatorBlogPage />} />
         <Route path="/creator/blogs/edit/:id" exact element={<EditCreatorBlogPage />} />
+        <Route path="/creator/profile" exact element={<CreatorProfilePage />} />
+
       </Routes>
     </>
   );

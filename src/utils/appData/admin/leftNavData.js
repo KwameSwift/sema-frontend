@@ -9,6 +9,8 @@ import {
   BsPencilSquare,
   BsGear
 } from "react-icons/bs";
+import { FaEdit } from 'react-icons/fa';
+import { FiLock, FiLogOut } from 'react-icons/fi';
 
 
 
@@ -105,5 +107,47 @@ export const roleLinks = [
     name: "Managing Roles",
     route: "/admin/user-roles",
     icon: <BiUserCircle size={20} className="mr-2" />,
+  },
+]
+
+export const profileLinks = [
+  {
+    id: "update-profile",
+    name: "Update Profile",
+    route: "/admin/profile",
+    icon: <FaEdit size={20} className="mr-2" />,
+  },
+  {
+    id: "change-password",
+    name: "Change Password",
+    route: "/admin/change-password",
+    icon: <FiLock size={20} className="mr-2" />,
+  },
+  {
+    id: "logout",
+    name: "Logout",
+    route: "/admin/logout",
+    icon: <FiLogOut size={20} className="mr-2" />,
+  },
+]
+
+export const creatorProfileLinks = [
+  {
+    id: "update-profile",
+    name: "Update Profile",
+    route: "/creator/profile",
+    icon: <FaEdit size={20} className="mr-2" />,
+  },
+  {
+    id: "change-password",
+    name: "Change Password",
+    route: "/creator/change-password",
+    icon: <FiLock size={20} className="mr-2" />,
+  },
+  {
+    id: "logout",
+    name: "Logout",
+    route: "/creator/logout",
+    icon: <FiLogOut size={20} className="mr-2" />,
   },
 ]

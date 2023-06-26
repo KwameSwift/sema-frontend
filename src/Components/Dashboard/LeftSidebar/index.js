@@ -1,12 +1,11 @@
 import React from "react";
-import { FaEdit } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FiHome, FiLock, FiLogOut } from "react-icons/fi";
+import { FiHome } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import Logo from "../../../Assets/images/logo-small.png";
 import AccordionItem from "../../Common/Accordion";
 import { resetUserData } from "../../../Redux/slices/userSlice";
-import { blogLinks, roleLinks, userLinks } from "../../../utils/appData/admin/leftNavData";
+import { blogLinks, profileLinks, roleLinks, userLinks } from "../../../utils/appData/admin/leftNavData";
 
 import "./style.scss";
 
@@ -108,22 +107,19 @@ function LeftSidebar({ isOpen, user }) {
                 </AccordionItem>
               </div>
               <div className="mt-6">
-                <AccordionItem icon="BsPersonDash" title="PROFILE">
-                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center" onClick={() => navigate("/admin/profile")}>
-                    <FaEdit size={20} className="mr-2" />
-                    {isOpen && <span>Update Profile</span>}
-                  </li>
-                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
-                    <FiLock size={20} className="mr-2" />
-                    {isOpen && <span>Change Password</span>}
-                  </li>
-                  <li
-                    className="px-6 text-gray-200 nav-item flex justify-start items-center"
-                    onClick={logout}
-                  >
-                    <FiLogOut size={20} className="mr-2" />
-                    {isOpen && <span>Logout</span>}
-                  </li>
+                <AccordionItem isDropOpen={getSelectedMenu(location.pathname, profileLinks)} icon="BsPersonDash" title="PROFILE">
+                  {profileLinks.map((elt) =>
+                    <li
+                      className={`px-6 text-gray-200 ${
+                        location.pathname.startsWith(elt.route) && "selected"
+                      } nav-item flex justify-start items-center`}
+                      onClick={elt.id === "logout" ? logout : () => navigate(elt.route)}
+                      key={elt.id}
+                    >
+                      {elt.icon}
+                      {isOpen && <span>{elt.name}</span>}
+                    </li>
+                  )}
                 </AccordionItem>
               </div>
             </ul>
