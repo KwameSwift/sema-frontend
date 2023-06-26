@@ -6,6 +6,7 @@ import { FaRegCommentAlt } from "react-icons/fa";
 import { RiShareForwardLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { calculateTime } from "../../../utils/helpers";
+import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 
 import "./style.scss";
 
@@ -14,6 +15,16 @@ function BlogPost(props) {
   const testImageRetrieve = (data) => {
     return data?.cover_image === "null" || data?.cover_image === null;
   }
+
+  const likeBlog = async (e, id) => {
+    e.preventDefault();
+    try {
+      await axiosClientWithHeaders.put(`/blog/like-blog-post/${id}/`);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
     <div className="blog-post cursor-pointer" onClick={() => navigate(`blog/${props.id}`)}>
       <div className="bg-[#fff] p-4 inner-blog">
@@ -47,7 +58,7 @@ function BlogPost(props) {
           <div className="mt-3 flex blog-stats">
             <div className="icon-wrapper flex flex-col">
               <div className="icon">
-                <AiOutlineHeart size={22} />
+                <AiOutlineHeart onClick={likeBlog} size={22} />
               </div>
               <span className="mt-1 text-center text-[13px]">{props.total_likes}</span>
             </div>

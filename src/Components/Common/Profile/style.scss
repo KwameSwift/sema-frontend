@@ -1,0 +1,13 @@
+.profile {
+  .profile-card {
+    border-radius: 15px;
+    max-width: 400px;
+  }
+  input, textarea, button {
+    border-radius: 5px;
+  }
+  .profile-save {
+    background-color: var(--primary-blue-color);
+    border-radius: 20px;
+  }
+}

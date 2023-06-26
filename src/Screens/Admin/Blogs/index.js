@@ -11,7 +11,7 @@ import AdminCreatorBlogCard from "../../../Components/Admin/BlogPost";
 
 import "./style.scss";
 
-function BlogsPage() {
+function AdminBlogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [blogs, setBlogs] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -196,4 +196,4 @@ function BlogsPage() {
   );
 }
 
-export default BlogsPage;
+export default AdminBlogsPage;

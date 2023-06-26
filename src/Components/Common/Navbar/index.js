@@ -26,7 +26,7 @@ function Navbar() {
 
   const hyperLinks = [
     { id: "home", name: "Home", route: "/" },
-    { id: "feed", name: "Feed", route: "/feed" },
+    { id: "feed", name: "Feed", route: "/blogs" },
     { id: "events", name: "Events", route: "/events" },
     { id: "donations", name: "Donations", route: "/donations" },
   ];

@@ -104,7 +104,7 @@ function SinglePost() {
         <div className="mt-8 flex justify-center">
           <img
             src={getImageUrl(bgImg)}
-            className="blog-image max-h-[250px]"
+            className="blog-image max-h-[500px] w-[500px]"
             alt="blog-image"
             title="blog-image"
           ></img>
