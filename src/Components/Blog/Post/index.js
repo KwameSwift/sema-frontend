@@ -16,14 +16,15 @@ function BlogPost(props) {
     return data?.cover_image === "null" || data?.cover_image === null;
   }
 
-  const likeBlog = async (e, id) => {
-    e.preventDefault();
+  const likeBlog = async (e) => {
+    e.stopPropagation();
     try {
-      await axiosClientWithHeaders.put(`/blog/like-blog-post/${id}/`);
+      await axiosClientWithHeaders.put(`/blog/like-blog-post/${props.id}/`);
     } catch (e) {
       console.error(e);
     }
   }
+  
 
   return (
     <div className="blog-post cursor-pointer" onClick={() => navigate(`blog/${props.id}`)}>

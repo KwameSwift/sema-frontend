@@ -7,7 +7,7 @@ import { BsChat, BsHeartFill } from "react-icons/bs";
 import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 import Navbar from "../../../Components/Common/Navbar";
 import Avatar from "../../../Assets/images/person-img.png";
-import { getImageUrl } from "../../../utils/helpers";
+import { calculateTime, getImageUrl } from "../../../utils/helpers";
 import BlogPost from "./components/blogPost";
 
 import "./style.scss";
@@ -166,7 +166,7 @@ function SinglePost() {
                   <div>
                     <p className="text-[15px]">{elt.commentor__first_name} {elt.commentor__last_name}</p>
                     <span className="text-[13px] text-[#7d7c7c]">
-                      {/* {calculateTime(props.created_on)} */}2 days ago
+                      {calculateTime(elt.created_on)}
                     </span>
                   </div>
                 </div>

@@ -20,6 +20,7 @@ function LoginPage() {
   const [state, setState] = useState({});
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userType, setUserType] = useState("Guest");
 
   const handleChange = (e) => {
     setState({
@@ -28,10 +29,29 @@ function LoginPage() {
     });
   };
 
+  const changeUserType = (status) => {
+    setUserType(status);
+  };
+
+  const routeUser = (data) => {
+    let route = ""
+    if (data.user.is_admin) {
+      route = "/admin/dashboard";
+    } else {
+      if (userType === "Guest") {
+        route = "/";
+      } else {
+        route = "/creator/dashboard";
+      }
+    }
+    return route;
+  }
+
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const resp = await axiosClient.post("auth/login/", { ...state });
+      const url = userType === "Guest" ? "/auth/guest-login/" : "auth/login/";
+      const resp = await axiosClient.post(url, { ...state });
       if (resp.status === 200) {
         const data = resp.data.data;
         const payload = {
@@ -47,7 +67,7 @@ function LoginPage() {
         setLoading(false);
         toast.success("Login successful");
         await new Promise((r) => setTimeout(r, 2000));
-        navigate(data.user.is_admin ? "/admin/dashboard": "/creator/dashboard");
+        navigate(routeUser(data));
       } else {
         setLoading(false);
       }
@@ -58,7 +78,7 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    setBtnDisabled(!isRequiredFieldsPassed(state, 2, "eq"));
+    setBtnDisabled(!isRequiredFieldsPassed(state, userType === "Guest" ? 1 : 2, "eq"));
   }, [state]);
 
   return (
@@ -87,13 +107,33 @@ function LoginPage() {
               name="email"
               autoFocus
             />
-            <UnBorderedInput
+            {userType !== "Guest" && <UnBorderedInput
               type="password"
               placeholder="Password"
               iconName="BsKey"
               name="password"
               onChange={handleChange}
-            />
+            />}
+          </div>
+          <div className="flex justify-center">
+            <div className="flex user-type-sect">
+              <div
+                className={`type-item ${
+                  userType === "Guest" ? "selected" : ""
+                }`}
+                onClick={() => changeUserType("Guest")}
+              >
+                Guest
+              </div>
+              <div
+                className={`type-item ${
+                  userType === "Content Creator" ? "selected" : ""
+                }`}
+                onClick={() => changeUserType("Content Creator")}
+              >
+                Content Creator
+              </div>
+            </div>
           </div>
           <div className="other-input-group">
             <span>

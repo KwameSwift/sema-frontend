@@ -55,28 +55,6 @@
           display: flex;
           justify-content: flex-start;
         }
-        .user-type-sect {
-          margin-top: 30px;
-          width: 80%;
-          .type-item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-            background-color: #fff;
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;          
-          }
-          .type-item:nth-child(2) {
-            margin-left: 10px;
-          }
-          .type-item.selected {
-            background-color: var(--secondary-blue-color);
-            color: #fff;
-          }
-        }
       }
       .other-input-group {
         display: flex;
@@ -202,5 +180,28 @@
         padding: 8px 0;
       }
     }
+  }
+}
+
+.user-type-sect {
+  margin-top: 30px;
+  width: 80%;
+  .type-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;          
+  }
+  .type-item:nth-child(2) {
+    margin-left: 10px;
+  }
+  .type-item.selected {
+    background-color: var(--secondary-blue-color);
+    color: #fff;
   }
 }
