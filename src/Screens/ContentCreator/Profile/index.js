@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Avatar from "../../../Assets/images/person-img.png";
 import ContentCreatorLayout from '../../../Components/ContentCreator/Layout';
+import { axiosClient } from '../../../libs/axiosClient';
 
 import "./style.scss";
-import { axiosClient } from '../../../libs/axiosClient';
 
 function CreatorProfilePage() {
   const [countries, setCountries] = useState([]);

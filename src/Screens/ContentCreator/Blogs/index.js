@@ -110,7 +110,7 @@ function CreatorBlogs() {
         subChild={`Total Count (${totalBlogs})`}
       >
         <div className="flex justify-between mt-3 items-center">
-          <div className="flex w-[80%]">
+          <div className="flex items-center w-[80%]">
             <div className="border bg-[#fff] rounded-lg items-center w-[60%] flex mt-5">
               <BsSearch size={22} className="ml-3" />
               <input

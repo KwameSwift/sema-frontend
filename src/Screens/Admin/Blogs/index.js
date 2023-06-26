@@ -116,14 +116,14 @@ function AdminBlogsPage() {
             <p className="text-[#fff]">Total blogs ({totalBlogs})</p>
           </div>
           <div className="flex justify-between mt-3 items-center">
-            <div className="flex w-[80%]">
+            <div className="flex items-center w-[80%]">
               <div className="border rounded-lg items-center w-[60%] flex mt-5">
                 <BsSearch size={22} className="ml-3" />
                 <input
                   type="text"
                   placeholder="Search..."
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="outline-none p-4 h-[40px] w-[100%]"
+                  className="outline-none p-4 h-[40px] w-[90%]"
                 />
               </div>
               <div className="ml-10 mt-4 flex flex-col">
