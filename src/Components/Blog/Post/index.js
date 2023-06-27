@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 // import PersonImg from "../../../Assets/images/person-img.png";
@@ -56,10 +56,6 @@ function BlogPost(props) {
       console.log("Specified data cannot be shared.");
     }
   }
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
   
 
   return (

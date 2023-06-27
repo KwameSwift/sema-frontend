@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Avatar from "../../../Assets/images/person-img.png";
-import { BsTrash } from "react-icons/bs";
 import { axiosClient } from "../../../libs/axiosClient";
 import "./style.scss";
+import { BiEdit } from "react-icons/bi";
+import { BsTrash } from "react-icons/bs";
 
 function Profile() {
   const [countries, setCountries] = useState([]);
   const [state, setState] = useState({});
+  const [, setProfileImageFile] = useState(null);
+  const [profileImageFileUrl, setProfileImageFileUrl] = useState("");
+
+  const fileRef = useRef(null);
 
   const getCountries = async () => {
     try {
@@ -18,11 +23,23 @@ function Profile() {
     }
   };
 
+  const handleSetImage = (e) => {
+    const file = e.target.files[0];
+    setProfileImageFile(file);
+    setProfileImageFileUrl(URL.createObjectURL(file));
+  };
+
   const handleChange = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
+  };
+
+  const clearFile = () => {
+    fileRef.current.value = null;
+    setProfileImageFile(null);
+    setProfileImageFileUrl("");
   };
 
   useEffect(() => {
@@ -30,78 +47,49 @@ function Profile() {
   }, []);
 
   return (
-    <div className="profile w-full flex flex-wrap justify-center">
-      <div className="bg-[#fff] w-full m-3 mt-0 profile-card p-4">
-        <div>
-          <h3 className="text-[22px] font-bold">Profile Picture</h3>
-          <div className="mt-5 flex items-center">
-            <img src={Avatar} alt="" />
-            <div className="flex ml-8 flex-col items-center">
-              <button className="p-2 border-lg mb-3 text-[#fff] bg-[#001253]">
-                Change Profile
-              </button>
-              <button className="flex p-2 w-full flex justify-center items-center border">
-                <BsTrash className="text-[#001253] mr-2" fill="red" />
-                <span>Delete</span>
-              </button>
-            </div>
+    <div className="profile flex justify-center">
+      <div className="bg-[#fff] w-[55%] p-4 mt-5">
+        <div className="flex items-center justify-between">
+          <h1>Edit Profile</h1>
+          <div className="flex">
+            <span>
+              <img src={Avatar} className="w-[120px] h-[120px]" />
+            </span>
+            {profileImageFileUrl
+            ? <span className="ml-[-30px] cursor-pointer flex items-end">
+                <BsTrash size={25} fill="red" onClick={clearFile} />
+              </span>
+            : <span className="ml-[-30px] cursor-pointer flex items-end">
+                <BiEdit size={25} onClick={() => fileRef.current.click()} />
+              </span>
+            }
           </div>
         </div>
-        <div className="mt-8">
-          <h3 className="font-bold text-[22px]">Basic Information</h3>
-          <div className="flex mt-3 flex-col">
+        <input onChange={handleSetImage} ref={fileRef} type="file" hidden />
+        <div className="flex w-full flex-wrap mt-8">
+          <div className="flex m-2 w-[40%] flex-col">
             <label>First Name</label>
             <input
               type="text"
-              placeholder="eg: John"
-              className="mt-2 border p-2"
+              placeholder="First Name"
+              className="border p-2"
             />
           </div>
-          <div className="flex mt-3 flex-col">
+          <div className="flex m-2 w-[40%] flex-col">
             <label>Last Name</label>
-            <input
-              type="text"
-              placeholder="eg: Doe"
-              className="mt-2 border p-2"
-            />
-          </div>
-          <div className="flex mt-3 flex-col">
-            <label>Email Address</label>
-            <input
-              type="email"
-              placeholder="eg: example@gmail.com"
-              className="mt-2 border p-2"
-            />
-          </div>
-          <div className="mt-3 flex justify-center">
-            <button className="profile-save py-2 px-4 text-[#fff]">Save</button>
+            <input type="text" placeholder="Last Name" className="border p-2" />
           </div>
         </div>
-      </div>
-      <div className="bg-[#fff] w-full m-3 mt-0 profile-card p-4">
-        <h3 className="font-bold text-[22px]">Profile Information</h3>
-        <div className="mt-8 ">
-          <div className="flex mt-3 flex-col">
-            <label>Bio</label>
-            <textarea
-              rows={3}
-              placeholder="Write here..."
-              className="border mt-2 p-2"
-            />
+        <div className="flex w-full flex-wrap mt-8">
+          <div className="flex w-[40%] flex-col m-2">
+            <label>Email Address</label>
+            <input type="email" placeholder="Email" className="border p-2" />
           </div>
-          <div className="flex mt-3 flex-col">
-            <label>Mobile Number</label>
-            <input type="text" placeholder="+XXX XXX XXXX" className="mt-2 border p-2" />
-          </div>
-          <div className="flex mt-3 flex-col">
-            <label>Organization</label>
-            <input type="text" placeholder="Enter organization" className="mt-2 border p-2" />
-          </div>
-          <div className="flex mt-3 flex-col">
+          <div className="flex m-2 w-[40%] flex-col">
             <label>Country</label>
             <select
               onChange={handleChange}
-              className="mt-2 border p-2"              
+              className="mt-2 border p-2"
               name="country_id"
             >
               <option>Select country</option>
@@ -112,17 +100,45 @@ function Profile() {
               ))}
             </select>
           </div>
-          <div className="flex mt-3 flex-col">
-            <label>Links <span className="text-[14px] text-[#A0AEC0]">(comma separated links)</span></label>
-            <textarea
-              rows={3}
-              className="border mt-2 p-2"
-              placeholder="eg: https://example.com, https://example.com"
+        </div>
+        <div className="flex w-full flex-wrap mt-8">
+          <div className="flex w-[40%] m-2 flex-col">
+            <label>Mobile Number </label>
+            <input
+              type="tel"
+              placeholder="Enter mobile number"
+              className="border p-2"
             />
           </div>
-          <div className="mt-3 flex justify-center">
-            <button className="profile-save py-2 px-4 text-[#fff]">Save</button>
+          <div className="flex w-[40%] m-2 flex-col">
+            <label>Organization</label>
+            <input
+              type="text"
+              placeholder="Enter organization"
+              className="border p-2"
+            />
           </div>
+        </div>
+        <div className="flex mx-2 w-full flex-col mt-8">
+          <label>Bio</label>
+          <textarea
+            placeholder="Write here..."
+            rows={3}
+            className="border p-2"
+          />
+        </div>
+        <div className="flex mx-2 w-full flex-col mt-8">
+          <label>
+            Links <span className="text-[#8d8c8c]">(comma separated)</span>
+          </label>
+          <textarea
+            placeholder="eg: https://google.com, https://youtube.com"
+            rows={3}
+            className="border p-2"
+          />
+        </div>
+        <div className="mt-3 flex justify-center">
+          <button className="profile-save py-2 px-4 text-[#fff]">Save</button>
         </div>
       </div>
     </div>
