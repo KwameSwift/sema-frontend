@@ -78,8 +78,8 @@ function SinglePost() {
           <h1 className="text-[35px] font-bold text-center">{blog.title}</h1>
           <p className="mt-2 text-center">{blog.description}</p>
         </div>
-        <div className="author-details mt-5 flex justify-center">
-          <div>
+        <div className="author-details mx-[10%] mt-5 flex justify-center">
+          <div className="min-w-[50px]">
             <img src={Avatar} className="w-[50px] h-[50px]" />
           </div>
           <div className="flex items-center ml-3">

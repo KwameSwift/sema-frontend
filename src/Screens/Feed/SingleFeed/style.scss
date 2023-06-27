@@ -76,3 +76,10 @@
     }
   }
 }
+
+@media (max-width: 530px) {
+  .blog-image {
+    width: 300px !important;
+    height: 300px;
+  }
+}
