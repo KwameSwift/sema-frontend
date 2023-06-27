@@ -60,6 +60,7 @@ function LoginPage() {
             refresh: data.refresh,
           },
           user: data.user,
+          liked_blogs: data.liked_blogs,
           permissions: data.permissions
         };
         console.log(data.permissions);

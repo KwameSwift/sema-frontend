@@ -12,6 +12,7 @@ import "./style.scss";
 
 function HomePage() {
   const [blogs, setBlogs] = useState([]);
+  const [refetch, setRefetch] = useState(false);
   
   useEffect(() => {
     const getAllBlogs = async () => {
@@ -24,7 +25,7 @@ function HomePage() {
     };
 
     getAllBlogs();
-  }, []);
+  }, [refetch]);
 
   return (
     <div className="h-full">
@@ -54,7 +55,7 @@ function HomePage() {
           </div>
           <div className="blogs mt-8 px-8">
             {blogs.slice(0,3).map((elt, index) => 
-              <BlogPost { ...elt } key={index} />
+              <BlogPost setRefetch={setRefetch} { ...elt } key={index} />
             )}
           </div>
           <div className="mt-8 flex justify-center items-center">

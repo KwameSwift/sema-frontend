@@ -4,6 +4,7 @@ export const initialState = {
   tokens: {},
   user: {},
   permissions: [],
+  liked_blogs: [],
   email: "",
 };
 
@@ -20,6 +21,9 @@ export const userSlice = createSlice({
     setUserTokens: (state, action) => {
       state.tokens.access = action.payload;
     },
+    setLikedBlogs: (state, action) => {
+      state.liked_blogs = action.payload;
+    },
     setUserInfo: (state, action) => {
       state.user = { ...state.user, ...action.payload };
     },
@@ -35,6 +39,7 @@ export const {
   setUserEmail,
   setUserTokens,
   setUserInfo,
+  setLikedBlogs,
   resetUserData,
 } = userSlice.actions;
 

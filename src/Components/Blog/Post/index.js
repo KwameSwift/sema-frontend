@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 // import PersonImg from "../../../Assets/images/person-img.png";
 import { FaRegCommentAlt } from "react-icons/fa";
 import { RiShareForwardLine } from "react-icons/ri";
@@ -9,9 +9,15 @@ import { calculateTime } from "../../../utils/helpers";
 import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 
 import "./style.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { setLikedBlogs } from "../../../Redux/slices/userSlice";
 
 function BlogPost(props) {
+  const user = useSelector((store) => store.user);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const testImageRetrieve = (data) => {
     return data?.cover_image === "null" || data?.cover_image === null;
   }
@@ -19,11 +25,17 @@ function BlogPost(props) {
   const likeBlog = async (e) => {
     e.stopPropagation();
     try {
-      await axiosClientWithHeaders.put(`/blog/like-blog-post/${props.id}/`);
+      const resp = await axiosClientWithHeaders.put(`/blog/like-blog-post/${props.id}/`);
+      dispatch(setLikedBlogs(resp.data.liked_blogs));
+      props.setRefetch((prev) => !prev);
     } catch (e) {
       console.error(e);
     }
   }
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
   
 
   return (
@@ -59,7 +71,9 @@ function BlogPost(props) {
           <div className="mt-3 flex blog-stats">
             <div className="icon-wrapper flex flex-col">
               <div className="icon">
-                <AiOutlineHeart onClick={likeBlog} size={22} />
+                {user?.liked_blogs?.includes(props.id)
+                ? <AiFillHeart onClick={likeBlog} size={22} fill="#3e6d9c" />
+                : <AiOutlineHeart onClick={likeBlog} size={22} />}
               </div>
               <span className="mt-1 text-center text-[13px]">{props.total_likes}</span>
             </div>
