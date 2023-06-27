@@ -38,7 +38,7 @@ function BlogPost(props) {
     let shareData = {
       title: props.title,
       text: props.preview_text,
-      url: `${process.env.REACT_APP_FRONTEND_DOMAIN}blog/${props.id}`,
+      url: `${process.env.REACT_APP_FRONTEND_DOMAIN}/blog/${props.id}`,
     };
     
     
