@@ -51,7 +51,8 @@
 
 .other-blogs-sect {
   .other-blogs {
-    display: inline-flex;
+    display: flex;
+    flex: wrap;
     .other-post {
       margin: 20px;
       .blog-desc {

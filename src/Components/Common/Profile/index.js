@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import Avatar from "../../../Assets/images/person-img.png";
-import { axiosClient } from "../../../libs/axiosClient";
-import "./style.scss";
+import Avatar from "../../../Assets/images/no-profile-img.webp";
+import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 import { BiEdit } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
+import "./style.scss";
+// import { useSelector } from "react-redux";
 
 function Profile() {
+  // const user = useSelector((store) => store.user);
   const [countries, setCountries] = useState([]);
   const [state, setState] = useState({});
   const [, setProfileImageFile] = useState(null);
@@ -42,8 +44,18 @@ function Profile() {
     setProfileImageFileUrl("");
   };
 
+  const getMyData = async () => {
+    try {
+      const resp = await axiosClientWithHeaders.get("/users/my-profile/");
+      console.log(resp.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
     getCountries();
+    getMyData();
   }, []);
 
   return (
@@ -53,7 +65,7 @@ function Profile() {
           <h1>Edit Profile</h1>
           <div className="flex">
             <span>
-              <img src={Avatar} className="w-[120px] h-[120px]" />
+              <img src={profileImageFileUrl || Avatar} className="w-[120px] h-[120px] rounded-full" />
             </span>
             {profileImageFileUrl
             ? <span className="ml-[-30px] cursor-pointer flex items-end">

@@ -7,10 +7,10 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { calculateTime } from "../../../utils/helpers";
 import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
-
-import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setLikedBlogs } from "../../../Redux/slices/userSlice";
+
+import "./style.scss";
 
 function BlogPost(props) {
   const user = useSelector((store) => store.user);
@@ -38,7 +38,7 @@ function BlogPost(props) {
     let shareData = {
       title: props.title,
       text: props.preview_text,
-      url: `${process.env.REACT_APP_FRONTEND_DOMAIN}/blog/${props.id}`,
+      url: `https://sema.africanchildprojects.org/blog/${props.id}`,
     };
     
     
