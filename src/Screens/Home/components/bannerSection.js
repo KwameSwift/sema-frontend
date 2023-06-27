@@ -14,7 +14,7 @@ function HomeBanners() {
           alt="First slide"
         />
         <Carousel.Caption className="position-absolute top-50 start-50 translate-middle text-center">
-          <p className='text-[2.8em] typing-animation'>FIRST ITEM NAME</p>
+          <p className='typing-animation'>FIRST ITEM NAME</p>
           <p className='text-[1.2em]'>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
         </Carousel.Caption>
       </Carousel.Item>
@@ -25,7 +25,7 @@ function HomeBanners() {
           alt="Second slide"
         />
         <Carousel.Caption className="position-absolute top-50 start-50 translate-middle text-center">
-          <p className='text-[2.8em] typing-animation'>SECOND ITEM</p>
+          <p className='typing-animation'>SECOND ITEM</p>
           <p className='text-[1.2em]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </Carousel.Caption>
       </Carousel.Item>
@@ -36,7 +36,7 @@ function HomeBanners() {
           alt="Third slide"
         />
         <Carousel.Caption className="position-absolute top-50 start-50 translate-middle text-center">
-          <p className='text-[2.8em] typing-animation'>THIRD ITEM LABEL</p>
+          <p className='typing-animation'>THIRD ITEM LABEL</p>
           <p className='text-[1.2em]'>
             Praesent commodo cursus magna, vel scelerisque nisl consectetur.
           </p>

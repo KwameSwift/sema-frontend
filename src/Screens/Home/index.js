@@ -31,22 +31,6 @@ function HomePage() {
     <div className="h-full">
       <Navbar />
       <div className="bg-gray-200 pb-8 h-full">
-        {/* <div className="banner-img h-[500px]">
-          <div className="overlay flex">
-            <div className="flex flex-col mx-[20%] justify-center items-center">
-              <h1 className="text-[#fff] text-[2.5em] typing-animation">
-                Exploring the Wonders of Nature.
-              </h1>
-              <p className="mt-6 text-[#dfdcdc] text-center">
-                In this captivating blog, we delve into the breathtaking beauty of
-                nature&apos;s landscapes and wildlife. Join us as we embark on
-                thrilling adventures, witness awe-inspiring sights, and learn
-                fascinating facts about the natural world.{" "}
-              </p>
-              <p className="mt-5 text-[15px] text-[#f8f8f8]">John Doe - 3 days ago. </p>
-            </div>
-          </div>
-        </div> */}
         <HomeBanners />
         <div className="recent-articles flex flex-col justify-center mt-20">
           <div className="flex flex-col justify-center align-items">
