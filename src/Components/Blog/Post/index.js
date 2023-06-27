@@ -33,6 +33,30 @@ function BlogPost(props) {
     }
   }
 
+  const shareBlog = async (e) => {
+    e.stopPropagation();
+    console.log("passing here....")
+    let shareData = {
+      title: "MDN",
+      text: "Learn web development on MDN!",
+      url: "https://developer.mozilla.org",
+    };
+    
+    
+    if (!navigator.canShare) {
+      console.log("navigator.canShare() not supported.");
+    } else if (navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+        console.log("MDN shared successfully");
+      } catch (err) {
+        console.log(`Error: ${err}`);
+      }
+    } else {
+      console.log("Specified data cannot be shared.");
+    }
+  }
+
   useEffect(() => {
     console.log(user);
   }, [user]);
@@ -87,7 +111,7 @@ function BlogPost(props) {
             </div>
             <div className="icon-wrapper flex flex-col">
               <div className="icon ml-3">
-                <RiShareForwardLine size={22} />
+                <RiShareForwardLine onClick={shareBlog} size={22} />
               </div>
               <span className="mt-1 text-center text-[13px]">{props.total_shares}</span>
             </div>
