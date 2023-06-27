@@ -74,7 +74,7 @@ function SinglePost() {
     <div className="h-full">
       <Navbar />
       <div className="single-blog mt-8 pb-8">
-        <div className="head-details mx-20 pb-3 border-gray-200">
+        <div className="head-details mx-[10%] pb-3 border-gray-200">
           <h1 className="text-[35px] font-bold text-center">{blog.title}</h1>
           <p className="mt-2 text-center">{blog.description}</p>
         </div>
@@ -109,7 +109,7 @@ function SinglePost() {
             title="blog-image"
           ></img>
         </div>
-        <div className="mt-8 mx-[5%]">
+        <div className="mt-8 mx-[7%]">
           <ReactQuill
             theme="snow"
             value={blog?.content}
@@ -119,7 +119,7 @@ function SinglePost() {
         </div>
         {blog?.links?.length > 0
         && 
-        <div>
+        <div className="mx-[10%]">
           <p>Links</p>
           <ul>
             {blog?.links?.map((elt) => 
@@ -128,7 +128,7 @@ function SinglePost() {
           </ul>
         </div>}
         <div className="other-blogs-sect mt-20">
-          <div className="comment-sect">
+          <div className="mx-[10%] comment-sect">
             <div className="element">
               <div className="left-bar"></div>
               <div className="text">Other Blogs</div>
@@ -183,7 +183,7 @@ function SinglePost() {
 
           </div>
         </div>
-        <div className="mt-10">
+        <div className="mt-10 flex px-[10%] flex-col">
           <div className="comment-sect">
             <div className="element">
               <div className="left-bar"></div>
