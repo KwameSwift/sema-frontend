@@ -2,8 +2,10 @@
   // display: flex;
   // justify-content: center;
   // flex-direction: column;
-  margin: 80px 15%;
-  max-width: 1200px;
+  // max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   min-width: 350px;
   .blog-image {
     border-radius: 20px;
@@ -23,36 +25,39 @@
     }
     padding: 10px;
   }
-  .comment-sect {
-    margin-top: 10px;
-    .element {
-      display: flex;
-      align-items: center;
+  .comments {
+    margin: 10%;
+    .comment-sect {
+      margin-top: 10px;
+      .element {
+        display: flex;
+        align-items: center;
+      }
+      
+      .left-bar,
+      .right-bar {
+        width: 100%;
+        height: 1px;
+        background-color: #ccc;
+      }
+      
+      .text {
+        width: 100%;
+        max-width: 170px;
+        flex-grow: 1;
+        text-align: center;
+        padding: 0 10px;
+        color: #333;
+      }
+      
     }
-    
-    .left-bar,
-    .right-bar {
-      width: 100%;
-      height: 1px;
-      background-color: #ccc;
-    }
-    
-    .text {
-      width: 100%;
-      max-width: 170px;
-      flex-grow: 1;
-      text-align: center;
-      padding: 0 10px;
-      color: #333;
-    }
-    
   }
 }
 
 .other-blogs-sect {
   .other-blogs {
     display: flex;
-    flex: wrap;
+    flex-wrap: wrap;
     .other-post {
       margin: 20px;
       .blog-desc {
