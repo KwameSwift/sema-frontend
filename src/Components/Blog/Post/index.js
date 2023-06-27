@@ -35,11 +35,10 @@ function BlogPost(props) {
 
   const shareBlog = async (e) => {
     e.stopPropagation();
-    console.log("passing here....")
     let shareData = {
-      title: "MDN",
-      text: "Learn web development on MDN!",
-      url: "https://developer.mozilla.org",
+      title: props.title,
+      text: props.preview_text,
+      url: `${process.env.REACT_APP_FRONTEND_DOMAIN}blog/${props.id}`,
     };
     
     
