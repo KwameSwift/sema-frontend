@@ -6,7 +6,7 @@ import { FaRegCommentAlt } from "react-icons/fa";
 import { RiShareForwardLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { calculateTime } from "../../../utils/helpers";
-import { axiosClientWithHeaders } from "../../../libs/axiosClient";
+import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 
 import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,7 +47,8 @@ function BlogPost(props) {
     } else if (navigator.canShare(shareData)) {
       try {
         await navigator.share(shareData);
-        console.log("MDN shared successfully");
+        await axiosClient.put(`/blog/share-blog-post/${props.id}/`)
+        props.setRefetch((prev) => !prev);
       } catch (err) {
         console.log(`Error: ${err}`);
       }
