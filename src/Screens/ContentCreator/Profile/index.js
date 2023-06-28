@@ -9,7 +9,9 @@ function CreatorProfilePage() {
 
   return ( 
     <ContentCreatorLayout header="Profile">
-      <Profile />
+      <div className='mt-4'>
+        <Profile />
+      </div>
     </ContentCreatorLayout>
   );
 }

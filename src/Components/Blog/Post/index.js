@@ -63,7 +63,7 @@ function BlogPost(props) {
       <div className="bg-[#fff] p-4 inner-blog">
         <div className="profile-section flex">
           {props.author_profile_image?.document_location
-           && <img src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`} width={50} height={50} /> }
+           && <img src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`} className="rounded-full" width={50} height={50} /> }
           <span className="ml-2 flex flex-col">
             <span className="font-bold flex items-center">
               {props.author__first_name} {props.author__last_name}

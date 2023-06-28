@@ -14,7 +14,7 @@ function FeedBlogPost(props) {
   const navigate = useNavigate();
   const testImageRetrieve = (data) => {
     return data?.cover_image === "null" || data?.cover_image === null;
-  }
+  };
 
   const likeBlog = async (e) => {
     e.stopPropagation();
@@ -23,19 +23,29 @@ function FeedBlogPost(props) {
     } catch (e) {
       console.error(e);
     }
-  }
-  
+  };
 
   return (
-    <div className="feed-blog-post my-5 cursor-pointer" onClick={() => navigate(`blog/${props.id}`)}>
+    <div
+      className="feed-blog-post my-5 cursor-pointer"
+      onClick={() => navigate(`blog/${props.id}`)}
+    >
       <div className="bg-[#fff] w-full p-4 inner-blog">
         <div className="profile-section flex">
-          {props.author_profile_image?.document_location
-           && <img src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`} width={50} height={50} /> }
+          {props.author_profile_image?.document_location && (
+            <img
+              src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`}
+              className="rounded-full"
+              width={50}
+              height={50}
+            />
+          )}
           <span className="ml-2 flex flex-col">
             <span className="font-bold flex items-center">
               {props.author__first_name} {props.author__last_name}
-              {props.author__is_verified && <BsCheckCircleFill className="ml-1" fill="#3e6d9c" />}
+              {props.author__is_verified && (
+                <BsCheckCircleFill className="ml-1" fill="#3e6d9c" />
+              )}
             </span>
             <span className="text-[13px] text-[#7d7c7c]">
               {props.author__organization}
@@ -47,9 +57,7 @@ function FeedBlogPost(props) {
           <p className="mb-5 blog-desc">{props.preview_text}</p>
           {!testImageRetrieve(props) && (
             <img
-              src={`${process.env.REACT_APP_BACKEND_DOMAIN}${
-                props?.cover_image
-              }`}
+              src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props?.cover_image}`}
               alt=""
               className="post-img"
             />
@@ -61,7 +69,9 @@ function FeedBlogPost(props) {
               <div className="icon">
                 <AiOutlineHeart onClick={likeBlog} size={22} />
               </div>
-              <span className="mt-1 text-center text-[13px]">{props.total_likes}</span>
+              <span className="mt-1 text-center text-[13px]">
+                {props.total_likes}
+              </span>
             </div>
             <div className="icon-wrapper flex flex-col">
               <div className="icon ml-3">
@@ -75,7 +85,9 @@ function FeedBlogPost(props) {
               <div className="icon ml-3">
                 <RiShareForwardLine size={22} />
               </div>
-              <span className="mt-1 text-center text-[13px]">{props.total_shares}</span>
+              <span className="mt-1 text-center text-[13px]">
+                {props.total_shares}
+              </span>
             </div>
           </div>
           <span className="text-[13px] text-[#7d7c7c]">

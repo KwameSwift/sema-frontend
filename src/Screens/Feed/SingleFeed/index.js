@@ -26,6 +26,7 @@ function SinglePost() {
       const resp = await axiosClientWithHeaders.get(
         `/blog/single-blog-post/${id}/`
       );
+      console.log(resp.data.data);
       setBlog(resp.data.data);
       setBgImg(resp.data.data.cover_image);
     } catch (err) {
@@ -35,7 +36,7 @@ function SinglePost() {
 
   const addComment = async () => {
     if (!user?.tokens?.access) {
-      toast.error("Please login to add a comment")
+      toast.error("Please login to add a comment");
     } else {
       try {
         setComment("");
@@ -80,7 +81,16 @@ function SinglePost() {
         </div>
         <div className="author-details mx-[10%] mt-5 flex justify-center">
           <div className="min-w-[50px]">
-            <img src={Avatar} className="w-[50px] h-[50px]" />
+            <img
+              src={
+                blog?.author_profile_image
+                  ? `${getImageUrl(
+                      blog?.author_profile_image[0]?.document_location
+                    )}`
+                  : Avatar
+              }
+              className="rounded-full w-[50px] h-[50px]"
+            />
           </div>
           <div className="flex items-center ml-3">
             <span className="text-gray-400">
@@ -117,16 +127,18 @@ function SinglePost() {
             modules={{ toolbar: false }}
           />
         </div>
-        {blog?.links?.length > 0
-        && 
-        <div className="mx-[10%]">
-          <p>Links</p>
-          <ul>
-            {blog?.links?.map((elt) => 
-              <li className="text-[blue] underline cursor-pointer" key={elt}>{elt}</li>
-            )}
-          </ul>
-        </div>}
+        {blog?.links?.length > 0 && (
+          <div className="mx-[10%]">
+            <p>Links</p>
+            <ul>
+              {blog?.links?.map((elt) => (
+                <li className="text-[blue] underline cursor-pointer" key={elt}>
+                  {elt}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className="other-blogs-sect mt-20">
           <div className="mx-[10%] comment-sect">
             <div className="element">
@@ -153,34 +165,37 @@ function SinglePost() {
             </div>
           </div>
           <div className="mt-8">
-            {blog?.comments?.map((elt) =>
-            <>
-              <div className="flex items-center ">
-                <img
-                  src={Avatar}
-                  className="w-[60px] h-[60px]"
-                  alt="avatar"
-                  title="avatar"
-                />
-                <div className="ml-2">
-                  <div>
-                    <p className="text-[15px]">{elt.commentor__first_name} {elt.commentor__last_name}</p>
-                    <span className="text-[13px] text-[#7d7c7c]">
-                      {calculateTime(elt.created_on)}
-                    </span>
+            {blog?.comments?.map((elt) => (
+              <>
+                <div className="flex items-center">
+                  <img
+                    src={
+                      blog?.author_profile_image
+                        ? `${getImageUrl(
+                            blog?.author_profile_image[0]?.document_location
+                          )}`
+                        : Avatar
+                    }
+                    className="rounded-full w-[50px] h-[50px]"
+                  />
+                  <div className="ml-4">
+                    <div>
+                      <p className="text-[15px]">
+                        {elt.commentor__first_name} {elt.commentor__last_name}
+                      </p>
+                      <span className="text-[13px] text-[#7d7c7c]">
+                        {calculateTime(elt.created_on)}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="ml-[65px] mb-8">
-                <div>
-                  <p>
-                    {elt.comment}
-                  </p>
+                <div className="ml-[65px] mb-8">
+                  <div>
+                    <p>{elt.comment}</p>
+                  </div>
                 </div>
-              </div>
-            </>
-            )}
-
+              </>
+            ))}
           </div>
         </div>
         <div className="mt-10 flex px-[10%] flex-col">
