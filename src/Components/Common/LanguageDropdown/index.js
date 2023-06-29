@@ -2,27 +2,34 @@ import React from 'react'
 import { Dropdown } from "react-bootstrap";
 import EnLogo from "../../../Assets/images/united-kingdom-logo.png";
 import SwLogo from "../../../Assets/images/tanzania-logo.png";
+import { useTranslation } from 'react-i18next';
 import "./style.scss";
 
 export default function LanguageDropdown () {
+  const [, i18n] = useTranslation();
+
   const handleLanguageChange = (selectedLanguage) => {
-    // Implement logic to handle language change
-    console.log(`Selected language: ${selectedLanguage}`);
+    console.log(selectedLanguage);
+    i18n.changeLanguage(selectedLanguage);
   };
+
+  const languages = {
+    "en": {name: "English", value: "en", icon: EnLogo},
+    "sw": {name: "Swahili", value: "sw", icon: SwLogo}
+  }
 
   return (
     <Dropdown>
       <Dropdown.Toggle variant="secondary" id="language-dropdown">
-        <img src={EnLogo} className='w-[25px] h-[25px] mr-2' />
-        English
+        <img src={languages[i18n.language].icon} className='w-[25px] h-[25px] mr-2' />
+        {languages[i18n.language].name}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item className='flex' onSelect={() => handleLanguageChange('en')}>
-          <img src={EnLogo} className='w-[25px] h-[25px] mr-2' /> English
+        {Object.values(languages).map((elt) =>
+        <Dropdown.Item key={elt.value} className='flex' onClick={() => handleLanguageChange(elt.value)}>
+          <img src={elt.icon} className='w-[25px] h-[25px] mr-2' /> {elt.name}
         </Dropdown.Item>
-        <Dropdown.Item className='flex' onSelect={() => handleLanguageChange('fr')}>
-          <img src={SwLogo} className='w-[25px] h-[25px] mr-2' /> Swahili
-        </Dropdown.Item>
+        )}
       </Dropdown.Menu>
     </Dropdown>
   );

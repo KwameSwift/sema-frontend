@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
+import { axiosClientWithHeaders } from "../../libs/axiosClient";
+import CustomRadioInput from "../Common/CustomRadioButton";
 
 import "./style.scss";
-import { axiosClientWithHeaders } from "../../libs/axiosClient";
-import { toast } from "react-toastify";
-import CustomRadioInput from "../Common/CustomRadioButton";
 
 const Modal = ({
   type,
@@ -270,6 +270,7 @@ const Modal = ({
       externalFunc: true,
       text: "Are you sure you want to disapprove this blog?",
     },
+
   };
 
   const updateBlogStatus = async () => {

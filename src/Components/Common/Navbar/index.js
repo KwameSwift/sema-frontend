@@ -11,6 +11,7 @@ function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const location = useLocation();
+  const user = useSelector((store) => store.user);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +33,6 @@ function Navbar() {
     { id: "donations", name: "Donations", route: "/donations" },
   ];
 
-  const user = useSelector((store) => store.user);
 
   const logout = () => {
     dispatch(resetUserData());
@@ -40,10 +40,14 @@ function Navbar() {
   };
 
   if (user?.tokens?.access) {
-    accountLinks = [
-      { id: "profile", name: "Profile", route: "/profile" },
-      { id: "logout", name: "Logout", type: "func", func: logout },
-    ];
+    accountLinks = [];
+    if (user.user.account_type === "Content Creator") {
+      accountLinks.push({ id: "profile", name: "Profile", route: "/creator/profile" });
+    } else if (user.user.account_type === "Super Admin") {
+      accountLinks.push({ id: "profile", name: "Profile", route: "/admin/profile" });
+    }
+
+    accountLinks.push({ id: "logout", name: "Logout", type: "func", func: logout });
   } else {
     accountLinks = [
       { id: "login", name: "Login", route: "/login" },
