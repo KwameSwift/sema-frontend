@@ -21,6 +21,8 @@ import AdminBlogsPage from "./Screens/Admin/Blogs";
 import BlogsPage from "./Screens/Feed";
 import AdminProfilePage from "./Screens/Admin/Profile";
 import CreatorProfilePage from "./Screens/ContentCreator/Profile";
+import AdminPasswordChangePage from "./Screens/Admin/PasswordReset";
+import CreatorPasswordChangePage from "./Screens/ContentCreator/PasswordReset";
 
 function App() {
   return (
@@ -46,6 +48,7 @@ function App() {
         <Route path="/admin/blogs/edit/:id" exact element={<EditAdminBlogPage />} />
         <Route path="/admin/blogs/preview/:id" exact element={<PreviewBlogDataPage />} />
         <Route path="/admin/profile" exact element={<AdminProfilePage />} />
+        <Route path="/admin/change-password" exact element={<AdminPasswordChangePage />} />
 
         {/* Content Creator */}
         <Route path="/creator/dashboard" exact element={<ContentCreatorDashboardPage />} />
@@ -53,6 +56,7 @@ function App() {
         <Route path="/creator/blogs/add" exact element={<AddCreatorBlogPage />} />
         <Route path="/creator/blogs/edit/:id" exact element={<EditCreatorBlogPage />} />
         <Route path="/creator/profile" exact element={<CreatorProfilePage />} />
+        <Route path="/creator/change-password" exact element={<CreatorPasswordChangePage />} />
 
       </Routes>
     </>
