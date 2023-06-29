@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import { BsChat, BsCheckCircleFill, BsHeartFill } from "react-icons/bs";
 import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 import Navbar from "../../../Components/Common/Navbar";
-import Avatar from "../../../Assets/images/person-img.png";
+import Avatar from "../../../Assets/images/no-profile-img.webp";
 import { calculateTime, getImageUrl } from "../../../utils/helpers";
 import BlogPost from "./components/blogPost";
 
@@ -83,7 +83,7 @@ function SinglePost() {
           <div className="min-w-[50px]">
             <img
               src={
-                blog?.author_profile_image
+                blog?.author_profile_image?.length
                   ? `${getImageUrl(
                       blog?.author_profile_image[0]?.document_location
                     )}`
@@ -171,7 +171,7 @@ function SinglePost() {
                 <div className="flex items-center">
                   <img
                     src={
-                      blog?.author_profile_image
+                      blog?.author_profile_image.length
                         ? `${getImageUrl(
                             blog?.author_profile_image[0]?.document_location
                           )}`

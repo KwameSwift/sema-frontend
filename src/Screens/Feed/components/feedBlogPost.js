@@ -7,6 +7,8 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { calculateTime } from "../../../utils/helpers";
 import { axiosClientWithHeaders } from "../../../libs/axiosClient";
+import Avatar from "../../../Assets/images/no-profile-img.webp";
+
 
 import "./style.scss";
 
@@ -28,18 +30,11 @@ function FeedBlogPost(props) {
   return (
     <div
       className="feed-blog-post my-5 cursor-pointer"
-      onClick={() => navigate(`blog/${props.id}`)}
+      onClick={() => navigate(`/blog/${props.id}`)}
     >
       <div className="bg-[#fff] w-full p-4 inner-blog">
         <div className="profile-section flex">
-          {props.author_profile_image?.document_location && (
-            <img
-              src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`}
-              className="rounded-full"
-              width={50}
-              height={50}
-            />
-          )}
+          <img src={props.author_profile_image?.document_location ? `${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`: Avatar} className="rounded-full" width={50} height={50} /> 
           <span className="ml-2 flex flex-col">
             <span className="font-bold flex items-center">
               {props.author__first_name} {props.author__last_name}

@@ -9,6 +9,8 @@ import { calculateTime } from "../../../utils/helpers";
 import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 import { useDispatch, useSelector } from "react-redux";
 import { setLikedBlogs } from "../../../Redux/slices/userSlice";
+import Avatar from "../../../Assets/images/no-profile-img.webp";
+
 
 import "./style.scss";
 
@@ -63,8 +65,7 @@ function BlogPost(props) {
     <div className="blog-post cursor-pointer" onClick={() => navigate(`blog/${props.id}`)}>
       <div className="bg-[#fff] p-4 inner-blog">
         <div className="profile-section flex">
-          {props.author_profile_image?.document_location
-           && <img src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`} className="rounded-full" width={50} height={50} /> }
+          <img src={props.author_profile_image?.document_location ? `${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`: Avatar} className="rounded-full" width={50} height={50} /> 
           <span className="ml-2 flex flex-col">
             <span className="font-bold flex items-center">
               {props.author__first_name} {props.author__last_name}
