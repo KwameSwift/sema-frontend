@@ -7,6 +7,7 @@ import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 import { setUserInfo } from "../../../Redux/slices/userSlice";
 import "./style.scss";
 import { toast } from "react-toastify";
+import { replaceNullWithEmptyString } from "../../../utils/helpers";
 
 function Profile() {
   const user = useSelector((store) => store.user.user);
@@ -94,8 +95,7 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    console.log(user);
-    setState(user);
+    setState(replaceNullWithEmptyString(user));
   }, [user])
 
   return (

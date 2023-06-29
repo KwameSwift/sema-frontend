@@ -89,3 +89,25 @@ export const convertToSnakeCase = (inputString) => {
 export const getImageUrl = (url) => {
   return `${process.env.REACT_APP_BACKEND_DOMAIN}${url}`;
 };
+
+
+export const replaceNullWithEmptyString = (obj) => {
+  // Base case: If the object is null, return an empty string
+  if (obj === null || obj === "null") {
+    return "";
+  }
+
+  // If the object is an object, recursively process each property
+  if (typeof obj === "object") {
+    const newObj = {};
+
+    Object.entries(obj).forEach(([key, value]) => {
+      newObj[key] = replaceNullWithEmptyString(value);
+    });
+
+    return newObj;
+  }
+
+  // If the object is neither an array nor an object, return the value as is
+  return obj;
+}
