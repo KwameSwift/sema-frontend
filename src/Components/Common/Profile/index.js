@@ -6,11 +6,12 @@ import Avatar from "../../../Assets/images/no-profile-img.webp";
 import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 import { setUserInfo } from "../../../Redux/slices/userSlice";
 import "./style.scss";
+import { toast } from "react-toastify";
 
 function Profile() {
   const user = useSelector((store) => store.user.user);
   const [countries, setCountries] = useState([]);
-  const [state, setState] = useState(user);
+  const [state, setState] = useState({});
   const [loading, setLoading] = useState(false);
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [profileImageFileUrl, setProfileImageFileUrl] = useState("");
@@ -51,9 +52,6 @@ function Profile() {
     try {
       const resp = await axiosClientWithHeaders.get("/users/my-profile/");
       const respObj = { ...resp.data.data };
-      respObj.country_id = countries?.find(
-        (elt) => elt.name === respObj.country__name
-      )?.id;
       dispatch(setUserInfo(respObj));
     } catch (err) {
       console.error(err);
@@ -73,6 +71,7 @@ function Profile() {
     }
     try {
       await axiosClientWithHeaders.put("/users/update-my-profile/", formData);
+      toast.success("Profile updated successfully");
       getMyData();
       setLoading(false);
     } catch (err) {
@@ -108,6 +107,11 @@ function Profile() {
     getCountries();
     getMyData();
   }, []);
+
+  useEffect(() => {
+    console.log(user);
+    setState(user);
+  }, [user])
 
   return (
     <div className="profile flex justify-center">
@@ -166,6 +170,7 @@ function Profile() {
             onChange={handleChange}
             placeholder="Email"
             className="border p-2"
+            disabled
           />
         </div>
         <div className="flex mx-2 w-full flex-col mt-8">
@@ -187,14 +192,23 @@ function Profile() {
         <div className="flex w-full flex-wrap mt-8">
           <div className="flex w-[40%] m-2 flex-col">
             <label>Mobile Number </label>
-            <input
-              type="tel"
-              name="mobile_number"
-              value={state.mobile_number}
-              onChange={handleChange}
-              placeholder="Enter mobile number"
-              className="border p-2"
-            />
+            <div className="border flex mobile-input">
+              <div className="flex w-[70px] p-2 pointer-events-none bg-gray-200">
+                <img src={state.country__flag} className="w-[23px] h-[22px]" />
+                <span className="ml-1">{state.country__calling_code}</span>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="tel"
+                  name="mobile_number"
+                  value={state.mobile_number}
+                  onChange={handleChange}
+                  placeholder="Enter mobile number"
+                  className="mt-0 w-full p-2"
+                  disabled
+                />
+              </div>
+            </div>
           </div>
           <div className="flex w-[40%] m-2 flex-col">
             <label>Organization</label>

@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { BsCheckCircleFill } from "react-icons/bs";
 import AccordionItem from "../../Common/Accordion";
-import { resetUserData } from "../../../Redux/slices/userSlice";
+import { resetUserData, setUserInfo } from "../../../Redux/slices/userSlice";
 import Avatar from "../../../Assets/images/person-img.png";
 import { creatorBlogLinks, creatorProfileLinks } from "../../../utils/appData/admin/leftNavData";
 
 import "./style.scss";
+import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 
 function LeftSidebar({ isOpen, user }) {
   const navigate = useNavigate();
@@ -38,6 +39,20 @@ function LeftSidebar({ isOpen, user }) {
     return currentModule?.access_level > 0;
   };
 
+  const getMyData = async () => {
+    try {
+      const resp = await axiosClientWithHeaders.get("/users/my-profile/");
+      const respObj = { ...resp.data.data };
+      dispatch(setUserInfo(respObj));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getMyData();
+  }, []);
+
   return (
     <div className="flex h-full content-creator-bg">
       {isOpen && (
@@ -45,7 +60,7 @@ function LeftSidebar({ isOpen, user }) {
           {/* Sidebar Content */}
           <div className="sticky top-0 w-full bg-[#001253] py-2 mt-4 px-4 flex flex-col items-center justify-start">
             <div className="profile-pic-cover">
-              <img src={`${process.env.REACT_APP_BACKEND_DOMAIN}${user.user.profile_image}` || Avatar} className="rounded-full w-[90px] h-[90px]" />
+              <img src={user.user.profile_image ? `${process.env.REACT_APP_BACKEND_DOMAIN}${user.user.profile_image}` : Avatar} className="rounded-full w-[90px] h-[90px]" />
             </div>
             <h2 className="ml-2 mt-3 font-bold flex items-center text-[#fff] text-[17px]">
               <span>
