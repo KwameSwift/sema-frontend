@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "react-quill/dist/quill.snow.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.scss';
+import './i18n';
 
 let persist = persistStore(store);
 
@@ -26,6 +27,7 @@ const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 
 root.render(
   <React.StrictMode>

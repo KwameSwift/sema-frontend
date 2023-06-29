@@ -4,6 +4,7 @@ import { BsFillPersonFill, BsSearch } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../../Assets/images/logo-small.png";
 import { resetUserData } from "../../../Redux/slices/userSlice";
+import LanguageDropdown from "../LanguageDropdown"
 import "./style.scss";
 
 function Navbar() {
@@ -96,6 +97,7 @@ function Navbar() {
               <button className="hidden mr-5 sm:flex items-center nav-link focus:outline-none">
                 <BsSearch size={18} className="account-icon" />
               </button>
+              <LanguageDropdown />
               <button
                 className="hidden sm:flex items-center nav-links text-hover focus:outline-none"
                 onMouseEnter={toggleDropdown}
