@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import ReactQuill from "react-quill";
-import { BsChat, BsHeartFill } from "react-icons/bs";
+import { BsChat, BsCheckCircleFill, BsHeartFill } from "react-icons/bs";
 import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
 import Navbar from "../../../Components/Common/Navbar";
 import Avatar from "../../../Assets/images/person-img.png";
@@ -93,8 +93,9 @@ function SinglePost() {
             />
           </div>
           <div className="flex items-center ml-3">
-            <span className="text-gray-400">
+            <span className="text-gray-400 flex items-center">
               {blog.author__first_name} {blog.author__last_name}
+              {blog.author__is_verified && <BsCheckCircleFill className="ml-1" fill="#3e6d9c" />}
             </span>
           </div>
           <div className="flex ml-3 items-center">
@@ -180,8 +181,9 @@ function SinglePost() {
                   />
                   <div className="ml-4">
                     <div>
-                      <p className="text-[15px]">
+                      <p className="text-[15px] flex items-center">
                         {elt.commentor__first_name} {elt.commentor__last_name}
+                        {elt.commentor__is_verified && <BsCheckCircleFill className="ml-1" fill="#3e6d9c" />}
                       </p>
                       <span className="text-[13px] text-[#7d7c7c]">
                         {calculateTime(elt.created_on)}

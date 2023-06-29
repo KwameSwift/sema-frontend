@@ -2,6 +2,8 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { useDispatch } from "react-redux";
+import { FaBars } from "react-icons/fa";
+import { BsChevronBarRight } from "react-icons/bs";
 import Logo from "../../../Assets/images/logo-small.png";
 import AccordionItem from "../../Common/Accordion";
 import { resetUserData } from "../../../Redux/slices/userSlice";
@@ -13,8 +15,6 @@ import {
 } from "../../../utils/appData/admin/leftNavData";
 
 import "./style.scss";
-import { FaBars } from "react-icons/fa";
-import { BsChevronBarRight } from "react-icons/bs";
 
 function LeftSidebar({ isOpen, setIsOpen, user }) {
   const navigate = useNavigate();
