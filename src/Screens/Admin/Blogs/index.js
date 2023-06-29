@@ -129,7 +129,7 @@ function AdminBlogsPage() {
               <div className="ml-10 mt-4 flex flex-col">
                 <label>Blog Type</label>
                 <select
-                  className="border rounded-lg p-1 w-[200px] h-[40px]"
+                  className="border mt-2 rounded-lg p-1 w-[200px] h-[40px]"
                   onChange={filterBlogs}
                 >
                   <option value={0}>All</option>

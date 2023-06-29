@@ -117,13 +117,13 @@ function CreatorBlogs() {
                 type="text"
                 placeholder="Search..."
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="outline-none p-4 h-[40px] w-[100%]"
+                className="outline-none p-4 h-[40px] w-[90%]"
               />
             </div>
             <div className="ml-10 mt-4 flex flex-col">
               <label>Blog Type</label>
               <select
-                className="border rounded-lg p-1 w-[200px] h-[40px]"
+                className="border mt-2 rounded-lg p-1 w-[200px] h-[40px]"
                 onChange={filterBlogs}
               >
                 <option value={0}>All</option>
