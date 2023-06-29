@@ -6,7 +6,7 @@ import "./style.scss";
 function CreatorPasswordChangePage() {
 
   return ( 
-    <ContentCreatorLayout header="Profile">
+    <ContentCreatorLayout header="Change Password">
       <div className='mt-4 flex justify-center'>
         <PasswordReset />
       </div>
