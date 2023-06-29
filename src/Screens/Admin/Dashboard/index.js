@@ -60,8 +60,11 @@ function DashboardPage() {
 
   return ( 
     <Layout>
-      <div className='mt-8 dashboard-main'>
-        <div className='summary mx-5'>
+      <div className='dashboard-main'>
+        <div className="p-8 mt-3 mx-3 flex flex-col blog-header">
+          <h1>Home</h1>
+        </div>
+        <div className='summary mt-8 mx-5'>
           {data.map((elt, index) => 
             <DashboardSummaryCards 
               { ...elt }

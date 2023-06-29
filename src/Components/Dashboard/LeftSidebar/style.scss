@@ -10,7 +10,7 @@
     font-size: 14px;
     font-weight: 700;
     border-radius: 5px;
-    padding: 10px 10px;
+    padding: 10px;
     display: flex;
     color: #2A3547;
     cursor: pointer;
@@ -28,11 +28,28 @@
       background-color: none;
     }
 
+    &.minimized {
+      padding: 0;
+      padding: 5px 0 5px 8px;
+    }
+
   }
   .nav-item:hover {
     // background-color: var(--secondary-blue-color);
     background-color: #FDBF8D;
     color: #fff;
+  }
+  &.minimized {
+    width: 70px;
+    .nav-item-wrapper {
+      &:hover {
+        background-color: #FDBF8D!important;
+        color: #fff!important;
+        svg {
+          fill: #fff;
+        }
+      }
+    }
   }
 }
 

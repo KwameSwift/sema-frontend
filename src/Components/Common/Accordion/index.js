@@ -28,12 +28,12 @@ function AccordionItem({
 
   useEffect(() => {
     setIsOpen(isDropOpen);
-  }, []);
+  }, [isDropOpen]);
 
   return (
     <div>
       <button
-        className={`${pClassName} flex items-center justify-between w-full px-3 py-2 mb-2 rounded-md focus:outline-none`}
+        className={`${pClassName} flex items-center justify-between w-full px-2 py-2 mb-2 rounded-md focus:outline-none`}
         style={{ backgroundColor: bg ? bg : "#fff" }}
         onClick={toggleAccordion}
         type="button"
@@ -66,7 +66,7 @@ function AccordionItem({
         )}
       </button>
       <div
-        className="px-4 rounded-md"
+        className={`${pClassName !== "nav-item-wrapper" && "px-4"} rounded-md`}
         style={{
           backgroundColor: getContentBg(),
           display: isOpen ? "block" : "none",

@@ -3,14 +3,13 @@ import { BiEdit } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import Avatar from "../../../Assets/images/no-profile-img.webp";
-import { axiosClient, axiosClientWithHeaders } from "../../../libs/axiosClient";
+import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 import { setUserInfo } from "../../../Redux/slices/userSlice";
 import "./style.scss";
 import { toast } from "react-toastify";
 
 function Profile() {
   const user = useSelector((store) => store.user.user);
-  const [countries, setCountries] = useState([]);
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(false);
   const [profileImageFile, setProfileImageFile] = useState(null);
@@ -18,16 +17,6 @@ function Profile() {
 
   const fileRef = useRef(null);
   const dispatch = useDispatch();
-
-  const getCountries = async () => {
-    try {
-      const response = await axiosClient.get("utilities/dropdowns/2/");
-      const data = response.data.data;
-      setCountries(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleSetImage = (e) => {
     const file = e.target.files[0];
@@ -83,9 +72,6 @@ function Profile() {
   const details = [
     "first_name",
     "last_name",
-    "email",
-    "mobile_number",
-    "country_id",
     "organization",
     "bio",
     "links",
@@ -104,7 +90,6 @@ function Profile() {
   }
 
   useEffect(() => {
-    getCountries();
     getMyData();
   }, []);
 
@@ -173,27 +158,12 @@ function Profile() {
             disabled
           />
         </div>
-        <div className="flex mx-2 w-full flex-col mt-8">
-          <label>Country</label>
-          <select
-            onChange={handleChange}
-            className="mt-2 border p-2"
-            name="country_id"
-            value={state.country_id}
-          >
-            <option>Select country</option>
-            {countries?.map((elt) => (
-              <option value={elt.id} key={elt.id}>
-                {elt.name}
-              </option>
-            ))}
-          </select>
-        </div>
+
         <div className="flex w-full flex-wrap mt-8">
           <div className="flex w-[40%] m-2 flex-col">
             <label>Mobile Number </label>
             <div className="border flex mobile-input">
-              <div className="flex w-[70px] p-2 pointer-events-none bg-gray-200">
+              <div className="flex w-[110px] p-2 pointer-events-none bg-gray-200">
                 <img src={state.country__flag} className="w-[23px] h-[22px]" />
                 <span className="ml-1">{state.country__calling_code}</span>
               </div>
@@ -210,17 +180,27 @@ function Profile() {
               </div>
             </div>
           </div>
+
           <div className="flex w-[40%] m-2 flex-col">
-            <label>Organization</label>
+            <label>Country</label>
             <input
-              type="text"
-              name="organization"
-              value={state.organization}
-              onChange={handleChange}
-              placeholder="Enter organization"
-              className="border p-2"
+              className="mt-2 border p-2"
+              name="country_id"
+              value={state.country__name}
+              disabled
             />
           </div>
+        </div>
+        <div className="flex mx-2 w-full flex-col mt-8">            
+          <label>Organization</label>
+          <input
+            type="text"
+            name="organization"
+            value={state.organization}
+            onChange={handleChange}
+            placeholder="Enter organization"
+            className="border p-2"
+          />
         </div>
         <div className="flex mx-2 w-full flex-col mt-8">
           <label>Bio</label>
