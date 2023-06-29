@@ -39,7 +39,7 @@ function PasswordReset() {
 
   return (
     <div className="bg-[#fff] p-4 min-w-[400px]">
-      <h1>New Password</h1>
+      <h1>Change Password</h1>
       <div className="flex flex-col mt-4">
         <label className="mb-3">Old Password</label>
         <input
