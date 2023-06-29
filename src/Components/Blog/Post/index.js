@@ -35,10 +35,11 @@ function BlogPost(props) {
 
   const shareBlog = async (e) => {
     e.stopPropagation();
+    const url = `${process.env.REACT_APP_FRONTEND_DOMAIN}/blog/${props.id}`
     let shareData = {
       title: props.title,
       text: props.preview_text,
-      url: `${process.env.REACT_APP_FRONTEND_DOMAIN}/blog/${props.id}`,
+      url,
     };
     
     
