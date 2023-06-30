@@ -77,7 +77,7 @@ function BlogPost(props) {
           </span>
         </div>
         <div className="mt-5">
-          <h3 className="font-bold text-[16px]">{props.title}</h3>
+          <h3 className="font-bold title text-[16px]">{props.title}</h3>
           <p className="mb-5 blog-desc">{props.preview_text}</p>
           {!testImageRetrieve(props) && (
             <img

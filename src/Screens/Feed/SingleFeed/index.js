@@ -104,7 +104,7 @@ function SinglePost() {
           <div className="flex ml-3 items-center">
             <div className="flex items-center">
               <BsHeartFill fill="#ccc" />
-              <span className="ml-2 text-[#ccc]">0</span>
+              <span className="ml-2 text-[#ccc]">{blog.total_likes}</span>
             </div>
             <div className="flex ml-3 items-center">
               <BsChat fill="#ccc" />
@@ -171,10 +171,8 @@ function SinglePost() {
                 <div className="flex items-center">
                   <img
                     src={
-                      blog?.author_profile_image.length
-                        ? `${getImageUrl(
-                            blog?.author_profile_image[0]?.document_location
-                          )}`
+                      elt?.commentor_profile_image
+                        ? `${getImageUrl(elt?.commentor_profile_image)}`
                         : Avatar
                     }
                     className="rounded-full w-[50px] h-[50px]"

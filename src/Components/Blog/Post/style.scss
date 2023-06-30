@@ -5,6 +5,13 @@
   animation-timing-function: ease;
   animation-fill-mode: both;
   opacity: 0;
+  .title {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .inner-blog {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 8px;
