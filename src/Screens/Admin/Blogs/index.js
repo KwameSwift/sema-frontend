@@ -10,6 +10,8 @@ import Modal from "../../../Components/Modal";
 import AdminCreatorBlogCard from "../../../Components/Admin/BlogPost";
 
 import "./style.scss";
+import { useTranslation } from "react-i18next";
+import { getTransString } from "../../../utils/helpers";
 
 function AdminBlogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +27,7 @@ function AdminBlogsPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const firstRunRef = useRef(true);
+  const {t} = useTranslation();
 
   const navigate = useNavigate();
 
@@ -110,10 +113,10 @@ function AdminBlogsPage() {
   return (
     <>
       <Layout>
-        <div className="admin-blog-page mx-5">
+        <div className="admin-blog-page mx-3">
           <div className="p-8 mt-5 flex flex-col blog-header">
-            <h1>Blogs</h1>
-            <p className="text-[#fff]">Total blogs ({totalBlogs})</p>
+            <h1>{t("admin.blogs")}</h1>
+            <p className="text-[#fff]">{t('admin.totalBlogs')} ({totalBlogs})</p>
           </div>
           <div className="flex justify-between mt-3 items-center">
             <div className="flex items-center w-[80%]">
@@ -121,20 +124,20 @@ function AdminBlogsPage() {
                 <BsSearch size={22} className="ml-3" />
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder={`${t(getTransString("Search"))}...`}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="outline-none p-4 h-[40px] w-[90%]"
                 />
               </div>
               <div className="ml-10 mt-4 flex flex-col">
-                <label>Blog Type</label>
+                <label>{t("admin.blogType")}</label>
                 <select
                   className="border mt-2 rounded-lg p-1 w-[200px] h-[40px]"
                   onChange={filterBlogs}
                 >
-                  <option value={0}>All</option>
-                  <option value={1}>Approved</option>
-                  <option value={2}>Unapproved</option>
+                  <option value={0}>{t('admin.all')}</option>
+                  <option value={1}>{t('admin.approved')}</option>
+                  <option value={2}>{t('admin.unApproved')}</option>
                 </select>
               </div>
             </div>
@@ -143,7 +146,7 @@ function AdminBlogsPage() {
                   className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
                   onClick={() => navigate("/admin/blogs/add")}
                 >
-                <BsPlus size={25}/>Blogs
+                <BsPlus size={25}/>{t('admin.blogs')}
               </button>
             </div>
           </div>
@@ -177,7 +180,7 @@ function AdminBlogsPage() {
               className="see-more-btn"
               onClick={() => setCurrentPage((prev) => prev + 1)}
             >
-              See More...
+              {t("home.seeMore")}
             </button>
           </div>}
         </div>

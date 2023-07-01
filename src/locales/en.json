@@ -6,7 +6,55 @@
     "donations": "Donations"
   },
   "home": {
+    "seeMore": "See More",
     "recentBlogs": "Recent Blogs",
     "mostRecentBlogs": "Most Recent Posts"
+  },
+  "editBlogs": {
+    "coverImage": "Cover Image",
+    "document": "Document",
+    "title": "Title",
+    "description": "Description",
+    "addTitle": "Add title",
+    "changeCoverImage": "Change Cover Image"
+  },
+  "modal": {
+    "disApproveBlogs": "Disapprove Blog",
+    "disApprove": "Disapprove",
+    "cancel": "Cancel",
+    "unApproveText": "Are you sure you want to disapprove this blog?"
+  },
+  "admin": {
+    "all": "All",
+    "edit": "Edit",
+    "view": "View",
+    "preview": "Preview",
+    "blogs": "Blogs",
+    "polls": "Polls",
+    "events": "Events",
+    "forums": "Forums",
+    "donations": "Donations",
+    "updateProfile": "Update Profile",
+    "changePassword": "Change Password",
+    "logout": "Logout",
+    "search": "Search",
+    "approved": "Approved",
+    "unApproved": "Unapproved",
+    "approve": "Approve",
+    "unApprove": "Unapprove",
+    "blogType": "Blog Type",
+    "totalBlogs": "Total Blogs",
+    "documentsVault": "Documents Vault",
+    "managingUsers": "Managing Users",
+    "managingRoles": "Managing Roles",
+    "titleUsers": "Users",
+    "blogsPolls": "Blogs & Polls",
+    "eventsForums": "Events & Forums",
+    "leftSidebar": {
+      "apps": "apps",
+      "users": "users",
+      "roles": "roles",
+      "profile": "profile"
+    }
   }
 }

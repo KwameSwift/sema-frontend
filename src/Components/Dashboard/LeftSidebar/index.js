@@ -4,6 +4,7 @@ import { FiHome } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { FaBars } from "react-icons/fa";
 import { BsChevronBarRight } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 import Logo from "../../../Assets/images/logo-small.png";
 import AccordionItem from "../../Common/Accordion";
 import { resetUserData } from "../../../Redux/slices/userSlice";
@@ -15,10 +16,13 @@ import {
 } from "../../../utils/appData/admin/leftNavData";
 
 import "./style.scss";
+import { getTransString } from "../../../utils/helpers";
 
 function LeftSidebar({ isOpen, setIsOpen, user }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const {t} = useTranslation();
 
   const location = useLocation();
 
@@ -84,13 +88,13 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
               onClick={() => navigate("/admin/dashboard")}
             >
               <FiHome size={20} className="mr-2" />
-              {isOpen && <span>HOME</span>}
+              {isOpen && <span>{t('navbar.home').toUpperCase()}</span>}
             </li>
             <div className="mt-6">
               <AccordionItem
                 isDropOpen={getSelectedMenu(location.pathname, blogLinks)}
                 icon="BsGrid"
-                title={isOpen && "APPS"}
+                title={isOpen && t('admin.leftSidebar.apps').toUpperCase()}
                 pClassName="nav-item-wrapper"
               >
                 {blogLinks.map(
@@ -106,7 +110,7 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
                         key={elt.id}
                       >
                         {elt.icon}
-                        {isOpen && <span>{elt.name}</span>}
+                        {isOpen && <span>{t(getTransString(elt.name))}</span>}
                       </li>
                     )
                 )}
@@ -117,7 +121,7 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
                 isDropOpen={getSelectedMenu(location.pathname, userLinks)}
                 icon="BsPeople"
                 pClassName="nav-item-wrapper"
-                title={isOpen && "USERS"}
+                title={isOpen && t('admin.leftSidebar.users').toUpperCase()}
               >
                 {userLinks.map((elt) => (
                   <li
@@ -130,7 +134,7 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
                     key={elt.id}
                   >
                     {elt.icon}
-                    {isOpen && <span>{elt.name}</span>}
+                    {isOpen && <span>{t(getTransString(elt.name))}</span>}
                   </li>
                 ))}
               </AccordionItem>
@@ -140,7 +144,7 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
                 isDropOpen={getSelectedMenu(location.pathname, roleLinks)}
                 icon="BsPersonGear"
                 pClassName="nav-item-wrapper"
-                title={isOpen && "ROLES"}
+                title={isOpen && t('admin.leftSidebar.roles').toUpperCase()}
               >
                 {roleLinks.map((elt) => (
                   <li
@@ -153,7 +157,7 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
                     key={elt.id}
                   >
                     {elt.icon}
-                    {isOpen && <span>{elt.name}</span>}
+                    {isOpen && <span>{t(getTransString(elt.name))}</span>}
                   </li>
                 ))}
               </AccordionItem>
@@ -163,7 +167,7 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
                 isDropOpen={getSelectedMenu(location.pathname, profileLinks)}
                 icon="BsPersonDash"
                 pClassName="nav-item-wrapper"
-                title={isOpen && "PROFILE"}
+                title={isOpen && t('admin.leftSidebar.profile').toUpperCase()}
               >
                 {profileLinks.map((elt) => (
                   <li
@@ -178,7 +182,7 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
                     key={elt.id}
                   >
                     {elt.icon}
-                    {isOpen && <span>{elt.name}</span>}
+                    {isOpen && <span>{t(getTransString(elt.name))}</span>}
                   </li>
                 ))}
               </AccordionItem>

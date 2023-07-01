@@ -5,6 +5,8 @@ import { axiosClientWithHeaders } from "../../libs/axiosClient";
 import CustomRadioInput from "../Common/CustomRadioButton";
 
 import "./style.scss";
+import { getTransString } from "../../utils/helpers";
+import { useTranslation } from "react-i18next";
 
 const Modal = ({
   type,
@@ -27,6 +29,8 @@ const Modal = ({
   const [modalData, setModalData] = useState([]);
   const [roleSelected, setRoleSelected] = useState(0);
   const [extraModalData, setExtraModalData] = useState({});
+
+  const {t} = useTranslation();
 
   const handleSetData = (type, data, parentId) => {
     setData(type, data, parentId);
@@ -313,7 +317,7 @@ const Modal = ({
             >
               <div className="flex justify-between">
                 <h2 className="text-xl font-bold mb-4">
-                  {modalStates[type]?.name}
+                  {t(getTransString(modalStates[type]?.name))}
                 </h2>
                 <span className="close-btn" onClick={toggleModal}>
                   <IoCloseOutline size={20} fill="#eee" />
@@ -323,14 +327,14 @@ const Modal = ({
               {modalStates[type]?.content ? (
                 <>{modalStates[type]?.content}</>
               ) : (
-                <p className="text-[14px]">{modalStates[type]?.text}</p>
+                <p className="text-[14px]">{t(getTransString(modalStates[type]?.text))}</p>
               )}
               <div className="flex mt-8 justify-end items-center">
                 <button
                   className="text-[14px] border rounded px-3 py-2"
                   onClick={toggleModal}
                 >
-                  Cancel
+                  {t('modal.cancel')}
                 </button>
                 <button
                   className="text-[14px] ml-2 text-white px-3 py-2 rounded"
@@ -341,7 +345,7 @@ const Modal = ({
                       : updateBlogStatus
                   }
                 >
-                  {loading ? "Loading..." : modalStates[type]?.buttonText}
+                  {loading ? `${t(getTransString("Loading"))}...` : t(getTransString(modalStates[type]?.buttonText))}
                 </button>
               </div>
             </div>

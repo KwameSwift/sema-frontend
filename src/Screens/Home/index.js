@@ -52,7 +52,7 @@ function HomePage() {
               className="py-2 px-4 see-more-btn"
               onClick={() => navigate("/blogs")}
             >
-              See More
+              {t("home.seeMore")}
             </button>
           </div>
         </div>

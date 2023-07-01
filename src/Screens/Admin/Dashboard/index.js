@@ -5,6 +5,7 @@ import { axiosClientWithHeaders } from '../../../libs/axiosClient';
 // import CustomTable from "../../../Components/Common/CustomTable";
 
 import "./style.scss";
+import { useTranslation } from 'react-i18next';
 
 
 function DashboardPage() {
@@ -13,6 +14,7 @@ function DashboardPage() {
   const [eventsForums, setEventsForums] = useState(0);
   const [donations, setDonations] = useState(0);
 
+  const {t} = useTranslation();
 
   const data = [
     {
@@ -46,7 +48,6 @@ function DashboardPage() {
       try {
         const resp = await axiosClientWithHeaders.get('super-admin/system-statistics/');
         const data = resp.data.data;
-        console.log(data);
         setUsers(data.total_users);
         setBlogsPolls(data.total_blogs_and_polls);
         setEventsForums(data.total_events_and_forums);
@@ -62,7 +63,7 @@ function DashboardPage() {
     <Layout>
       <div className='dashboard-main'>
         <div className="p-8 mt-3 mx-3 flex flex-col blog-header">
-          <h1>Home</h1>
+          <h1>{t("navbar.home")}</h1>
         </div>
         <div className='summary mt-8 mx-5'>
           {data.map((elt, index) => 

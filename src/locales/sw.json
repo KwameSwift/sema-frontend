@@ -6,7 +6,55 @@
     "donations": "Michango"
   },
   "home": {
+    "seeMore": "Ona zaidi",
     "recentBlogs": "Blogu za Hivi Punde",
     "mostRecentBlogs": "Machapisho ya Hivi Karibuni"
+  },
+  "editBlogs": {
+    "coverImage": "Picha ya Jalada",
+    "document": "Hati",
+    "title": "Kichwa",
+    "description": "Maelezo",
+    "addTitle": "Ongeza kichwa cha habari",
+    "changeCoverImage": "Badilisha Picha ya Jalada"
+  },
+  "modal": {
+    "disApproveBlogs": "Usiidhinishe Blogu",
+    "disApprove": "Usiidhinishe",
+    "cancel": "Ghairi",
+    "unApproveText": "Je, una uhakika unataka kutoidhinisha blogu hii?"
+  },
+  "admin": {
+    "all": "Wote",
+    "edit": "Hariri",
+    "view": "Tazama",
+    "preview": "Hakiki",
+    "blogs": "Blogu",
+    "polls": "Kura",
+    "events": "Matukio",
+    "forums": "Vikao",
+    "donations": "Michango",
+    "updateProfile": "Sasisha Wasifu",
+    "changePassword": "Badilisha neno la siri",
+    "logout": "Ondoka",
+    "search": "Tafuta",
+    "approved": "Imeidhinishwa",
+    "unApproved": "Haijaidhinishwa",
+    "approve": "Idhinisha",
+    "unApprove": "Usiidhinishe",
+    "blogType": "Aina ya Blogu",
+    "totalBlogs": "Jumla ya Blogu",
+    "documentsVault": "Nyaraka Vault",
+    "managingUsers": "Kusimamia Watumiaji",
+    "managingRoles": "Kusimamia Majukumu",
+    "titleUsers": "Watumiaji",
+    "blogsPolls": "Blogu & Kura",
+    "eventsForums": "Matukio & Vikao",
+    "leftSidebar": {
+      "apps": "programu",
+      "users": "watumiaji",
+      "roles": "majukumu",
+      "profile": "wasifu"
+    }
   }
 }

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { calculateTime } from "../../../utils/helpers";
+import { calculateTime, getTransString } from "../../../utils/helpers";
 import { FaExclamationTriangle } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 function AdminCreatorBlogCard({
   id,
@@ -23,6 +24,7 @@ function AdminCreatorBlogCard({
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const dropdownRef = useRef(null);
+  const {t} = useTranslation();
 
   const deactivatePost = () => {
     setModalOpen(status.toLowerCase(), true, id);
@@ -119,7 +121,7 @@ function AdminCreatorBlogCard({
                         className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
                         key={elt.id}
                       >
-                        {elt.name}
+                        {t(getTransString(elt.name))}
                       </button>
                     ))}
                   </div>

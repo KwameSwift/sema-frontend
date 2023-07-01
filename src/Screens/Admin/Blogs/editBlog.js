@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   axiosClientForm,
   axiosClientWithHeaders,
@@ -33,7 +34,7 @@ function EditAdminBlogPage() {
   const [, setDeletedFiles] = useState([]);
 
   const [, setBlog] = useState({});
-
+  const {t} = useTranslation();
   const [loading, setLoading] = useState(false);
 
   const [coverImageFile, setCoverImgFile] = useState(null);
@@ -341,7 +342,7 @@ function EditAdminBlogPage() {
             } mt-5 mb-8`}
           >
             <label className="text-[18px] font-bold">
-              Cover Image / Document
+              {t("editBlogs.coverImage")} / {t("editBlogs.document")}
             </label>
             <input
               type="file"
@@ -357,7 +358,7 @@ function EditAdminBlogPage() {
                 onClick={() => fileRef.current.click()}
                 className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
               >
-                Change cover image
+                {t("editBlogs.changeCoverImage")}
               </button>
               <span className="ml-3">
                 <BsTrash
@@ -371,19 +372,19 @@ function EditAdminBlogPage() {
           )}
           <div>
             <label className="text-[18px] font-bold">
-              Title<span className="text-[#e14d2a]">*</span>
+              {t("editBlogs.title")}<span className="text-[#e14d2a]">*</span>
             </label>
             <input
               type="text"
               name="title"
               onChange={handleChange}
               value={state.title}
-              placeholder="Add Title"
+              placeholder={t("editBlogs.addTitle")}
               className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
             />
           </div>
           <div className="mt-8">
-            <label className="text-[18px] font-bold">Description</label>
+            <label className="text-[18px] font-bold">{t("editBlogs.description")}</label>
             <textarea
               onChange={handleChange}
               placeholder="Add blog description..."
