@@ -12,10 +12,12 @@ import {
 } from "redux-persist";
 import userReducer from "./slices/userSlice";
 import blogReducer from "./slices/blogSlice";
+import languageReducer from "./slices/languageSlice";
 
 const reducers = combineReducers({
   user: userReducer,
   blog: blogReducer,
+  language: languageReducer
 });
 
 const persistConfig = {

@@ -1,5 +1,9 @@
 import { setUserTokens } from "../Redux/slices/userSlice";
 import store from "../Redux/store";
+import enStrings from "../locales/en.json";
+
+const enTrans = enStrings;
+
 
 export const isRequiredFieldsPassed = (obj, fields, type) => {
   if (type === "eq") {
@@ -111,3 +115,19 @@ export const replaceNullWithEmptyString = (obj) => {
   // If the object is neither an array nor an object, return the value as is
   return obj;
 }
+
+// Table Field translation strings
+export const getTransString = (field) => {
+  let selectedKey = "";
+  Object.keys(enTrans).some((parentKey) => {
+    const childKey = Object.keys(enTrans[parentKey]).find((key) => {
+      return enTrans[parentKey][key] === field;
+    });
+    if (childKey) {
+      selectedKey = parentKey + "." + childKey;
+      return true;
+    }
+  });
+
+  return selectedKey;
+};

@@ -1,4 +1,12 @@
 {
-  "name": "Name",
-  "manish": "Manish"
+  "navbar": {
+    "home": "Home",
+    "feed": "Feed",
+    "events": "Events",
+    "donations": "Donations"
+  },
+  "home": {
+    "recentBlogs": "Recent Blogs",
+    "mostRecentBlogs": "Most Recent Posts"
+  }
 }

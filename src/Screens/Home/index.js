@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 // import { useDispatch, useSelector } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 // import { resetUserData } from '../../Redux/slices/userSlice';
@@ -14,6 +15,7 @@ import "./style.scss";
 function HomePage() {
   const [blogs, setBlogs] = useState([]);
   const [refetch, setRefetch] = useState(false);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -37,8 +39,8 @@ function HomePage() {
         <HomeBanners />
         <div className="recent-articles flex flex-col justify-center mt-20">
           <div className="flex flex-col justify-center align-items">
-            <h1 className="text-[40px] text-center">Recent Blogs</h1>
-            <p className="text-center">Most Recent Posts</p>
+            <h1 className="text-[40px] text-center">{t("home.recentBlogs")}</h1>
+            <p className="text-center">{t("home.mostRecentBlogs")}</p>
           </div>
           <div className="blogs mt-8 px-8">
             {blogs.slice(0, 3).map((elt, index) => (

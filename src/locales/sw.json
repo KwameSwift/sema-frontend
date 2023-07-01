@@ -1,4 +1,12 @@
 {
-  "name": "Name",
-  "manish": "Manish"
+  "navbar": {
+    "home": "Nyumbani",
+    "feed": "Kulisha",
+    "events": "Matukio",
+    "donations": "Michango"
+  },
+  "home": {
+    "recentBlogs": "Blogu za Hivi Punde",
+    "mostRecentBlogs": "Machapisho ya Hivi Karibuni"
+  }
 }

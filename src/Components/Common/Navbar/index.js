@@ -6,10 +6,13 @@ import Logo from "../../../Assets/images/logo-small.png";
 import { resetUserData } from "../../../Redux/slices/userSlice";
 import LanguageDropdown from "../LanguageDropdown"
 import "./style.scss";
+import { getTransString } from "../../../utils/helpers";
+import { useTranslation } from "react-i18next";
 
 function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const {t} = useTranslation();
   const location = useLocation();
   const user = useSelector((store) => store.user);
 
@@ -75,7 +78,7 @@ function Navbar() {
                     location.pathname === elt.route && "selected"
                   } focus:outline-none`}
                 >
-                  <span className="mr-1">{elt.name}</span>
+                  <span className="mr-1">{t(getTransString(elt.name))}</span>
                 </button>
               </div>
             ))}
