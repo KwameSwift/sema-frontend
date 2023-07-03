@@ -17,8 +17,8 @@ function ContentCreatorDashboardPage() {
 
   const data = [
     {
-      name: "Blogs & Polls",
-      count: statistics?.total_blogs_and_polls || 0,
+      name: "Blogs",
+      count: statistics?.total_blogs || 0,
       icon: "BsBarChartFill",
     },
     {
@@ -32,8 +32,8 @@ function ContentCreatorDashboardPage() {
       icon: "BsChatDots",
     },
     {
-      name: "Donations",
-      count: statistics?.total_donations || 0,
+      name: "Polls",
+      count: statistics?.total_polls || 0,
       icon: "BsFillHeartFill",
     },
   ];

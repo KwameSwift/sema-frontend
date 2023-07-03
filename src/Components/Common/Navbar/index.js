@@ -84,6 +84,7 @@ function Navbar() {
             ))}
           </div>
           <div className="flex items-center">
+            <LanguageDropdown />
             <div className="relative flex">
               <button
                 className="flex items-center text-black hover:text-gray-300 focus:outline-none sm:hidden"
@@ -104,7 +105,6 @@ function Navbar() {
               <button className="hidden mr-5 sm:flex items-center nav-link focus:outline-none">
                 <BsSearch size={18} className="account-icon" />
               </button>
-              <LanguageDropdown />
               <button
                 className="hidden sm:flex items-center nav-links text-hover focus:outline-none"
                 onMouseEnter={toggleDropdown}
@@ -124,7 +124,7 @@ function Navbar() {
                       className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
                       key={elt.id}
                     >
-                      {elt.name}
+                      {t(getTransString(elt.name))}
                     </button>
                   ))}
                 </div>
@@ -155,7 +155,7 @@ function Navbar() {
                           className="block w-full text-left px-4 py-2 text-white text-[30px] hover:bg-[#FC8A2B]"
                           key={elt.id}
                         >
-                          {elt.name}
+                          {t(getTransString(elt.name))}
                         </button>
                       ))}
                       {accountLinks.map((elt) => (
@@ -168,12 +168,12 @@ function Navbar() {
                           className="block w-full text-left px-4 py-2 text-white text-[30px] hover:bg-[#FC8A2B]"
                           key={elt.id}
                         >
-                          {elt.name}
+                          {t(getTransString(elt.name))}
                         </button>
                       ))}
 
                       <button className="underline mt-12 block w-full text-left px-4 py-2 text-white text-[30px] hover:bg-[#FC8A2B]">
-                        Search
+                        {t(getTransString("Search"))}
                       </button>
                     </ul>
                   </div>

@@ -114,39 +114,6 @@ function LeftSidebar({ isOpen, user }) {
                   )}
                 </AccordionItem>
               </div>
-              {/* <div className="mt-6">
-                <AccordionItem icon="BsGrid" title="APPS" bg="#001253">
-                  <li
-                    className={`px-6 text-gray-200 ${
-                      location.pathname.startsWith("/admin/blogs") && "selected"
-                    } nav-item flex justify-start items-center`}
-                    onClick={() => navigate("/creator/blogs")}
-                  >
-                    <BsPencilSquare size={20} className="mr-2" />
-                    {isOpen && <span>Blogs</span>}
-                  </li>
-                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
-                    <BsBarChartFill size={20} className="mr-2" />
-                    {isOpen && <span>Polls</span>}
-                  </li>
-                  <li className="px-6 text-gray-200 nav-item flex justify-start items-center">
-                    <BsCalendar2Event size={20} className="mr-2" />
-                    {isOpen && <span>Events</span>}
-                  </li>
-                  <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
-                    <BsFillHeartFill size={20} className="mr-2" />
-                    {isOpen && <span>Donations</span>}
-                  </li>
-                  <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
-                    <BsFileLock2 size={20} className="mr-2" />
-                    {isOpen && <span>Document Vault</span>}
-                  </li>
-                  <li className="px-6 py-2 text-gray-200 nav-item flex justify-start items-center">
-                    <BsChatDots size={20} className="mr-2" />
-                    {isOpen && <span>Forums</span>}
-                  </li>
-                </AccordionItem>
-              </div> */}
               <div className="mt-6">
                 <AccordionItem isDropOpen={getSelectedMenu(location.pathname, creatorProfileLinks)} icon="BsPersonDash" title="PROFILE"  bg="#001253">
                   {creatorProfileLinks.map((elt) =>

@@ -88,12 +88,6 @@ export const creatorBlogLinks = [
     icon: <BsChatDots size={20} className="mr-2" />,
   },
   {
-    id: "donations",
-    name: "Donations",
-    route: "/creator/donations",
-    icon: <BsFillHeartFill size={20} className="mr-2" />,
-  },
-  {
     id: "documentVault",
     name: "Documents Vault",
     route: "/creator/document-vault",

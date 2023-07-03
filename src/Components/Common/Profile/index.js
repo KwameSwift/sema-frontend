@@ -20,7 +20,7 @@ function Profile() {
   const [cropperFile, setCropperFile] = useState(null);
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [profileImageFileUrl, setProfileImageFileUrl] = useState("");
-
+  
   const fileRef = useRef(null);
   const cropperRef = useRef(null);
   const dispatch = useDispatch();
