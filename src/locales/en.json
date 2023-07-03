@@ -3,7 +3,8 @@
     "home": "Home",
     "feed": "Feed",
     "events": "Events",
-    "donations": "Donations"
+    "donations": "Donations",
+    "dashboard": "Dashboard"
   },
   "home": {
     "seeMore": "See More",

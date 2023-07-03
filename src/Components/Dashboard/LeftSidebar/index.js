@@ -189,7 +189,7 @@ function LeftSidebar({ isOpen, setIsOpen, user }) {
             </div>
           </ul>
         </div>
-      </div>
+      </div>-
     </div>
   );
 }

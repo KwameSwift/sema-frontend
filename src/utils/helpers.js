@@ -20,31 +20,29 @@ export const calculateTime = (date) => {
   if (date) {
     const now = new Date();
     const previous = new Date(date);
-    if (now.getFullYear() === previous.getFullYear()) {
-      if (now.getMonth() === previous.getMonth()) {
-        const res = now.getDate() - previous.getDate();
-        let message = "";
+    const timeDiff = now.getTime() - previous.getTime();
+    const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
 
-        if (res === 0) message = "Today";
-        else if (res === 1) message = "Yesterday";
-        else message = "days ago";
-        return `${res > 1 ? res : ""} ${message}`;
+    if (daysDiff < 7) {
+      if (daysDiff === 0) {
+        return "Today";
+      } else if (daysDiff === 1) {
+        return "Yesterday";
       } else {
-        const res = now.getMonth() - previous.getMonth();
-        return `${res} ${res === 1 ? "month" : "months"} ago`;
+        return `${daysDiff} days ago`;
       }
+    } else if (daysDiff < 30) {
+      return "Last week";
+    } else if (now.getFullYear() === previous.getFullYear()) {
+      const monthDiff = now.getMonth() - previous.getMonth();
+      return `${monthDiff} ${monthDiff === 1 ? "month" : "months"} ago`;
     } else {
-      const monthInterval = 12 - previous.getMonth() + now.getMonth();
-      if (monthInterval < 12) {
-        return `${monthInterval} ${
-          monthInterval === 1 ? "month" : "months"
-        } ago`;
-      }
-      const res = now.getFullYear() - previous.getFullYear();
-      return `${res} ${res === 1 ? "year" : "years"} ago`;
+      const yearDiff = now.getFullYear() - previous.getFullYear();
+      return `${yearDiff} ${yearDiff === 1 ? "year" : "years"} ago`;
     }
   }
 };
+
 
 export const isDocumentImage = (file) => {
   const splittedName = file?.split(".");

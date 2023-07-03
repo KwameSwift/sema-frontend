@@ -45,9 +45,9 @@ function Navbar() {
   if (user?.tokens?.access) {
     accountLinks = [];
     if (user.user.account_type === "Content Creator") {
-      accountLinks.push({ id: "profile", name: "Profile", route: "/creator/profile" });
+      accountLinks.push({ id: "dashboard", name: "Dashboard", route: "/creator/dashboard" });
     } else if (user.user.account_type === "Super Admin") {
-      accountLinks.push({ id: "profile", name: "Profile", route: "/admin/profile" });
+      accountLinks.push({ id: "dashboard", name: "Dashboard", route: "/admin/dashboard" });
     }
 
     accountLinks.push({ id: "logout", name: "Logout", type: "func", func: logout });
