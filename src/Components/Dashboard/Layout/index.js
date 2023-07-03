@@ -10,7 +10,7 @@ function Layout({ children }) {
 
   useEffect(() => {
     if (!user?.tokens?.access || !user.user.is_admin) {
-      navigate("/login");
+      navigate("/");
     }
   }, [user])
 

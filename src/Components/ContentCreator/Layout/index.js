@@ -25,7 +25,7 @@ function ContentCreatorLayout({ header, subChild, children, contentType }) {
 
   useEffect(() => {
     if (!user?.tokens?.access && !user.user.is_admin) {
-      navigate("/login");
+      navigate("/");
     }
   }, [user])
 
