@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 // import { useNavigate } from 'react-router-dom';
-import LanguageDropdown from "../../Common/LanguageDropdown";
+import { BsArrowLeft } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import LanguageDropdown from "../../Common/LanguageDropdown";
 import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 import { setUserInfo } from "../../../Redux/slices/userSlice";
 import "./style.scss";
@@ -9,7 +11,7 @@ import "./style.scss";
 function TopSection() {
   const user = useSelector((store) => store.user.user);
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const getMyData = async () => {
     try {
@@ -31,6 +33,12 @@ function TopSection() {
         <div className="flex justify-between bg-[#fff] w-full p-2">
           <div className="flex justify-end w-full h-full">
             <div className="flex ml-[10%] w-[40%] justify-end items-center">
+              <div className="relative nav-link" onClick={() => navigate("/")}>
+                <d type="button" className="flex items-center">
+                  <BsArrowLeft />
+                  <span className="ml-2">Go to main page</span>
+                </d>
+              </div>
               <div className="relative nav-link">
                 <LanguageDropdown />
               </div>
