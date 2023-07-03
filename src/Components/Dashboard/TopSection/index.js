@@ -34,10 +34,10 @@ function TopSection() {
           <div className="flex justify-end w-full h-full">
             <div className="flex ml-[10%] w-[40%] justify-end items-center">
               <div className="relative nav-link" onClick={() => navigate("/")}>
-                <d type="button" className="flex items-center">
+                <button type="button" className="flex items-center">
                   <BsArrowLeft />
                   <span className="ml-2">Go to main page</span>
-                </d>
+                </button>
               </div>
               <div className="relative nav-link">
                 <LanguageDropdown />
