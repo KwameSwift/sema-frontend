@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
-import { BsCheckCircleFill } from "react-icons/bs";
+import { BsArrowLeft, BsCheckCircleFill } from "react-icons/bs";
 import AccordionItem from "../../Common/Accordion";
 import { resetUserData, setUserInfo } from "../../../Redux/slices/userSlice";
 import Avatar from "../../../Assets/images/person-img.png";
 import { creatorBlogLinks, creatorProfileLinks } from "../../../utils/appData/admin/leftNavData";
+import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 
 import "./style.scss";
-import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 
 function LeftSidebar({ isOpen, user }) {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ function LeftSidebar({ isOpen, user }) {
             </h2>
             <p className="text-[#fff] text-[15px]">{user.user.email}</p>
           </div>
-          <div className="w-full">
+          <div className="w-full flex justify-end flex-col">
             <ul className="py-4 px-4 w-full">
               {/* Sidebar Items */}
               <li
@@ -131,6 +131,10 @@ function LeftSidebar({ isOpen, user }) {
                 </AccordionItem>
               </div>
             </ul>
+            <button type="button" className="flex py-4 px-4 items-center" onClick={() => navigate('/')}>
+              <BsArrowLeft fill="#fff" />
+              <span className="ml-2 text-[#fff]">Go to main page</span>
+            </button>
           </div>
         </div>
       )}
