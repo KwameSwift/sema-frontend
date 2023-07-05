@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import Navbar from "../../Components/Common/Navbar";
 import BlogPost from "../../Components/Blog/Post";
 import { axiosClient } from "../../libs/axiosClient";
-// import Poll from "../../Components/Poll";
+import Poll from "../../Components/Poll";
 // import UnderConstructionPage from "../../Components/PageUnderConstruction";
 import HomeBanners from "./components/bannerSection";
 import "./style.scss";
@@ -56,7 +56,7 @@ function HomePage() {
             </button>
           </div>
         </div>
-        {/* <div className="flex justify-start bg-[#fff] mt-20">
+        <div className="flex justify-start bg-[#fff] mt-20">
           <div className="recent-articles w-[80%] flex flex-col justify-center">
             <div className="flex flex-col justify-center align-items">
               <h1 className="text-[35px] mt-3 mx-8 text-left">Trending Polls</h1>
@@ -69,7 +69,7 @@ function HomePage() {
               <button className="py-2 px-4 see-more-btn">See More</button>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
