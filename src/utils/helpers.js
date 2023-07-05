@@ -16,6 +16,18 @@ export const isRequiredFieldsPassed = (obj, fields, type) => {
   return false;
 };
 
+export const isRequiredFieldValuesPassed = (obj, fields, type) => {
+  if (type === "eq") {
+    Object.values(obj).every((elt) => elt !== "");
+    return (
+      fields.every((elt) => Object.keys(obj).includes(elt)) &&
+      Object.values(obj).every((elt) => elt !== "")
+    );
+  }
+
+  return false;
+};
+
 export const calculateTime = (date) => {
   if (date) {
     const now = new Date();

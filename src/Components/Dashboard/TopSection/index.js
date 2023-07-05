@@ -25,7 +25,7 @@ function TopSection() {
 
   useEffect(() => {
     getMyData();
-  }, [user]);
+  }, []);
 
   return (
     <nav className="top-section sticky top-2 z-50 rounded-md bg-[#fff] h-[5vh]">

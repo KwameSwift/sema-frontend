@@ -4,7 +4,7 @@ import Layout from "../../../../../Components/Dashboard/Layout";
 import { axiosClientWithHeaders } from "../../../../../libs/axiosClient";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { isRequiredFieldsPassed } from "../../../../../utils/helpers";
+import { isRequiredFieldValuesPassed } from "../../../../../utils/helpers";
 
 function AdminAddPollPage() {
   const { t } = useTranslation();
@@ -24,30 +24,34 @@ function AdminAddPollPage() {
 
   const handleChoices = (e) => {
     setChoices({
-      ...state,
+      ...choices,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const handleSave = async () => {
     setLoading(true);
+    const payload = { ...state, choices: [ ...Object.values(choices) ] }
     try {
-      await axiosClientWithHeaders.post("/polls/create-poll/", state);
+      await axiosClientWithHeaders.post("/polls/create-poll/", payload);
       setLoading(false);
       toast.success("Poll Added successfully");
       await new Promise((r) => setTimeout(r, 2000));
-      navigate("/admin/blogs");
+      navigate("/admin/polls");
     } catch (err) {
       console.log(err);
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    console.log(isRequiredFieldsPassed(state, 2, 'eq') && Object.values(choices).length !== 4)
-    setDisabled(isRequiredFieldsPassed(state, 2, 'eq') && Object.values(choices).length === 4);
+    const requiredFields = ["start_date", "end_date", "question"];
+    setDisabled(
+      !isRequiredFieldValuesPassed(state, requiredFields, "eq") ||
+        Object.values(choices).length !== 4
+    );
   }, [state, choices]);
-  
+
   return (
     <Layout>
       <div>
@@ -61,7 +65,7 @@ function AdminAddPollPage() {
             </label>
             <input
               type="text"
-              name="title"
+              name="question"
               onChange={handleChange}
               placeholder="Enter Title"
               className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
@@ -71,13 +75,13 @@ function AdminAddPollPage() {
             <label className="text-[18px] font-bold">
               Description<span className="text-[#e14d2a]">*</span>
             </label>
-            <input
+            <textarea
               type="text"
-              name="title"
+              name="description"
               onChange={handleChange}
               placeholder="Enter Description"
               className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
-            />
+            ></textarea>
           </div>
           <div className="mt-4">
             <label className="text-[18px] font-bold">
@@ -134,6 +138,32 @@ function AdminAddPollPage() {
               </div>
             </div>
           </div>
+          <div className="flex mt-4">
+            <div>
+              <label className="text-[18px] font-bold">
+                Start Date<span className="text-[#e14d2a]">*</span>
+              </label>
+              <input
+                type="date"
+                name="start_date"
+                onChange={handleChange}
+                placeholder="Enter Description"
+                className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
+              />
+            </div>
+            <div className="ml-8">
+              <label className="text-[18px] font-bold">
+                End Date<span className="text-[#e14d2a]">*</span>
+              </label>
+              <input
+                type="date"
+                name="end_date"
+                onChange={handleChange}
+                placeholder="Enter Description"
+                className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
+              />
+            </div>
+          </div>
           <div className="mt-8 flex items-center justify-center">
             <button
               type="button"
@@ -141,7 +171,7 @@ function AdminAddPollPage() {
               onClick={handleSave}
               disabled={disabled || loading}
             >
-              Save
+              {loading ? "Loading..." : "Save" }
             </button>
           </div>
         </div>

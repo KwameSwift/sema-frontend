@@ -75,12 +75,6 @@ function AdminPollsPage() {
     getAllBlogs(e.target.value, false);
   };
 
-  // const handleModalOpen = (type, state, id) => {
-  //   setSelectedId(id);
-  //   setModalState(type);
-  //   setModalOpen(state);
-  // };
-
   const searchBlogs = async (term) => {
     try {
       const resp = await axiosClientWithHeaders.post(
