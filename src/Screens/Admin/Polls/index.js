@@ -2,23 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { BsPlus, BsSearch } from "react-icons/bs";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
 import Layout from "../../../Components/Dashboard/Layout";
-import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
+// import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
 import { axiosClientWithHeaders } from "../../../libs/axiosClient";
 import Modal from "../../../Components/Modal";
-import AdminCreatorBlogCard from "../../../Components/Admin/BlogPost";
-
-import "./style.scss";
-import { useTranslation } from "react-i18next";
+// import AdminCreatorBlogCard from "../../../Components/Admin/BlogPost";
 import { getTransString } from "../../../utils/helpers";
 
-function AdminBlogsPage() {
+import "./style.scss";
+import AdminPollCard from "./components/AdminPollCard";
+
+function AdminPollsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [blogs, setBlogs] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalState, setModalState] = useState("");
-  const [selectedId, setSelectedId] = useState(0);
+  const [modalState, ] = useState("");
+  const [selectedId, ] = useState(0);
   const [refetch, setRefetch] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [totalBlogs, setTotalBlogs] = useState(0);
@@ -74,11 +75,11 @@ function AdminBlogsPage() {
     getAllBlogs(e.target.value, false);
   };
 
-  const handleModalOpen = (type, state, id) => {
-    setSelectedId(id);
-    setModalState(type);
-    setModalOpen(state);
-  };
+  // const handleModalOpen = (type, state, id) => {
+  //   setSelectedId(id);
+  //   setModalState(type);
+  //   setModalOpen(state);
+  // };
 
   const searchBlogs = async (term) => {
     try {
@@ -99,10 +100,6 @@ function AdminBlogsPage() {
     searchBlogs(term);
   }, 300); // Adjust the debounce delay as per your requirements
 
-  const testImageRetrieve = (data) => {
-    return data?.cover_image === "null" || data?.cover_image === null;
-  };
-
   useEffect(() => {
     debouncedSearch(searchQuery);
   }, [searchQuery]);
@@ -120,9 +117,9 @@ function AdminBlogsPage() {
       <Layout>
         <div className="admin-blog-page mx-3">
           <div className="p-8 mt-5 flex flex-col blog-header">
-            <h1>{t("admin.blogs")}</h1>
+            <h1>{t("admin.polls")}</h1>
             <p className="text-[#fff]">
-              {t("admin.totalBlogs")} ({totalBlogs})
+              {t("admin.totalPolls")} ({totalBlogs})
             </p>
           </div>
           <div className="flex justify-between mt-3 items-center">
@@ -137,7 +134,7 @@ function AdminBlogsPage() {
                 />
               </div>
               <div className="ml-10 mt-4 flex flex-col">
-                <label>{t("admin.blogType")}</label>
+                <label>{t("admin.pollType")}</label>
                 <select
                   className="border mt-2 rounded-lg p-1 w-[200px] h-[40px]"
                   onChange={filterBlogs}
@@ -151,39 +148,17 @@ function AdminBlogsPage() {
             <div className="mt-5 mr-3">
               <button
                 className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
-                onClick={() => navigate("/admin/blogs/add")}
+                onClick={() => navigate("/admin/polls/add")}
               >
                 <BsPlus size={25} />
-                {t("admin.blogs")}
+                {t("admin.polls")}
               </button>
             </div>
           </div>
           <div className="creator-blogs mt-10">
             {blogs?.map((elt, index) => (
               <>
-                <AdminCreatorBlogCard
-                  id={elt.id}
-                  img={
-                    testImageRetrieve(elt)
-                      ? EmptyImg
-                      : `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
-                  }
-                  title={elt.title}
-                  approved_and_published_by__first_name={
-                    elt.approved_and_published_by__first_name
-                  }
-                  approved_and_published_by__last_name={
-                    elt.approved_and_published_by__last_name
-                  }
-                  is_abusive={elt.is_abusive}
-                  is_approved={elt.is_approved}
-                  description={elt.preview_text}
-                  author={elt.author__first_name + " " + elt.author__last_name}
-                  posted_on={elt.created_on}
-                  key={index}
-                  status={elt.is_approved ? "Unapprove" : "Approve"}
-                  setModalOpen={handleModalOpen}
-                />
+                <AdminPollCard {...elt} key={index} />
               </>
             ))}
           </div>
@@ -213,4 +188,4 @@ function AdminBlogsPage() {
   );
 }
 
-export default AdminBlogsPage;
+export default AdminPollsPage;

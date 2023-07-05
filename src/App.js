@@ -23,6 +23,8 @@ import AdminProfilePage from "./Screens/Admin/Profile";
 import CreatorProfilePage from "./Screens/ContentCreator/Profile";
 import AdminPasswordChangePage from "./Screens/Admin/PasswordReset";
 import CreatorPasswordChangePage from "./Screens/ContentCreator/PasswordReset";
+import AdminPollsPage from "./Screens/Admin/Polls";
+import AdminAddPollPage from "./Screens/Admin/Polls/components/AddPoll";
 
 function App() {
   return (
@@ -43,10 +45,15 @@ function App() {
         <Route path="/admin/dashboard" exact element={<DashboardPage />} />
         <Route path="/admin/users" exact element={<UsersPage />} />
         <Route path="/admin/user-roles" exact element={<UserRolesPage />} />
+        {/* Blogs */}
         <Route path="/admin/blogs" exact element={<AdminBlogsPage />} />
         <Route path="/admin/blogs/add" exact element={<AddBlogPage />} />
         <Route path="/admin/blogs/edit/:id" exact element={<EditAdminBlogPage />} />
         <Route path="/admin/blogs/preview/:id" exact element={<PreviewBlogDataPage />} />
+        {/* Polls */}
+        <Route path="/admin/polls" exact element={<AdminPollsPage />} />
+        <Route path="/admin/polls/add" exact element={<AdminAddPollPage />} />
+        {/* Profile */}
         <Route path="/admin/profile" exact element={<AdminProfilePage />} />
         <Route path="/admin/change-password" exact element={<AdminPasswordChangePage />} />
 

@@ -4,7 +4,10 @@
     "feed": "Feed",
     "events": "Events",
     "donations": "Donations",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "signup": "Signup",
+    "logout": "Logout"
   },
   "home": {
     "seeMore": "See More",
@@ -30,6 +33,7 @@
     "edit": "Edit",
     "view": "View",
     "preview": "Preview",
+    "totalPolls": "Total Polls",
     "blogs": "Blogs",
     "polls": "Polls",
     "events": "Events",
@@ -44,6 +48,7 @@
     "approve": "Approve",
     "unApprove": "Unapprove",
     "blogType": "Blog Type",
+    "pollType": "Poll Type",
     "totalBlogs": "Total Blogs",
     "documentsVault": "Documents Vault",
     "managingUsers": "Managing Users",
@@ -51,6 +56,7 @@
     "titleUsers": "Users",
     "blogsPolls": "Blogs & Polls",
     "eventsForums": "Events & Forums",
+    "addPolls": "Add Poll",
     "leftSidebar": {
       "apps": "apps",
       "users": "users",

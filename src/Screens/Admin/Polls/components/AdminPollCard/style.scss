@@ -1,0 +1,22 @@
+.poll-card {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 3px 11px 0px;
+  margin: 20px;
+  flex-grow: 1;
+  max-width: 450px;
+  cursor: pointer;
+  .poll-desc {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .dropdown-toggle {
+    &:hover, &::selection, &.show, &:active {
+      background-color: #fff!important;
+    }
+  }
+  .dropdown-toggle::after {
+    content: none;  
+  }
+}

@@ -4,7 +4,10 @@
     "feed": "Kulisha",
     "events": "Matukio",
     "donations": "Michango",
-    "dashboard": "Dashibodi"
+    "dashboard": "Dashibodi",
+    "login": "Ingia",
+    "signup": "Jisajili",
+    "logout": "Ondoka"
   },
   "home": {
     "seeMore": "Ona zaidi",
@@ -30,6 +33,7 @@
     "edit": "Hariri",
     "view": "Tazama",
     "preview": "Hakiki",
+    "totalPolls": "Jumla ya Kura",
     "blogs": "Blogu",
     "polls": "Kura",
     "events": "Matukio",
@@ -44,6 +48,7 @@
     "approve": "Idhinisha",
     "unApprove": "Usiidhinishe",
     "blogType": "Aina ya Blogu",
+    "pollType": "Aina ya Kura",
     "totalBlogs": "Jumla ya Blogu",
     "documentsVault": "Nyaraka Vault",
     "managingUsers": "Kusimamia Watumiaji",
@@ -51,6 +56,7 @@
     "titleUsers": "Watumiaji",
     "blogsPolls": "Blogu & Kura",
     "eventsForums": "Matukio & Vikao",
+    "addPolls": "Ongeza Kura",
     "leftSidebar": {
       "apps": "programu",
       "users": "watumiaji",
