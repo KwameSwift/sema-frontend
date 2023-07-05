@@ -10,7 +10,7 @@ function PollCard() {
   // const user = useSelector((store) => store.user);
   const [showChoices, setShowChoices] = useState(false);
   return (
-    <div className="poll-card max-h-full p-4">
+    <div className="poll-card h-full p-4">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <img src={Avatar} className="w-[30px] h-[30px] rounded-full" />
@@ -31,7 +31,7 @@ function PollCard() {
         </p>
       </div>
       {showChoices && <div className="flex flex-col my-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between mb-3 items-center">
           <div className="flex items-center">
             <span className="text-[16px] border rounded-full w-[40px] h-[40px] flex items-center justify-center">
               A

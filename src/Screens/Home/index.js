@@ -61,7 +61,7 @@ function HomePage() {
             <div className="flex flex-col justify-center align-items">
               <h1 className="text-[35px] mt-3 mx-8 text-left">Trending Polls</h1>
             </div>
-            <div className="blogs mt-8 px-8">
+            <div className="blogs h-full mt-8 px-8">
               <Poll />
               <Poll />
             </div>
