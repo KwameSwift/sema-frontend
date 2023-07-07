@@ -29,13 +29,13 @@ function AdminEditPollPage() {
     });
   };
 
-  const handleSave = async () => {
+  const handleUpdate = async () => {
     setLoading(true);
     const payload = { ...state, choices: [...Object.values(choices)] };
     try {
-      await axiosClientWithHeaders.post("/polls/create-poll/", payload);
+      await axiosClientWithHeaders.put(`/polls/update-poll/${id}/`, payload);
       setLoading(false);
-      toast.success("Poll Added successfully");
+      toast.success("Poll updated successfully");
       await new Promise((r) => setTimeout(r, 2000));
       navigate("/admin/polls");
     } catch (err) {
@@ -68,7 +68,6 @@ function AdminEditPollPage() {
   };
 
   useEffect(() => {
-    console.log(choices);
     const requiredFields = ["start_date", "end_date", "question"];
     setDisabled(
       !isRequiredFieldValuesPassed(state, requiredFields, "eq") ||
@@ -206,10 +205,10 @@ function AdminEditPollPage() {
             <button
               type="button"
               className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
-              onClick={handleSave}
+              onClick={handleUpdate}
               disabled={disabled || loading}
             >
-              {loading ? "Loading..." : "Save"}
+              {loading ? "Loading..." : "Update"}
             </button>
           </div>
         </div>

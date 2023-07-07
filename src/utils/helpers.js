@@ -141,3 +141,14 @@ export const getTransString = (field) => {
 
   return selectedKey;
 };
+
+// Format Date
+export const formatDate = (date) => {
+  if (date) {
+    const newDate = new Date(date);
+    const monthStr = `${newDate}`.split(" ")[1];
+    return monthStr + " " + newDate.getDate() + ", " + newDate.getFullYear();
+  }
+
+  return "Not specified";
+};

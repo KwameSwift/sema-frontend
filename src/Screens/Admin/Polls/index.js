@@ -76,9 +76,10 @@ function AdminPollsPage() {
   };
 
   const searchPolls = async (term) => {
+    console.log(term.length)
     try {
       const resp = await axiosClientWithHeaders.post(
-        "/blog/search-blog-post/",
+        "/polls/search-polls/1/",
         {
           search_query: term,
         }
@@ -112,7 +113,9 @@ function AdminPollsPage() {
   }, 300); // Adjust the debounce delay as per your requirements
 
   useEffect(() => {
-    debouncedSearch(searchQuery);
+    if (searchQuery.length) {
+      debouncedSearch(searchQuery);
+    }
   }, [searchQuery]);
 
   useEffect(() => {

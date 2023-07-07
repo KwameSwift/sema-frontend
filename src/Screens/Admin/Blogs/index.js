@@ -104,20 +104,17 @@ function AdminBlogsPage() {
   };
 
   useEffect(() => {
-    console.log(searchQuery)
-    if (searchQuery) {
-      console.log("passed")
+    if (searchQuery.length) {
       debouncedSearch(searchQuery);
+    } else {
+      getAllBlogs(blogType, false);
     }
-  }, [searchQuery]);
+  }, [searchQuery, refetch]);
 
   useEffect(() => {
     getAllBlogs(blogType, true);
   }, [currentPage]);
 
-  useEffect(() => {
-    getAllBlogs(blogType, false);
-  }, [refetch]);
 
   return (
     <>
