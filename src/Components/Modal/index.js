@@ -73,6 +73,14 @@ const Modal = ({
       func: () => callbackAction("disapproved"),
       externalFunc: true,
     },
+    deletePoll: {
+      name: "Delete Poll",
+      buttonText: "Delete",
+      buttonBgFill: "#e14d2a",
+      text: "Are you sure you want to delete this poll?",
+      func: callbackAction,
+      externalFunc: true,
+    },
     addAdmin: {
       name: "Add User",
       buttonText: "Save",
