@@ -282,9 +282,7 @@ function EditAdminBlogPage() {
           });
           setCensoredContent(data.censored_content);
           if (data.cover_image !== null && data.cover_image !== "null") {
-            setCoverImage(
-              `${process.env.REACT_APP_BACKEND_DOMAIN}${data.cover_image}`
-            );
+            setCoverImage(data.cover_image);
           }
           setBlog(resp.data.data);
           const splittedReference = data?.reference?.split(",") || [];

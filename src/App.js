@@ -25,6 +25,7 @@ import AdminPasswordChangePage from "./Screens/Admin/PasswordReset";
 import CreatorPasswordChangePage from "./Screens/ContentCreator/PasswordReset";
 import AdminPollsPage from "./Screens/Admin/Polls";
 import AdminAddPollPage from "./Screens/Admin/Polls/components/AddPoll";
+import AdminEditPollPage from "./Screens/Admin/Polls/components/EditPoll";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
         {/* Polls */}
         <Route path="/admin/polls" exact element={<AdminPollsPage />} />
         <Route path="/admin/polls/add" exact element={<AdminAddPollPage />} />
+        <Route path="/admin/polls/edit/:id" exact element={<AdminEditPollPage />} />
         {/* Profile */}
         <Route path="/admin/profile" exact element={<AdminProfilePage />} />
         <Route path="/admin/change-password" exact element={<AdminPasswordChangePage />} />

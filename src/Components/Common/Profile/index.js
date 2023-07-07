@@ -93,7 +93,7 @@ function Profile() {
       return profileImageFileUrl;
     } else {
       if (state.profile_image) {
-        return `${process.env.REACT_APP_BACKEND_DOMAIN}${state.profile_image}`;
+        return `${state.profile_image}`;
       } else {
         return Avatar;
       }

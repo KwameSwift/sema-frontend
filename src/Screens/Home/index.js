@@ -57,11 +57,11 @@ function HomePage() {
           </div>
         </div>
         <div className="flex justify-start bg-[#fff] mt-20">
-          <div className="recent-articles w-[80%] flex flex-col justify-center">
+          <div className="recent-articles flex flex-col justify-center">
             <div className="flex flex-col justify-center align-items">
               <h1 className="text-[35px] mt-3 mx-8 text-left">Trending Polls</h1>
             </div>
-            <div className="blogs h-full mt-8 px-8">
+            <div className="blogs h-full mt-8">
               <Poll />
               <Poll />
             </div>

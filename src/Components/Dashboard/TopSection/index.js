@@ -44,7 +44,7 @@ function TopSection() {
               </div>
               <div className="relative nav-link">
                 <img
-                  src={`${process.env.REACT_APP_BACKEND_DOMAIN}${user.profile_image}`}
+                  src={user.profile_image}
                   className="w-[30px] h-[30px] rounded-full"
                 />
               </div>

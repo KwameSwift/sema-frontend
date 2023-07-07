@@ -12,9 +12,7 @@ function BlogPost(props) {
       <div className="flex justify-center">
         {!testImageRetrieve(props) && (
           <img
-            src={`${process.env.REACT_APP_BACKEND_DOMAIN}${
-              props?.cover_image
-            }`}
+            src={props?.cover_image}
             alt=""
             className="post-img"
           />

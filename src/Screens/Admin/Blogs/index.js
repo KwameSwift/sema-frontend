@@ -104,7 +104,11 @@ function AdminBlogsPage() {
   };
 
   useEffect(() => {
-    debouncedSearch(searchQuery);
+    console.log(searchQuery)
+    if (searchQuery) {
+      console.log("passed")
+      debouncedSearch(searchQuery);
+    }
   }, [searchQuery]);
 
   useEffect(() => {
@@ -166,7 +170,7 @@ function AdminBlogsPage() {
                   img={
                     testImageRetrieve(elt)
                       ? EmptyImg
-                      : `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
+                      : elt.cover_image
                   }
                   title={elt.title}
                   approved_and_published_by__first_name={

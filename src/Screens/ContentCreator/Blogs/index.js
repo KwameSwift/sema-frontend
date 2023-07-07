@@ -70,7 +70,6 @@ function CreatorBlogs() {
     }
   }
 
-
   const testImageRetrieve = (data) => {
     return data?.cover_image === "null" || data?.cover_image === null;
   }
@@ -148,7 +147,7 @@ function CreatorBlogs() {
                 id={elt.id}
                 img={testImageRetrieve(elt)
                   ? EmptyImg
-                  : `${process.env.REACT_APP_BACKEND_DOMAIN}${elt.cover_image}`
+                  : elt.cover_image
                 }
                 title={elt.title}
                 description={elt.preview_text}

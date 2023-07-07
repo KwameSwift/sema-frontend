@@ -1,21 +1,33 @@
 import React from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import Avatar from "../../../../../Assets/images/no-profile-img.webp";
 import "./style.scss";
 
-function AdminPollCard() {
+function AdminPollCard(props) {
+  const navigate = useNavigate();
+  const modalType = props.is_approved ? "Unapprove": "Approve";
   const dropItems = [
-    {id: "status", name: "Approve", action: ""},
-    {id: "edit", name: "Edit", action: ""}
+    {id: "status", name: modalType},
+    {id: "edit", name: "Edit", route: `/admin/polls/edit/${props.id}`}
   ]
+  const handleDropClick = (item) => {
+    if (item.route) {
+      navigate(item.route)
+    } else {
+      props.setSelectedID(props.id);
+      props.setModalType(props.is_approved ? "unapprovePoll" : "approvePoll");
+      props.setModalOpen(true);
+    }
+  }
   return ( 
     <div className='poll-card p-4'>
       <div className='flex justify-between items-center'>
         <div className='flex items-center'>
           <img src={Avatar} className='w-[30px] h-[30px] rounded-full' />
           <span className='flex flex-col ml-3'>
-            <span>John Doe</span>
+            <span>{props.author__first_name} {props.author__last_name}</span>
             <span className='text-[13px]'>12th January, 2022</span>
           </span>
         </div>
@@ -23,14 +35,14 @@ function AdminPollCard() {
           <Dropdown.Toggle className='border-0'><BsThreeDotsVertical fill='#000' size={20} /></Dropdown.Toggle>
           <Dropdown.Menu>
             {dropItems.map((elt) => 
-              <Dropdown.Item key={elt.id}>{elt.name}</Dropdown.Item>
+              <Dropdown.Item key={elt.id} onClick={() => handleDropClick(elt)}>{elt.name}</Dropdown.Item>
             )}
           </Dropdown.Menu>
         </Dropdown>
       </div>
       <div className='mt-4'>
-        <h3 className='font-bold text-[20px]'>What five Marvel characters do you choose to ensure your safety?</h3>
-        <p className='mt-4 poll-desc'>The entire DC Universe is out to assassinate you. What five Marvel characters do you choose to ensure your safety and why? The entire DC Universe? OK, I’m going to need some heavy hitters here.</p>
+        <h3 className='font-bold text-[20px]'>{props.question}</h3>
+        <p className='mt-4 poll-desc'>{props.description}</p>
       </div>
       <hr className='mt-3'/>
       <div className='flex mt-3 items-center justify-between'>

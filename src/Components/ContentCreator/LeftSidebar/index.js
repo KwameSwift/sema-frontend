@@ -60,7 +60,7 @@ function LeftSidebar({ isOpen, user }) {
           {/* Sidebar Content */}
           <div className="sticky top-0 w-full bg-[#001253] py-2 mt-4 px-4 flex flex-col items-center justify-start">
             <div className="profile-pic-cover">
-              <img src={user.user.profile_image ? `${process.env.REACT_APP_BACKEND_DOMAIN}${user.user.profile_image}` : Avatar} className="rounded-full w-[90px] h-[90px]" />
+              <img src={user.user.profile_image ? user.user.profile_image : Avatar} className="rounded-full w-[90px] h-[90px]" />
             </div>
             <h2 className="ml-2 mt-3 font-bold flex items-center text-[#fff] text-[17px]">
               <span>

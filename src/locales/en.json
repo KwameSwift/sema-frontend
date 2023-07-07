@@ -23,10 +23,18 @@
     "changeCoverImage": "Change Cover Image"
   },
   "modal": {
+    "approveBlog": "Approve Blog",
     "disApproveBlogs": "Disapprove Blog",
+    "approvePoll": "Approve Poll",
+    "disApprovePoll": "Disapprove Poll",
     "disApprove": "Disapprove",
     "cancel": "Cancel",
-    "unApproveText": "Are you sure you want to disapprove this blog?"
+    "loading": "Loading",
+    "approveTextBlog": "Are you sure you want to approve this blog?",
+    "unapproveTextPoll": "Are you sure you want to approve this poll?",
+    "unApproveTextBlog": "Are you sure you want to disapprove this blog?",
+    "unApproveTextPoll": "Are you sure you want to disapprove this poll?"
+
   },
   "admin": {
     "all": "All",
@@ -57,6 +65,7 @@
     "blogsPolls": "Blogs & Polls",
     "eventsForums": "Events & Forums",
     "addPolls": "Add Poll",
+    "editPoll": "Edit Poll",
     "leftSidebar": {
       "apps": "apps",
       "users": "users",

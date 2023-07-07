@@ -65,7 +65,7 @@ function BlogPost(props) {
     <div className="blog-post cursor-pointer" onClick={() => navigate(`blog/${props.id}`)}>
       <div className="bg-[#fff] p-4 inner-blog">
         <div className="profile-section flex">
-          <img src={props.author_profile_image?.document_location ? `${process.env.REACT_APP_BACKEND_DOMAIN}${props.author_profile_image?.document_location}`: Avatar} className="rounded-full" width={50} height={50} /> 
+          <img src={props.author_profile_image?.document_location ? props.author_profile_image?.document_location: Avatar} className=" w-[40px] h-[40px] rounded-full" width={50} height={50} /> 
           <span className="ml-2 flex flex-col">
             <span className="font-bold flex items-center">
               {props.author__first_name} {props.author__last_name}
@@ -81,9 +81,7 @@ function BlogPost(props) {
           <p className="mb-5 blog-desc">{props.preview_text}</p>
           {!testImageRetrieve(props) && (
             <img
-              src={`${process.env.REACT_APP_BACKEND_DOMAIN}${
-                props?.cover_image
-              }`}
+              src={props?.cover_image}
               alt=""
               className="post-img"
             />

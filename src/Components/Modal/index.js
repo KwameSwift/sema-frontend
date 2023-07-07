@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import { axiosClientWithHeaders } from "../../libs/axiosClient";
 import CustomRadioInput from "../Common/CustomRadioButton";
+import { getTransString } from "../../utils/helpers";
 
 import "./style.scss";
-import { getTransString } from "../../utils/helpers";
-import { useTranslation } from "react-i18next";
 
 const Modal = ({
   type,
@@ -30,7 +30,7 @@ const Modal = ({
   const [roleSelected, setRoleSelected] = useState(0);
   const [extraModalData, setExtraModalData] = useState({});
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const handleSetData = (type, data, parentId) => {
     setData(type, data, parentId);
@@ -56,6 +56,22 @@ const Modal = ({
       buttonText: "Disapprove",
       buttonBgFill: "#e14d2a",
       text: "Are you sure you want to disapprove this blog?",
+    },
+    approvePoll: {
+      name: "Approve Poll",
+      buttonText: "Approve",
+      buttonBgFill: "#001253",
+      text: "Are you sure you want to approve this poll?",
+      func: () => callbackAction("approved"),
+      externalFunc: true,
+    },
+    unapprovePoll: {
+      name: "Disapprove Poll",
+      buttonText: "Disapprove",
+      buttonBgFill: "#e14d2a",
+      text: "Are you sure you want to disapprove this poll?",
+      func: () => callbackAction("disapproved"),
+      externalFunc: true,
     },
     addAdmin: {
       name: "Add User",
@@ -274,10 +290,9 @@ const Modal = ({
       externalFunc: true,
       text: "Are you sure you want to disapprove this blog?",
     },
-
   };
 
-  const updateBlogStatus = async () => {
+  const updateBlogStatus = async (approvalType) => {
     setLoading(true);
     try {
       await axiosClientWithHeaders.put("/super-admin/approve-blog-posts/", {
@@ -285,7 +300,7 @@ const Modal = ({
       });
       setRefetch((prev) => !prev);
       setLoading(false);
-      toast.success("Blog approved successfully");
+      toast.success(`Blog ${approvalType} successfully`);
       await new Promise((r) => setTimeout(r, 2000));
       toggleModal();
     } catch (error) {
@@ -327,14 +342,16 @@ const Modal = ({
               {modalStates[type]?.content ? (
                 <>{modalStates[type]?.content}</>
               ) : (
-                <p className="text-[14px]">{t(getTransString(modalStates[type]?.text))}</p>
+                <p className="text-[14px]">
+                  {t(getTransString(modalStates[type]?.text))}
+                </p>
               )}
               <div className="flex mt-8 justify-end items-center">
                 <button
                   className="text-[14px] border rounded px-3 py-2"
                   onClick={toggleModal}
                 >
-                  {t('modal.cancel')}
+                  {t("modal.cancel")}
                 </button>
                 <button
                   className="text-[14px] ml-2 text-white px-3 py-2 rounded"
@@ -342,10 +359,12 @@ const Modal = ({
                   onClick={
                     modalStates[type]?.externalFunc
                       ? () => modalStates[type]?.func(roleSelected)
-                      : updateBlogStatus
+                      : () => updateBlogStatus(`${modalStates[type]?.buttonText.toLowerCase()}d`)
                   }
                 >
-                  {loading ? `${t(getTransString("Loading"))}...` : t(getTransString(modalStates[type]?.buttonText))}
+                  {loading
+                    ? `${t(getTransString("Loading"))}...`
+                    : t(getTransString(modalStates[type]?.buttonText))}
                 </button>
               </div>
             </div>

@@ -52,7 +52,7 @@ function FeedBlogPost(props) {
           <p className="mb-5 blog-desc">{props.preview_text}</p>
           {!testImageRetrieve(props) && (
             <img
-              src={`${process.env.REACT_APP_BACKEND_DOMAIN}${props?.cover_image}`}
+              src={props?.cover_image}
               alt=""
               className="post-img"
             />

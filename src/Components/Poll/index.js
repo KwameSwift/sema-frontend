@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { AiOutlineHeart } from "react-icons/ai";
 // import { useSelector } from 'react-redux';
-import { FaRegCommentAlt } from "react-icons/fa";
 import { RiShareForwardLine } from "react-icons/ri";
 import Avatar from "../../Assets/images/no-profile-img.webp";
 import "./style.scss";
@@ -10,7 +8,7 @@ function PollCard() {
   // const user = useSelector((store) => store.user);
   const [showChoices, setShowChoices] = useState(false);
   return (
-    <div className="poll-card h-full p-4">
+    <div className="poll-card p-4">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <img src={Avatar} className="w-[30px] h-[30px] rounded-full" />
@@ -31,33 +29,19 @@ function PollCard() {
         </p>
       </div>
       {showChoices && <div className="flex flex-col my-4">
-        <div className="flex justify-between mb-3 items-center">
-          <div className="flex items-center">
-            <span className="text-[16px] border rounded-full w-[40px] h-[40px] flex items-center justify-center">
-              A
-            </span>
-            <span className="items-center flex ml-3">Choice 1</span>
-          </div>
-          <div className="flex items-center">
-            <span className="text-[16px] border rounded-full w-[40px] h-[40px] flex items-center justify-center">
-              A
-            </span>
-            <span className="items-center flex ml-3">Choice 1</span>
-          </div>
-        </div>
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <span className="text-[16px] border rounded-full w-[40px] h-[40px] flex items-center justify-center">
-              A
-            </span>
-            <span className="items-center flex ml-3">Choice 1</span>
-          </div>
-          <div className="flex items-center">
-            <span className="text-[16px] border rounded-full w-[40px] h-[40px] flex items-center justify-center">
-              A
-            </span>
-            <span className="items-center flex ml-3">Choice 1</span>
-          </div>
+        <div className="flex flex-wrap mb-3">
+          <span className="text-[16px] mb-2 border rounded-full w-full h-[40px] flex items-center justify-center">
+            Choice 1 - Text
+          </span>
+          <span className="text-[16px] mb-2 border rounded-full w-full h-[40px] flex items-center justify-center">
+            Choice 2 - Text
+          </span>
+          <span className="text-[16px] mb-2 border rounded-full w-full h-[40px] flex items-center justify-center">
+            Choice 3 - Text
+          </span>
+          <span className="text-[16px] mb-2 border rounded-full w-full h-[40px] flex items-center justify-center">
+            Choice 4 - Text
+          </span>
         </div>
       </div>}
       <h3
@@ -71,25 +55,9 @@ function PollCard() {
         <div className="flex justify-between items-center">
           <div className="mt-3 flex blog-stats">
             <div className="icon-wrapper flex flex-col">
-              <div className="icon">
-                {/* {user?.liked_blogs?.includes(props.id)
-                ? <AiFillHeart onClick={likeBlog} size={22} fill="#3e6d9c" />
-                : <AiOutlineHeart onClick={likeBlog} size={22} />} */}
-                <AiOutlineHeart size={22} />
-              </div>
-              <span className="mt-1 text-center text-[13px]">0</span>
-            </div>
-            <div className="icon-wrapper flex flex-col">
-              <div className="icon ml-3">
-                <FaRegCommentAlt size={16} />
-              </div>
-              <span className="mt-1 text-center text-[13px]">0</span>
-            </div>
-            <div className="icon-wrapper flex flex-col">
               <div className="icon ml-3">
                 <RiShareForwardLine size={22} />
               </div>
-              <span className="mt-1 text-center text-[13px]">0</span>
             </div>
           </div>
         </div>

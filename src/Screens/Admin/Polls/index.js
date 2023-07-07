@@ -16,14 +16,14 @@ import AdminPollCard from "./components/AdminPollCard";
 
 function AdminPollsPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [blogs, setBlogs] = useState([]);
+  const [polls, setPolls] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalState, ] = useState("");
-  const [selectedId, ] = useState(0);
+  const [modalState, setModalState] = useState("");
+  const [selectedId, setSelectedID] = useState(0);
   const [refetch, setRefetch] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
-  const [totalBlogs, setTotalBlogs] = useState(0);
-  const [blogType, setBlogType] = useState(0);
+  const [totalPolls, setTotalPolls] = useState(0);
+  const [pollType, setPollType] = useState(0);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -32,50 +32,50 @@ function AdminPollsPage() {
 
   const navigate = useNavigate();
 
-  const getAllBlogs = async (type = blogType, prev = true) => {
+  const getAllPolls = async (type = pollType, prev = true) => {
     try {
       const resp = await axiosClientWithHeaders.get(
-        `/super-admin/all-blog-posts/${type}/${currentPage}/`
+        `/super-admin/get-all-polls/${type}/${currentPage}/`
       );
       const data = resp.data;
       if (firstRunRef) {
         setTotalPages(data.total_pages);
-        setTotalBlogs(data.total_data);
+        setTotalPolls(data.total_data);
         firstRunRef.current = false;
       }
       if (prev) {
-        setBlogs([...blogs, ...data.data]);
+        setPolls([...polls, ...data.data]);
       } else {
-        setBlogs(data.data);
+        setPolls(data.data);
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  const deleteBlog = async () => {
-    setLoading(true);
-    try {
-      await axiosClientWithHeaders.delete(
-        `/blog/delete-blog-post/${selectedId}/`
-      );
-      setLoading(false);
-      toast.success("Blog deleted successfully");
-      await new Promise((r) => setTimeout(r, 2000));
-      setModalOpen(false);
-      getAllBlogs(blogType, false);
-    } catch (err) {
-      setLoading(false);
-      console.error(err);
-    }
-  };
+  // const deletePoll = async () => {
+  //   setLoading(true);
+  //   try {
+  //     await axiosClientWithHeaders.delete(
+  //       `/blog/delete-blog-post/${selectedId}/`
+  //     );
+  //     setLoading(false);
+  //     toast.success("Blog deleted successfully");
+  //     await new Promise((r) => setTimeout(r, 2000));
+  //     setModalOpen(false);
+  //     getAllPolls(pollType, false);
+  //   } catch (err) {
+  //     setLoading(false);
+  //     console.error(err);
+  //   }
+  // };
 
   const filterBlogs = (e) => {
-    setBlogType(e.target.value);
-    getAllBlogs(e.target.value, false);
+    setPollType(e.target.value);
+    getAllPolls(e.target.value, false);
   };
 
-  const searchBlogs = async (term) => {
+  const searchPolls = async (term) => {
     try {
       const resp = await axiosClientWithHeaders.post(
         "/blog/search-blog-post/",
@@ -83,15 +83,32 @@ function AdminPollsPage() {
           search_query: term,
         }
       );
-      setBlogs(resp.data.data);
+      setPolls(resp.data.data);
     } catch (err) {
       console.error(err);
     }
   };
 
+  const updatePollApproval = async (approvalType) => {
+    setLoading(true);
+    try {
+      await axiosClientWithHeaders.put(
+        `/super-admin/approve-poll/${selectedId}/`
+      );
+      setRefetch((prev) => !prev);
+      setLoading(false);
+      toast.success(`Poll ${approvalType} successfully`);
+      await new Promise((r) => setTimeout(r, 2000));
+      setModalOpen(false  );
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   const debouncedSearch = debounce((term) => {
     // Perform your search logic here
-    searchBlogs(term);
+    searchPolls(term);
   }, 300); // Adjust the debounce delay as per your requirements
 
   useEffect(() => {
@@ -99,11 +116,11 @@ function AdminPollsPage() {
   }, [searchQuery]);
 
   useEffect(() => {
-    getAllBlogs(blogType, true);
+    getAllPolls(pollType, true);
   }, [currentPage]);
 
   useEffect(() => {
-    getAllBlogs(blogType, false);
+    getAllPolls(pollType, false);
   }, [refetch]);
 
   return (
@@ -113,7 +130,7 @@ function AdminPollsPage() {
           <div className="p-8 mt-5 flex flex-col blog-header">
             <h1>{t("admin.polls")}</h1>
             <p className="text-[#fff]">
-              {t("admin.totalPolls")} ({totalBlogs})
+              {t("admin.totalPolls")} ({totalPolls})
             </p>
           </div>
           <div className="flex justify-between mt-3 items-center">
@@ -150,9 +167,15 @@ function AdminPollsPage() {
             </div>
           </div>
           <div className="creator-blogs mt-10">
-            {blogs?.map((elt, index) => (
+            {polls?.map((elt, index) => (
               <>
-                <AdminPollCard {...elt} key={index} />
+                <AdminPollCard
+                  setModalOpen={setModalOpen}
+                  setSelectedID={setSelectedID}
+                  setModalType={setModalState}
+                  {...elt}
+                  key={index}
+                />
               </>
             ))}
           </div>
@@ -175,7 +198,7 @@ function AdminPollsPage() {
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
         setRefetch={setRefetch}
-        callbackAction={deleteBlog}
+        callbackAction={updatePollApproval}
         parentBtnLoading={loading}
       />
     </>

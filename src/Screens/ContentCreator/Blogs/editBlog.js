@@ -252,9 +252,7 @@ function EditCreatorBlogPage() {
             content: data.content,
             description: data.description,
           });
-          setCoverImage(
-            `${process.env.REACT_APP_BACKEND_DOMAIN}${data.cover_image}`
-          );
+          setCoverImage(data.cover_image);
           setBlog(resp.data.data);
           const splittedReference = data?.reference?.split(",") || [];
           if (data.reference !== null && splittedReference.length) {
