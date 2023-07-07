@@ -44,7 +44,7 @@ function AdminEditPollPage() {
     }
   };
 
-  const getSinglePoll = async () => {
+  const getSinglePoll = async (id) => {
     try {
       const resp = await axiosClientWithHeaders.get(
         `/super-admin/single-poll/${id}/`
@@ -52,11 +52,15 @@ function AdminEditPollPage() {
       const { question, choices, description, start_date, end_date } = {
         ...resp.data.data,
       };
-      setState({ question, description, start_date, end_date });
+      setState({
+        question,
+        description,
+        start_date: new Date(start_date).toISOString().slice(0, 10),
+        end_date: new Date(end_date).toISOString().slice(0, 10),
+      });
       const defaultChoices = choices.reduce((acc, curr, index) => {
-        acc.push({ [`opt${index + 1}`]: curr.choice });
-        return acc;
-      }, []);
+        return { ...acc, [`opt${index + 1}`]: curr.choice };
+      }, {});
       setChoices(defaultChoices);
     } catch (err) {
       console.error(err);
@@ -64,6 +68,7 @@ function AdminEditPollPage() {
   };
 
   useEffect(() => {
+    console.log(choices);
     const requiredFields = ["start_date", "end_date", "question"];
     setDisabled(
       !isRequiredFieldValuesPassed(state, requiredFields, "eq") ||
@@ -72,8 +77,10 @@ function AdminEditPollPage() {
   }, [state, choices]);
 
   useEffect(() => {
-    getSinglePoll();
-  }, []);
+    if (id) {
+      getSinglePoll(id);
+    }
+  }, [id]);
 
   return (
     <Layout>

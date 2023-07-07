@@ -28,11 +28,11 @@ function TopSection() {
   }, []);
 
   return (
-    <nav className="top-section sticky top-2 z-50 rounded-md bg-[#fff] h-[5vh]">
+    <nav className="top-section sticky top-0 p-3 z-50 rounded-md bg-[#fff] h-[5vh]">
       <div className="w-full flex items-center mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="flex justify-between bg-[#fff] w-full p-1">
+        <div className="flex justify-between w-full p-1">
           <div className="flex justify-end w-full h-full">
-            <div className="flex ml-[10%] w-[40%] justify-end items-center">
+            <div className="flex ml-[10%] w-full justify-end items-center">
               <div className="relative nav-link" onClick={() => navigate("/")}>
                 <button type="button" className="flex items-center">
                   <BsArrowLeft />
