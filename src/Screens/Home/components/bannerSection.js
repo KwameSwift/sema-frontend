@@ -15,7 +15,6 @@ function HomeBanners() {
             alt="First slide"
           />
           <Carousel.Caption className="position-absolute top-50 start-50 translate-middle text-center">
-            <p className="typing-animation">FIRST ITEM NAME</p>
             <p className="text-[1.2em]">
               Ongea na Demokrasia is a project under African Child Projects
               whereby seeks to sensitize citizens on the importance of democratic
@@ -35,7 +34,6 @@ function HomeBanners() {
             alt="Second slide"
           />
           <Carousel.Caption className="position-absolute top-50 start-50 translate-middle text-center">
-            <p className="typing-animation">SECOND ITEM</p>
             <p className="text-[1.2em]">
               Sema Tanzania is a Civic technology open platform built to empower
               democratic participation through polling, ideation, collaboration
@@ -54,7 +52,6 @@ function HomeBanners() {
             alt="Third slide"
           />
           <Carousel.Caption className="position-absolute top-50 start-50 translate-middle text-center">
-            <p className="typing-animation">THIRD ITEM LABEL</p>
             <p className="text-[1.2em]">
               Our Partners to this project are Democracy Works Foundation, Charter
               Africa Project, European Union and African Child Projects.

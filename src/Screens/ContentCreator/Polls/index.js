@@ -35,7 +35,7 @@ function CreatorPollsPage() {
   const getAllPolls = async (type = pollType, prev = true) => {
     try {
       const resp = await axiosClientWithHeaders.get(
-        `/super-admin/get-all-polls/${type}/${currentPage}/`
+        `/users/my-polls/${type}/${currentPage}/`
       );
       const data = resp.data;
       if (firstRunRef) {

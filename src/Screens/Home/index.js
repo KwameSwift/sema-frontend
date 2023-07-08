@@ -62,8 +62,9 @@ function HomePage() {
               <h1 className="text-[35px] mt-3 mx-8 text-left">Trending Polls</h1>
             </div>
             <div className="blogs h-full mt-8">
+              {
               <Poll />
-              <Poll />
+              }
             </div>
             <div className="mt-8 flex justify-center items-center">
               <button className="py-2 px-4 see-more-btn">See More</button>
