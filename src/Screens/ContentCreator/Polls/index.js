@@ -76,7 +76,6 @@ function CreatorPollsPage() {
   };
 
   const searchPolls = async (term) => {
-    console.log(term.length)
     try {
       const resp = await axiosClientWithHeaders.post(
         "/polls/search-polls/1/",
@@ -98,16 +97,15 @@ function CreatorPollsPage() {
   useEffect(() => {
     if (searchQuery.length) {
       debouncedSearch(searchQuery);
+    } else {
+      getAllPolls(pollType, false);
     }
-  }, [searchQuery]);
+  }, [searchQuery, refetch]);
 
   useEffect(() => {
     getAllPolls(pollType, true);
   }, [currentPage]);
 
-  useEffect(() => {
-    getAllPolls(pollType, false);
-  }, [refetch]);
 
   return (
     <>

@@ -6,21 +6,44 @@ import { useTranslation } from "react-i18next";
 // import { resetUserData } from '../../Redux/slices/userSlice';
 import Navbar from "../../Components/Common/Navbar";
 import BlogPost from "../../Components/Blog/Post";
-import { axiosClient } from "../../libs/axiosClient";
+import { axiosClient, axiosClientWithHeaders } from "../../libs/axiosClient";
 import Poll from "../../Components/Poll";
 // import UnderConstructionPage from "../../Components/PageUnderConstruction";
 import HomeBanners from "./components/bannerSection";
 import NoData from "../../Assets/images/no-data.png";
 import NoBlog from "../../Assets/images/no-blog.png";
 import "./style.scss";
+import { useSelector } from "react-redux";
 
 function HomePage() {
   const [blogs, setBlogs] = useState([]);
   const [refetch, setRefetch] = useState(false);
   const [polls, setPolls] = useState([]);
+  const [refetchPolls, setRefetchPolls] = useState(false);
+  const user = useSelector((store) => store.user);
   const { t } = useTranslation();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getApprovedPolls = async () => {
+      try {
+        if (user?.tokens?.access) {
+          const resp = await axiosClientWithHeaders.get(
+            "/users/approved-polls/"
+          );
+          setPolls(resp.data.data);
+        } else {
+          const resp = await axiosClient.get("/polls/all-approved-polls/");
+          setPolls(resp.data.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getApprovedPolls();
+  }, [refetchPolls]);
 
   useEffect(() => {
     const getAllBlogs = async () => {
@@ -32,17 +55,7 @@ function HomePage() {
       }
     };
 
-    const getApprovedPolls = async () => {
-      try {
-        const resp = await axiosClient.get("/polls/all-polls-results/");
-        setPolls(resp.data.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     getAllBlogs();
-    getApprovedPolls();
   }, [refetch]);
 
   return (
@@ -80,7 +93,7 @@ function HomePage() {
           )}
         </div>
         <div className="flex justify-start bg-[#fff] mt-20">
-          <div className="recent-articles flex flex-col justify-center">
+          <div className="recent-articles w-[100%] flex flex-col justify-center">
             <div className="flex flex-col justify-center align-items">
               <h1 className="text-[35px] mt-3 mx-8 text-left">
                 Trending Polls
@@ -89,7 +102,12 @@ function HomePage() {
             {polls.length ? (
               <div className="blogs h-full mt-8">
                 {polls.slice(0, 3).map((elt) => (
-                  <Poll {...elt} key={elt.id} />
+                  <Poll
+                    {...elt}
+                    key={elt.id}
+                    access={user?.tokens?.access}
+                    refetch={setRefetchPolls}
+                  />
                 ))}
               </div>
             ) : (

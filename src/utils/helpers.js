@@ -152,3 +152,19 @@ export const formatDate = (date) => {
 
   return "Not specified";
 };
+
+export const sortDataByOrder = (data, type, order) => {
+  const dataToSort = [...data];
+  dataToSort.sort((a, b) => {
+    const itemA = a[type];
+    const itemB = b[type];
+    if (itemA < itemB) {
+      return order === "reverse" ? 1 : -1;
+    }
+    if (itemA > itemB) {
+      return order === "reverse" ? -1 : 1;
+    }
+    return 0;
+  });
+  return dataToSort;
+};
