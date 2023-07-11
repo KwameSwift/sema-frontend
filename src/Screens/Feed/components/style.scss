@@ -1,27 +1,29 @@
 
 .feed-blog-post {
-  animation: zoom-out 1s ease-out;
-  animation-fill-mode: both;
-  opacity: 0;
-  max-width: 700px;
+  width: 450px;
+
   .inner-blog {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 8px;
     max-width: 500px;
+
     .post-img {
       width: 100%;
       height: 300px;
       transition: transform 0.3s ease;
+
       &:hover {
         transform: scale(1.05);
       }
     }
+
     .blog-stats {
       .icon-wrapper {
         display: flex;
         justify-content: flex-start;
       }
-      .icon { 
+
+      .icon {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -32,12 +34,45 @@
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       }
     }
+
     .blog-desc {
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+  }
+}
+
+.poll-card {
+  width: 500px;
+  background: #fff;
+}
+
+.carousel-caption {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    border: 1px solid #fff;
+    margin-top: 30px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    animation: zoom-out 1s ease-in-out;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      background: #fff;
+      color: #000;
+
+      svg {
+        fill: #000;
+      }
     }
   }
 }
