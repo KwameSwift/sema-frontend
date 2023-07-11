@@ -87,6 +87,7 @@ function SinglePost() {
                                     ? blog?.author_profile_image[0]?.document_location
                                     : Avatar
                             }
+                            alt=""
                             className="rounded-full w-[50px] h-[50px]"
                         />
                     </div>

@@ -111,6 +111,7 @@ function PollCard(props) {
                                     ? props?.author_profile_image
                                     : Avatar
                             }
+                            alt=""
                             className="w-[30px] h-[30px] rounded-full"
                         />
                         <span className="flex flex-col ml-3">
