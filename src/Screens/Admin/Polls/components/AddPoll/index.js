@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import Layout from "../../../../../Components/Dashboard/Layout";
 import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
@@ -19,6 +19,10 @@ function AdminAddPollPage() {
     const [disabled, setDisabled] = useState(false);
     const [choiceElts, setChoiceElts] = useState([]);
     const [choiceLength, setChoiceLength] = useState(3);
+    const [coverImageFile, setCoverImgFile] = useState(null);
+
+    const fileRef = useRef(null);
+
 
     const navigate = useNavigate();
 
@@ -71,10 +75,17 @@ function AdminAddPollPage() {
 
     const handleSave = async () => {
         setLoading(true);
-        const payload = {...state, choices: [...Object.values(choices)]}
-        console.log(payload);
+        const payload = {...state, choices: JSON.stringify([...Object.values(choices)])}
+        // Create a new FormData object
+        const formData = new FormData();
+        for (let [key, value] of Object.entries(payload)) {
+            formData.append(key, value);
+        }
+        if (coverImageFile) {
+            formData.append("files", coverImageFile);
+        }
         try {
-            await axiosClientWithHeaders.post("/polls/create-poll/", payload);
+            await axiosClientWithHeaders.post("/polls/create-poll/", formData);
             setLoading(false);
             toast.success("Poll Added successfully");
             await new Promise((r) => setTimeout(r, 2000));
@@ -85,9 +96,13 @@ function AdminAddPollPage() {
         }
     };
 
+    const handleSetImage = (e) => {
+        const file = e.target.files[0];
+        setCoverImgFile(file);
+    };
+
     useEffect(() => {
         const requiredFields = ["start_date", "end_date", "question"];
-        console.log(state, choices);
         setDisabled(
             !isRequiredFieldValuesPassed(state, requiredFields, "eq") ||
             Object.values(choices).length < 3
@@ -101,6 +116,14 @@ function AdminAddPollPage() {
                     <h1>{t("admin.addPolls")}</h1>
                 </div>
                 <div className="p-4">
+                    <div
+                        className="flex flex-col cursor-pointer mt-5 mb-8"
+                    >
+                        <label className="text-[18px] font-bold mb-3">
+                            Document
+                        </label>
+                        <input type="file" ref={fileRef} onChange={handleSetImage}/>
+                    </div>
                     <div>
                         <label className="text-[18px] font-bold">
                             Question<span className="text-[#e14d2a]">*</span>
@@ -112,17 +135,6 @@ function AdminAddPollPage() {
                             placeholder="Enter Question"
                             className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                         />
-                    </div>
-                    <div className="mt-4">
-                        <label className="text-[18px] font-bold">
-                            Description<span className="text-[#e14d2a]">*</span>
-                        </label>
-                        <textarea
-                            name="description"
-                            onChange={handleChange}
-                            placeholder="Enter Description"
-                            className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
-                        ></textarea>
                     </div>
                     <div className="mt-4">
                         <label className="text-[18px] font-bold">

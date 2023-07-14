@@ -1,30 +1,29 @@
 import React, {useState} from "react";
-// import { useSelector } from 'react-redux';
 import {RiShareForwardLine} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
 import {LuVote} from "react-icons/lu";
 import {toast} from "react-toastify";
 import Avatar from "../../Assets/images/no-profile-img.webp";
-import {formatDate, sortDataByOrder} from "../../utils/helpers";
+import {formatDate} from "../../utils/helpers";
 import {axiosClientWithHeaders} from "../../libs/axiosClient";
 import "./style.scss";
-
-const colorShades = ["#001253", "#0F2B5D", "#1D3E70", "#295583"]
 
 
 const endedPollResult = (data) => {
     return (
         <div className="flex flex-col my-4">
             <div className="flex flex-wrap mb-3">
-                {sortDataByOrder(data, "vote_percentage", "reverse")?.map((elt, index) => (
+                {data?.map((elt) => (
                     <span
                         key={elt?.choice_id}
-                        className="text-[16px] text-white mb-2 border rounded-full w-full h-[40px] flex items-center justify-around"
-                        style={{backgroundColor: colorShades[index]}}
+                        className="relative text-[16px] text-white mb-2 border rounded-full w-full h-[40px] flex items-center justify-around"
                     >
-            {elt?.choice}
-                        <span>{elt.vote_percentage}%</span>
-          </span>
+                        <span className="text-[#000] z-20">{elt?.choice}</span>
+                        <span className="text-[#000] z-20">{elt.vote_percentage}%</span>
+                        <span className="poll-progress z-10 bg-gray-200 absolute bottom-0 left-0 top-0 ri"
+                              style={{width: `${elt.vote_percentage}%`, borderRadius: "20px"}}></span>
+                    </span>
+
                 ))}
             </div>
         </div>
@@ -130,8 +129,9 @@ function PollCard(props) {
                     )}
                 </div>
                 <div className="mt-4">
-                    <h3 className="font-bold text-[20px]">{props.question}</h3>
-                    <p className="mt-4 poll-desc">{props.description}</p>
+                    <h3 className="font-bold text-[16px]">{props.question}</h3>
+                    {props.file_location && <a href={props.file_location}
+                                               className="underline text-[#001253] mt-4 poll-desc">{props.file_location}</a>}
                 </div>
                 <>{getPollState()}</>
                 <h3

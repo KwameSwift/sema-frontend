@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 // import { useTranslation } from "react-i18next";
 import {toast} from "react-toastify";
 import {useNavigate, useParams} from "react-router-dom";
@@ -16,7 +16,10 @@ function CreatorEditPollPage() {
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [choiceLength, setChoiceLength] = useState(3);
-
+    const [coverImageFile, setCoverImgFile] = useState(null);
+    const [imgUrl, setImgUrl] = useState("");
+    const [dbImgUrl, setDbImgUrl] = useState("");
+    const fileRef = useRef(null);
 
     const navigate = useNavigate();
     const {id} = useParams();
@@ -36,7 +39,17 @@ function CreatorEditPollPage() {
 
     const handleUpdate = async () => {
         setLoading(true);
-        const payload = {...state, choices: [...Object.values(choices)]};
+        const payload = {...state, choices: JSON.stringify([...Object.values(choices)])};
+        const formData = new FormData();
+        for (let [key, value] of Object.entries(payload)) {
+            formData.append(key, value);
+        }
+        if (coverImageFile) {
+            formData.append("files", coverImageFile);
+        } else if (!imgUrl && dbImgUrl) {
+            formData.append("is_document_deleted", true);
+        }
+        console.log(payload)
         try {
             await axiosClientWithHeaders.put(`/polls/update-poll/${id}/`, payload);
             setLoading(false);
@@ -54,12 +67,11 @@ function CreatorEditPollPage() {
             const resp = await axiosClientWithHeaders.get(
                 `/super-admin/single-poll/${id}/`
             );
-            const {question, choices, description, start_date, end_date} = {
+            const {question, choices, start_date, end_date, file_location} = {
                 ...resp.data.data,
             };
             setState({
                 question,
-                description,
                 start_date: new Date(start_date).toISOString().slice(0, 10),
                 end_date: new Date(end_date).toISOString().slice(0, 10),
             });
@@ -67,6 +79,9 @@ function CreatorEditPollPage() {
                 return {...acc, [`opt${index + 1}`]: curr.choice};
             }, {});
             setChoices(defaultChoices);
+            setChoiceLength(choices.length);
+            setImgUrl(file_location);
+            setDbImgUrl(file_location)
         } catch (err) {
             console.error(err);
         }
@@ -104,6 +119,15 @@ function CreatorEditPollPage() {
         }
     }
 
+    const handleSetImage = (e) => {
+        const file = e.target.files[0];
+        setCoverImgFile(file);
+    };
+
+    const clearFile = () => {
+        setImgUrl("");
+    };
+
     useEffect(() => {
         const requiredFields = ["start_date", "end_date", "question"];
         setDisabled(
@@ -122,6 +146,22 @@ function CreatorEditPollPage() {
         <ContentCreatorLayout header="Edit Poll">
             <div>
                 <div className="p-4">
+                    <div
+                        className="flex flex-col cursor-pointer mt-5 mb-8"
+                    >
+                        <label className="text-[18px] font-bold mb-3">
+                            Document
+                        </label>
+                        {imgUrl
+                            ? (
+                                <span className="flex items-center">
+                                    <span>Document URL: {imgUrl}</span>
+                                    <span className="ml-3"><BsTrash fill="#e14d2a" onClick={clearFile}/></span>
+                                </span>
+                            )
+                            : <input type="file" ref={fileRef} onChange={handleSetImage}/>
+                        }
+                    </div>
                     <div>
                         <label className="text-[18px] font-bold">
                             Title<span className="text-[#e14d2a]">*</span>
@@ -134,18 +174,6 @@ function CreatorEditPollPage() {
                             placeholder="Enter Title"
                             className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                         />
-                    </div>
-                    <div className="mt-4">
-                        <label className="text-[18px] font-bold">
-                            Description<span className="text-[#e14d2a]">*</span>
-                        </label>
-                        <textarea
-                            name="description"
-                            value={state.description}
-                            onChange={handleChange}
-                            placeholder="Enter Description"
-                            className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
-                        ></textarea>
                     </div>
                     <div className="mt-4">
                         <label className="text-[18px] font-bold">

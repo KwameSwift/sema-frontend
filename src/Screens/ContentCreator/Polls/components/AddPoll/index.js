@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 // import { useTranslation } from "react-i18next";
 import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
 import {toast} from "react-toastify";
@@ -17,7 +17,9 @@ function CreatorAddPollPage() {
     const [disabled, setDisabled] = useState(false);
     const [choiceElts, setChoiceElts] = useState([]);
     const [choiceLength, setChoiceLength] = useState(3);
+    const [coverImageFile, setCoverImgFile] = useState(null);
 
+    const fileRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -70,7 +72,15 @@ function CreatorAddPollPage() {
 
     const handleSave = async () => {
         setLoading(true);
-        const payload = {...state, choices: [...Object.values(choices)]}
+        const payload = {...state, choices: JSON.stringify([...Object.values(choices)])}
+        // Create a new FormData object
+        const formData = new FormData();
+        for (let [key, value] of Object.entries(payload)) {
+            formData.append(key, value);
+        }
+        if (coverImageFile) {
+            formData.append("files", coverImageFile);
+        }
         try {
             await axiosClientWithHeaders.post("/polls/create-poll/", payload);
             setLoading(false);
@@ -81,6 +91,11 @@ function CreatorAddPollPage() {
             console.log(err);
             setLoading(false);
         }
+    };
+
+    const handleSetImage = (e) => {
+        const file = e.target.files[0];
+        setCoverImgFile(file);
     };
 
     useEffect(() => {
@@ -95,6 +110,14 @@ function CreatorAddPollPage() {
         <ContentCreatorLayout header="Add Poll">
             <div>
                 <div className="p-4">
+                    <div
+                        className="flex flex-col cursor-pointer mt-5 mb-8"
+                    >
+                        <label className="text-[18px] font-bold mb-3">
+                            Document
+                        </label>
+                        <input type="file" ref={fileRef} onChange={handleSetImage}/>
+                    </div>
                     <div>
                         <label className="text-[18px] font-bold">
                             Title<span className="text-[#e14d2a]">*</span>
@@ -109,21 +132,49 @@ function CreatorAddPollPage() {
                     </div>
                     <div className="mt-4">
                         <label className="text-[18px] font-bold">
-                            Description<span className="text-[#e14d2a]">*</span>
-                        </label>
-                        <textarea
-                            name="description"
-                            onChange={handleChange}
-                            placeholder="Enter Description"
-                            className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
-                        ></textarea>
-                    </div>
-                    <div className="mt-4">
-                        <label className="text-[18px] font-bold">
                             Choices<span className="text-[#e14d2a]">*</span>
                         </label>
                         <div className="mt-3">
-                            {Object.keys(choices).map((elt, index) => choiceField(letters[index], index))}
+                            <div className="flex items-center mb-3">
+                                <label
+                                    className="text-[16px] border rounded-full w-[40px] h-[40px] flex items-center justify-center">
+                                    A
+                                </label>
+                                <input
+                                    type="text"
+                                    name="opt1"
+                                    onChange={handleChoices}
+                                    placeholder="Enter Choice 1"
+                                    className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
+                                />
+                            </div>
+                            <div className="flex items-center mb-3">
+                                <label
+                                    className="text-[16px] border rounded-full w-[40px] h-[40px] flex items-center justify-center">
+                                    B
+                                </label>
+                                <input
+                                    type="text"
+                                    name="opt2"
+                                    onChange={handleChoices}
+                                    placeholder="Enter Choice 2"
+                                    className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
+                                />
+                            </div>
+                            <div className="flex items-center mb-3">
+                                <label
+                                    className="text-[16px] border rounded-full w-[40px] h-[40px] flex items-center justify-center">
+                                    C
+                                </label>
+                                <input
+                                    type="text"
+                                    name="opt3"
+                                    onChange={handleChoices}
+                                    placeholder="Enter Choice 3"
+                                    className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
+                                />
+                            </div>
+                            <>{choiceElts}</>
                             {(choiceLength < 5) && <div className="add-choice mt-3" onClick={addChoice}>
                                 <BsPlusCircle fill="#000" className="mr-1" size={20}/>
                                 <span className="mt-1 cursor-pointer">Add Choice</span>

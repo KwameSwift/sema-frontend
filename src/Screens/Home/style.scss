@@ -3,6 +3,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+
   .overlay {
     position: absolute;
     top: 0;
@@ -11,28 +12,31 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
   }
-  
+
   .text {
     color: white;
     text-align: center;
     padding-top: 50%;
   }
-  
+
 }
 
 .recent-articles {
   h1 {
     font-family: 'Bison', sans-serif;
   }
+
   .blogs {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
     .blog-post {
       margin: 20px;
       // max-width: 400px;
     }
   }
+
   .see-more-btn {
     background-color: var(--primary-orange-color);
     color: #fff;
@@ -43,8 +47,12 @@
 }
 
 @keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 .typing-animation {
@@ -64,6 +72,7 @@
 @media (max-width: 1240px) {
   .carousel-caption {
     min-width: 300px;
+
     p {
       font-size: 16px;
     }
@@ -73,6 +82,7 @@
 @media (max-width: 600px) {
   .carousel-caption {
     min-width: 300px;
+
     p {
       font-size: 12px;
     }
@@ -96,4 +106,8 @@
 .carousel-caption {
   /* Adjust the styles for the caption as needed */
   color: white;
+}
+
+.poll-progress {
+
 }
