@@ -5,7 +5,7 @@ import {LuVote} from "react-icons/lu";
 import {toast} from "react-toastify";
 import Avatar from "../../Assets/images/no-profile-img.webp";
 import {formatDate} from "../../utils/helpers";
-import {axiosClientWithHeaders} from "../../libs/axiosClient";
+import {axiosClient, axiosClientWithHeaders} from "../../libs/axiosClient";
 import "./style.scss";
 
 
@@ -34,30 +34,37 @@ function PollCard(props) {
     const [showChoices, setShowChoices] = useState(false);
     const [selectedId, setSelectedID] = useState(props?.voter_choice || 0);
     const [loading, setLoading] = useState(false);
-
+    const [openComments, setOpenComments] = useState(false);
+    const [comments, setComments] = useState("");
 
     const progress = () => {
         return <ClipLoader size={15} color={loading ? "#fff" : ""}/>;
     };
 
-    const handleSelection = async (id) => {
-        if (!props.access) {
-            toast.error("Register or login to vote on this poll");
-            return;
-        }
-        setSelectedID(id);
+    const handleVote = async () => {
         setLoading(true);
         try {
             await axiosClientWithHeaders.post("/polls/vote-on-poll/", {
                 poll_id: props.id,
-                choice_id: id,
+                choice_id: selectedId,
+                comments: comments
             });
             setLoading(false);
+            setOpenComments(false);
             props.refetch((prev) => !prev);
         } catch (err) {
             setLoading(false);
         }
     };
+
+    const handleCommentOpen = (id) => {
+        if (!props.access) {
+            toast.error("Register or login to vote on this poll");
+            return;
+        }
+        setSelectedID(id);
+        setOpenComments(true);
+    }
 
     const getToggleText = (status) => {
         const text = props.is_ended ? "result" : "choices";
@@ -71,7 +78,7 @@ function PollCard(props) {
                     {(props?.choices || props?.stats?.choices)?.map((elt) => (
                         <span
                             key={elt.id}
-                            onClick={() => handleSelection(elt.id)}
+                            onClick={() => handleCommentOpen(elt.id)}
                             className={`text-[16px] mb-2 border rounded-full w-full h-[40px] flex items-center ${
                                 (selectedId === elt?.id) &&
                                 "bg-[#001253] text-[#fff]"
@@ -95,6 +102,35 @@ function PollCard(props) {
             return endedPollResult(props?.choices || props?.stats?.choices);
         } else if (showChoices) {
             return pollInProgress();
+        }
+    }
+
+    const cancelSelection = () => {
+        setSelectedID("");
+        setOpenComments(false);
+    }
+
+    const sharePoll = async (e) => {
+        e.stopPropagation();
+        const url = `https://backend.africanchildprojects.org/poll/${props.id}`
+        let shareData = {
+            title: props.snapshot_location,
+            text: props.question,
+            url,
+        };
+
+        if (!navigator.canShare) {
+            console.log("navigator.canShare() not supported.");
+        } else if (navigator.canShare(shareData)) {
+            try {
+                await navigator.share(shareData);
+                await axiosClient.put(`/blog/share-blog-post/${props.id}/`)
+                props.setRefetch((prev) => !prev);
+            } catch (err) {
+                console.log(`Error: ${err}`);
+            }
+        } else {
+            console.log("Specified data cannot be shared.");
         }
     }
 
@@ -133,12 +169,39 @@ function PollCard(props) {
                     {props.file_location && <a href={props.file_location}
                                                className="underline text-[#001253] mt-4 poll-desc">{props.file_location}</a>}
                 </div>
+                {props.snapshot_location && <div className="document-img flex justify-center items-center">
+                    <img src={props?.snapshot_location} alt="" className="w-[100%] h-[250px]"/>
+                </div>}
                 <>{getPollState()}</>
+                {openComments && <>
+                    <p className="text-[14px] mb-2">Please add a comment <span className="text-[#e14d2a]">*</span></p>
+                    <textarea rows={3} className="border w-full p-2"
+                              onChange={(e) => setComments(e.target.value)}></textarea>
+                    <div className="flex justify-end">
+                        <button className="py-1 px-2 border text-[12px] mr-2" onClick={cancelSelection}>Cancel</button>
+                        <button className="py-1 px-2 bg-[#001253] text-[#fff] text-[12px]"
+                                disabled={!comments.length} onClick={handleVote}>Add
+                        </button>
+                    </div>
+                </>}
                 <h3
                     className="mt-3 font-bold cursor-pointer"
                     onClick={() => setShowChoices((prev) => !prev)}
                 >
-                    {showChoices ? getToggleText("Hide") : getToggleText("View")}
+
+                    {showChoices
+                        ? (
+                            <>
+                                {props.voter_comments && <div className="mb-3">
+                                    <p className="text-[16px]">Comment</p>
+                                    <p className="text-[14px] mt-1 font-thin">{props.voter_comments}</p>
+                                </div>}
+                                {getToggleText("Hide")}
+                            </>
+                        ) : (
+                            getToggleText("View")
+                        )
+                    }
                 </h3>
                 <hr className="mt-3"/>
                 <p
@@ -152,7 +215,7 @@ function PollCard(props) {
                     <div className="flex justify-between items-center">
                         <div className="mt-3 flex blog-stats">
                             <div className="icon-wrapper flex justify-start items-center">
-                                <div className="icon ml-3">
+                                <div className="icon ml-3" onClick={sharePoll}>
                                     <RiShareForwardLine size={22}/>
                                 </div>
                             </div>
