@@ -41,6 +41,10 @@ const RightSidebarModal = ({isOpen, setIsOpen, user}) => {
                 </div>
                 <div className="mt-3 user-details">
                     <div className="mb-3">
+                        <h3>Bio</h3>
+                        <span>{user?.bio || "N/A"}</span>
+                    </div>
+                    <div className="mb-3">
                         <h3>Organization</h3>
                         <span>{user?.organization}</span>
                     </div>
@@ -51,6 +55,11 @@ const RightSidebarModal = ({isOpen, setIsOpen, user}) => {
                     <div className="mb-3">
                         <h3>Mobile Number</h3>
                         <span>{user?.mobile_number || "N/A"}</span>
+                    </div>
+
+                    <div className="mb-3">
+                        <h3>Links</h3>
+                        <span>{user?.links || "N/A"}</span>
                     </div>
                     <div className="mb-3">
                         <h3>Role</h3>

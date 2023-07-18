@@ -12,7 +12,7 @@ function AdminPollCard(props) {
     const dropItems = [
         {id: "status", name: modalType},
         {id: "edit", name: "Edit", route: `/admin/polls/edit/${props.id}`},
-        {id: "view", name: "View", route: `/creator/polls/${props.id}`}
+        // {id: "view", name: "View", route: `/creator/polls/${props.id}`}
     ];
     const handleDropClick = (item) => {
         if (item.route) {
