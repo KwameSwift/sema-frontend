@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {RiShareForwardLine} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
 import {LuVote} from "react-icons/lu";
@@ -11,7 +11,7 @@ import "./style.scss";
 
 const endedPollResult = (data) => {
     return (
-        <div className="flex flex-col my-4">
+        <div className="flex flex-col my-2">
             <div className="flex flex-wrap mb-3">
                 {data?.map((elt) => (
                     <span
@@ -73,7 +73,7 @@ function PollCard(props) {
 
     const pollInProgress = () => {
         return (
-            <div className="flex flex-col my-4">
+            <div className="flex flex-col my-2">
                 <div className="flex flex-wrap mb-3">
                     {(props?.choices || props?.stats?.choices)?.map((elt) => (
                         <span
@@ -134,6 +134,11 @@ function PollCard(props) {
         }
     }
 
+    useEffect(() => {
+        if (!props.snapshot_location) {
+            setShowChoices(true);
+        }
+    }, [props.snapshot_location]);
 
     return (
         <div>
@@ -184,22 +189,23 @@ function PollCard(props) {
                         </button>
                     </div>
                 </>}
-                <h3
-                    className="mt-3 font-bold cursor-pointer"
-                    onClick={() => setShowChoices((prev) => !prev)}
-                >
-
+                <h3 className="font-bold cursor-pointer">
                     {showChoices
                         ? (
                             <>
                                 {props.voter_comments && <div className="mb-3">
                                     <p className="text-[16px]">Comment</p>
-                                    <p className="text-[14px] mt-1 font-thin">{props.voter_comments}</p>
+                                    <textarea className="text-[14px] w-full border mt-2 font-thin p-2"
+                                              value={props.voter_comments} disabled></textarea>
                                 </div>}
-                                {getToggleText("Hide")}
+                                <span onClick={() => setShowChoices((prev) => !prev)}>
+                                    {getToggleText("Hide")}
+                                </span>
                             </>
                         ) : (
-                            getToggleText("View")
+                            <span onClick={() => setShowChoices((prev) => !prev)}>
+                                {getToggleText("View")}
+                            </span>
                         )
                     }
                 </h3>
