@@ -5,4 +5,19 @@
     padding: 5px;
     border-radius: 50%;
   }
+
+  .user-details {
+    span {
+      color: #000000;
+    }
+
+    h3 {
+      color: #000000;
+      font-weight: 700;
+    }
+  }
+}
+
+.screen-overlay {
+  z-index: 100;
 }

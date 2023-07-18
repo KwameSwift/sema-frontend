@@ -24,7 +24,7 @@ function UsersPage() {
     const [roles, setRoles] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedUser,] = useState({});
+    const [selectedUser, setSelectedUser] = useState({});
     const [isSidebarOpen, setIsOpenSidebar] = useState(false);
 
     const headers = ["Name", "Email", "Country", "Role", "Account Type", ""];
@@ -94,13 +94,14 @@ function UsersPage() {
         }
     }
 
-    const viewUser = async () => {
-        // try {
-        //     const resp = await axiosClientWithHeaders.get(`/super-admin/get-single-user/${id}/`);
-        //     setSelectedUser(resp.data.data);
-        // } catch (err) {
-        //     console.error(err);
-        // }
+    const viewUser = async (id) => {
+        console.log(id);
+        try {
+            const resp = await axiosClientWithHeaders.get(`/super-admin/get-single-user/${id}/`);
+            setSelectedUser(resp.data.data);
+        } catch (err) {
+            console.error(err);
+        }
         setIsOpenSidebar(true);
     }
 
@@ -247,7 +248,7 @@ function UsersPage() {
                             onPageChange={getAllUsers}
                         />
                     </div>
-                    <RightSidebarModal isOpen={isSidebarOpen} setIsOpen={setIsOpenSidebar}/>
+                    <RightSidebarModal isOpen={isSidebarOpen} setIsOpen={setIsOpenSidebar} user={selectedUser}/>
 
                 </div>
             </Layout>
