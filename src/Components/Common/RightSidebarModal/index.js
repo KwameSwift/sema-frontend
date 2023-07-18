@@ -25,7 +25,7 @@ const RightSidebarModal = ({isOpen, setIsOpen, user}) => {
                     className="w-full py-2 mt-4 px-4 flex flex-col items-center justify-start">
                     <div className="profile-pic-cover">
                         <img src={user?.profile_image ? user?.profile_image : Avatar}
-                             className="rounded-full w-[90px] h-[90px]" alt=""/>
+                             className="rounded-full w-[150px] h-[150px]" alt=""/>
                     </div>
                     <h2 className="ml-2 mt-3 font-bold flex text-black items-center text-[17px]">
                     <span>
