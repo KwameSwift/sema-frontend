@@ -83,8 +83,8 @@ function SinglePost() {
                     <div className="min-w-[50px]">
                         <img
                             src={
-                                blog?.author_profile_image?.length
-                                    ? blog?.author_profile_image[0]?.document_location
+                                blog?.author__profile_image?.length
+                                    ? blog?.author__profile_image
                                     : Avatar
                             }
                             alt=""

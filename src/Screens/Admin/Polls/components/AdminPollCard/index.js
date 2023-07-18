@@ -29,10 +29,10 @@ function AdminPollCard(props) {
                 <div className="flex items-center">
                     <img
                         src={
-                            props.author_profile_image ? props.author_profile_image : Avatar
+                            props.author__profile_image ? props.author__profile_image : Avatar
                         }
                         alt=""
-                        className="w-[30px] h-[30px] rounded-full"
+                        className="w-[40px] h-[40px] rounded-full"
                     />
                     <span className="flex flex-col ml-3">
             <span>
@@ -72,7 +72,7 @@ function AdminPollCard(props) {
                         <div>
                             {props.is_ended
                                 ? <span className="text-[#e14d2a] text-[14px] cursor-default">Closed</span>
-                                : <span className="text-gray-200 text-[14px] cursor-default">Inprogress</span>
+                                : <span className="text-[green] text-[14px] cursor-default">In progress</span>
                             }
                         </div>
                     </div>

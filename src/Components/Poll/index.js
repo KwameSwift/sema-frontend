@@ -147,8 +147,8 @@ function PollCard(props) {
                     <div className="flex items-center">
                         <img
                             src={
-                                props.author_profile_image
-                                    ? props?.author_profile_image
+                                props.author__profile_image
+                                    ? props?.author__profile_image
                                     : Avatar
                             }
                             alt=""

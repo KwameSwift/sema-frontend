@@ -66,7 +66,7 @@ function BlogPost(props) {
             <div className="bg-[#fff] p-4 inner-blog">
                 <div className="profile-section flex">
                     <img
-                        src={props.author_profile_image?.document_location ? props.author_profile_image?.document_location : Avatar}
+                        src={props.author__profile_image ? props.author__profile_image : Avatar}
                         className=" w-[40px] h-[40px] rounded-full" width={50} height={50} alt=""/>
                     <span className="ml-2 flex flex-col">
             <span className="font-bold flex items-center">

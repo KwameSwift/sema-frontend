@@ -9,9 +9,8 @@ const RightSidebarModal = ({isOpen, setIsOpen, user}) => {
         <div className="flex">
             {/* Modal sidebar */}
             {isOpen && <div className="fixed inset-0 bg-black opacity-50 screen-overlay"></div>}
-
             <div
-                className={`fixed right-sidebar inset-y-0 right-0 bg-white text-white w-80 p-4 transform ${
+                className={`fixed right-sidebar overflow-auto inset-y-0 right-0 bg-white text-white p-4 transform ${
                     isOpen ? 'translate-x-0' : 'translate-x-full'
                 } transition-transform duration-300 ease-in-out`}
                 id="sidebar"
@@ -41,10 +40,6 @@ const RightSidebarModal = ({isOpen, setIsOpen, user}) => {
                 </div>
                 <div className="mt-3 user-details">
                     <div className="mb-3">
-                        <h3>Bio</h3>
-                        <span>{user?.bio || "N/A"}</span>
-                    </div>
-                    <div className="mb-3">
                         <h3>Organization</h3>
                         <span>{user?.organization}</span>
                     </div>
@@ -52,18 +47,29 @@ const RightSidebarModal = ({isOpen, setIsOpen, user}) => {
                         <h3>Country</h3>
                         <span>{user?.country__name}</span>
                     </div>
-                    <div className="mb-3">
-                        <h3>Mobile Number</h3>
-                        <span>{user?.mobile_number || "N/A"}</span>
+                    <div className="flex flex-wrap">
+                        <div className="mb-3">
+                            <h3>Mobile Number</h3>
+                            <span>{user?.mobile_number || "N/A"}</span>
+                        </div>
+                        <div className="mb-3 mx-5">
+                            <h3>Role</h3>
+                            <span>{user?.role__name}</span>
+                        </div>
                     </div>
 
                     <div className="mb-3">
                         <h3>Links</h3>
-                        <span>{user?.links || "N/A"}</span>
+                        {user?.links?.split(", ").map((elt) =>
+                            <div key={elt} className="mt-2">
+                                <a href={elt} className="text-[blue] underline">{elt}</a>
+                            </div>
+                        )}
                     </div>
                     <div className="mb-3">
-                        <h3>Role</h3>
-                        <span>{user?.role__name}</span>
+                        <h3 className="mb-3">Bio</h3>
+                        <textarea rows={6} placeholder={user?.bio || "N/A"} disabled
+                                  className="border p-2 w-full text-[#000]"></textarea>
                     </div>
                 </div>
             </div>

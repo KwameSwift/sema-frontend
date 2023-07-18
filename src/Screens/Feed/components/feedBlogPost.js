@@ -35,7 +35,7 @@ function FeedBlogPost(props) {
             <div className="bg-[#fff] w-full p-4 inner-blog">
                 <div className="profile-section flex">
                     <img
-                        src={props.author_profile_image?.document_location || Avatar}
+                        src={props.author__profile_image || Avatar}
                         className="rounded-full" width={50} height={50} alt=""/>
                     <span className="ml-2 flex flex-col">
             <span className="font-bold flex items-center">
