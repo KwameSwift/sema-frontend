@@ -19,6 +19,8 @@ function CreatorEditPollPage() {
     const [coverImageFile, setCoverImgFile] = useState(null);
     const [imgUrl, setImgUrl] = useState("");
     const [dbImgUrl, setDbImgUrl] = useState("");
+    const [snapShot, setSnapShot] = useState("");
+
     const fileRef = useRef(null);
 
     const navigate = useNavigate();
@@ -67,7 +69,7 @@ function CreatorEditPollPage() {
             const resp = await axiosClientWithHeaders.get(
                 `/super-admin/single-poll/${id}/`
             );
-            const {question, choices, start_date, end_date, file_location} = {
+            const {question, choices, start_date, end_date, file_location, snapshot_location} = {
                 ...resp.data.data,
             };
             setState({
@@ -82,6 +84,7 @@ function CreatorEditPollPage() {
             setChoiceLength(choices.length);
             setImgUrl(file_location);
             setDbImgUrl(file_location)
+            setSnapShot(snapshot_location)
         } catch (err) {
             console.error(err);
         }
@@ -126,6 +129,7 @@ function CreatorEditPollPage() {
 
     const clearFile = () => {
         setImgUrl("");
+        setSnapShot("");
     };
 
     useEffect(() => {
@@ -152,9 +156,11 @@ function CreatorEditPollPage() {
                         <label className="text-[18px] font-bold mb-3">
                             Document
                         </label>
+                        {snapShot && <img src={snapShot} alt="" className="w-[300px] h-[300px]"/>}
+
                         {imgUrl
                             ? (
-                                <span className="flex items-center">
+                                <span className="flex mt-3 items-center">
                                     <span>Document URL: {imgUrl}</span>
                                     <span className="ml-3"><BsTrash fill="#e14d2a" onClick={clearFile}/></span>
                                 </span>

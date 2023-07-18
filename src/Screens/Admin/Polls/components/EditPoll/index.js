@@ -20,6 +20,7 @@ function AdminEditPollPage() {
     const [imgUrl, setImgUrl] = useState("");
     const [dbImgUrl, setDbImgUrl] = useState("");
     const fileRef = useRef(null);
+    const [snapShot, setSnapShot] = useState("");
 
     const navigate = useNavigate();
     const {id} = useParams();
@@ -98,7 +99,7 @@ function AdminEditPollPage() {
             const resp = await axiosClientWithHeaders.get(
                 `/super-admin/single-poll/${id}/`
             );
-            const {question, choices, start_date, end_date, file_location} = {
+            const {question, choices, start_date, end_date, file_location, snapshot_location} = {
                 ...resp.data.data,
             };
             setState({
@@ -113,6 +114,7 @@ function AdminEditPollPage() {
             setChoiceLength(choices.length);
             setImgUrl(file_location);
             setDbImgUrl(file_location)
+            setSnapShot(snapshot_location)
         } catch (err) {
             console.error(err);
         }
@@ -125,6 +127,7 @@ function AdminEditPollPage() {
 
     const clearFile = () => {
         setImgUrl("");
+        setSnapShot("");
     };
 
     useEffect(() => {
@@ -154,6 +157,7 @@ function AdminEditPollPage() {
                         <label className="text-[18px] font-bold mb-3">
                             Document
                         </label>
+                        {snapShot && <img src={snapShot} alt="" className="w-[300px] h-[300px]"/>}
                         {imgUrl
                             ? (
                                 <span className="flex items-center">
