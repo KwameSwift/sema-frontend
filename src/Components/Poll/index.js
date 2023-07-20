@@ -114,10 +114,12 @@ function PollCard(props) {
         e.stopPropagation();
         const url = `https://backend.africanchildprojects.org/poll/${props.id}`
         let shareData = {
-            title: props.snapshot_location,
+            title: props.question,
             text: props.question,
             url,
         };
+
+        console.log(shareData);
 
         if (!navigator.canShare) {
             console.log("navigator.canShare() not supported.");
