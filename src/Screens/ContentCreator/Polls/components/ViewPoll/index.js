@@ -5,6 +5,8 @@ import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
 import {BarElement, CategoryScale, Chart as ChartJS, LinearScale} from 'chart.js';
 import {Bar} from 'react-chartjs-2';
 
+import "./style.scss";
+
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -21,8 +23,8 @@ export function ViewPoll() {
         return {
             label: 'Dataset 1',
             data: data,
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            borderColor: '#001253',
+            backgroundColor: '#001253',
         }
     }
     const getSinglePoll = async () => {
@@ -42,6 +44,22 @@ export function ViewPoll() {
 
     const options = {
         indexAxis: 'y',
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'No. of Votes',
+                },
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Choices',
+                },
+            },
+        },
         elements: {
             bar: {
                 borderWidth: 2,
@@ -67,18 +85,36 @@ export function ViewPoll() {
 
     useEffect(() => {
         if (id) {
-            getSinglePoll()
+            getSinglePoll();
         }
     }, [id])
 
 
     return (
         <ContentCreatorLayout header={poll?.question || ""}>
-            <div className="flex justify-center w-full">
+            <h1 className="mt-3">Result</h1>
+            <div className="mt-3 flex justify-center p-4 bg-[#fff] w-[1000] h-[600]">
                 <Bar options={options} data={data}/>
             </div>
             <div>
-
+                <h1 className="mt-5">Comments</h1>
+                <div className="flex mt-3 flex-wrap">
+                    {poll?.poll_votes?.map((elt) =>
+                        <div key={elt.id} className="bg-[#fff] p-3 poll-comment-card m-3">
+                            <h3 className="font-bold text-[18px]">{elt.voter__first_name} {elt.voter__last_name}</h3>
+                            <div className="mt-3">
+                                <p className="flex flex-col">
+                                    <p className="text-[13px] text-gray-400">Voter Choice:</p>
+                                    <p className="text-[13px] ml-1">{elt.poll_choice__choice}</p>
+                                </p>
+                                <p className="flex flex-col">
+                                    <p className="text-[13px] text-gray-400">Voter Comment:</p>
+                                    <p className="text-[13px] ml-1">{elt.comments}</p>
+                                </p>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </ContentCreatorLayout>
     )
