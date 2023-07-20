@@ -27,7 +27,7 @@ function CreatorPollCard(props) {
           <span
               className={`text-[14px] ${props.is_ended ? "text-[#e14d2a]" : "text-[green]"}`}
           >
-            {props.is_ended ? "Closed" : "Inprogress"}
+            {props.is_ended ? "Closed" : "In progress"}
           </span>
                 </div>
                 <Dropdown>

@@ -6,6 +6,7 @@ import {BarElement, CategoryScale, Chart as ChartJS, LinearScale} from 'chart.js
 import {Bar} from 'react-chartjs-2';
 
 import "./style.scss";
+import CustomTable from "../../../../../Components/Common/CustomTable";
 
 ChartJS.register(
     CategoryScale,
@@ -93,28 +94,21 @@ export function ViewPoll() {
     return (
         <ContentCreatorLayout header={poll?.question || ""}>
             <h1 className="mt-3">Result</h1>
-            <div className="mt-3 flex justify-center p-4 bg-[#fff] w-[1000] h-[600]">
+            <div className="mt-3 flex justify-center p-4 bg-[#fff] bar-chart">
                 <Bar options={options} data={data}/>
             </div>
             <div>
-                <h1 className="mt-5">Comments</h1>
-                <div className="flex mt-3 flex-wrap">
-                    {poll?.poll_votes?.map((elt) =>
-                        <div key={elt.id} className="bg-[#fff] p-3 poll-comment-card m-3">
-                            <h3 className="font-bold text-[18px]">{elt.voter__first_name} {elt.voter__last_name}</h3>
-                            <div className="mt-3">
-                                <p className="flex flex-col">
-                                    <p className="text-[13px] text-gray-400">Voter Choice:</p>
-                                    <p className="text-[13px] ml-1">{elt.poll_choice__choice}</p>
-                                </p>
-                                <p className="flex flex-col">
-                                    <p className="text-[13px] text-gray-400">Voter Comment:</p>
-                                    <p className="text-[13px] ml-1">{elt.comments}</p>
-                                </p>
-                            </div>
-                        </div>
-                    )}
-                </div>
+                <h1 className="mt-5 mb-3">Comments</h1>
+                <CustomTable
+                    totalPages={1}
+                    data={poll?.poll_votes || []}
+                    headers={["Name", "Choice", "Comment"]}
+                    idType={"user_key"}
+                    currentPage={1}
+                    isEditable={false}
+                    isPaginated={false}
+                    headerValues={["voter__first_name", "poll_choice__choice", "comments"]}
+                />
             </div>
         </ContentCreatorLayout>
     )
