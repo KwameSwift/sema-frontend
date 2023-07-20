@@ -114,7 +114,7 @@ function PollCard(props) {
         e.stopPropagation();
         const url = "https://sema.africanchildprojects.org/"
         let shareData = {
-            title: props.question,
+            title: props.file_location,
             text: props.question,
             url,
         };
