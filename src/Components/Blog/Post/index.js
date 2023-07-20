@@ -37,7 +37,7 @@ function BlogPost(props) {
 
     const shareBlog = async (e) => {
         e.stopPropagation();
-        const url = `https://backend.africanchildprojects.org/blog/${props.id}`
+        const url = `https://sema.africanchildprojects.org/blog/${props.id}`
         let shareData = {
             title: props.title,
             text: props.preview_text,
