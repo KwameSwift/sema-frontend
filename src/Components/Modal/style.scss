@@ -19,14 +19,21 @@
 .add-admin-form {
   display: inline-flex;
   flex-wrap: wrap;
+
   label {
     font-size: 14px;
   }
+
   input, select {
     padding: 5px;
   }
+
   div {
     margin: 5px 8px 10px 0;
     height: 100%;
   }
+}
+
+.decline-poll {
+  width: 300px;
 }

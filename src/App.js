@@ -30,6 +30,7 @@ import CreatorPollsPage from "./Screens/ContentCreator/Polls";
 import CreatorAddPollPage from "./Screens/ContentCreator/Polls/components/AddPoll";
 import CreatorEditPollPage from "./Screens/ContentCreator/Polls/components/EditPoll";
 import {ViewPoll} from "./Screens/ContentCreator/Polls/components/ViewPoll";
+import {AdminViewPoll} from "./Screens/Admin/Polls/components/ViewPoll";
 
 function App() {
     return (
@@ -59,6 +60,8 @@ function App() {
                 <Route path="/admin/polls" exact element={<AdminPollsPage/>}/>
                 <Route path="/admin/polls/add" exact element={<AdminAddPollPage/>}/>
                 <Route path="/admin/polls/edit/:id" exact element={<AdminEditPollPage/>}/>
+                <Route path="/admin/polls/:id" exact element={<AdminViewPoll/>}/>
+
                 {/* Profile */}
                 <Route path="/admin/profile" exact element={<AdminProfilePage/>}/>
                 <Route path="/admin/change-password" exact element={<AdminPasswordChangePage/>}/>

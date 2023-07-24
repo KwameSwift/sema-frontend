@@ -5,31 +5,39 @@ import {Dropdown} from "react-bootstrap";
 import Avatar from "../../../../../Assets/images/no-profile-img.webp";
 import "./style.scss";
 import {formatDate} from "../../../../../utils/helpers";
+import {FaTimes} from "react-icons/fa";
 
 function AdminPollCard(props) {
-    console.log(props);
     const navigate = useNavigate();
     const modalType = props.is_approved ? "Unapprove" : "Approve";
+
     let dropItems = [
-        {id: "status", name: modalType},
+        {id: "status", name: modalType, modalType: props.is_approved ? "unapprovePoll" : "approvePoll"},
     ];
 
     if (props.is_owner) {
         dropItems = [
             ...dropItems,
             {id: "edit", name: "Edit", route: `/admin/polls/edit/${props.id}`},
-            // {id: "view", name: "View", route: `/creator/polls/${props.id}`}
+            {id: "view", name: "View", route: `/admin/polls/${props.id}`}
         ]
+    }
+
+    if (!props.is_declined && !props.owner) {
+        dropItems.push({id: "decline", name: "Decline poll", modalType: "declinePoll"});
     }
     const handleDropClick = (item) => {
         if (item.route) {
             navigate(item.route);
+        } else if (item.func) {
+            item.func();
         } else {
             props.setSelectedID(props.id);
-            props.setModalType(props.is_approved ? "unapprovePoll" : "approvePoll");
+            props.setModalType(item.modalType);
             props.setModalOpen(true);
         }
     };
+
     return (
         <div className="poll-card p-4">
             <div className="flex justify-between items-center">
@@ -48,18 +56,21 @@ function AdminPollCard(props) {
             <span className="text-[13px]">{formatDate(props.created_on)}</span>
           </span>
                 </div>
-                <Dropdown>
-                    <Dropdown.Toggle className="border-0">
-                        <BsThreeDotsVertical fill="#000" size={20}/>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        {dropItems.map((elt) => (
-                            <Dropdown.Item key={elt.id} onClick={() => handleDropClick(elt)}>
-                                {elt.name}
-                            </Dropdown.Item>
-                        ))}
-                    </Dropdown.Menu>
-                </Dropdown>
+                <div className="flex justify-between items-center">
+                    {props?.is_declined && <FaTimes fill="#e14d2a"/>}
+                    <Dropdown>
+                        <Dropdown.Toggle className="border-0">
+                            <BsThreeDotsVertical fill="#000" size={20}/>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {dropItems.map((elt) => (
+                                <Dropdown.Item key={elt.id} onClick={() => handleDropClick(elt)}>
+                                    {elt.name}
+                                </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
             </div>
             <div className="mt-4">
                 <h3 className="font-bold text-[20px]">{props.question}</h3>
