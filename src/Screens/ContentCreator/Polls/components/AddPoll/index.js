@@ -1,11 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
-// import { useTranslation } from "react-i18next";
-import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
-import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {isRequiredFieldValuesPassed} from "../../../../../utils/helpers";
 import ContentCreatorLayout from "../../../../../Components/ContentCreator/Layout";
 import {BsPlusCircle, BsTrash} from "react-icons/bs";
+import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
+import {toast} from "react-toastify";
 
 const letters = ["A", "B", "C", "D", "E"]
 
@@ -81,8 +80,9 @@ function CreatorAddPollPage() {
         if (coverImageFile) {
             formData.append("files", coverImageFile);
         }
+        // formData.append("is_declined", false);
         try {
-            await axiosClientWithHeaders.post("/polls/create-poll/", payload);
+            await axiosClientWithHeaders.post("/polls/create-poll/", formData);
             setLoading(false);
             toast.success("Poll Added successfully");
             await new Promise((r) => setTimeout(r, 2000));

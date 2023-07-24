@@ -51,9 +51,8 @@ function CreatorEditPollPage() {
         } else if (!imgUrl && dbImgUrl) {
             formData.append("is_document_deleted", true);
         }
-        console.log(payload)
         try {
-            await axiosClientWithHeaders.put(`/polls/update-poll/${id}/`, payload);
+            await axiosClientWithHeaders.put(`/polls/update-poll/${id}/`, formData);
             setLoading(false);
             toast.success("Poll updated successfully");
             await new Promise((r) => setTimeout(r, 2000));
