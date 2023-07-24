@@ -7,13 +7,20 @@ import "./style.scss";
 import {formatDate} from "../../../../../utils/helpers";
 
 function AdminPollCard(props) {
+    console.log(props);
     const navigate = useNavigate();
     const modalType = props.is_approved ? "Unapprove" : "Approve";
-    const dropItems = [
+    let dropItems = [
         {id: "status", name: modalType},
-        {id: "edit", name: "Edit", route: `/admin/polls/edit/${props.id}`},
-        // {id: "view", name: "View", route: `/creator/polls/${props.id}`}
     ];
+
+    if (props.is_owner) {
+        dropItems = [
+            ...dropItems,
+            {id: "edit", name: "Edit", route: `/admin/polls/edit/${props.id}`},
+            // {id: "view", name: "View", route: `/creator/polls/${props.id}`}
+        ]
+    }
     const handleDropClick = (item) => {
         if (item.route) {
             navigate(item.route);

@@ -26,6 +26,7 @@ function UsersPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedUser, setSelectedUser] = useState({});
     const [isSidebarOpen, setIsOpenSidebar] = useState(false);
+    const [refetchSingleUser, setRefetchSingleUser] = useState(false);
 
     const headers = ["Name", "Email", "Country", "Role", "Account Type", ""];
 
@@ -86,7 +87,7 @@ function UsersPage() {
             await axiosClientWithHeaders.put("/super-admin/verify-users/", {
                 user_key: userKey,
             });
-            toast.success("User verified successfully");
+            toast.success("User status updated");
             setModalOpen(false);
             getAllUsers(currentPage);
         } catch (err) {
@@ -95,7 +96,6 @@ function UsersPage() {
     }
 
     const viewUser = async (id) => {
-        console.log(id);
         try {
             const resp = await axiosClientWithHeaders.get(`/super-admin/get-single-user/${id}/`);
             setSelectedUser(resp.data.data);
@@ -189,6 +189,13 @@ function UsersPage() {
     }, 300); // Adjust the debounce delay as per your requirements
 
     useEffect(() => {
+        if (refetchSingleUser) {
+            viewUser(selectedUser);
+            setRefetchSingleUser(false);
+        }
+    }, [refetchSingleUser])
+
+    useEffect(() => {
         debouncedSearch(searchQuery);
     }, [searchQuery])
 
@@ -248,7 +255,12 @@ function UsersPage() {
                             onPageChange={getAllUsers}
                         />
                     </div>
-                    <RightSidebarModal isOpen={isSidebarOpen} setIsOpen={setIsOpenSidebar} user={selectedUser}/>
+                    <RightSidebarModal
+                        isOpen={isSidebarOpen}
+                        setIsOpen={setIsOpenSidebar}
+                        refetch={setRefetchSingleUser}
+                        user={selectedUser}
+                    />
 
                 </div>
             </Layout>
