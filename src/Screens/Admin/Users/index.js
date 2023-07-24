@@ -26,6 +26,7 @@ function UsersPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedUser, setSelectedUser] = useState({});
     const [isSidebarOpen, setIsOpenSidebar] = useState(false);
+    const [userVerifyBtnLoading, setUserVerifyBtnLoading] = useState(false);
     const [refetchSingleUser, setRefetchSingleUser] = useState(false);
 
     const headers = ["Name", "Email", "Country", "Role", "Account Type", ""];
@@ -82,27 +83,39 @@ function UsersPage() {
         }
     }
 
-    const verifyUser = async (userKey) => {
+    const verifyUser = async (userKey, viewing = false) => {
+        if (viewing) {
+            setUserVerifyBtnLoading(true);
+        }
         try {
             await axiosClientWithHeaders.put("/super-admin/verify-users/", {
                 user_key: userKey,
             });
+            if (viewing) {
+                setUserVerifyBtnLoading(false);
+                viewUser(userKey, true);
+            }
             toast.success("User status updated");
             setModalOpen(false);
             getAllUsers(currentPage);
         } catch (err) {
             console.error(err);
+            if (viewing) {
+                setUserVerifyBtnLoading(false);
+            }
         }
     }
 
-    const viewUser = async (id) => {
+    const viewUser = async (id, opened = false) => {
         try {
             const resp = await axiosClientWithHeaders.get(`/super-admin/get-single-user/${id}/`);
             setSelectedUser(resp.data.data);
         } catch (err) {
             console.error(err);
         }
-        setIsOpenSidebar(true);
+        if (!opened) {
+            setIsOpenSidebar(true);
+        }
     }
 
     console.log(selectedUser);
@@ -259,7 +272,9 @@ function UsersPage() {
                         isOpen={isSidebarOpen}
                         setIsOpen={setIsOpenSidebar}
                         refetch={setRefetchSingleUser}
-                        user={selectedUser}
+                        loading={userVerifyBtnLoading}
+                        verifyUser={() => verifyUser(selectedUser.user_key, true)}
+                        userData={selectedUser}
                     />
 
                 </div>

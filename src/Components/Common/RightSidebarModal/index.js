@@ -2,20 +2,14 @@ import React, {useEffect, useState} from 'react';
 import "./style.scss";
 import {BsCheckCircleFill, BsX} from "react-icons/bs";
 import Avatar from "../../../Assets/images/person-img.png";
-import {axiosClientWithHeaders} from "../../../libs/axiosClient";
-import {toast} from "react-toastify";
 
-const RightSidebarModal = ({isOpen, setIsOpen, userData, refetch}) => {
+const RightSidebarModal = ({isOpen, setIsOpen, userData, loading, verifyUser}) => {
     const [user, setUser] = useState({});
-    const verifyUser = async () => {
-        try {
-            await axiosClientWithHeaders.put("/super-admin/verify-users/", {
-                user_key: user?.user_key,
-            });
-            refetch();
-            toast.success("User status updated");
-        } catch (err) {
-            console.error(err);
+    const getButtonText = () => {
+        if (loading) {
+            return "Loading..."
+        } else {
+            return userData?.is_verified ? "Unverify" : "Verify"
         }
     }
 
@@ -23,7 +17,7 @@ const RightSidebarModal = ({isOpen, setIsOpen, userData, refetch}) => {
         if (userData) {
             setUser(userData);
         }
-    }, [user])
+    }, [userData])
 
     return (
         <div className="flex">
@@ -96,7 +90,7 @@ const RightSidebarModal = ({isOpen, setIsOpen, userData, refetch}) => {
                     <div className="relative bottom-0 left-0 mb-3">
                         <button type="button" onClick={verifyUser}
                                 className="text-white px-3 py-1 rounded bg-[#001253]">
-                            {user?.is_verified ? "Unverify" : "Verify"}
+                            {getButtonText()}
                         </button>
                     </div>
                 </div>
