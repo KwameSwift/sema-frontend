@@ -1,5 +1,5 @@
 import React from "react";
-import {BsThreeDotsVertical} from "react-icons/bs";
+import {BsCheckCircleFill, BsThreeDotsVertical} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
 import Avatar from "../../../../../Assets/images/no-profile-img.webp";
@@ -50,9 +50,16 @@ function AdminPollCard(props) {
                         className="w-[40px] h-[40px] rounded-full"
                     />
                     <span className="flex flex-col ml-3">
-            <span>
+                        <span className="flex justify-between items-center">
+                            <span>
               {props.author__first_name} {props.author__last_name}
             </span>
+                            {props?.author__is_verified && (
+                                <span>
+                              <BsCheckCircleFill stroke="#000" className="ml-1"/>
+                            </span>)}
+                        </span>
+
             <span className="text-[13px]">{formatDate(props.created_on)}</span>
           </span>
                 </div>
