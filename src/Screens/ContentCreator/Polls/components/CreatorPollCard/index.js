@@ -6,11 +6,20 @@ import "./style.scss";
 
 function CreatorPollCard(props) {
     const navigate = useNavigate();
-    const dropItems = [
-        {id: "edit", name: "Edit", route: `/creator/polls/edit/${props.id}`},
-        {id: "view", name: "View", route: `/creator/polls/${props.id}`},
+
+    let dropItems = [];
+    if (!props.is_declined) {
+        dropItems.push(
+            {id: "edit", name: "Edit", route: `/creator/polls/edit/${props.id}`},
+            {id: "view", name: "View", route: `/creator/polls/${props.id}`},
+        );
+    }
+
+    dropItems = [
+        ...dropItems,
         {id: "delete", name: "Delete"},
     ];
+
     const handleDropClick = (item) => {
         if (item.route) {
             navigate(item.route);
@@ -21,7 +30,7 @@ function CreatorPollCard(props) {
         }
     };
     return (
-        <div className="poll-card p-4">
+        <div className={`poll-card p-4 ${props.is_declined && 'opacity-60'}`}>
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
           <span
