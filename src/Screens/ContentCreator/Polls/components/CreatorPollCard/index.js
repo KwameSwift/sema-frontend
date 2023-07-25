@@ -3,20 +3,14 @@ import {BsThreeDotsVertical} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
 import "./style.scss";
+import {FaTimes} from "react-icons/fa";
 
 function CreatorPollCard(props) {
     const navigate = useNavigate();
 
-    let dropItems = [];
-    if (!props.is_declined) {
-        dropItems.push(
-            {id: "edit", name: "Edit", route: `/creator/polls/edit/${props.id}`},
-            {id: "view", name: "View", route: `/creator/polls/${props.id}`},
-        );
-    }
-
-    dropItems = [
-        ...dropItems,
+    let dropItems = [
+        {id: "edit", name: "Edit", route: `/creator/polls/edit/${props.id}`},
+        {id: "view", name: "View", route: `/creator/polls/${props.id}`},
         {id: "delete", name: "Delete"},
     ];
 
@@ -30,7 +24,7 @@ function CreatorPollCard(props) {
         }
     };
     return (
-        <div className={`poll-card p-4 ${props.is_declined && 'opacity-60'}`}>
+        <div className="poll-card p-4">
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
           <span
@@ -39,18 +33,21 @@ function CreatorPollCard(props) {
             {props.is_ended ? "Closed" : "In progress"}
           </span>
                 </div>
-                <Dropdown>
-                    <Dropdown.Toggle className="border-0">
-                        <BsThreeDotsVertical fill="#000" size={20}/>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        {dropItems.map((elt) => (
-                            <Dropdown.Item key={elt.id} onClick={() => handleDropClick(elt)}>
-                                {elt.name}
-                            </Dropdown.Item>
-                        ))}
-                    </Dropdown.Menu>
-                </Dropdown>
+                <div className="flex justify-between items-center">
+                    {props?.is_declined && <FaTimes fill="#e14d2a"/>}
+                    <Dropdown>
+                        <Dropdown.Toggle className="border-0">
+                            <BsThreeDotsVertical fill="#000" size={20}/>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {dropItems.map((elt) => (
+                                <Dropdown.Item key={elt.id} onClick={() => handleDropClick(elt)}>
+                                    {elt.name}
+                                </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
             </div>
             <div className="mt-4">
                 <h3 className="font-bold text-[20px]">{props.question}</h3>

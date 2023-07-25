@@ -12,6 +12,7 @@ function AdminPollCard(props) {
     const modalType = props.is_approved ? "Unapprove" : "Approve";
 
     let dropItems = [
+        {id: "view", name: "View", route: `/admin/polls/${props.id}`},
         {id: "status", name: modalType, modalType: props.is_approved ? "unapprovePoll" : "approvePoll"},
     ];
 
@@ -19,7 +20,6 @@ function AdminPollCard(props) {
         dropItems = [
             ...dropItems,
             {id: "edit", name: "Edit", route: `/admin/polls/edit/${props.id}`},
-            {id: "view", name: "View", route: `/admin/polls/${props.id}`}
         ]
     }
 
