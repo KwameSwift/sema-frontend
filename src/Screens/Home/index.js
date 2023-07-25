@@ -117,7 +117,8 @@ function HomePage() {
                         )}
                         {polls.length > 0 && polls.length > 3 && (
                             <div className="mt-8 mb-3 flex justify-center items-center">
-                                <button className="py-2 px-4 see-more-btn">See More</button>
+                                <button className="py-2 px-4 see-more-btn" onClick={() => navigate('/feed')}>See More
+                                </button>
                             </div>
                         )}
                     </div>

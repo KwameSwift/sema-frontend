@@ -184,6 +184,7 @@ function AdminPollsPage() {
                                     <option value={0}>{t("admin.all")}</option>
                                     <option value={1}>{t("admin.approved")}</option>
                                     <option value={2}>{t("admin.unApproved")}</option>
+                                    <option value={3}>Declined</option>
                                 </select>
                             </div>
                         </div>

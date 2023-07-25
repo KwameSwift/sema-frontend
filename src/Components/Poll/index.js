@@ -7,6 +7,7 @@ import Avatar from "../../Assets/images/no-profile-img.webp";
 import {formatDate} from "../../utils/helpers";
 import {axiosClient, axiosClientWithHeaders} from "../../libs/axiosClient";
 import "./style.scss";
+import {BsCheckCircleFill} from "react-icons/bs";
 
 
 const endedPollResult = (data) => {
@@ -155,8 +156,13 @@ function PollCard(props) {
                             className="w-[30px] h-[30px] rounded-full"
                         />
                         <span className="flex flex-col ml-3">
-              <span>
+              <span className="flex justify-between items-center">
                 {props.author__first_name} {props.author__last_name}
+                  {props?.author__is_verified && (
+                      <span>
+                              <BsCheckCircleFill fill="#3e6d9c" className="ml-1"/>
+                            </span>
+                  )}
               </span>
               <span className="text-[13px]">
                 {formatDate(props.approved_on)}
