@@ -120,7 +120,7 @@ function CreatorAddPollPage() {
                     </div>
                     <div>
                         <label className="text-[18px] font-bold">
-                            Title<span className="text-[#e14d2a]">*</span>
+                            Question<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
