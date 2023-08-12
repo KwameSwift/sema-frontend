@@ -2,10 +2,9 @@ import React, {useEffect, useRef, useState} from 'react'
 import Navbar from '../../Components/Common/Navbar';
 import {axiosClient} from '../../libs/axiosClient';
 import FeedBlogPost from './components/feedBlogPost';
-import "./style.scss";
 import Poll from "../../Components/Poll";
 import {useSelector} from "react-redux";
-import FeedBanners from "./components/feedBanner";
+import "./style.scss";
 
 function BlogsPage() {
     const [feed, setFeed] = useState([]);
@@ -14,12 +13,12 @@ function BlogsPage() {
 
     const elementRef = useRef(null);
 
-    const scrollToElement = () => {
-        console.log('hydbmndbm')
-        if (elementRef.current) {
-            elementRef.current.scrollIntoView({behavior: 'smooth'});
-        }
-    };
+    // const scrollToElement = () => {
+    //     console.log('hydbmndbm')
+    //     if (elementRef.current) {
+    //         elementRef.current.scrollIntoView({behavior: 'smooth'});
+    //     }
+    // };
 
     useEffect(() => {
         const getAllFeed = async () => {
@@ -37,8 +36,11 @@ function BlogsPage() {
     return (
         <div>
             <Navbar/>
-            <div className='feeds bg-gray-200'>
-                <FeedBanners scroll={scrollToElement}/>
+            <div className='feeds'>
+                {/*<FeedBanners scroll={scrollToElement}/>*/}
+                <div className="bg-gray-200 p-8 text-center">
+                    <h1>Forums Page</h1>
+                </div>
                 <div className='flex mt-8 items-center justify-center flex-col' ref={elementRef}>
                     {feed.map((elt) =>
                         Object.keys(elt).includes("choices")

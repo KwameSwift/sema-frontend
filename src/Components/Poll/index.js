@@ -36,7 +36,7 @@ function PollCard(props) {
     const [selectedId, setSelectedID] = useState(props?.voter_choice || 0);
     const [loading, setLoading] = useState(false);
     const [openComments, setOpenComments] = useState(false);
-    const [comments, setComments] = useState("");
+    const [comments, setComments] = useState(props.voter_comments);
 
     const progress = () => {
         return <ClipLoader size={15} color={loading ? "#fff" : ""}/>;
@@ -52,6 +52,20 @@ function PollCard(props) {
             });
             setLoading(false);
             setOpenComments(false);
+            props.refetch((prev) => !prev);
+        } catch (err) {
+            setLoading(false);
+        }
+    };
+
+    const updateComment = async () => {
+        setLoading(true);
+        try {
+            await axiosClientWithHeaders.put(`/polls/update-poll-comment/${props.id}/`, {
+                comments: comments
+            });
+            setLoading(false);
+            toast.success("Comment updated");
             props.refetch((prev) => !prev);
         } catch (err) {
             setLoading(false);
@@ -199,11 +213,26 @@ function PollCard(props) {
                     {showChoices
                         ? (
                             <>
-                                {props.voter_comments && <div className="mb-3">
-                                    <p className="text-[16px]">Comment</p>
-                                    <textarea className="text-[14px] w-full border mt-2 font-thin p-2"
-                                              value={props.voter_comments} disabled></textarea>
-                                </div>}
+                                {props.voter_comments && (
+                                    <div className="mb-3">
+                                        <p className="text-[16px]">Comment</p>
+                                        <textarea
+                                            className="text-[14px] w-full border mt-2 font-thin p-2"
+                                            value={comments}
+                                            onChange={(e) => setComments(e.target.value)}
+                                        ></textarea>
+                                        <div className="flex justify-end">
+                                            <button className="py-1 px-2 border text-[12px] mr-2"
+                                                    onClick={() => setComments(props.voter_comments)}>Cancel
+                                            </button>
+                                            <button
+                                                className="py-1 px-2 bg-[#001253] text-[#fff] text-[12px]"
+                                                disabled={props.voter_comments === comments}
+                                                onClick={updateComment}
+                                            >{loading ? "Loading..." : "Update"}</button>
+                                        </div>
+                                    </div>
+                                )}
                                 <span onClick={() => setShowChoices((prev) => !prev)}>
                                     {getToggleText("Hide")}
                                 </span>
