@@ -29,11 +29,11 @@ export function AdminViewPoll() {
     }
     const getSinglePoll = async () => {
         try {
-            const resp = await axiosClientWithHeaders(`/users/my-single-polls/${id}/`);
+            const resp = await axiosClientWithHeaders(`/super-admin/single-poll/${id}/`);
             const respData = resp.data.data;
             setLabels(respData?.choices?.map((elt) => elt.choice))
             setPoll(respData);
-            const datasets = respData?.choices?.map((elt) => elt.vote_percentage);
+            const datasets = respData?.choices?.map((elt) => elt.votes);
             setDatasets([createDataset(datasets)])
         } catch (err) {
             console.log(err);

@@ -51,8 +51,17 @@ function CreatorPollCard(props) {
             </div>
             <div className="mt-4">
                 <h3 className="font-bold text-[20px]">{props.question}</h3>
-                <p className="mt-4 poll-desc">{props.description}</p>
+                {props.file_location && (
+                    <a href={props.file_location}
+                       className="underline text-[#001253] mt-4 poll-desc"
+                    >{props.file_location}</a>
+                )}
             </div>
+            {props.snapshot_location && (
+                <div className="document-img flex justify-center items-center">
+                    <img src={props?.snapshot_location} alt="" className="w-[100%] h-[250px]"/>
+                </div>
+            )}
         </div>
     );
 }

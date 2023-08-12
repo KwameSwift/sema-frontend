@@ -35,8 +35,7 @@ export function ViewPoll() {
             console.log(respData);
             setLabels(respData?.choices?.map((elt) => elt.choice))
             setPoll(respData);
-            const datasets = respData?.choices?.map((elt) => elt.vote_percentage);
-            console.log(datasets);
+            const datasets = respData?.choices?.map((elt) => elt.votes);
             setDatasets([createDataset(datasets)])
         } catch (err) {
             console.log(err);
