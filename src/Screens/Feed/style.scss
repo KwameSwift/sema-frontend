@@ -2,4 +2,26 @@
   .feeds-image {
     border-radius: 30px;
   }
+
+  .feeds-content {
+    .feeds-sidebar {
+      width: 13%;
+
+      li {
+        font-size: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
+
+        &:hover {
+          color: #fff;
+          background-color: var(--primary-color);
+        }
+      }
+    }
+
+    .content {
+      width: 73%;
+      margin-left: 2%;
+    }
+  }
 }

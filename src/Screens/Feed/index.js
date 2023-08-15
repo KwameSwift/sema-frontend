@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Navbar from '../../Components/Common/Navbar';
 import {axiosClient} from '../../libs/axiosClient';
-import FeedBlogPost from './components/feedBlogPost';
 import Poll from "../../Components/Poll";
+import FeedBlogPost from "./components/feedBlogPost";
+import FeedBanners from "./components/feedBanner";
 import {useSelector} from "react-redux";
 import "./style.scss";
 
@@ -13,12 +14,11 @@ function BlogsPage() {
 
     const elementRef = useRef(null);
 
-    // const scrollToElement = () => {
-    //     console.log('hydbmndbm')
-    //     if (elementRef.current) {
-    //         elementRef.current.scrollIntoView({behavior: 'smooth'});
-    //     }
-    // };
+    const scrollToElement = () => {
+        if (elementRef.current) {
+            elementRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+    };
 
     useEffect(() => {
         const getAllFeed = async () => {
@@ -37,11 +37,8 @@ function BlogsPage() {
         <div>
             <Navbar/>
             <div className='feeds'>
-                {/*<FeedBanners scroll={scrollToElement}/>*/}
-                <div className="bg-gray-200 p-8 text-center">
-                    <h1>Forums Page</h1>
-                </div>
-                <div className='flex mt-8 items-center justify-center flex-col' ref={elementRef}>
+                <FeedBanners scroll={scrollToElement}/>
+                <div className='flex pt-8 items-center justify-center flex-col' ref={elementRef}>
                     {feed.map((elt) =>
                         Object.keys(elt).includes("choices")
                             ? <Poll
@@ -53,6 +50,17 @@ function BlogsPage() {
                             : <FeedBlogPost {...elt} key={elt.id}/>
                     )}
                 </div>
+                {/*<div className="feeds-content pb-3 pt-8 px-4 w-full flex bg-gray-200" ref={elementRef}>*/}
+                {/*    <div className="feeds-sidebar flex relative top-0 left-0 bottom-0">*/}
+                {/*        <ul className="bg-white w-full">*/}
+                {/*            <li>Blogs</li>*/}
+                {/*            <li>Polls</li>*/}
+                {/*        </ul>*/}
+                {/*    </div>*/}
+                {/*    <div className="bg-white content">*/}
+                {/*        <h1>hy</h1>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         </div>
     );

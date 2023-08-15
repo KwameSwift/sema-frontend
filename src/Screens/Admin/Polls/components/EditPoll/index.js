@@ -5,7 +5,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {isRequiredFieldValuesPassed} from "../../../../../utils/helpers";
 import Layout from "../../../../../Components/Dashboard/Layout";
 import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
-import {BsPlusCircle, BsTrash} from "react-icons/bs";
+import {BsArrowLeft, BsPlusCircle, BsTrash} from "react-icons/bs";
 
 const letters = ["A", "B", "C", "D", "E"]
 
@@ -147,8 +147,13 @@ function AdminEditPollPage() {
     return (
         <Layout>
             <div>
-                <div className="p-8 mt-3 flex flex-col blog-header">
-                    <h1>{t("admin.editPoll")}</h1>
+                <div className="p-8 mt-3 flex flex-row blog-header">
+                    <div className="mr-3 flex items-start justify-center cursor-pointer">
+                        <BsArrowLeft fill="#fff" size={28} onClick={() => navigate(-1)}/>
+                    </div>
+                    <div>
+                        <h1>{t("admin.editPoll")}</h1>
+                    </div>
                 </div>
                 <div className="p-4">
                     <div

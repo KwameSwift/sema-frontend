@@ -32,7 +32,6 @@ export function ViewPoll() {
         try {
             const resp = await axiosClientWithHeaders(`/users/my-single-polls/${id}/`);
             const respData = resp.data.data;
-            console.log(respData);
             setLabels(respData?.choices?.map((elt) => elt.choice))
             setPoll(respData);
             const datasets = respData?.choices?.map((elt) => elt.votes);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BsCheckCircleFill, BsThreeDotsVertical} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
@@ -7,8 +7,30 @@ import "./style.scss";
 import {formatDate} from "../../../../../utils/helpers";
 import {FaTimes} from "react-icons/fa";
 
+const endedPollResult = (data) => {
+    return (
+        <div className="flex flex-col my-2">
+            <div className="flex flex-wrap mb-3">
+                {data?.map((elt) => (
+                    <span
+                        key={elt?.choice_id}
+                        className="relative text-[16px] text-white mb-2 border rounded-full w-full h-[40px] flex items-center justify-around"
+                    >
+                        <span className="text-[#000] z-20">{elt?.choice}</span>
+                        <span className="text-[#000] z-20">{elt.vote_percentage}%</span>
+                        <span className="poll-progress z-10 bg-gray-200 absolute bottom-0 left-0 top-0 ri"
+                              style={{width: `${elt.vote_percentage}%`, borderRadius: "20px"}}></span>
+                    </span>
+
+                ))}
+            </div>
+        </div>
+    )
+}
+
 function AdminPollCard(props) {
     const navigate = useNavigate();
+    const [showChoices, setShowChoices] = useState(false);
     const modalType = props.is_approved ? "Unapprove" : "Approve";
 
     let dropItems = [
@@ -37,6 +59,37 @@ function AdminPollCard(props) {
             props.setModalOpen(true);
         }
     };
+
+    const pollInProgress = () => {
+        return (
+            <div className="flex flex-col my-2">
+                <div className="flex flex-wrap mb-3">
+                    {(props?.choices || props?.stats?.choices)?.map((elt) => (
+                        <span
+                            key={elt.id}
+                            className="text-[16px] mb-2 border rounded-full w-full h-[40px] flex items-center justify-center"
+                        >
+              {elt.choice}
+            </span>
+                    ))}
+                </div>
+            </div>
+        )
+    }
+
+    const getPollState = () => {
+        if ((showChoices && props.is_ended) || (showChoices && props.voter_choice)) {
+            return endedPollResult(props?.choices || props?.stats?.choices);
+        } else if (showChoices) {
+            return pollInProgress();
+        }
+    }
+
+    useEffect(() => {
+        if (!props.snapshot_location) {
+            setShowChoices(true);
+        }
+    }, [props.snapshot_location]);
 
     return (
         <div className="poll-card p-4">
@@ -92,6 +145,7 @@ function AdminPollCard(props) {
                     <img src={props?.snapshot_location} alt="" className="w-[100%] h-[250px]"/>
                 </div>
             )}
+            <>{getPollState}</>
             {props.is_approved &&
                 <>
                     <hr className="mt-3"/>

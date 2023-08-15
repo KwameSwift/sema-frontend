@@ -6,6 +6,9 @@ import CustomTable from "../../../../../Components/Common/CustomTable";
 import {Bar} from 'react-chartjs-2';
 import "./style.scss";
 import Layout from "../../../../../Components/Dashboard/Layout";
+import {formatDate} from "../../../../../utils/helpers";
+import {BsArrowLeft} from "react-icons/bs";
+import {useNavigate} from "react-router";
 
 ChartJS.register(
     CategoryScale,
@@ -18,6 +21,8 @@ export function AdminViewPoll() {
     const [poll, setPoll] = useState({});
     const [labels, setLabels] = useState([]);
     const [datasets, setDatasets] = useState([]);
+
+    const navigate = useNavigate();
 
     const createDataset = (data) => {
         return {
@@ -90,8 +95,14 @@ export function AdminViewPoll() {
 
     return (
         <Layout>
-            <div className="p-8 mt-3 flex flex-col blog-header">
-                <h1>View Poll</h1>
+            <div className="p-8 mt-3 flex flex-row blog-header">
+                <div className="mr-3 flex items-start justify-center cursor-pointer">
+                    <BsArrowLeft fill="#fff" size={28} onClick={() => navigate(-1)}/>
+                </div>
+                <div>
+                    <h1>{poll?.question}</h1>
+                    <p className="text-white mt-3">{formatDate(poll?.start_date)} - {formatDate(poll?.end_date)}</p>
+                </div>
             </div>
             <h1 className="mt-3">Result</h1>
             <div className="mt-3 flex justify-center p-4 bg-[#fff] bar-chart">
