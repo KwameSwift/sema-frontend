@@ -31,6 +31,8 @@ import CreatorAddPollPage from "./Screens/ContentCreator/Polls/components/AddPol
 import CreatorEditPollPage from "./Screens/ContentCreator/Polls/components/EditPoll";
 import {ViewPoll} from "./Screens/ContentCreator/Polls/components/ViewPoll";
 import {AdminViewPoll} from "./Screens/Admin/Polls/components/ViewPoll";
+import AdminForumsPage from "./Screens/Admin/Forums";
+import AdminAddForumPage from "./Screens/Admin/Forums/components/AddForum";
 
 function App() {
     return (
@@ -61,6 +63,11 @@ function App() {
                 <Route path="/admin/polls/add" exact element={<AdminAddPollPage/>}/>
                 <Route path="/admin/polls/edit/:id" exact element={<AdminEditPollPage/>}/>
                 <Route path="/admin/polls/:id" exact element={<AdminViewPoll/>}/>
+                {/* Forums */}
+                <Route path="/admin/forums" exact element={<AdminForumsPage/>}/>
+                <Route path="/admin/forums/add" exact element={<AdminAddForumPage/>}/>
+                {/*<Route path="/admin/forums/edit/:id" exact element={<AdminEditPollPage/>}/>*/}
+                {/*<Route path="/admin/forums/:id" exact element={<AdminViewPoll/>}/>*/}
 
                 {/* Profile */}
                 <Route path="/admin/profile" exact element={<AdminProfilePage/>}/>

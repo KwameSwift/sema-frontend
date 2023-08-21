@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BsThreeDotsVertical} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
@@ -7,6 +7,7 @@ import {FaTimes} from "react-icons/fa";
 
 function CreatorPollCard(props) {
     const navigate = useNavigate();
+    const [showChoices, setShowChoices] = useState(false);
 
     let dropItems = [
         {id: "edit", name: "Edit", route: `/creator/polls/edit/${props.id}`},
@@ -23,6 +24,39 @@ function CreatorPollCard(props) {
             props.setModalOpen(true);
         }
     };
+    
+    const getToggleText = (status) => {
+        const text = props.is_ended ? "result" : "choices";
+        return status + ' ' + text;
+    }
+
+    const pollInProgress = () => {
+        return (
+            <div className="flex flex-col my-2">
+                <div className="flex flex-wrap mb-3">
+                    {(props?.choices || props?.stats?.choices)?.map((elt) => (
+                        <span
+                            key={elt.id}
+                            className="text-[16px] mb-2 border rounded-full w-full h-[40px] flex items-center justify-center"
+                        >
+              {elt.choice}
+            </span>
+                    ))}
+                </div>
+            </div>
+        )
+    }
+
+    const getPollState = () => {
+        return pollInProgress();
+    }
+
+    useEffect(() => {
+        if (!props.snapshot_location) {
+            setShowChoices(true);
+        }
+    }, [props.snapshot_location]);
+
     return (
         <div className="poll-card p-4">
             <div className="flex justify-between items-center">
@@ -62,6 +96,20 @@ function CreatorPollCard(props) {
                     <img src={props?.snapshot_location} alt="" className="w-[100%] h-[250px]"/>
                 </div>
             )}
+            <>{showChoices && getPollState()}</>
+            <h3 className="font-bold cursor-pointer">
+                {showChoices
+                    ? (
+                        <span onClick={() => setShowChoices((prev) => !prev)}>
+                            {getToggleText("Hide")}
+                         </span>
+                    ) : (
+                        <span onClick={() => setShowChoices((prev) => !prev)}>
+                                {getToggleText("View")}
+                            </span>
+                    )
+                }
+            </h3>
         </div>
     );
 }
