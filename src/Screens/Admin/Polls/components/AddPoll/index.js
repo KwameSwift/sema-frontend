@@ -69,8 +69,6 @@ function AdminAddPollPage() {
         if (Object.keys(choices).includes(`opt${5 - eltId}`)) {
             delete choices[`opt${5 - eltId}`]
         }
-        console.log(`opt${5 - eltId}`)
-        console.log(choices);
     }
 
     const handleSave = async () => {

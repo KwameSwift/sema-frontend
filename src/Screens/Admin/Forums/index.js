@@ -9,17 +9,16 @@ import Layout from "../../../Components/Dashboard/Layout";
 import {axiosClientWithHeaders} from "../../../libs/axiosClient";
 import Modal from "../../../Components/Modal";
 // import AdminCreatorBlogCard from "../../../Components/Admin/BlogPost";
+import AdminForumCard from "./components/AdminForumCard";
 import {getTransString} from "../../../utils/helpers";
-
 import "./style.scss";
-import AdminPollCard from "./components/AdminForumCard";
 
 function AdminForumsPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [polls, setPolls] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-    const [modalState, setModalState] = useState("");
-    const [selectedId, setSelectedID] = useState(0);
+    const [modalState,] = useState("");
+    const [selectedId,] = useState(0);
     const [refetch, setRefetch] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
     const [totalPolls, setTotalPolls] = useState(0);
@@ -199,15 +198,9 @@ function AdminForumsPage() {
                         </div>
                     </div>
                     <div className="creator-blogs mt-10">
-                        {polls?.map((elt, index) => (
+                        {polls?.map((elt) => (
                             <>
-                                <AdminPollCard
-                                    setModalOpen={setModalOpen}
-                                    setSelectedID={setSelectedID}
-                                    setModalType={setModalState}
-                                    {...elt}
-                                    key={index}
-                                />
+                                <AdminForumCard {...elt} />
                             </>
                         ))}
                     </div>

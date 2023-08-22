@@ -4,9 +4,9 @@ import Layout from "../../../../../Components/Dashboard/Layout";
 import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {BsArrowLeft} from "react-icons/bs";
+import {BsArrowLeft, BsTrash} from "react-icons/bs";
 import {forumTags} from "../../../../../utils/data";
-import {isRequiredFieldsPassed} from "../../../../../utils/helpers";
+import {isDocumentImage, isRequiredFieldsPassed} from "../../../../../utils/helpers";
 import makeAnimated from 'react-select/animated';
 import Select from "react-select";
 
@@ -20,7 +20,10 @@ function AdminAddForumPage() {
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [tags, setTags] = useState([]);
-    const [files, setFiles] = useState([]);
+    // const [file, setFile] = useState([]);
+    const [coverImageType, setCoverImageType] = useState("");
+    const [coverImage, setCoverImage] = useState(null);
+    const [coverImageFile, setCoverImgFile] = useState(null);
 
     const fileRef = useRef(null);
 
@@ -35,16 +38,15 @@ function AdminAddForumPage() {
 
     const handleSave = async () => {
         setLoading(true);
-        const payload = {...state}
+        const payload = {...state, "tags[]": JSON.stringify(state.tags)}
+        delete payload["tags"]
         // Create a new FormData object
         const formData = new FormData();
         for (let [key, value] of Object.entries(payload)) {
             formData.append(key, value);
         }
-        if (files.length) {
-            for (let i = 0; i < files.length; i++) {
-                formData.append("files[]", files[i], files[i].name);
-            }
+        if (coverImageFile) {
+            formData.append("file", coverImageFile);
         }
         try {
             await axiosClientWithHeaders.post("/forum/create-forum/", formData);
@@ -59,7 +61,15 @@ function AdminAddForumPage() {
     };
 
     const handleSetImage = (e) => {
-        setFiles(e.target.files);
+        const file = e.target.files[0];
+        setCoverImgFile(file);
+        setCoverImageType(isDocumentImage(file.name));
+        setCoverImage(URL.createObjectURL(file));
+    };
+    const clearFile = () => {
+        fileRef.current.value = null;
+        setCoverImageType("");
+        setCoverImage(null);
     };
 
     useEffect(() => {
@@ -88,6 +98,38 @@ function AdminAddForumPage() {
                     </div>
                 </div>
                 <div className="p-4">
+                    <div className={`mt-5 mb-8 ${!coverImageType && "hidden"}`}>
+                        <img src={coverImage} className="w-[500px] h-[350px]" alt=""/>
+                    </div>
+                    <div
+                        className={`flex flex-col cursor-pointer ${
+                            coverImageType && "hidden"
+                        } mt-5 mb-8`}
+                    >
+                        <label className="text-[18px] font-bold mb-5">
+                            Cover Image / Document
+                        </label>
+                        <input type="file" ref={fileRef} onChange={handleSetImage}/>
+                    </div>
+                    {coverImageType && (
+                        <div className="flex mb-8 items-center h-[40px]">
+                            <button
+                                type="button"
+                                onClick={() => fileRef.current.click()}
+                                className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
+                            >
+                                Change cover image
+                            </button>
+                            <span className="ml-3">
+                <BsTrash
+                    className="cursor-pointer"
+                    onClick={clearFile}
+                    fill="#e14d2a"
+                    size={25}
+                />
+              </span>
+                        </div>
+                    )}
                     <div>
                         <label className="text-[18px] font-bold">
                             Topic<span className="text-[#e14d2a]">*</span>
@@ -132,26 +174,14 @@ function AdminAddForumPage() {
                             onChange={(e) => setTags(e)}
                         />
                     </div>
-                    <div
-                        className="flex flex-col cursor-pointer mt-3 mb-8"
-                    >
-                        <label className="text-[18px] font-bold mb-2">
-                            Documents
-                        </label>
-                        <input type="file" ref={fileRef} onChange={handleSetImage} multiple/>
-                    </div>
-                    <div className="mt-3">
-                        <label className="text-[18px] font-bold">
-                            File description
-                        </label>
-                        <input
-                            type="text"
-                            name="file_description"
-                            onChange={handleChange}
-                            placeholder="Enter file description"
-                            className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
-                        />
-                    </div>
+                    {/*<div*/}
+                    {/*    className="flex flex-col cursor-pointer mt-3 mb-8"*/}
+                    {/*>*/}
+                    {/*    <label className="text-[18px] font-bold mb-2">*/}
+                    {/*        Documents*/}
+                    {/*    </label>*/}
+                    {/*    <input type="file" ref={fileRef} onChange={handleSetImage} multiple/>*/}
+                    {/*</div>*/}
                     <div className="mt-8 flex items-center justify-center">
                         <button
                             type="button"
