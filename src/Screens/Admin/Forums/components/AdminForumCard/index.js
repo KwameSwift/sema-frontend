@@ -5,8 +5,9 @@ import {Dropdown} from "react-bootstrap";
 import {formatDate} from "../../../../../utils/helpers";
 import {FaTimes} from "react-icons/fa";
 import Avatar from "../../../../../Assets/images/no-profile-img.webp";
-import "./style.scss";
 import {tagColors} from "../../../../../utils/data";
+import {BiSolidChat} from "react-icons/bi";
+import "./style.scss";
 
 
 function AdminForumCard(props) {
@@ -22,7 +23,7 @@ function AdminForumCard(props) {
     if (props.is_owner) {
         dropItems = [
             ...dropItems,
-            {id: "edit", name: "Edit", route: `/admin/polls/edit/${props.id}`},
+            {id: "edit", name: "Edit", route: `/admin/forums/edit/${props.id}`},
         ]
     }
 
@@ -48,7 +49,7 @@ function AdminForumCard(props) {
     }, [props.snapshot_location]);
 
     return (
-        <div className="poll-card p-4">
+        <div className="forum-card p-4">
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <img
@@ -89,35 +90,33 @@ function AdminForumCard(props) {
                 </div>
             </div>
             <div className="mt-4">
-                <h3 className="font-bold mb-3 text-[20px]">{props.question}</h3>
-                <p className="mt-3">{props.description}</p>
+                <h3 className="font-bold mb-3 text-[20px]">{props.topic}</h3>
+                <p className="mt-3 mb-2 forum-desc">{props.description}</p>
                 <div className="forum-tags">
-                    {Object.keys(tagColors).map((elt, index) =>
+                    {props?.tags?.map((elt, index) =>
                         <span key={index} style={{backgroundColor: tagColors[elt]}}>{elt}</span>
                     )}
                 </div>
             </div>
-
-            {props.is_approved &&
-                <>
-                    <hr className="mt-3"/>
-                    <div className="flex justify-between items-center">
-                        <div className="flex mt-3 items-center justify-between">
-                            <div className="flex flex-col">
+            <hr className="mt-3"/>
+            <div className="flex justify-between items-center">
+                <div className="flex mt-3 items-center justify-between">
+                    <div className="flex flex-col">
+                        {props?.is_approved ?
+                            <>
                                 <span className="text-[13px]">Approved: {formatDate(props.approved_on)}</span>
                                 <span
                                     className="text-[13px]">By: {props.approved_by__first_name} {props.approved_by__last_name}</span>
-                            </div>
-                        </div>
-                        <div>
-                            {props.is_ended
-                                ? <span className="text-[#e14d2a] text-[14px] cursor-default">Closed</span>
-                                : <span className="text-[green] text-[14px] cursor-default">In progress</span>
-                            }
-                        </div>
+                            </> : <span className="text-[13px]">Not approved</span>}
                     </div>
-                </>
-            }
+                </div>
+                <div>
+                    {props.is_approved && <span className="text-[#e14d2a] text-[14px] cursor-default">
+                        <BiSolidChat/> {props?.chat_rooms?.length}
+                    </span>
+                    }
+                </div>
+            </div>
         </div>
     );
 }

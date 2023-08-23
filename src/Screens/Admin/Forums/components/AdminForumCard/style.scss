@@ -1,11 +1,11 @@
-.poll-card {
+.forum-card {
   box-shadow: rgba(100, 100, 111, 0.2) 0 3px 11px 0;
   margin: 20px;
   flex-grow: 1;
   max-width: 450px;
   cursor: pointer;
 
-  .poll-desc {
+  .forum-desc {
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;

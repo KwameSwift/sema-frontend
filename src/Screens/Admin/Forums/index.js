@@ -15,14 +15,14 @@ import "./style.scss";
 
 function AdminForumsPage() {
     const [currentPage, setCurrentPage] = useState(1);
-    const [polls, setPolls] = useState([]);
+    const [forums, setForums] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalState,] = useState("");
     const [selectedId,] = useState(0);
     const [refetch, setRefetch] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
-    const [totalPolls, setTotalPolls] = useState(0);
-    const [pollType, setPollType] = useState(0);
+    const [totalForums, setTotalForums] = useState(0);
+    const [forumType, setForumType] = useState(0);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [declineComment, setDeclineComment] = useState({});
@@ -32,21 +32,22 @@ function AdminForumsPage() {
 
     const navigate = useNavigate();
 
-    const getAllPolls = async (type = pollType, prev = true) => {
+    const getAllForums = async (type = forumType, prev = true) => {
+        console.log(type, prev);
         try {
             const resp = await axiosClientWithHeaders.get(
-                `/super-admin/get-all-polls/${type}/${currentPage}/`
+                `/super-admin/get-all-forums/${type}/${currentPage}/`
             );
             const data = resp.data;
             if (firstRunRef) {
                 setTotalPages(data.total_pages);
-                setTotalPolls(data.total_data);
+                setTotalForums(data.total_data);
                 firstRunRef.current = false;
             }
             if (prev) {
-                setPolls([...polls, ...data.data]);
+                setForums([...forums, ...data.data]);
             } else {
-                setPolls(data.data);
+                setForums(data.data);
             }
         } catch (err) {
             console.log(err);
@@ -55,7 +56,7 @@ function AdminForumsPage() {
 
     const declinePoll = async () => {
         try {
-            await axiosClientWithHeaders.put(`/super-admin/decline-poll/${selectedId}/`, {
+            await axiosClientWithHeaders.put(`/super-admin/decline-forum/${selectedId}/`, {
                 comments: declineComment.comments
             });
             toast.success("Poll declined");
@@ -77,7 +78,7 @@ function AdminForumsPage() {
     //     toast.success("Blog deleted successfully");
     //     await new Promise((r) => setTimeout(r, 2000));
     //     setModalOpen(false);
-    //     getAllPolls(pollType, false);
+    //     getAllForums(pollType, false);
     //   } catch (err) {
     //     setLoading(false);
     //     console.error(err);
@@ -85,12 +86,11 @@ function AdminForumsPage() {
     // };
 
     const filterBlogs = (e) => {
-        setPollType(e.target.value);
-        getAllPolls(e.target.value, false);
+        setForumType(e.target.value);
+        getAllForums(e.target.value, false);
     };
 
-    const searchPolls = async (term) => {
-        console.log(term.length)
+    const searchForums = async (term) => {
         try {
             const resp = await axiosClientWithHeaders.post(
                 "/polls/search-polls/1/",
@@ -98,7 +98,7 @@ function AdminForumsPage() {
                     search_query: term,
                 }
             );
-            setPolls(resp.data.data);
+            setForums(resp.data.data);
         } catch (err) {
             console.error(err);
         }
@@ -136,7 +136,7 @@ function AdminForumsPage() {
 
     const debouncedSearch = debounce((term) => {
         // Perform your search logic here
-        searchPolls(term);
+        searchForums(term);
     }, 300); // Adjust the debounce delay as per your requirements
 
     useEffect(() => {
@@ -146,11 +146,11 @@ function AdminForumsPage() {
     }, [searchQuery]);
 
     useEffect(() => {
-        getAllPolls(pollType, true);
+        getAllForums(forumType, true);
     }, [currentPage]);
 
     useEffect(() => {
-        getAllPolls(pollType, false);
+        getAllForums(forumType, false);
     }, [refetch]);
 
     return (
@@ -160,7 +160,7 @@ function AdminForumsPage() {
                     <div className="p-8 mt-5 flex flex-col blog-header">
                         <h1>{t("admin.forums")}</h1>
                         <p className="text-[#fff]">
-                            {t("admin.totalForums")} ({totalPolls})
+                            {t("admin.totalForums")} ({totalForums})
                         </p>
                     </div>
                     <div className="flex justify-between mt-3 items-center">
@@ -198,7 +198,7 @@ function AdminForumsPage() {
                         </div>
                     </div>
                     <div className="creator-blogs mt-10">
-                        {polls?.map((elt) => (
+                        {forums?.map((elt) => (
                             <>
                                 <AdminForumCard {...elt} />
                             </>
