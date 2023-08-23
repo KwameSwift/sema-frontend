@@ -53,14 +53,14 @@ function CreatorForumsPage() {
         }
     };
 
-    const deletePoll = async () => {
+    const deleteForum = async () => {
         setLoading(true);
         try {
             await axiosClientWithHeaders.delete(
-                `/polls/delete-poll/${selectedId}/`
+                `/forum/delete-forum/${selectedId}/`
             );
             setLoading(false);
-            toast.success("Poll deleted successfully");
+            toast.success("Forum deleted successfully");
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
             getAllForums(pollType, false);
@@ -180,7 +180,7 @@ function CreatorForumsPage() {
                 isOpen={modalOpen}
                 setIsOpen={setModalOpen}
                 setRefetch={setRefetch}
-                callbackAction={deletePoll}
+                callbackAction={deleteForum}
                 parentBtnLoading={loading}
             />
         </>
