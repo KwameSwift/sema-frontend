@@ -46,9 +46,9 @@ function AdminEditForumPage() {
             formData.append("file", coverImageFile);
         }
         try {
-            await axiosClientWithHeaders.post("/forum/create-forum/", formData);
+            await axiosClientWithHeaders.put(`/forum/update-forum/${id}/`, formData);
             setLoading(false);
-            toast.success("Forum Added successfully");
+            toast.success("Forum updated successfully");
             await new Promise((r) => setTimeout(r, 2000));
             navigate("/admin/forums");
         } catch (err) {
@@ -62,12 +62,12 @@ function AdminEditForumPage() {
             const resp = await axiosClientWithHeaders.get(
                 `/forum/get-forum/${id}/`
             );
-            console.log(resp.data.data);
-            const {tags, topic, description} = {...resp.data.data}
+            const {tags, topic, description, header_image} = {...resp.data.data}
             setState({...state, tags, topic, description});
             setTags(tags.map((elt) => {
                 return {label: elt, value: elt}
             }));
+            setCoverImage(header_image)
         } catch (err) {
             console.error(err);
         }
@@ -76,6 +76,7 @@ function AdminEditForumPage() {
     const handleSetImage = (e) => {
         const file = e.target.files[0];
         setCoverImgFile(file);
+        setCoverImage(URL.createObjectURL(file));
     };
 
     useEffect(() => {
@@ -107,7 +108,7 @@ function AdminEditForumPage() {
                         <BsArrowLeft fill="#fff" size={28} onClick={() => navigate(-1)}/>
                     </div>
                     <div>
-                        <h1>{t("admin.addForums")}</h1>
+                        <h1>{t("admin.editForum")}</h1>
                     </div>
                 </div>
                 <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>
