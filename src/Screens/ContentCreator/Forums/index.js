@@ -78,7 +78,7 @@ function CreatorForumsPage() {
     const searchForums = async (term) => {
         try {
             const resp = await axiosClientWithHeaders.post(
-                "/polls/search-polls/1/",
+                "/forum/search-forums/1/",
                 {
                     search_query: term,
                 }
