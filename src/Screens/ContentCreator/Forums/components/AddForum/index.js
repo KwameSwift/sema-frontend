@@ -1,21 +1,19 @@
 import React, {useEffect, useRef, useState} from "react";
-import {useTranslation} from "react-i18next";
-import Layout from "../../../../../Components/Dashboard/Layout";
 import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {BsArrowLeft, BsTrash} from "react-icons/bs";
+import {BsTrash} from "react-icons/bs";
 import {forumTags} from "../../../../../utils/data";
 import {isDocumentImage, isRequiredFieldsPassed} from "../../../../../utils/helpers";
 import makeAnimated from 'react-select/animated';
+import ContentCreatorLayout from "../../../../../Components/ContentCreator/Layout";
 import Select from "react-select";
-
 import "./style.scss";
 
 const animatedComponents = makeAnimated();
 
-function AdminAddForumPage() {
-    const {t} = useTranslation();
+function CreatorAddForumPage() {
+    // const {t} = useTranslation();
     const [state, setState] = useState({});
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -53,7 +51,7 @@ function AdminAddForumPage() {
             setLoading(false);
             toast.success("Forum added successfully");
             await new Promise((r) => setTimeout(r, 2000));
-            navigate("/admin/forums");
+            navigate("/creator/forums");
         } catch (err) {
             console.log(err);
             setLoading(false);
@@ -87,16 +85,8 @@ function AdminAddForumPage() {
     }, [tags]);
 
     return (
-        <Layout>
+        <ContentCreatorLayout header="Add Forum">
             <div>
-                <div className="p-8 mt-3 flex flex-row blog-header">
-                    <div className="mr-3 flex items-start justify-center cursor-pointer">
-                        <BsArrowLeft fill="#fff" size={28} onClick={() => navigate(-1)}/>
-                    </div>
-                    <div>
-                        <h1>{t("admin.addForums")}</h1>
-                    </div>
-                </div>
                 <div className="p-4">
                     <div className={`mt-5 mb-8 ${!coverImageType && "hidden"}`}>
                         <img src={coverImage} className="w-[500px] h-[350px]" alt=""/>
@@ -194,8 +184,8 @@ function AdminAddForumPage() {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </ContentCreatorLayout>
     );
 }
 
-export default AdminAddForumPage;
+export default CreatorAddForumPage;

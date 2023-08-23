@@ -29,11 +29,15 @@ import AdminEditPollPage from "./Screens/Admin/Polls/components/EditPoll";
 import CreatorPollsPage from "./Screens/ContentCreator/Polls";
 import CreatorAddPollPage from "./Screens/ContentCreator/Polls/components/AddPoll";
 import CreatorEditPollPage from "./Screens/ContentCreator/Polls/components/EditPoll";
-import {ViewPoll} from "./Screens/ContentCreator/Polls/components/ViewPoll";
-import {AdminViewPoll} from "./Screens/Admin/Polls/components/ViewPoll";
+import ViewPoll from "./Screens/ContentCreator/Polls/components/ViewPoll";
+import AdminViewPoll from "./Screens/Admin/Polls/components/ViewPoll";
 import AdminForumsPage from "./Screens/Admin/Forums";
 import AdminAddForumPage from "./Screens/Admin/Forums/components/AddForum";
 import AdminEditForumPage from "./Screens/Admin/Forums/components/EditForum";
+import AdminViewForumPage from "./Screens/Admin/Forums/components/ViewForum";
+import CreatorForumsPage from "./Screens/ContentCreator/Forums";
+import CreatorAddForumPage from "./Screens/ContentCreator/Forums/components/AddForum";
+import CreatorEditForumPage from "./Screens/ContentCreator/Forums/components/EditForum";
 
 
 function App() {
@@ -69,7 +73,7 @@ function App() {
                 <Route path="/admin/forums" exact element={<AdminForumsPage/>}/>
                 <Route path="/admin/forums/add" exact element={<AdminAddForumPage/>}/>
                 <Route path="/admin/forums/edit/:id" exact element={<AdminEditForumPage/>}/>
-                {/*<Route path="/admin/forums/:id" exact element={<AdminViewPoll/>}/>*/}
+                <Route path="/admin/forums/:id" exact element={<AdminViewForumPage/>}/>
 
                 {/* Profile */}
                 <Route path="/admin/profile" exact element={<AdminProfilePage/>}/>
@@ -88,6 +92,12 @@ function App() {
                 <Route path="/creator/polls/add" exact element={<CreatorAddPollPage/>}/>
                 <Route path="/creator/polls/edit/:id" exact element={<CreatorEditPollPage/>}/>
                 <Route path="/creator/polls/:id" exact element={<ViewPoll/>}/>
+
+                {/* Forums */}
+                <Route path="/creator/forums" exact element={<CreatorForumsPage/>}/>
+                <Route path="/creator/forums/add" exact element={<CreatorAddForumPage/>}/>
+                <Route path="/creator/forums/edit/:id" exact element={<CreatorEditForumPage/>}/>
+                <Route path="/creator/forums/:id" exact element={<ViewPoll/>}/>
 
             </Routes>
         </>

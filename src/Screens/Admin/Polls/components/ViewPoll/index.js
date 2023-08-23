@@ -16,7 +16,7 @@ ChartJS.register(
     BarElement
 );
 
-export function AdminViewPoll() {
+export default function AdminViewPoll() {
     const {id} = useParams();
     const [poll, setPoll] = useState({});
     const [labels, setLabels] = useState([]);

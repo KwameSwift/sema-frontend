@@ -27,6 +27,8 @@
     "disApproveBlogs": "Disapprove Blog",
     "approvePoll": "Approve Poll",
     "disApprovePoll": "Disapprove Poll",
+    "approveForum": "Approve Forum",
+    "disApproveForum": "Disapprove Forum",
     "disApprove": "Disapprove",
     "loading": "Loading",
     "delete": "Delete",
@@ -36,9 +38,11 @@
     "save": "Save",
     "declinePoll": "Decline Poll",
     "approveTextBlog": "Are you sure you want to approve this blog?",
-    "unapproveTextPoll": "Are you sure you want to approve this poll?",
+    "approveTextPoll": "Are you sure you want to approve this poll?",
+    "approveTextForum": "Are you sure you want to approve this forum?",
     "unApproveTextBlog": "Are you sure you want to disapprove this blog?",
     "unApproveTextPoll": "Are you sure you want to disapprove this poll?",
+    "unApproveTextForum": "Are you sure you want to disapprove this forum?",
     "deleteTextPoll": "Are you sure you want to delete this poll?"
   },
   "admin": {

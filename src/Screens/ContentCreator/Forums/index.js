@@ -4,16 +4,17 @@ import {BsPlus, BsSearch} from "react-icons/bs";
 import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
 import {debounce} from "lodash";
-import Layout from "../../../Components/Dashboard/Layout";
 // import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
 import {axiosClientWithHeaders} from "../../../libs/axiosClient";
 import Modal from "../../../Components/Modal";
 // import AdminCreatorBlogCard from "../../../Components/Admin/BlogPost";
-import AdminForumCard from "./components/AdminForumCard";
 import {getTransString} from "../../../utils/helpers";
+import CreatorForumCard from "./components/CreatorForumCard";
+import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
+
 import "./style.scss";
 
-function AdminForumsPage() {
+function CreatorForumsPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [forums, setForums] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
@@ -22,20 +23,19 @@ function AdminForumsPage() {
     const [refetch, setRefetch] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
     const [totalForums, setTotalForums] = useState(0);
-    const [forumType, setForumType] = useState(0);
+    const [pollType, setPollType] = useState(0);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    const [declineComment, setDeclineComment] = useState({});
 
     const firstRunRef = useRef(true);
     const {t} = useTranslation();
 
     const navigate = useNavigate();
 
-    const getAllForums = async (type = forumType, prev = true) => {
+    const getAllForums = async (type = pollType, prev = true) => {
         try {
             const resp = await axiosClientWithHeaders.get(
-                `/super-admin/get-all-forums/${type}/${currentPage}/`
+                `/users/my-forums/${type}/${currentPage}/`
             );
             const data = resp.data;
             if (firstRunRef) {
@@ -53,39 +53,25 @@ function AdminForumsPage() {
         }
     };
 
-    const declinePoll = async () => {
+    const deletePoll = async () => {
+        setLoading(true);
         try {
-            await axiosClientWithHeaders.put(`/super-admin/decline-forum/${selectedId}/`, {
-                comments: declineComment.comments
-            });
-            toast.success("Forum declined");
+            await axiosClientWithHeaders.delete(
+                `/polls/delete-poll/${selectedId}/`
+            );
+            setLoading(false);
+            toast.success("Poll deleted successfully");
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
-            setRefetch(prev => !prev);
+            getAllForums(pollType, false);
         } catch (err) {
+            setLoading(false);
             console.error(err);
         }
-    }
-
-    // const deletePoll = async () => {
-    //   setLoading(true);
-    //   try {
-    //     await axiosClientWithHeaders.delete(
-    //       `/blog/delete-blog-post/${selectedId}/`
-    //     );
-    //     setLoading(false);
-    //     toast.success("Blog deleted successfully");
-    //     await new Promise((r) => setTimeout(r, 2000));
-    //     setModalOpen(false);
-    //     getAllForums(pollType, false);
-    //   } catch (err) {
-    //     setLoading(false);
-    //     console.error(err);
-    //   }
-    // };
+    };
 
     const filterBlogs = (e) => {
-        setForumType(e.target.value);
+        setPollType(e.target.value);
         getAllForums(e.target.value, false);
     };
 
@@ -103,39 +89,6 @@ function AdminForumsPage() {
         }
     };
 
-    const updatePollApproval = async (approvalType, approvalId) => {
-        setLoading(true);
-        try {
-            await axiosClientWithHeaders.put(
-                `/super-admin/approve-disapprove-forum/${approvalId}/${selectedId}/`
-            );
-            setRefetch((prev) => !prev);
-            setLoading(false);
-            toast.success(`Forum ${approvalType} successfully`);
-            await new Promise((r) => setTimeout(r, 2000));
-            setModalOpen(false);
-        } catch (error) {
-            setLoading(false);
-            console.log(error);
-        }
-    };
-
-    const getCallbackAction = async (type, data) => {
-        if (type === "declinePoll") {
-            await declinePoll(data);
-        } else if (type === "approveForum") {
-            await updatePollApproval("approved", 1);
-        } else {
-            await updatePollApproval("disapproved", 0);
-        }
-    }
-
-    const handleSetData = (data) => {
-        if (modalState === "declinePoll") {
-            setDeclineComment({comments: data});
-        }
-    }
-
     const debouncedSearch = debounce((term) => {
         // Perform your search logic here
         searchForums(term);
@@ -144,30 +97,26 @@ function AdminForumsPage() {
     useEffect(() => {
         if (searchQuery.length) {
             debouncedSearch(searchQuery);
+        } else {
+            getAllForums(pollType, false);
         }
-    }, [searchQuery]);
+    }, [searchQuery, refetch]);
 
     useEffect(() => {
-        getAllForums(forumType, true);
+        getAllForums(pollType, true);
     }, [currentPage]);
 
-    useEffect(() => {
-        getAllForums(forumType, false);
-    }, [refetch]);
 
     return (
         <>
-            <Layout>
-                <div className="admin-blog-page mx-3">
-                    <div className="p-8 mt-5 flex flex-col blog-header">
-                        <h1>{t("admin.forums")}</h1>
-                        <p className="text-[#fff]">
-                            {t("admin.totalForums")} ({totalForums})
-                        </p>
-                    </div>
+            <ContentCreatorLayout
+                header="Forums"
+                subChild={`Total Count (${totalForums})`}
+            >
+                <div className="admin-blog-page creator-polls mx-3">
                     <div className="flex justify-between mt-3 items-center">
                         <div className="flex items-center w-[80%]">
-                            <div className="border rounded-lg items-center w-[60%] flex mt-5">
+                            <div className="border bg-[#fff] rounded-lg items-center w-[60%] flex mt-5">
                                 <BsSearch size={22} className="ml-3"/>
                                 <input
                                     type="text"
@@ -192,21 +141,22 @@ function AdminForumsPage() {
                         <div className="mt-5 mr-3">
                             <button
                                 className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
-                                onClick={() => navigate("/admin/forums/add")}
+                                onClick={() => navigate("/creator/forums/add")}
                             >
                                 <BsPlus size={25}/>
-                                {t("admin.forums")}
+                                {t("admin.polls")}
                             </button>
                         </div>
                     </div>
                     <div className="creator-blogs mt-10">
                         {forums?.map((elt, index) => (
                             <>
-                                <AdminForumCard {...elt}
-                                                key={index}
-                                                setModalOpen={setModalOpen}
-                                                setSelectedID={setSelectedID}
-                                                setModalType={setModalState}
+                                <CreatorForumCard
+                                    setModalOpen={setModalOpen}
+                                    setSelectedID={setSelectedID}
+                                    setModalType={setModalState}
+                                    {...elt}
+                                    key={index}
                                 />
                             </>
                         ))}
@@ -222,21 +172,19 @@ function AdminForumsPage() {
                         </div>
                     )}
                 </div>
-            </Layout>
+            </ContentCreatorLayout>
 
             <Modal
                 data={selectedId}
-                setData={handleSetData}
                 type={modalState}
                 isOpen={modalOpen}
                 setIsOpen={setModalOpen}
                 setRefetch={setRefetch}
-                setInputData={declineComment}
-                callbackAction={(data) => getCallbackAction(modalState, data)}
+                callbackAction={deletePoll}
                 parentBtnLoading={loading}
             />
         </>
     );
 }
 
-export default AdminForumsPage;
+export default CreatorForumsPage;

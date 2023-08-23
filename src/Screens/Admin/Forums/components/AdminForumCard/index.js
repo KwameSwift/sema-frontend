@@ -16,8 +16,8 @@ function AdminForumCard(props) {
     const modalType = props.is_approved ? "Unapprove" : "Approve";
 
     let dropItems = [
-        {id: "view", name: "View", route: `/admin/polls/${props.id}`},
-        {id: "status", name: modalType, modalType: props.is_approved ? "unapprovePoll" : "approvePoll"},
+        {id: "view", name: "View", route: `/admin/forums/${props.id}`},
+        {id: "status", name: modalType, modalType: props.is_approved ? "unapproveForum" : "approveForum"},
     ];
 
     if (props.is_owner) {
@@ -28,7 +28,7 @@ function AdminForumCard(props) {
     }
 
     if (!props.is_declined && !props.owner) {
-        dropItems.push({id: "decline", name: "Decline poll", modalType: "declinePoll"});
+        dropItems.push({id: "decline", name: "Decline forum", modalType: "declineForum"});
     }
     const handleDropClick = (item) => {
         if (item.route) {
@@ -74,7 +74,7 @@ function AdminForumCard(props) {
           </span>
                 </div>
                 <div className="flex justify-between items-center">
-                    {props?.is_declined && <FaTimes fill="#e14d2a"/>}
+                    {props?.is_declined && <FaTimes fill="#e14d2a" className="cursor-default"/>}
                     <Dropdown>
                         <Dropdown.Toggle className="border-0">
                             <BsThreeDotsVertical fill="#000" size={20}/>

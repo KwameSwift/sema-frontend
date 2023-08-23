@@ -73,6 +73,22 @@ const Modal = ({
             func: () => callbackAction("disapproved"),
             externalFunc: true,
         },
+        approveForum: {
+            name: "Approve Forum",
+            buttonText: "Approve",
+            buttonBgFill: "#001253",
+            text: "Are you sure you want to approve this forum?",
+            func: () => callbackAction("approved"),
+            externalFunc: true,
+        },
+        unapproveForum: {
+            name: "Disapprove Forum",
+            buttonText: "Disapprove",
+            buttonBgFill: "#e14d2a",
+            text: "Are you sure you want to disapprove this forum?",
+            func: () => callbackAction("disapproved"),
+            externalFunc: true,
+        },
         deletePoll: {
             name: "Delete Poll",
             buttonText: "Delete",

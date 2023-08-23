@@ -27,6 +27,8 @@
     "disApproveBlogs": "Usiidhinishe Blogu",
     "approvePoll": "Idhinisha Kura",
     "disApprovePoll": "Kura ya Kukataa",
+    "approveForum": "Idhinisha Jukwaa",
+    "disApproveForum": "Usiidhinishe Jukwaa",
     "disApprove": "Usiidhinishe",
     "loading": "Inapakia",
     "delete": "Futa",
@@ -35,10 +37,13 @@
     "decline": "Kataa",
     "save": "Hifadhi",
     "declinePoll": "Kataa Kura",
-    "unApproveTextBlog": "Je, una uhakika unataka kutoidhinisha blogu hii?",
     "approveTextBlog": "Je, una uhakika unataka kuidhinisha blogu hii?",
-    "unapproveTextPoll": "Je, una uhakika unataka kuidhinisha kura hii ya maoni?",
-    "unApproveTextPoll": "Je, una uhakika unataka kutoidhinisha kura hii?"
+    "approveTextPoll": "Je, una uhakika unataka kuidhinisha kura hii ya maoni?",
+    "approveTextForum": "Je, una uhakika unataka kuidhinisha jukwaa hili?",
+    "unApproveTextBlog": "Je, una uhakika unataka kutoidhinisha blogu hii?",
+    "unApproveTextPoll": "Je, una uhakika unataka kutoidhinisha kura hii?",
+    "unApproveTextForum": "Je, una uhakika unataka kutoidhinisha jukwaa hili?",
+    "deleteTextPoll": "Je, una uhakika unataka kufuta kura hii?"
   },
   "admin": {
     "all": "Wote",
