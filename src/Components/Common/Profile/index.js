@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {useDispatch, useSelector} from "react-redux";
 import {replaceNullWithEmptyString} from "../../../utils/helpers";
 import Avatar from "../../../Assets/images/no-profile-img.webp";
-import {axiosClientWithHeaders} from "../../../libs/axiosClient";
+import {axiosClientForm, axiosClientWithHeaders} from "../../../libs/axiosClient";
 import {setUserInfo} from "../../../Redux/slices/userSlice";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -76,7 +76,7 @@ function Profile() {
             formData.append("profile_image", profileImageFile);
         }
         try {
-            await axiosClientWithHeaders.put("/users/update-my-profile/", formData);
+            await axiosClientForm.put("/users/update-my-profile/", formData);
             toast.success("Profile updated successfully");
             getMyData();
             setLoading(false);
