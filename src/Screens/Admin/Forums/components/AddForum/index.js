@@ -20,7 +20,9 @@ const animatedComponents = makeAnimated();
 
 function AdminAddForumPage() {
   const { t } = useTranslation();
-  const [state, setState] = useState({});
+  const [state, setState] = useState({
+    is_public: "True",
+  });
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [tags, setTags] = useState([]);
