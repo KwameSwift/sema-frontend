@@ -60,7 +60,7 @@ function AdminForumCard(props) {
                         className="w-[40px] h-[40px] rounded-full"
                     />
                     <span className="flex flex-col ml-3">
-                        <span className="flex justify-between items-center">
+                        <span className="author flex justify-between items-center">
                             <span>
               {props.author__first_name} {props.author__last_name}
             </span>
@@ -90,7 +90,7 @@ function AdminForumCard(props) {
                 </div>
             </div>
             <div className="mt-4">
-                <h3 className="font-bold mb-3 text-[20px]">{props.topic}</h3>
+                <h3 className="font-bold mb-3 text-[20px] title">{props.topic}</h3>
                 <p className="mt-3 mb-2 forum-desc">{props.description}</p>
                 <div className="forum-tags">
                     {props?.tags?.map((elt, index) =>

@@ -2,8 +2,16 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0 3px 11px 0;
   margin: 20px;
   flex-grow: 1;
-  max-width: 450px;
+  max-width: 330px;
   cursor: pointer;
+
+  .author {
+    font-size: 13px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
 
   .forum-desc {
     text-overflow: ellipsis;
@@ -11,6 +19,7 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-size: 14px;
   }
 
   .dropdown-toggle {
