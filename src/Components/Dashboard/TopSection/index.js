@@ -32,6 +32,10 @@ function TopSection() {
       <div className="w-full flex items-center mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between w-full p-1">
           <div className="flex justify-end w-full h-full">
+            <div className="flex items-center">
+              <BsArrowLeft fill="#000" size={18} onClick={() => navigate(-1)} />
+              <span className="ml-1 back-txt">Back</span>
+            </div>
             <div className="flex ml-[10%] w-full justify-end items-center">
               <div className="relative nav-link" onClick={() => navigate("/")}>
                 <button type="button" className="flex items-center">

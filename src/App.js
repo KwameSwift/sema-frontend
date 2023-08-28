@@ -73,6 +73,7 @@ function App() {
                 <Route path="/admin/forums" exact element={<AdminForumsPage/>}/>
                 <Route path="/admin/forums/add" exact element={<AdminAddForumPage/>}/>
                 <Route path="/admin/forums/edit/:id" exact element={<AdminEditForumPage/>}/>
+                <Route path="/admin/forums/manage/:id" exact element={<AdminEditForumPage/>}/>
                 <Route path="/admin/forums/:id" exact element={<AdminViewForumPage/>}/>
 
                 {/* Profile */}
