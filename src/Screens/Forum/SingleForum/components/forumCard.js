@@ -4,8 +4,8 @@ import {formatDate} from "../../../../utils/helpers";
 import Avatar from "../../../../Assets/images/no-profile-img.webp";
 import {tagColors} from "../../../../utils/data";
 import {BiSolidChat} from "react-icons/bi";
-import "../style.scss";
 import {GoDotFill} from "react-icons/go";
+import "./style.scss";
 
 function AdminForumCard(props) {
     const [, setShowChoices] = useState(false);

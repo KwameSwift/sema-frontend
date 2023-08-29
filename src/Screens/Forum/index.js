@@ -2,8 +2,8 @@ import React, {useEffect, useRef, useState} from 'react'
 import Navbar from '../../Components/Common/Navbar';
 import {axiosClient} from '../../libs/axiosClient';
 // import {useSelector} from "react-redux";
-import "./style.scss";
 import ForumCard from "./SingleForum/components/forumCard";
+import "./style.scss";
 
 function ForumsPage() {
     const [forums, setForums] = useState([]);

@@ -1,0 +1,49 @@
+.forum-card {
+  box-shadow: rgba(100, 100, 111, 0.2) 0 3px 11px 0;
+  margin: 20px;
+  flex-grow: 1;
+  min-width: 450px;
+  max-width: 500px;
+  width: 500px;
+  cursor: pointer;
+
+  .author {
+    font-size: 13px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
+
+  .forum-desc {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  .dropdown-toggle {
+    &:hover, &::selection, &.show, &:active {
+      background-color: #fff !important;
+    }
+  }
+
+  .dropdown-toggle::after {
+    content: none;
+  }
+
+  .status {
+    p {
+      font-size: 12px;
+    }
+  }
+
+  .forum-type {
+    span {
+      font-size: 13px;
+      color: #3e6d9c;
+    }
+  }
+}
