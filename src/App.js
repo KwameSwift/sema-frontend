@@ -38,6 +38,8 @@ import AdminViewForumPage from "./Screens/Admin/Forums/components/ViewForum";
 import CreatorForumsPage from "./Screens/ContentCreator/Forums";
 import CreatorAddForumPage from "./Screens/ContentCreator/Forums/components/AddForum";
 import CreatorEditForumPage from "./Screens/ContentCreator/Forums/components/EditForum";
+import AdminManageForumPage from "./Screens/Admin/Forums/components/ManageForum";
+import ForumsPage from "./Screens/Forum";
 
 
 function App() {
@@ -54,6 +56,7 @@ function App() {
                 {/* Guest */}
                 <Route path="/blog/:id" element={<SinglePost/>}/>
                 <Route path="/feed" element={<BlogsPage/>}/>
+                <Route path="/forums" element={<ForumsPage/>}/>
 
                 {/* Admin Dashboard */}
                 <Route path="/admin/dashboard" exact element={<DashboardPage/>}/>
@@ -73,7 +76,7 @@ function App() {
                 <Route path="/admin/forums" exact element={<AdminForumsPage/>}/>
                 <Route path="/admin/forums/add" exact element={<AdminAddForumPage/>}/>
                 <Route path="/admin/forums/edit/:id" exact element={<AdminEditForumPage/>}/>
-                <Route path="/admin/forums/manage/:id" exact element={<AdminEditForumPage/>}/>
+                <Route path="/admin/forums/manage/:id" exact element={<AdminManageForumPage/>}/>
                 <Route path="/admin/forums/:id" exact element={<AdminViewForumPage/>}/>
 
                 {/* Profile */}

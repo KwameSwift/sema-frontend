@@ -9,6 +9,7 @@ import {BsArrowLeft, BsTrash} from "react-icons/bs";
 import Select from "react-select";
 import {forumTags} from "../../../../../utils/data";
 import makeAnimated from "react-select/animated";
+import CustomRadioInput from "../../../../../Components/Common/CustomRadioButton";
 
 const animatedComponents = makeAnimated();
 
@@ -202,6 +203,28 @@ function AdminEditForumPage() {
                 {/*    </label>*/}
                 {/*    <input type="file" ref={fileRef} onChange={handleSetImage} multiple/>*/}
                 {/*</div>*/}
+                <div className="mt-3">
+                    <label className="text-[18px] mb-2 font-bold">
+                        Access Level<span className="text-[#e14d2a]">*</span>
+                    </label>
+                    <div>
+                        <CustomRadioInput
+                            optionKey="Public"
+                            onChange={handleChange}
+                            name={"is_public"}
+                            value={"True"}
+                            val={"pub1"}
+                            defaultChecked={true}
+                        />
+                        <CustomRadioInput
+                            optionKey="Private"
+                            onChange={handleChange}
+                            name={"is_public"}
+                            value={"False"}
+                            val={"pub2"}
+                        />
+                    </div>
+                </div>
                 <div className="mt-8 flex items-center justify-center">
                     <button
                         type="button"

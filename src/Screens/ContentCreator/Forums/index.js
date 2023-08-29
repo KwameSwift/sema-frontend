@@ -144,7 +144,7 @@ function CreatorForumsPage() {
                                 onClick={() => navigate("/creator/forums/add")}
                             >
                                 <BsPlus size={25}/>
-                                {t("admin.polls")}
+                                {t("admin.forums")}
                             </button>
                         </div>
                     </div>

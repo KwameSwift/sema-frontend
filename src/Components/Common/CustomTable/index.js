@@ -55,10 +55,13 @@ function CustomTable({
     }
 
     const getContentItem = (header, item) => {
-        if (header === "voter__first_name") {
-            return item["voter__first_name"] + " " + item["voter__last_name"]
-        } else if (header === "Name") {
-            return item["first_name"] + " " + item["last_name"]
+        const combineNames = {
+            "voter__first_name": item["voter__first_name"] + " " + item["voter__last_name"],
+            "member__first_name": item["member__first_name"] + " " + item["member__last_name"],
+            "Name": item["first_name"] + " " + item["last_name"],
+        }
+        if (Object.keys(combineNames)?.includes(header)) {
+            return combineNames[header];
         } else {
             return item[getTableItem(convertToSnakeCase(header))]
         }
@@ -77,7 +80,7 @@ function CustomTable({
                 </tr>
                 </thead>
                 <tbody>
-                {data.map((item, rowIndex) => (
+                {data?.map((item, rowIndex) => (
                     <tr key={item[idType]}>
                         {(headerValues ? headerValues : headers).map((header, colIndex) => (
                             <td className="py-2 px-4 border-b" key={colIndex}>

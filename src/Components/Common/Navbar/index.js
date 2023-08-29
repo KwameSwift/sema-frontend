@@ -32,6 +32,7 @@ function Navbar() {
     const hyperLinks = [
         {id: "home", name: "Home", route: "/"},
         {id: "feed", name: "Feed", route: "/feed"},
+        {id: "forums", name: "Forums", route: "/forums"},
         {id: "events", name: "Events", route: "/events"},
         {id: "donations", name: "Donations", route: "/donations"},
     ];
@@ -66,7 +67,7 @@ function Navbar() {
                         className="flex items-center flex-col justify-center"
                         onClick={() => navigate("/")}
                     >
-                        <img src={Logo} width={35} height={35}/>
+                        <img src={Logo} width={35} height={35} alt=""/>
                         <p className="font-bold text-[1em] logo-text">SEMA</p>
                     </div>
                     <div className="flex items-center">
