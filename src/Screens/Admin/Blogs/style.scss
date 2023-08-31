@@ -3,11 +3,13 @@
     margin: 80px 15%;
     max-width: 1200px;
     min-width: 350px;
+
     .blog-image {
       border-radius: 20px;
     }
 
   }
+
   /* Assuming a class name of "quill-editor" for the React Quill component */
   .ql-container.ql-disabled {
     border: none;
@@ -17,38 +19,46 @@
   .ql-container.ql-disabled .ql-editor {
     outline: none;
   }
+
   .leave-comment {
-    &::placeholder{
+    &::placeholder {
       padding: 2px;
     }
+
     padding: 10px;
   }
 }
+
 .admin-blog-page {
   overflow: hidden;
+
   .blog-header {
     background-color: var(--primary-blue-color);
     border-radius: 8px;
+
     h1 {
       color: #fff;
     }
+
     .add-blog-btn {
       background-color: var(--primary-orange-color);
       padding: 5px 10px;
       border-radius: 8px;
     }
   }
+
   .blog-content {
     padding: 0 16px 30px;
     display: -webkit-box;
     width: 100%;
     overflow-x: auto;
   }
+
   .btn-pagination {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
     margin-right: 30px;
     display: flex;
     justify-content: center;
@@ -63,11 +73,13 @@
 .admin-add-blog {
   margin: 20px;
   overflow: hidden;
+
   .blog-header {
     background-color: var(--primary-blue-color);
     border-radius: 8px;
     color: #fff;
   }
+
   .ql-container {
     height: 300px;
   }
@@ -75,7 +87,7 @@
 
 .blog-card-wrapper,
 .admin.blog-card {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }
 
 .blog-card {
@@ -83,6 +95,7 @@
   margin-right: 12px;
   margin-bottom: 16px;
   flex: 0 1 calc(25% - 1em);
+
   .blog-desc {
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -97,6 +110,7 @@
   border-bottom: none;
   border-bottom: 1px solid #ccc;
 }
+
 .hyphen {
   display: inline-block;
   width: 2em;
@@ -106,18 +120,19 @@
 
 .comment-sect {
   margin-top: 10px;
+
   .element {
     display: flex;
     align-items: center;
   }
-  
+
   .left-bar,
   .right-bar {
     width: 100%;
     height: 1px;
     background-color: #ccc;
   }
-  
+
   .text {
     width: 100%;
     max-width: 170px;
@@ -131,8 +146,10 @@
 .other-blogs-sect {
   .other-blogs {
     display: inline-flex;
+
     .other-post {
       margin: 20px;
+
       .blog-desc {
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -140,6 +157,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
+
       .post-img {
         width: 250px;
         height: 180px;

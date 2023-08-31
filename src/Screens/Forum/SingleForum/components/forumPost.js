@@ -7,7 +7,7 @@ import {GoDot} from "react-icons/go";
 import {RiShareForwardLine} from "react-icons/ri";
 import {Tab, Tabs} from "react-bootstrap";
 import "./style.scss";
-import DiscussionTab from "./discussionTab";
+import ChatsTab from "./chatsTab";
 import MediaTab from "./mediaTab";
 import FileTab from "./fileTab";
 import MembersTab from "./membersTab";
@@ -19,7 +19,7 @@ function ForumPost() {
     // const navigate = useNavigate();
     const {id} = useParams();
     const [forum, setForum] = useState({});
-    const [key, setKey] = useState("discussion");
+    const [key, setKey] = useState("chats");
     const [refetch, setRefetch] = useState(false);
     const user = useSelector((store) => store.user.tokens);
 
@@ -100,14 +100,14 @@ function ForumPost() {
             <div className="forum-desc mt-2 mb-3 px-2">
                 <p>{forum.description}</p>
             </div>
-            <div className="px-2">
+            <div className="tabs">
                 <Tabs
                     id="administrators_tabs"
                     activeKey={key}
                     onSelect={handleSelect}
                 >
-                    <Tab eventKey="discussion" title="Discussion">
-                        <DiscussionTab/>
+                    <Tab eventKey="chats" title="Chats">
+                        <ChatsTab chat_rooms={forum?.chat_rooms}/>
                     </Tab>
                     <Tab eventKey="media" title="Media">
                         <MediaTab/>
