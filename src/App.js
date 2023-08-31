@@ -40,6 +40,7 @@ import CreatorAddForumPage from "./Screens/ContentCreator/Forums/components/AddF
 import CreatorEditForumPage from "./Screens/ContentCreator/Forums/components/EditForum";
 import AdminManageForumPage from "./Screens/Admin/Forums/components/ManageForum";
 import ForumsPage from "./Screens/Forum";
+import ForumPost from "./Screens/Forum/SingleForum/components/forumPost";
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/blog/:id" element={<SinglePost/>}/>
                 <Route path="/feed" element={<BlogsPage/>}/>
                 <Route path="/forums" element={<ForumsPage/>}/>
+                <Route path="/forums/:id" element={<ForumPost/>}/>
 
                 {/* Admin Dashboard */}
                 <Route path="/admin/dashboard" exact element={<DashboardPage/>}/>

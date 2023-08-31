@@ -23,15 +23,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-*{
+
+* {
   font-family: 'Gotham', sans-serif;
 }
 
 :root {
- --primary-color: #FC8A2B;
- --primary-orange-color: #e14d2a;
- --primary-blue-color: #001253;
- --secondary-blue-color: #3e6d9c;
+  --primary-color: #FC8A2B;
+  --primary-orange-color: #e14d2a;
+  --primary-blue-color: #001253;
+  --secondary-blue-color: #3e6d9c;
 }
 
 .column {
@@ -69,4 +70,21 @@ h1 {
   background-color: var(--primary-blue-color);
   border-radius: 5px;
   color: #fff;
+}
+
+.nav-tabs {
+  border-bottom: none;
+
+  .nav-link {
+    border: none;
+    color: #000;
+
+    &.active {
+      border-bottom: 3px solid var(--primary-color) !important;
+    }
+  }
+}
+
+.tab-content {
+  margin-top: 10px;
 }

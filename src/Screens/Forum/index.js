@@ -35,7 +35,7 @@ function ForumsPage() {
     return (
         <div>
             <Navbar/>
-            <div className='feeds mt-3'>
+            <div className='forums mt-3'>
                 {/*<FeedBanners scroll={scrollToElement}/>*/}
                 <div className="flex justify-between feed-container">
                     <aside>
