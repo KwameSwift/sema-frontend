@@ -1,14 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Navbar from '../../Components/Common/Navbar';
-import {axiosClient} from '../../libs/axiosClient';
+import {axiosClient, axiosClientWithHeaders} from '../../libs/axiosClient';
 // import {useSelector} from "react-redux";
 import ForumCard from "./SingleForum/components/forumCard";
 import "./style.scss";
+import {useSelector} from "react-redux";
 
 function ForumsPage() {
     const [forums, setForums] = useState([]);
     const [category, setCategory] = useState("All");
-    // const user = useSelector((store) => store.user);
+    const user = useSelector((store) => store.user.tokens);
     const [refetch,] = useState(false);
 
     const elementRef = useRef(null);
@@ -22,7 +23,12 @@ function ForumsPage() {
     useEffect(() => {
         const getAllForums = async () => {
             try {
-                const resp = await axiosClient.get("/forum/get-all-forums/1/");
+                let resp = null;
+                if (user.access) {
+                    resp = await axiosClientWithHeaders.get(`/forum/get-all-forums/1/`);
+                } else {
+                    resp = await axiosClient.get(`/forum/get-all-forums/1/`);
+                }
                 setForums(resp.data.data);
             } catch (err) {
                 console.log(err);
