@@ -1,4 +1,4 @@
-import {setUserTokens} from "../Redux/slices/userSlice";
+import {resetUserData, setUserTokens} from "../Redux/slices/userSlice";
 import store from "../Redux/store";
 import enStrings from "../locales/en.json";
 
@@ -84,6 +84,10 @@ export const getUserData = () => {
 
 export const setUserTokenData = (token) => {
     store.dispatch(setUserTokens(token));
+};
+
+export const resetUserInfo = () => {
+    store.dispatch(resetUserData());
 };
 
 export const formatDateWithBar = (date, spaced) => {

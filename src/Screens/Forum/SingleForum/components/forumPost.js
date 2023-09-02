@@ -13,6 +13,7 @@ import FileTab from "./fileTab";
 import MembersTab from "./membersTab";
 import AboutTab from "./aboutTab";
 import {toast} from "react-toastify";
+import VirtualMeetingsTab from "./virtualMeetingsTab";
 
 
 function ForumPost() {
@@ -21,6 +22,7 @@ function ForumPost() {
     const [forum, setForum] = useState({});
     const [key, setKey] = useState("chats");
     const [refetch, setRefetch] = useState(false);
+    const userInfo = useSelector((store) => store.user.user);
     const user = useSelector((store) => store.user.tokens);
 
     const getSingleForum = async () => {
@@ -107,13 +109,21 @@ function ForumPost() {
                     onSelect={handleSelect}
                 >
                     <Tab eventKey="chats" title="Chats">
-                        <ChatsTab chat_rooms={forum?.chat_rooms}/>
+                        <ChatsTab
+                            chatRooms={forum?.chat_rooms}
+                            user={userInfo}
+                            forumId={forum?.id}
+                            setRefetch={setRefetch}
+                        />
                     </Tab>
                     <Tab eventKey="media" title="Media">
                         <MediaTab/>
                     </Tab>
                     <Tab eventKey="files" title="Files">
                         <FileTab/>
+                    </Tab>
+                    <Tab eventKey="virtualMeetings" title="Virtual Meetings">
+                        <VirtualMeetingsTab/>
                     </Tab>
                     <Tab eventKey="members" title="Members">
                         <MembersTab/>

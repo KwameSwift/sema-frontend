@@ -1,9 +1,11 @@
 import React from "react";
 import {BsPersonCircle} from "react-icons/bs";
 
-function ChatCard(props) {
+function ChatCard({setSelectedChat, ...props}) {
+
     return (
-        <div className="chat-card bg-white pt-3 pb-2 p-3 flex flex-row justify-between">
+        <div className="chat-card bg-white pt-3 pb-2 p-3 flex flex-row justify-between cursor-pointer"
+             onClick={() => setSelectedChat(props)}>
             <div>
                 <h3>{props.room_name}</h3>
                 <p>{props.description}</p>
