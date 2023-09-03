@@ -177,3 +177,50 @@ export const sortDataByOrder = (data, type, order) => {
     });
     return dataToSort;
 };
+
+export const cleanMessageDate = (timestamp) => {
+    const splittedDate = timestamp?.split(" ");
+    if (splittedDate?.length > 1) {
+        const secondSplit = splittedDate[1]?.split("+");
+        return splittedDate[0] + "T" + secondSplit[0] + "Z";
+    }
+
+    return splittedDate[0];
+};
+export const formatMessageTime = (timestamp) => {
+    if (timestamp) {
+        const messageDate = new Date(cleanMessageDate(timestamp));
+        const currentDate = new Date();
+
+        // Check if the message was sent today
+        if (
+            messageDate.getDate() === currentDate.getDate() &&
+            messageDate.getMonth() === currentDate.getMonth() &&
+            messageDate.getFullYear() === currentDate.getFullYear()
+        ) {
+            const hours = messageDate.getHours();
+            const minutes = messageDate.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = hours % 12 || 12;
+            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+            return `${formattedHours}:${formattedMinutes} ${ampm}`;
+        } else {
+            // Check if the message was sent yesterday
+            const yesterday = new Date();
+            yesterday.setDate(currentDate.getDate() - 1);
+            if (
+                messageDate.getDate() === yesterday.getDate() &&
+                messageDate.getMonth() === yesterday.getMonth() &&
+                messageDate.getFullYear() === yesterday.getFullYear()
+            ) {
+                return 'Yesterday';
+            } else {
+                // Format the message date in a long format
+                return messageDate.toLocaleDateString();
+            }
+        }
+    }
+
+    return timestamp;
+};
+
