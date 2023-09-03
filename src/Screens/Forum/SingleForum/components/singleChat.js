@@ -4,10 +4,12 @@ import {LiaTimesSolid} from "react-icons/lia";
 import {MdOutlineEmojiEmotions} from "react-icons/md";
 import {BsSend} from "react-icons/bs";
 import {formatMessageTime} from "../../../../utils/helpers";
+import EmojiPicker from "emoji-picker-react";
 
 function SingleChat(props) {
     const [chat, setChat] = useState({});
     const [message, setMessage] = useState("");
+    const [toggleEmoji, setToggleEmoji] = useState(false);
 
     const getSingleChat = async () => {
         try {
@@ -41,6 +43,11 @@ function SingleChat(props) {
         }
     }
 
+    const handleEmojiClick = (item) => {
+        setMessage(message + item.emoji);
+        setToggleEmoji(false);
+    };
+
     useEffect(() => {
         getSingleChat();
     }, [props.item.id]);
@@ -67,9 +74,15 @@ function SingleChat(props) {
                             )
                     )}
                 </div>
+                {toggleEmoji && (
+                    <div>
+                        <EmojiPicker onEmojiClick={handleEmojiClick}/>
+                    </div>
+                )}
                 <div className="chat-footer">
                     <div className="flex w-[95%] justify-start items-center">
-                        <MdOutlineEmojiEmotions size={22}/>
+                        <MdOutlineEmojiEmotions size={22} className="cursor-pointer"
+                                                onClick={() => setToggleEmoji(prev => !prev)}/>
                         <input
                             type="text"
                             placeholder="Send message"
