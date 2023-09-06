@@ -79,7 +79,7 @@ function HomePage() {
                                 <div className="mt-8 flex justify-center items-center">
                                     <button
                                         className="py-2 px-4 see-more-btn"
-                                        onClick={() => navigate("/blogs")}
+                                        onClick={() => navigate("/feed")}
                                     >
                                         {t("home.seeMore")}
                                     </button>
