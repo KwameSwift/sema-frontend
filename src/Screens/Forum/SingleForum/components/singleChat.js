@@ -49,6 +49,30 @@ function SingleChat(props) {
     };
 
     useEffect(() => {
+        const socket = new WebSocket(`wss://backend.africanchildprojects.org/ws/chat-messages/${props.item.id}/`);
+        socket.onopen = (event) => {
+            console.log(event, "socket");
+            console.log('WebSocket connection opened:', event);
+        };
+        socket.onmessage = (event) => {
+            console.log(JSON.parse(event.data));
+            // setMessage(event.data);
+        };
+
+        socket.onerror = (event) => {
+            console.error('WebSocket error:', event);
+        };
+
+        socket.onclose = (event) => {
+            if (event.wasClean) {
+                console.log(`WebSocket connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+            } else {
+                console.error('WebSocket connection abruptly closed');
+            }
+        };
+    }, [])
+
+    useEffect(() => {
         getSingleChat();
     }, [props.item.id]);
 
@@ -60,7 +84,11 @@ function SingleChat(props) {
                     <p>{chat?.total_members} members</p>
                 </div>
                 <div>
-                    <LiaTimesSolid fill="#fff" className="cursor-pointer" onClick={() => props.setIsOpen(false)}/>
+                    <LiaTimesSolid
+                        fill="#fff"
+                        className="cursor-pointer"
+                        onClick={() => props.setIsOpen(false)}
+                    />
                 </div>
             </div>
             <div className="chat-content">
@@ -81,8 +109,11 @@ function SingleChat(props) {
                 )}
                 <div className="chat-footer">
                     <div className="flex w-[95%] justify-start items-center">
-                        <MdOutlineEmojiEmotions size={22} className="cursor-pointer"
-                                                onClick={() => setToggleEmoji(prev => !prev)}/>
+                        <MdOutlineEmojiEmotions
+                            size={22}
+                            className="cursor-pointer"
+                            onClick={() => setToggleEmoji(prev => !prev)}
+                        />
                         <input
                             type="text"
                             placeholder="Send message"

@@ -3,8 +3,8 @@ import Navbar from '../../Components/Common/Navbar';
 import {axiosClient, axiosClientWithHeaders} from '../../libs/axiosClient';
 // import {useSelector} from "react-redux";
 import ForumCard from "./SingleForum/components/forumCard";
-import "./style.scss";
 import {useSelector} from "react-redux";
+import "./style.scss";
 
 function ForumsPage() {
     const [forums, setForums] = useState([]);
@@ -61,7 +61,7 @@ function ForumsPage() {
                         </div>
                     </aside>
                     <main>
-                        <div className='flex pt-8 items-center justify-center flex-col' ref={elementRef}>
+                        <div className='flex flex-wrap justify-center pt-8' ref={elementRef}>
                             {forums.map((elt, index) =>
                                 <ForumCard {...elt} key={index}/>
                             )}

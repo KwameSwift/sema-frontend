@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {BsCheckCircleFill} from "react-icons/bs";
 import {formatDate} from "../../../../utils/helpers";
 import Avatar from "../../../../Assets/images/no-profile-img.webp";
@@ -9,7 +9,6 @@ import "./style.scss";
 import {useNavigate} from "react-router-dom";
 
 function AdminForumCard(props) {
-    const [, setShowChoices] = useState(false);
     const navigate = useNavigate();
     const modalType = props.is_approved ? "Unapprove" : "Approve";
 
@@ -35,11 +34,6 @@ function AdminForumCard(props) {
             id: "decline", name: "Decline forum", modalType: "declineForum",
         });
     }
-    useEffect(() => {
-        if (!props.snapshot_location) {
-            setShowChoices(true);
-        }
-    }, [props.snapshot_location]);
 
     return (
         <div className="admin-forum-card p-4" onClick={() => navigate(`/forums/${props.id}`)}>
