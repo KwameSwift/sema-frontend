@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import {LiaTimesSolid} from "react-icons/lia";
 import {MdOutlineEmojiEmotions} from "react-icons/md";
@@ -10,6 +10,9 @@ function SingleChat(props) {
     const [chat, setChat] = useState({});
     const [message, setMessage] = useState("");
     const [toggleEmoji, setToggleEmoji] = useState(false);
+
+    const firstRunRef = useRef(true);
+    const chatBodyRef = useRef(null);
 
     const getSingleChat = async () => {
         try {
@@ -49,28 +52,40 @@ function SingleChat(props) {
     };
 
     useEffect(() => {
-        const socket = new WebSocket(`wss://backend.africanchildprojects.org/ws/chat-messages/${props.item.id}/`);
-        socket.onopen = (event) => {
-            console.log(event, "socket");
-            console.log('WebSocket connection opened:', event);
-        };
-        socket.onmessage = (event) => {
-            console.log(JSON.parse(event.data));
-            // setMessage(event.data);
-        };
+        if (Object.keys(chat).length && firstRunRef.current) {
+            const socket = new WebSocket(`wss://backend.africanchildprojects.org/ws/chat-messages/${props.item.id}/`);
+            socket.onopen = () => {
+            };
+            socket.onmessage = (event) => {
+                const messages = chat?.messages;
+                const newMessage = JSON.parse(event.data)?.data;
+                console.log(newMessage);
+                const message = messages?.findIndex((elt) =>
+                    (elt.created_on === newMessage.created_on) &&
+                    (elt.message === newMessage.message)
+                );
+                if (message === -1) {
+                    setChat(prev => ({
+                        ...prev,
+                        messages: [...prev.messages, newMessage]
+                    }));
+                }
+            };
 
-        socket.onerror = (event) => {
-            console.error('WebSocket error:', event);
-        };
+            socket.onerror = () => {
+            };
+            socket.onclose = () => {
+            };
 
-        socket.onclose = (event) => {
-            if (event.wasClean) {
-                console.log(`WebSocket connection closed cleanly, code=${event.code}, reason=${event.reason}`);
-            } else {
-                console.error('WebSocket connection abruptly closed');
-            }
-        };
-    }, [])
+            firstRunRef.current = false;
+        }
+    }, [chat]);
+
+    useEffect(() => {
+        if (chatBodyRef.current) {
+            chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+        }
+    }, [chat]);
 
     useEffect(() => {
         getSingleChat();
@@ -92,7 +107,7 @@ function SingleChat(props) {
                 </div>
             </div>
             <div className="chat-content">
-                <div className="chat-body">
+                <div className="chat-body" ref={chatBodyRef}>
                     {chat?.messages?.map((elt, index) =>
                         elt?.is_sender ?
                             (
