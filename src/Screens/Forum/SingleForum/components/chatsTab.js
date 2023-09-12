@@ -3,8 +3,10 @@ import ChatCard from "./chatCard";
 import AddChatRoom from "./addChatRoom";
 import {toast} from "react-toastify";
 import SingleChat from "./singleChat";
+import NoChatRooms from "../../../../Assets/images/no-chats.png";
+import {GoDot} from "react-icons/go";
 
-function ChatsTab({chatRooms, user, setRefetch, forumId}) {
+function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, joinForum}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isChatOpened, setIsChatOpened] = useState(false);
     const [selectedChat, setSelectedChat] = useState({});
@@ -20,9 +22,24 @@ function ChatsTab({chatRooms, user, setRefetch, forumId}) {
         setIsChatOpened(true);
     }
 
+    const returnChatMessages = () => {
+        if (user?.tokens?.access) {
+            return chatRooms?.map((elt, index) =>
+                <ChatCard {...elt} key={index} setSelectedChat={handleChatOpen}/>
+            )
+        } else {
+            return (
+                <div className="flex justify-center items-center w-full flex-col">
+                    <img src={NoChatRooms} alt="No Chat rooms" width={90} height={20}/>
+                    <p className="mt-3 font-bold">No Chat Rooms</p>
+                </div>
+            )
+        }
+    }
+
     return (
         <>
-            <div className="forum-chats-page flex justify-between">
+            <div className="forum-chats-page flex justify-between h-full">
                 <div className="mr-6 w-full">
                     {user?.is_admin &&
                         <div className="flex justify-end items-start mb-2">
@@ -33,20 +50,27 @@ function ChatsTab({chatRooms, user, setRefetch, forumId}) {
                             </button>
                         </div>
                     }
-                    <div className="chat-sect">
-                        {chatRooms?.map((elt, index) =>
-                            <ChatCard {...elt} key={index} setSelectedChat={handleChatOpen}/>
-                        )}
+                    <div className="h-full">
+                        <div className="chat-sect">
+                            <>{returnChatMessages()}</>
+                        </div>
                     </div>
                 </div>
                 <div className="info-sect">
                     <div className="about p-3 bg-white">
-                        <h3 className="font-bold">About</h3>
-                        <p>Welcome, Have a look around.</p>
-                    </div>
-                    <div className="about mt-3 p-3 bg-white">
-                        <h3 className="font-bold">About</h3>
-                        <p>Welcome, Have a look around.</p>
+                        <h3 className="font-bold">Suggested Forums</h3>
+                        <hr className="mt-2"></hr>
+                        {suggestedForums?.map((elt, index) =>
+                            <div key={index} className="flex justify-between">
+                                <div>
+                                    <p className="font-bold">{elt?.topic}</p>
+                                    <p className="flex items-center">{elt?.is_public ? "Public" : "Private"}
+                                        <GoDot/> {elt?.total_members} members</p>
+                                </div>
+                                <p className="underline cursor-pointer"
+                                   onClick={() => joinForum(elt?.id, false)}>Join</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -59,6 +83,7 @@ function ChatsTab({chatRooms, user, setRefetch, forumId}) {
             {isChatOpened && <SingleChat
                 setIsOpen={setIsChatOpened}
                 item={selectedChat}
+                user={user.user}
             />}
         </>
     )

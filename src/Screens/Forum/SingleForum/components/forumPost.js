@@ -22,13 +22,13 @@ function ForumPost() {
     const [forum, setForum] = useState({});
     const [key, setKey] = useState("chats");
     const [refetch, setRefetch] = useState(false);
-    const userInfo = useSelector((store) => store.user.user);
-    const user = useSelector((store) => store.user.tokens);
+    const user = useSelector((store) => store.user);
+    const userTokens = user?.tokens;
 
     const getSingleForum = async () => {
         try {
             let resp = null;
-            if (user.access) {
+            if (userTokens.access) {
                 resp = await axiosClientWithHeaders.get(`forum/get-forum/${id}/`);
             } else {
                 resp = await axiosClient.get(`forum/get-forum/${id}/`);
@@ -48,17 +48,17 @@ function ForumPost() {
         setKey(k);
     }
 
-    const leaveOrJoinForum = async () => {
-        if (!user.access) {
+    const leaveOrJoinForum = async (forumId = id, isMember = forum?.is_member) => {
+        if (!userTokens.access) {
             toast.error("Please login to be able to join this forum.");
         } else {
             try {
-                if (forum?.is_member) {
-                    await axiosClientWithHeaders.post(`/forum/leave-forum/${id}/`);
+                if (isMember) {
+                    await axiosClientWithHeaders.post(`/forum/leave-forum/${forumId}/`);
                     toast.success("You have left this forum");
                     setRefetch(!refetch);
                 } else {
-                    await axiosClientWithHeaders.post(`/forum/join-forum/${id}/`);
+                    await axiosClientWithHeaders.post(`/forum/join-forum/${forumId}/`);
                     toast.success("You have joined this forum");
                     setRefetch(!refetch);
                 }
@@ -111,9 +111,11 @@ function ForumPost() {
                     <Tab eventKey="chats" title="Chats">
                         <ChatsTab
                             chatRooms={forum?.chat_rooms}
-                            user={userInfo}
+                            user={user}
                             forumId={forum?.id}
                             setRefetch={setRefetch}
+                            suggestedForums={forum?.suggested_forums}
+                            joinForum={leaveOrJoinForum}
                         />
                     </Tab>
                     <Tab eventKey="media" title="Media">

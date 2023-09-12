@@ -99,7 +99,7 @@
 
 .tabs {
   .tab-content {
-    height: 35.5vh;
+    min-height: 35.5vh;
   }
 }
 
@@ -115,13 +115,13 @@
   }
 
   .chat-sect {
-    height: 100%;
+    height: auto;
     display: flex;
     flex-wrap: wrap;
 
     .chat-card {
       cursor: pointer;
-      max-height: 100px;
+      min-height: 100px;
       box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
       margin: 10px;
 
@@ -139,7 +139,7 @@
   }
 
   .info-sect {
-    max-width: 250px;
+    min-width: 300px;
 
     .about {
       h3 {
@@ -253,26 +253,6 @@
         background-color: #DFEFCA;
       }
     }
-
-    .chat-footer {
-      position: relative;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 8px;
-
-      input {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin: 0 5px;
-        padding: 5px;
-        width: 100%;
-        font-size: 13px;
-      }
-    }
   }
 }
 
@@ -281,4 +261,36 @@
   position: absolute !important;
   bottom: 72px !important;
   left: -50px;
+}
+
+.files-wrapper {
+  img {
+    margin-right: 20px;
+  }
+}
+
+.chat-footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+
+  input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0 5px;
+    padding: 5px;
+    width: 100%;
+    font-size: 13px;
+  }
+}
+
+.attachment-modal {
+  display: -webkit-box;
+  width: 100%;
+  overflow-x: auto;
 }

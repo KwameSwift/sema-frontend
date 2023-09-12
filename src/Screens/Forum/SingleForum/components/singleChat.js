@@ -5,14 +5,20 @@ import {MdOutlineEmojiEmotions} from "react-icons/md";
 import {BsSend} from "react-icons/bs";
 import {formatMessageTime} from "../../../../utils/helpers";
 import EmojiPicker from "emoji-picker-react";
+import {GrAttachment} from "react-icons/gr";
+import AttachmentModal from "./attachmentModal";
 
 function SingleChat(props) {
     const [chat, setChat] = useState({});
     const [message, setMessage] = useState("");
     const [toggleEmoji, setToggleEmoji] = useState(false);
+    const [files, setFiles] = useState([]);
+    const [previewFiles, setPreviewFiles] = useState([]);
+    const [attachmentOpen, setAttachmentOpen] = useState(false);
 
     const firstRunRef = useRef(true);
     const chatBodyRef = useRef(null);
+    const filesRef = useRef(null);
 
     const getSingleChat = async () => {
         try {
@@ -51,6 +57,12 @@ function SingleChat(props) {
         setToggleEmoji(false);
     };
 
+    const handleFileChange = (e) => {
+        setFiles(e.target.files);
+        setPreviewFiles(Array.from(e.target.files).map((elt) => URL.createObjectURL(elt)));
+        setAttachmentOpen(true);
+    }
+
     useEffect(() => {
         if (Object.keys(chat).length && firstRunRef.current) {
             const socket = new WebSocket(`wss://backend.africanchildprojects.org/ws/chat-messages/${props.item.id}/`);
@@ -59,12 +71,12 @@ function SingleChat(props) {
             socket.onmessage = (event) => {
                 const messages = chat?.messages;
                 const newMessage = JSON.parse(event.data)?.data;
-                console.log(newMessage);
                 const message = messages?.findIndex((elt) =>
                     (elt.created_on === newMessage.created_on) &&
                     (elt.message === newMessage.message)
                 );
                 if (message === -1) {
+                    console.log(newMessage);
                     setChat(prev => ({
                         ...prev,
                         messages: [...prev.messages, newMessage]
@@ -109,7 +121,7 @@ function SingleChat(props) {
             <div className="chat-content">
                 <div className="chat-body" ref={chatBodyRef}>
                     {chat?.messages?.map((elt, index) =>
-                        elt?.is_sender ?
+                        elt?.sender_id === props?.user?.user_key ?
                             (
                                 getMessage(elt, index, "send-message", "message-right")
                             ) : (
@@ -126,14 +138,26 @@ function SingleChat(props) {
                     <div className="flex w-[95%] justify-start items-center">
                         <MdOutlineEmojiEmotions
                             size={22}
-                            className="cursor-pointer"
+                            className="cursor-pointer mr-1"
                             onClick={() => setToggleEmoji(prev => !prev)}
+                        />
+                        <GrAttachment
+                            size={20}
+                            className="cursor-pointer mr-1"
+                            onClick={() => filesRef.current.click()}
                         />
                         <input
                             type="text"
                             placeholder="Send message"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
+                        />
+                        <input
+                            type="file"
+                            ref={filesRef}
+                            onChange={handleFileChange}
+                            multiple
+                            hidden
                         />
                     </div>
                     <BsSend
@@ -145,6 +169,15 @@ function SingleChat(props) {
                     />
                 </div>
             </div>
+            <AttachmentModal
+                isOpen={attachmentOpen}
+                previewFiles={previewFiles}
+                setIsOpen={setAttachmentOpen}
+                sendMessage={sendMessage}
+                message={message}
+                files={files}
+                setMessage={setMessage}
+            />
         </div>
     )
 }

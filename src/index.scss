@@ -93,3 +93,7 @@ h1 {
   background-color: #eeeeee;
   padding: 10px;
 }
+
+div[role="tabpanel"] {
+  height: 100%;
+}
