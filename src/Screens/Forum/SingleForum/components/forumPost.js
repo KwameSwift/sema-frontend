@@ -123,7 +123,7 @@ function ForumPost() {
                         />
                     </Tab>
                     <Tab eventKey="media" title="Media">
-                        <MediaTab/>
+                        <MediaTab files={forum?.media_files}/>
                     </Tab>
                     <Tab eventKey="files" title="Files">
                         <FileTab/>
