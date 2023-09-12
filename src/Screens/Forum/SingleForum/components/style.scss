@@ -294,3 +294,13 @@
   width: 100%;
   overflow-x: auto;
 }
+
+.attachment-modal-emoji {
+  .EmojiPickerReact {
+    width: 350px !important;
+    position: absolute !important;
+    bottom: 320px !important;
+    left: 300px;
+    height: 350px !important;
+  }
+}

@@ -14,6 +14,7 @@ import MembersTab from "./membersTab";
 import AboutTab from "./aboutTab";
 import {toast} from "react-toastify";
 import VirtualMeetingsTab from "./virtualMeetingsTab";
+import DiscussionTab from "./discussionTab";
 
 
 function ForumPost() {
@@ -108,6 +109,9 @@ function ForumPost() {
                     activeKey={key}
                     onSelect={handleSelect}
                 >
+                    <Tab eventKey="discussion" title="Discussion">
+                        <DiscussionTab/>
+                    </Tab>
                     <Tab eventKey="chats" title="Chats">
                         <ChatsTab
                             chatRooms={forum?.chat_rooms}

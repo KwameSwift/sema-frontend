@@ -37,6 +37,14 @@ function Navbar() {
         {id: "donations", name: "Donations", route: "/donations"},
     ];
 
+    const selectRoute = (route) => {
+        if (route !== "/") {
+            return location.pathname.startsWith(route);
+        } else {
+            return location.pathname === route;
+        }
+    }
+
 
     const logout = () => {
         dispatch(resetUserData());
@@ -76,7 +84,7 @@ function Navbar() {
                                 <button
                                     onClick={() => navigate(elt.route)}
                                     className={`hidden sm:flex items-center nav-item ${
-                                        location.pathname === elt.route && "selected"
+                                        selectRoute(elt.route) && "selected"
                                     } focus:outline-none`}
                                 >
                                     <span className="mr-1">{t(getTransString(elt.name))}</span>

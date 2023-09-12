@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {LiaTimesSolid} from "react-icons/lia";
 import {MdOutlineEmojiEmotions} from "react-icons/md";
 import {BsSend} from "react-icons/bs";
@@ -6,20 +6,32 @@ import {isDocumentImage} from "../../../../utils/helpers";
 import PDFFile from "../../../../Assets/images/pdf_image.png";
 import DocFile from "../../../../Assets/images/docx_image.png";
 import OtherFile from "../../../../Assets/images/other_image.png";
+import {axiosClientForm} from "../../../../libs/axiosClient";
+import EmojiPicker from "emoji-picker-react";
 
 function AttachmentModal(props) {
-    // const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("");
+    const [toggleEmoji, setToggleEmoji] = useState(false);
 
-    // const sendFormMessage = async () => {
-    //     try {
-    //         await axiosClientForm.post(`/chats/send-message/${props.item.id}/`, {
-    //             message
-    //         });
-    //         setMessage("");
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
+    const sendFormMessage = async () => {
+        const formData = new FormData();
+        formData.append("message", message);
+        for (let i = 0; i < props?.files?.length; i++) {
+            formData.append("files[]", props?.files[i]);
+        }
+        try {
+            await axiosClientForm.post(`/chats/send-message/${props.id}/`, formData);
+            setMessage("");
+            props.setIsOpen(false);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const handleEmojiClick = (item) => {
+        setMessage(message + item.emoji);
+        setToggleEmoji(false);
+    };
 
     const returnFileFormat = (previewFile, index) => {
         const file = props?.files[index]?.name
@@ -27,7 +39,7 @@ function AttachmentModal(props) {
             return <img src={previewFile} alt="" key={index} className="w-[120px] h-[120px]"/>
         } else if (file.split(".").pop() === "pdf") {
             return <img src={PDFFile} alt="" key={index} className="w-[120px] h-[120px]"/>
-        } else if (file.split(".").pop() === "docx") {
+        } else if (file.split(".").pop() === "docx" || file.split(".").pop() === "doc") {
             return <img src={DocFile} alt="" key={index} className="w-[120px] h-[120px]"/>
         } else {
             return <img src={OtherFile} alt="" key={index} className="w-[120px] h-[120px]"/>
@@ -58,24 +70,29 @@ function AttachmentModal(props) {
                                     <MdOutlineEmojiEmotions
                                         size={22}
                                         className="cursor-pointer mr-1"
-                                        // onClick={() => props?.setToggleEmoji(prev => !prev)}
+                                        onClick={() => setToggleEmoji(prev => !prev)}
                                     />
                                     <input
                                         type="text"
                                         placeholder="Send message"
-                                        value={props?.message}
-                                        onChange={(e) => props?.setMessage(e.target.value)}
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
                                     />
                                 </div>
                                 <BsSend
                                     size={22}
                                     className="cursor-pointer"
-                                    onClick={props?.sendMessage}
-                                    fill={props?.message.length && "#001253"}
-                                    disabled={props?.message?.trim() === ""}
+                                    onClick={sendFormMessage}
+                                    fill={message.length && "#001253"}
+                                    disabled={message?.trim() === ""}
                                 />
                             </div>
                         </div>
+                        {toggleEmoji && (
+                            <div className="attachment-modal-emoji">
+                                <EmojiPicker onEmojiClick={handleEmojiClick}/>
+                            </div>
+                        )}
                     </div>
                 </div>
             )

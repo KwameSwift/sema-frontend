@@ -34,6 +34,11 @@ function SingleChat(props) {
             <div className={align}>
                 <div key={index} className={`message-body ${cls}`}>
                     <h3>{elt.sender__first_name} {elt.sender__last_name}</h3>
+                    <div className="flex flex-wrap mt-3">
+                        {elt?.media_files?.map((file, index) =>
+                            <img src={file} className="w-[100px] h-[100px] mr-1 mb-3" alt="" key={index}/>
+                        )}
+                    </div>
                     <p className="message">{elt?.message}</p>
                     <p className="message-time">{formatMessageTime(elt?.created_on)}</p>
                 </div>
@@ -176,6 +181,7 @@ function SingleChat(props) {
                 sendMessage={sendMessage}
                 message={message}
                 files={files}
+                id={props.item.id}
                 setMessage={setMessage}
             />
         </div>
