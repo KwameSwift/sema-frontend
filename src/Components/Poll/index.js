@@ -205,7 +205,7 @@ function PollCard(props) {
                     <div className="flex justify-end">
                         <button className="py-1 px-2 border text-[12px] mr-2" onClick={cancelSelection}>Cancel</button>
                         <button className="py-1 px-2 bg-[#001253] text-[#fff] text-[12px]"
-                                disabled={!comments.length} onClick={handleVote}>Add
+                                disabled={!comments?.length} onClick={handleVote}>Add
                         </button>
                     </div>
                 </>}
@@ -213,7 +213,7 @@ function PollCard(props) {
                     {showChoices
                         ? (
                             <>
-                                {props.voter_comments && (
+                                {props?.voter_comments && (
                                     <div className="mb-3">
                                         <p className="text-[16px]">Comment</p>
                                         <textarea

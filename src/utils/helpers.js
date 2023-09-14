@@ -1,6 +1,7 @@
 import {resetUserData, setUserTokens} from "../Redux/slices/userSlice";
 import store from "../Redux/store";
 import enStrings from "../locales/en.json";
+import {axiosClient} from "../libs/axiosClient";
 
 const enTrans = enStrings;
 
@@ -240,3 +241,27 @@ export const formatMessageTime = (timestamp) => {
     return timestamp;
 };
 
+export const shareBlog = async (e, props) => {
+    e.stopPropagation();
+    const url = `https://sema.africanchildprojects.org/blog/${props.id}`
+    let shareData = {
+        title: props.title,
+        text: props.preview_text,
+        url,
+    };
+
+
+    if (!navigator.canShare) {
+        console.log("navigator.canShare() not supported.");
+    } else if (navigator.canShare(shareData)) {
+        try {
+            await navigator.share(shareData);
+            await axiosClient.put(`/blog/share-blog-post/${props.id}/`)
+            props.setRefetch((prev) => !prev);
+        } catch (err) {
+            console.log(`Error: ${err}`);
+        }
+    } else {
+        console.log("Specified data cannot be shared.");
+    }
+}

@@ -56,7 +56,7 @@ function BlogsPage() {
                         </div>
                     </aside>
                     <main>
-                        <div className='flex pt-8 items-center justify-center flex-col' ref={elementRef}>
+                        <div className='flex pt-8 items-center justify-center flex-wrap' ref={elementRef}>
                             {feed.map((elt) =>
                                 Object.keys(elt).includes("choices")
                                     ? <Poll
@@ -65,30 +65,11 @@ function BlogsPage() {
                                         access={user?.tokens?.access}
                                         refetch={setRefetch}
                                     />
-                                    : <FeedBlogPost {...elt} key={elt.id}/>
+                                    : <FeedBlogPost {...elt} key={elt.id} refetch={setRefetch}/>
                             )}
                         </div>
                     </main>
-                    <aside>
-                        <div className="pt-12">
-                            <ul>
-                                <li>Menu</li>
-                            </ul>
-                        </div>
-                    </aside>
                 </div>
-
-                {/*<div className="feeds-content pb-3 pt-8 px-4 w-full flex bg-gray-200" ref={elementRef}>*/}
-                {/*    <div className="feeds-sidebar flex relative top-0 left-0 bottom-0">*/}
-                {/*        <ul className="bg-white w-full">*/}
-                {/*            <li>Blogs</li>*/}
-                {/*            <li>Polls</li>*/}
-                {/*        </ul>*/}
-                {/*    </div>*/}
-                {/*    <div className="bg-white content">*/}
-                {/*        <h1>hy</h1>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
         </div>
     );

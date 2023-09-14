@@ -1,19 +1,23 @@
 import React from "react";
 import {BsCheckCircleFill} from "react-icons/bs";
-import {AiOutlineHeart} from "react-icons/ai";
+import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 // import PersonImg from "../../../Assets/images/person-img.png";
 import {FaRegCommentAlt} from "react-icons/fa";
 import {RiShareForwardLine} from "react-icons/ri";
 import {useNavigate} from "react-router-dom";
-import {calculateTime} from "../../../utils/helpers";
+import {calculateTime, shareBlog} from "../../../utils/helpers";
 import {axiosClientWithHeaders} from "../../../libs/axiosClient";
 import Avatar from "../../../Assets/images/no-profile-img.webp";
 
 
 import "./style.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {setLikedBlogs} from "../../../Redux/slices/userSlice";
 
 function FeedBlogPost(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((store) => store.user);
     const testImageRetrieve = (data) => {
         return data?.cover_image === "null" || data?.cover_image === null;
     };
@@ -21,7 +25,10 @@ function FeedBlogPost(props) {
     const likeBlog = async (e) => {
         e.stopPropagation();
         try {
-            await axiosClientWithHeaders.put(`/blog/like-blog-post/${props.id}/`);
+            const resp = await axiosClientWithHeaders.put(`/blog/like-blog-post/${props.id}/`);
+            console.log(resp.data.liked_blogs);
+            dispatch(setLikedBlogs(resp.data.liked_blogs));
+            props.refetch(prev => !prev);
         } catch (e) {
             console.error(e);
         }
@@ -67,7 +74,9 @@ function FeedBlogPost(props) {
                     <div className="mt-3 flex blog-stats">
                         <div className="icon-wrapper flex flex-col">
                             <div className="icon">
-                                <AiOutlineHeart onClick={likeBlog} size={22}/>
+                                {user?.liked_blogs?.includes(props.id)
+                                    ? <AiFillHeart onClick={likeBlog} size={22} fill="#3e6d9c"/>
+                                    : <AiOutlineHeart onClick={likeBlog} size={22}/>}
                             </div>
                             <span className="mt-1 text-center text-[13px]">
                 {props.total_likes}
@@ -83,7 +92,7 @@ function FeedBlogPost(props) {
                         </div>
                         <div className="icon-wrapper flex flex-col">
                             <div className="icon ml-3">
-                                <RiShareForwardLine size={22}/>
+                                <RiShareForwardLine onClick={(e) => shareBlog(e, props)} size={22}/>
                             </div>
                             <span className="mt-1 text-center text-[13px]">
                 {props.total_shares}
