@@ -21,7 +21,7 @@ function ForumPost() {
     // const navigate = useNavigate();
     const {id} = useParams();
     const [forum, setForum] = useState({});
-    const [key, setKey] = useState("chats");
+    const [key, setKey] = useState("discussion");
     const [refetch, setRefetch] = useState(false);
     const user = useSelector((store) => store.user);
     const userTokens = user?.tokens;
@@ -123,10 +123,10 @@ function ForumPost() {
                         />
                     </Tab>
                     <Tab eventKey="media" title="Media">
-                        <MediaTab files={forum?.media_files}/>
+                        <MediaTab files={forum?.media_files} forumId={id} refetch={setRefetch}/>
                     </Tab>
                     <Tab eventKey="files" title="Files">
-                        <FileTab/>
+                        <FileTab files={forum?.files} forumId={id} refetch={setRefetch}/>
                     </Tab>
                     <Tab eventKey="virtualMeetings" title="Virtual Meetings">
                         <VirtualMeetingsTab/>
