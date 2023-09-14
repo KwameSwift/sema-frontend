@@ -31,15 +31,15 @@ function Navbar() {
 
     const hyperLinks = [
         {id: "home", name: "Home", route: "/"},
-        {id: "feed", name: "Feed", route: "/feed"},
+        {id: "feed", name: "Feed", route: "/feed", otherRoute: "/blog/"},
         {id: "forums", name: "Forums", route: "/forums"},
-        {id: "events", name: "Events", route: "/events"},
-        {id: "donations", name: "Donations", route: "/donations"},
+        // {id: "events", name: "Events", route: "/events"},
+        // {id: "donations", name: "Donations", route: "/donations"},
     ];
 
-    const selectRoute = (route) => {
+    const selectRoute = (route, otherRoute) => {
         if (route !== "/") {
-            return location.pathname.startsWith(route);
+            return location.pathname.startsWith(route) || location.pathname.startsWith(otherRoute);
         } else {
             return location.pathname === route;
         }
@@ -84,7 +84,7 @@ function Navbar() {
                                 <button
                                     onClick={() => navigate(elt.route)}
                                     className={`hidden sm:flex items-center nav-item ${
-                                        selectRoute(elt.route) && "selected"
+                                        selectRoute(elt.route, elt?.otherRoute) && "selected"
                                     } focus:outline-none`}
                                 >
                                     <span className="mr-1">{t(getTransString(elt.name))}</span>

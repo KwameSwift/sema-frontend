@@ -61,7 +61,10 @@ function SinglePost() {
                 console.log(err);
             }
         };
-
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
         getAllBlogs();
     }, []);
 

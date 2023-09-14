@@ -1,14 +1,6 @@
 import React from 'react'
 import {BiUserCircle} from 'react-icons/bi';
-import {
-  BsBarChartFill,
-  BsCalendar2Event,
-  BsChatDots,
-  BsFileLock2,
-  BsFillHeartFill,
-  BsGear,
-  BsPencilSquare
-} from "react-icons/bs";
+import {BsBarChartFill, BsChatDots, BsGear, BsPencilSquare} from "react-icons/bs";
 import {FaEdit} from 'react-icons/fa';
 import {FiLock, FiLogOut} from 'react-icons/fi';
 
@@ -35,30 +27,30 @@ export const blogLinks = [
         route: "/admin/polls",
         icon: <BsBarChartFill size={20} className="mr-2"/>,
     },
-    {
-        id: "events",
-        name: "Events",
-        route: "/admin/events",
-        icon: <BsCalendar2Event size={20} className="mr-2"/>,
-    },
+    // {
+    //     id: "events",
+    //     name: "Events",
+    //     route: "/admin/events",
+    //     icon: <BsCalendar2Event size={20} className="mr-2"/>,
+    // },
     {
         id: "forums",
         name: "Forums",
         route: "/admin/forums",
         icon: <BsChatDots size={20} className="mr-2"/>,
     },
-    {
-        id: "donations",
-        name: "Donations",
-        route: "/admin/donations",
-        icon: <BsFillHeartFill size={20} className="mr-2"/>,
-    },
-    {
-        id: "documentVault",
-        name: "Documents Vault",
-        route: "/admin/document-vault",
-        icon: <BsFileLock2 size={20} className="mr-2"/>,
-    },
+    // {
+    //     id: "donations",
+    //     name: "Donations",
+    //     route: "/admin/donations",
+    //     icon: <BsFillHeartFill size={20} className="mr-2"/>,
+    // },
+    // {
+    //     id: "documentVault",
+    //     name: "Documents Vault",
+    //     route: "/admin/document-vault",
+    //     icon: <BsFileLock2 size={20} className="mr-2"/>,
+    // },
 ];
 
 export const creatorBlogLinks = [
@@ -74,24 +66,24 @@ export const creatorBlogLinks = [
         route: "/creator/polls",
         icon: <BsBarChartFill size={20} className="mr-2"/>,
     },
-    {
-        id: "events",
-        name: "Events",
-        route: "/creator/events",
-        icon: <BsCalendar2Event size={20} className="mr-2"/>,
-    },
+    // {
+    //     id: "events",
+    //     name: "Events",
+    //     route: "/creator/events",
+    //     icon: <BsCalendar2Event size={20} className="mr-2"/>,
+    // },
     {
         id: "forums",
         name: "Forums",
         route: "/creator/forums",
         icon: <BsChatDots size={20} className="mr-2"/>,
     },
-    {
-        id: "documentVault",
-        name: "Documents Vault",
-        route: "/creator/document-vault",
-        icon: <BsFileLock2 size={20} className="mr-2"/>,
-    },
+    // {
+    //     id: "documentVault",
+    //     name: "Documents Vault",
+    //     route: "/creator/document-vault",
+    //     icon: <BsFileLock2 size={20} className="mr-2"/>,
+    // },
 ];
 
 export const roleLinks = [
