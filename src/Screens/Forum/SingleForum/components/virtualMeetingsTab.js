@@ -34,7 +34,7 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch}) {
                                             rel="noopener noreferrer"
                                             className="text-blue-500 underline text-[13px]"
                                         >
-                                            Join Meeting
+                                            Register
                                         </a>
                                     </div>
                                 </div>

@@ -100,9 +100,6 @@ function ForumPost() {
                     </span>
                 </div>
             </div>
-            <div className="forum-desc mt-2 mb-3 px-2">
-                <p>{forum.description}</p>
-            </div>
             <div className="tabs">
                 <Tabs
                     id="administrators_tabs"
