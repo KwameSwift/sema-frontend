@@ -113,6 +113,22 @@ export const getImageUrl = (url) => {
     return `${process.env.REACT_APP_BACKEND_DOMAIN}${url}`;
 };
 
+export const getInitials = (firstName, lastName) => {
+    if (firstName && lastName) {
+        return firstName[0]?.toUpperCase() + lastName[0]?.toUpperCase();
+    }
+
+    return ''
+};
+
+export const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
 
 export const replaceNullWithEmptyString = (obj) => {
     // Base case: If the object is null, return an empty string

@@ -6,7 +6,6 @@ import Navbar from "../../../../Components/Common/Navbar";
 import {GoDot} from "react-icons/go";
 import {RiShareForwardLine} from "react-icons/ri";
 import {Tab, Tabs} from "react-bootstrap";
-import "./style.scss";
 import ChatsTab from "./chatsTab";
 import MediaTab from "./mediaTab";
 import FileTab from "./fileTab";
@@ -15,6 +14,7 @@ import AboutTab from "./aboutTab";
 import {toast} from "react-toastify";
 import VirtualMeetingsTab from "./virtualMeetingsTab";
 import DiscussionTab from "./discussionTab";
+import "./style.scss";
 
 
 function ForumPost() {
@@ -129,8 +129,8 @@ function ForumPost() {
                         <VirtualMeetingsTab virtualMeetings={forum?.virtual_meetings} forumId={id}
                                             refetch={setRefetch}/>
                     </Tab>
-                    <Tab eventKey="members" title="Members">
-                        <MembersTab/>
+                    <Tab eventKey="members" title="Members" className="members-tab">
+                        <MembersTab members={forum?.members}/>
                     </Tab>
                     <Tab eventKey="about" title="About">
                         <AboutTab about={forum?.description}/>

@@ -16,8 +16,8 @@ function MediaTab({files, forumId, refetch}) {
             </div>
             <div>
                 <div className="flex flex-wrap">
-                    <div className="container mx-auto p-6">
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                    <div className="container p-6">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
                             {files?.map((elt, index) =>
                                 <div key={index}
                                      className="bg-white rounded-lg overflow-hidden shadow-md transition-transform transform hover:scale-105 cursor-pointer">
