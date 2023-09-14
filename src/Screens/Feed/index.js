@@ -1,35 +1,69 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Navbar from '../../Components/Common/Navbar';
-import {axiosClient} from '../../libs/axiosClient';
+import {axiosClient, axiosClientWithHeaders} from '../../libs/axiosClient';
 import Poll from "../../Components/Poll";
 import FeedBlogPost from "./components/feedBlogPost";
 import {useSelector} from "react-redux";
 import "./style.scss";
+import Pagination from "../../Components/Common/Pagination";
 
 function BlogsPage() {
     const [feed, setFeed] = useState([]);
     const [category, setCategory] = useState("All");
-    const user = useSelector((store) => store.user);
+    const [totalPages, setTotalPages] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const [refetch, setRefetch] = useState(false);
+    const user = useSelector((store) => store.user);
 
     const elementRef = useRef(null);
 
-    // const scrollToElement = () => {
-    //     if (elementRef.current) {
-    //         elementRef.current.scrollIntoView({behavior: 'smooth'});
-    //     }
-    // };
+    const getAllFeed = async (page = 1) => {
+        try {
+            const resp = await axiosClient.get(`/utilities/get-feed/${page}/`);
+            setFeed(resp.data.data);
+            setTotalPages(resp.data.total_pages);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getAllBlogs = async (page = 1) => {
+        try {
+            const resp = await axiosClient.get(`/blog/all-published-blogs/${page}/`);
+            setFeed(resp.data.data);
+            setTotalPages(resp.data.total_pages);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getApprovedPolls = async () => {
+        try {
+            if (user?.tokens?.access) {
+                const resp = await axiosClientWithHeaders.get(
+                    "/users/approved-polls/"
+                );
+                setFeed(resp.data.data);
+            } else {
+                const resp = await axiosClient.get("/polls/all-approved-polls/");
+                setFeed(resp.data.data);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     useEffect(() => {
-        const getAllFeed = async () => {
-            try {
-                const resp = await axiosClient.get("/utilities/get-feed/1/");
-                setFeed(resp.data.data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
+        if (category === "All") {
+            getAllFeed(currentPage);
+        } else if (category === "Blogs") {
+            getAllBlogs(currentPage);
+        } else {
+            getApprovedPolls();
+        }
+    }, [category]);
 
+    useEffect(() => {
         getAllFeed();
     }, [refetch]);
 
@@ -37,7 +71,6 @@ function BlogsPage() {
         <div>
             <Navbar/>
             <div className='feeds mt-3'>
-                {/*<FeedBanners scroll={scrollToElement}/>*/}
                 <div className="flex justify-between feed-container">
                     <aside>
                         <div className="pt-10 sidebar-menu">
@@ -71,6 +104,12 @@ function BlogsPage() {
                     </main>
                 </div>
             </div>
+            <Pagination
+                getData={getAllFeed}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPages={totalPages}
+            />
         </div>
     );
 }
