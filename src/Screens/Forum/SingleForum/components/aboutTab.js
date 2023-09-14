@@ -1,8 +1,12 @@
 import React from "react";
 
-function AboutTab() {
+function AboutTab({about}) {
     return (
-        <div>About tab</div>
+        <div>
+            <div className="bg-white rounded-lg p-4">
+                <p className="text-[14px]">{about}</p>
+            </div>
+        </div>
     )
 }
 

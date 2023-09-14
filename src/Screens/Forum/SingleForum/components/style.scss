@@ -156,21 +156,6 @@
 }
 
 
-.form-field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-
-  input, textarea {
-    border: 1px solid #eee;
-    min-width: 300px;
-    padding: 5px;
-    border-radius: 4px;
-    font-size: 15px;
-  }
-}
-
-
 .single-chat {
   position: fixed;
   bottom: 0;

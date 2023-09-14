@@ -129,13 +129,14 @@ function ForumPost() {
                         <FileTab files={forum?.files} forumId={id} refetch={setRefetch}/>
                     </Tab>
                     <Tab eventKey="virtualMeetings" title="Virtual Meetings">
-                        <VirtualMeetingsTab/>
+                        <VirtualMeetingsTab virtualMeetings={forum?.virtual_meetings} forumId={id}
+                                            refetch={setRefetch}/>
                     </Tab>
                     <Tab eventKey="members" title="Members">
                         <MembersTab/>
                     </Tab>
                     <Tab eventKey="about" title="About">
-                        <AboutTab/>
+                        <AboutTab about={forum?.description}/>
                     </Tab>
                 </Tabs>
             </div>
