@@ -22,14 +22,14 @@ function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch}) {
     return (
         <div className="forum-chats-page flex justify-between h-full">
             <div className="mr-3 w-full">
-                <div className="flex justify-end ">
-                    <button
-                        className="bg-[#FC8A2B] rounded-1 py-1 px-2 text-[14px] text-[#fff]"
-                        onClick={() => setIsOpen(true)}
-                    >
-                        + New File
-                    </button>
-                </div>
+                {/*<div className="flex justify-end ">*/}
+                {/*    <button*/}
+                {/*        className="bg-[#FC8A2B] rounded-1 py-1 px-2 text-[14px] text-[#fff]"*/}
+                {/*        onClick={() => setIsOpen(true)}*/}
+                {/*    >*/}
+                {/*        + New File*/}
+                {/*    </button>*/}
+                {/*</div>*/}
                 <div className="h-full">
                     {files?.length || user?.tokens?.access
                         ? (
