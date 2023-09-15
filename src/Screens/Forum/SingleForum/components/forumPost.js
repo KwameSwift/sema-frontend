@@ -14,6 +14,7 @@ import AboutTab from "./aboutTab";
 import {toast} from "react-toastify";
 import VirtualMeetingsTab from "./virtualMeetingsTab";
 import DiscussionTab from "./discussionTab";
+import DefaultForumBanner from "../../../../Assets/images/default-forum-banner.png";
 import "./style.scss";
 
 
@@ -53,7 +54,6 @@ function ForumPost() {
         if (!userTokens.access) {
             toast.error("Please login to be able to join this forum.");
         } else {
-            console.log(forumId);
             try {
                 if (isMember) {
                     await axiosClientWithHeaders.post(`/forum/leave-forum/${forumId}/`);
@@ -78,11 +78,9 @@ function ForumPost() {
         <div className="single-forum">
             <Navbar/>
             <div>
-                {forum.header_image &&
-                    <div>
-                        <img src={forum.header_image} alt="" className="header-image"/>
-                    </div>
-                }
+                <div>
+                    <img src={forum.header_image || DefaultForumBanner} alt="" className="header-image"/>
+                </div>
             </div>
             <div className="text-section mt-3 px-2">
                 <div>
@@ -108,33 +106,69 @@ function ForumPost() {
                     onSelect={handleSelect}
                 >
                     <Tab eventKey="discussion" title="Discussion">
-                        <DiscussionTab/>
+                        <DiscussionTab
+                            suggestedForums={forum?.suggested_forums}
+                            user={user}
+                            forumId={id}
+                            setRefetch={setRefetch}
+                        />
                     </Tab>
                     <Tab eventKey="chats" title="Chats">
                         <ChatsTab
                             chatRooms={forum?.chat_rooms}
                             user={user}
-                            forumId={forum?.id}
+                            forumId={id}
                             setRefetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
-                            joinForum={leaveOrJoinForum}
                         />
                     </Tab>
                     <Tab eventKey="media" title="Media">
-                        <MediaTab files={forum?.media_files} forumId={id} refetch={setRefetch}/>
+                        <MediaTab
+                            files={forum?.media_files}
+                            forumId={id}
+                            refetch={setRefetch}
+                            suggestedForums={forum?.suggested_forums}
+                            user={user}
+                            setRefetch={setRefetch}
+                        />
                     </Tab>
                     <Tab eventKey="files" title="Files">
-                        <FileTab files={forum?.files} forumId={id} refetch={setRefetch}/>
+                        <FileTab
+                            files={forum?.files}
+                            forumId={id}
+                            refetch={setRefetch}
+                            suggestedForums={forum?.suggested_forums}
+                            user={user}
+                            setRefetch={setRefetch}
+                        />
                     </Tab>
                     <Tab eventKey="virtualMeetings" title="Virtual Meetings">
-                        <VirtualMeetingsTab virtualMeetings={forum?.virtual_meetings} forumId={id}
-                                            refetch={setRefetch}/>
+                        <VirtualMeetingsTab
+                            virtualMeetings={forum?.virtual_meetings}
+                            forumId={id}
+                            refetch={setRefetch}
+                            suggestedForums={forum?.suggested_forums}
+                            user={user}
+                            setRefetch={setRefetch}
+                        />
                     </Tab>
                     <Tab eventKey="members" title="Members" className="members-tab">
-                        <MembersTab members={forum?.members}/>
+                        <MembersTab
+                            members={forum?.members}
+                            forumId={id}
+                            refetch={setRefetch}
+                            suggestedForums={forum?.suggested_forums}
+                            user={user}
+                        />
                     </Tab>
                     <Tab eventKey="about" title="About">
-                        <AboutTab about={forum?.description}/>
+                        <AboutTab
+                            about={forum?.description}
+                            forumId={id}
+                            refetch={setRefetch}
+                            suggestedForums={forum?.suggested_forums}
+                            user={user}
+                        />
                     </Tab>
                 </Tabs>
             </div>

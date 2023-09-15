@@ -4,9 +4,9 @@ import AddChatRoom from "./addChatRoom";
 import {toast} from "react-toastify";
 import SingleChat from "./singleChat";
 import NoChatRooms from "../../../../Assets/images/no-chats.png";
-import {GoDot} from "react-icons/go";
+import SuggestionsSection from "./suggestionsSection";
 
-function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, joinForum}) {
+function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isChatOpened, setIsChatOpened] = useState(false);
     const [selectedChat, setSelectedChat] = useState({});
@@ -56,23 +56,12 @@ function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, joinFo
                         </div>
                     </div>
                 </div>
-                <div className="info-sect">
-                    <div className="about p-3 bg-white">
-                        <h3 className="font-bold">Suggested Forums</h3>
-                        <hr className="mt-2"></hr>
-                        {suggestedForums?.map((elt, index) =>
-                            <div key={index} className="flex justify-between">
-                                <div>
-                                    <p className="font-bold">{elt?.topic}</p>
-                                    <p className="flex items-center">{elt?.is_public ? "Public" : "Private"}
-                                        <GoDot/> {elt?.total_members} members</p>
-                                </div>
-                                <p className="underline cursor-pointer"
-                                   onClick={() => joinForum(elt?.id, false)}>Join</p>
-                            </div>
-                        )}
-                    </div>
-                </div>
+                <SuggestionsSection
+                    suggestedForums={suggestedForums}
+                    userTokens={user?.tokens}
+                    id={forumId}
+                    setRefetch={setRefetch}
+                />
             </div>
             <AddChatRoom
                 isOpen={isModalOpen}
