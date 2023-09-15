@@ -53,6 +53,7 @@ function ForumPost() {
         if (!userTokens.access) {
             toast.error("Please login to be able to join this forum.");
         } else {
+            console.log(forumId);
             try {
                 if (isMember) {
                     await axiosClientWithHeaders.post(`/forum/leave-forum/${forumId}/`);
@@ -94,7 +95,7 @@ function ForumPost() {
                 </div>
                 <div className="flex items-center">
                     <button className="act-btn"
-                            onClick={leaveOrJoinForum}>{forum?.is_member ? "Leave" : "Join"}</button>
+                            onClick={() => leaveOrJoinForum()}>{forum?.is_member ? "Leave" : "Join"}</button>
                     <span className="icon ml-3" onClick={sharePoll}>
                         <RiShareForwardLine size={22}/>
                     </span>
