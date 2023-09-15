@@ -18,7 +18,7 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, setRefetch, sugg
                         </button>
                     </div>
                     <div className="h-full">
-                        {virtualMeetings?.length
+                        {virtualMeetings?.length || user?.tokens?.access
                             ? (
                                 <div className="flex flex-wrap">
                                     <div className="container mx-auto p-6">

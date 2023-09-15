@@ -18,7 +18,7 @@ function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch}) 
                             + New File
                         </button>
                     </div>
-                    <div>
+                    <div className="h-full">
                         {files?.length || user?.tokens?.access
                             ? (
                                 <div className="flex flex-wrap">

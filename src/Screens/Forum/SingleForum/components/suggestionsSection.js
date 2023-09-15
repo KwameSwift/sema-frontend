@@ -2,6 +2,7 @@ import {GoDot} from "react-icons/go";
 import React from "react";
 import {toast} from "react-toastify";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
+import NoForums from "../../../../Assets/images/no-forums.png";
 
 
 function SuggestionsSection({suggestedForums, userTokens, id, setRefetch}) {
@@ -30,17 +31,24 @@ function SuggestionsSection({suggestedForums, userTokens, id, setRefetch}) {
             <div className="about p-3 bg-white">
                 <h3 className="font-bold">Suggested Forums</h3>
                 <hr className="mt-2"></hr>
-                {suggestedForums?.map((elt, index) =>
-                    <div key={index} className="flex justify-between">
-                        <div>
-                            <p className="font-bold">{elt?.topic}</p>
-                            <p className="flex items-center">{elt?.is_public ? "Public" : "Private"}
-                                <GoDot/> {elt?.total_members} members</p>
+                {suggestedForums?.length
+                    ? (suggestedForums?.map((elt, index) =>
+                        <div key={index} className="flex justify-between">
+                            <div>
+                                <p className="font-bold">{elt?.topic}</p>
+                                <p className="flex items-center">{elt?.is_public ? "Public" : "Private"}
+                                    <GoDot/> {elt?.total_members} members</p>
+                            </div>
+                            <p className="underline cursor-pointer"
+                               onClick={() => leaveOrJoinForum(elt?.id, false)}>Join</p>
                         </div>
-                        <p className="underline cursor-pointer"
-                           onClick={() => leaveOrJoinForum(elt?.id, false)}>Join</p>
-                    </div>
-                )}
+                    ))
+                    : (
+                        <div className="flex justify-center items-center w-full flex-col">
+                            <img src={NoForums} alt="No Chat rooms" width={90} height={90}/>
+                            <p className="mt-3 font-bold">No Forums</p>
+                        </div>
+                    )}
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ import SuggestionsSection from "./suggestionsSection";
 function DiscussionTab({suggestedForums, discussions, user, forumId, setRefetch}) {
     return (
         <div className="forum-chats-page flex justify-between h-full">
-            {discussions
+            {discussions || user?.tokens?.access
                 ? <p>Discussion tab</p>
                 : (
                     <div className="flex justify-center items-center w-full flex-col">
