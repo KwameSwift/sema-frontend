@@ -25,13 +25,13 @@ function SuggestionsSection({suggestedForums, userTokens, id, setRefetch}) {
             }
         }
     }
-
+    
     return (
         <div className="info-sect">
             <div className="about p-3 bg-white">
                 <h3 className="font-bold">Suggested Forums</h3>
                 <hr className="mt-2"></hr>
-                {suggestedForums?.length
+                {suggestedForums?.length || userTokens?.access
                     ? (suggestedForums?.map((elt, index) =>
                         <div key={index} className="flex justify-between">
                             <div>

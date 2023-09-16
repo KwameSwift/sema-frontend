@@ -34,13 +34,11 @@ function AdminForumCard(props) {
             name: "Edit",
             route: `/admin/forums/edit/${props.id}`,
         });
-        if (props.is_public) {
-            addedItems.push({
-                id: "manage",
-                name: "Manage",
-                route: `/admin/forums/manage/${props.id}`,
-            });
-        }
+        addedItems.push({
+            id: "manage",
+            name: "Manage",
+            route: `/admin/forums/manage/${props.id}`,
+        });
         dropItems = [...dropItems, ...addedItems];
     }
 

@@ -4,7 +4,6 @@ import {useSelector} from "react-redux";
 import {axiosClient, axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import Navbar from "../../../../Components/Common/Navbar";
 import {GoDot} from "react-icons/go";
-import {RiShareForwardLine} from "react-icons/ri";
 import {Tab, Tabs} from "react-bootstrap";
 import ChatsTab from "./chatsTab";
 import MediaTab from "./mediaTab";
@@ -40,10 +39,6 @@ function ForumPost() {
         } catch (err) {
             console.error(err);
         }
-    }
-
-    const sharePoll = async (e) => {
-        e.stopPropagation();
     }
 
     const handleSelect = (k) => {
@@ -94,9 +89,6 @@ function ForumPost() {
                 <div className="flex items-center">
                     <button className="act-btn"
                             onClick={() => leaveOrJoinForum()}>{forum?.is_member ? "Leave" : "Join"}</button>
-                    <span className="icon ml-3" onClick={sharePoll}>
-                        <RiShareForwardLine size={22}/>
-                    </span>
                 </div>
             </div>
             <div className="tabs">

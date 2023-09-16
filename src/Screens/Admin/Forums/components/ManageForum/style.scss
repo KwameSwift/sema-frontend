@@ -6,4 +6,24 @@
   .description {
     font-size: 16px;
   }
+
+  .tab-content {
+    min-height: 71vh;
+  }
 }
+
+
+.admin-sect.chat-card {
+  width: 180px;
+  min-height: 0 !important;
+
+  .dropdown-toggle:hover, .dropdown-toggle {
+    background: #fff;
+    padding: 0;
+  }
+
+  .dropdown-menu {
+    top: -10px !important;
+  }
+}
+
