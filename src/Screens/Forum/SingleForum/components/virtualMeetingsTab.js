@@ -2,9 +2,18 @@ import React, {useState} from "react";
 import VirtualMeetingFormModal from "./virtualMeetingForm";
 import SuggestionsSection from "./suggestionsSection";
 import NoMeetings from "../../../../Assets/images/no-meetings.png";
+import RegisterMeetingFormModal from "./registerMeetingModal";
 
-function VirtualMeetingsTab({virtualMeetings, forumId, refetch, setRefetch, suggestedForums, user}) {
+function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums, user}) {
     const [isOpen, setIsOpen] = useState(false);
+    const [registerModal, setRegisterModal] = useState(false);
+    const [meetingId, setMeetingId] = useState(null);
+
+    const handleRegisterModal = (id) => {
+        setMeetingId(id);
+        setRegisterModal(true);
+    }
+
     return (
         <>
             <div className="forum-chats-page flex justify-between h-full">
@@ -38,14 +47,12 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, setRefetch, sugg
                                                                 Scheduled End
                                                                 Time: {new Date(elt.scheduled_end_time).toLocaleString()}
                                                             </p>
-                                                            <a
-                                                                href={elt.meeting_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
+                                                            {!elt?.is_registered && <button
+                                                                onClick={() => handleRegisterModal(elt.id)}
                                                                 className="text-blue-500 underline text-[13px]"
                                                             >
                                                                 Register
-                                                            </a>
+                                                            </button>}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -66,13 +73,20 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, setRefetch, sugg
                     suggestedForums={suggestedForums}
                     userTokens={user?.tokens}
                     id={forumId}
-                    setRefetch={setRefetch}
+                    setRefetch={refetch}
                 />
             </div>
             <VirtualMeetingFormModal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 forumId={forumId}
+                refetch={refetch}
+                setMeetingId={setMeetingId}
+            />
+            <RegisterMeetingFormModal
+                isOpen={registerModal}
+                setIsOpen={setRegisterModal}
+                meetingId={meetingId}
                 refetch={refetch}
             />
         </>

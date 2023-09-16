@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import VirtualMeetingFormModal from "../../../../../Forum/SingleForum/components/virtualMeetingForm";
 import NoMeetings from "../../../../../../Assets/images/no-meetings.png";
+import RegisterMeetingFormModal from "../../../../../Forum/SingleForum/components/registerMeetingModal";
 
 function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
     const [isOpen, setIsOpen] = useState(false);
+    const [registerModal, setRegisterModal] = useState(false);
     return (
         <>
             <div className="forum-chats-page flex justify-between h-full">
@@ -37,14 +39,12 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
                                                                 Scheduled End
                                                                 Time: {new Date(elt.scheduled_end_time).toLocaleString()}
                                                             </p>
-                                                            <a
-                                                                href={elt.meeting_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
+                                                            <button
+                                                                onClick={() => setRegisterModal(true)}
                                                                 className="text-blue-500 underline text-[13px]"
                                                             >
                                                                 Register
-                                                            </a>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -65,6 +65,12 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
             <VirtualMeetingFormModal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
+                forumId={forumId}
+                refetch={refetch}
+            />
+            <RegisterMeetingFormModal
+                isOpen={registerModal}
+                setIsOpen={setRegisterModal}
                 forumId={forumId}
                 refetch={refetch}
             />

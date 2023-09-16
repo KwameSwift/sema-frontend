@@ -141,7 +141,6 @@ function ForumPost() {
                             refetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
                             user={user}
-                            setRefetch={setRefetch}
                         />
                     </Tab>
                     <Tab eventKey="members" title="Members" className="members-tab">
