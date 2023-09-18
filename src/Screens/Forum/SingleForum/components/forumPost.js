@@ -15,6 +15,7 @@ import VirtualMeetingsTab from "./virtualMeetingsTab";
 import DiscussionTab from "./discussionTab";
 import DefaultForumBanner from "../../../../Assets/images/default-forum-banner.png";
 import "./style.scss";
+import PollsTab from "./polls";
 
 
 function ForumPost() {
@@ -137,6 +138,14 @@ function ForumPost() {
                     <Tab eventKey="virtualMeetings" title="Virtual Meetings">
                         <VirtualMeetingsTab
                             virtualMeetings={forum?.virtual_meetings}
+                            forumId={id}
+                            refetch={setRefetch}
+                            suggestedForums={forum?.suggested_forums}
+                            user={user}
+                        />
+                    </Tab>
+                    <Tab eventKey="polls" title="Polls">
+                        <PollsTab
                             forumId={id}
                             refetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}

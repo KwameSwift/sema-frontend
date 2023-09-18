@@ -12,6 +12,7 @@ import AdminVirtualMeetingsTab from "./Tabs/virtualMeetingTab";
 import AdminForumRefactorTab from "./Tabs/forumRefactorTab";
 import AdminMediaTab from "./Tabs/mediaTab";
 import "./style.scss";
+import AdminPollTab from "./Tabs/polls";
 
 
 export default function AdminManageForumPage() {
@@ -89,7 +90,6 @@ export default function AdminManageForumPage() {
                                 selectedChat={selectedChat}
                                 setRefetch={setRefetch}
                                 setSelectedChat={setSelectedChat}
-                                suggestedForums={forum?.suggested_forums}
                             />
                         </Tab>
                         <Tab eventKey="media" title="Media">
@@ -97,7 +97,6 @@ export default function AdminManageForumPage() {
                                 files={forum?.media_files}
                                 forumId={id}
                                 refetch={setRefetch}
-                                suggestedForums={forum?.suggested_forums}
                                 user={user}
                                 setRefetch={setRefetch}
                             />
@@ -107,7 +106,6 @@ export default function AdminManageForumPage() {
                                 files={forum?.files}
                                 forumId={id}
                                 refetch={setRefetch}
-                                suggestedForums={forum?.suggested_forums}
                                 user={user}
                                 setRefetch={setRefetch}
                             />
@@ -117,9 +115,14 @@ export default function AdminManageForumPage() {
                                 virtualMeetings={forum?.virtual_meetings}
                                 forumId={id}
                                 refetch={setRefetch}
-                                suggestedForums={forum?.suggested_forums}
                                 user={user}
                                 setRefetch={setRefetch}
+                            />
+                        </Tab>
+                        <Tab eventKey="polls" title="Polls">
+                            <AdminPollTab
+                                forumId={id}
+                                user={user}
                             />
                         </Tab>
                         <Tab eventKey="requests" title="Forum Requests">

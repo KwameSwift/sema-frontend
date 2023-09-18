@@ -123,3 +123,20 @@ div[role="tabpanel"] {
     margin-right: 0;
   }
 }
+
+
+.page-nav {
+  // display: flex;
+  // justify-content: center;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  padding: 8px;
+  border: 1px solid var(--primary-blue-color);
+}
+
+.page-nav-num {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+}

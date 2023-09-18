@@ -39,7 +39,7 @@ function ForumsPage() {
 
     useEffect(() => {
         getAllForums();
-    }, [refetch]);
+    }, [refetch, currentPage, forumType]);
 
     return (
         <div>
