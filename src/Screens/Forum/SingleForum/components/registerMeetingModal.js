@@ -65,7 +65,7 @@ function RegisterMeetingFormModal(props) {
                     <div className="modal-overlay fixed inset-0 bg-black opacity-50"></div>
 
                     <div
-                        className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                        className="w-[500px] modal-container bg-white mx-auto rounded shadow-lg z-50 overflow-y-auto">
                         <div className="modal-content p-4">
                             <div className="flex justify-between">
                                 <h3 className="font-bold">Register Meeting</h3>
@@ -73,7 +73,7 @@ function RegisterMeetingFormModal(props) {
                                                onClick={() => props?.setIsOpen(false)}/>
                             </div>
                             <div className="flex flex-col pb-3 mb-3 overflow-x-auto mt-3">
-                                <div className="flex">
+                                <div className="flex flex-wrap">
                                     <div className="form-field half">
                                         <label className="mt-3 mb-3">First Name</label>
                                         <input
@@ -93,7 +93,7 @@ function RegisterMeetingFormModal(props) {
                                         />
                                     </div>
                                 </div>
-                                <div className="flex">
+                                <div className="flex flex-wrap">
                                     <div className="form-field half">
                                         <label className="mt-3 mb-3">Email Address</label>
                                         <input

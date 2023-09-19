@@ -28,17 +28,6 @@ export default function AdminManageForumPage() {
 
     const navigate = useNavigate();
 
-    // const getSingleForumRequests = async () => {
-    //     try {
-    //         const resp = await axiosClientWithHeaders(`/users/get-forum-join-requests/${id}/1/`);
-    //         const respData = resp.data;
-    //         setForumRequests(respData.data);
-    //         setTotalForums(respData.total_data);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
     const getSingleForum = async () => {
         try {
             let resp = null;
@@ -70,7 +59,7 @@ export default function AdminManageForumPage() {
                         <BsArrowLeft fill="#fff" size={28} onClick={() => navigate(-1)}/>
                     </div>
                     <div>
-                        <h1>Manage Fourms</h1>
+                        <h1>Manage Forums</h1>
                         <p className="text-white mt-3">
                             {/*{totalForums} Requests*/}
                         </p>
@@ -126,7 +115,7 @@ export default function AdminManageForumPage() {
                             />
                         </Tab>
                         <Tab eventKey="requests" title="Forum Requests">
-                            <AdminForumRefactorTab/>
+                            <AdminForumRefactorTab forumId={id}/>
                         </Tab>
                     </Tabs>
                 </div>
