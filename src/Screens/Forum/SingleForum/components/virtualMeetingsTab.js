@@ -63,7 +63,7 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
                             ) : (
                                 <div className="flex justify-center items-center h-full w-full flex-col">
                                     <img src={NoMeetings} alt="No Chat rooms" width={90} height={20}/>
-                                    <p className="mt-3 font-bold">No Media</p>
+                                    <p className="mt-3 font-bold">No virtual meetings</p>
                                 </div>
                             )
                         }
