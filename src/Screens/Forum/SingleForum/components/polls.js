@@ -12,7 +12,7 @@ function PollsTab({user, forumId, suggestedForums}) {
     const [currentPage, setCurrentPage] = useState(1);
 
     const returnPolls = () => {
-        if (user?.tokens?.access) {
+        if (user?.tokens?.access && polls?.length) {
             return polls?.map((elt, index) =>
                 <ForumPollCard {...elt} key={index} setRefetch={setRefetch}/>
             )
@@ -20,7 +20,7 @@ function PollsTab({user, forumId, suggestedForums}) {
             return (
                 <div className="flex justify-center items-center w-full flex-col">
                     <img src={NoChatRooms} alt="No Chat rooms" width={90} height={20}/>
-                    <p className="mt-3 font-bold">No Chat Rooms</p>
+                    <p className="mt-3 font-bold">No Polls</p>
                 </div>
             )
         }

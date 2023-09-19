@@ -19,7 +19,7 @@ function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch}) 
                     {/*    </button>*/}
                     {/*</div>*/}
                     <div className="h-full">
-                        {files?.length || user?.tokens?.access
+                        {files?.length && user?.tokens?.access
                             ? (
                                 <div className="flex flex-wrap">
                                     <div className="container p-6">

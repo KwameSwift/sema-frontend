@@ -31,7 +31,7 @@ function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch}) {
                 {/*    </button>*/}
                 {/*</div>*/}
                 <div className="h-full">
-                    {files?.length || user?.tokens?.access
+                    {files?.length && user?.tokens?.access
                         ? (
                             <div className="flex flex-wrap">
                                 <div className="container mx-auto p-6">
