@@ -112,7 +112,7 @@ function ForumPollCard(props) {
                 </div>
             </div>
             <>{getPollState()}</>
-            <div>
+            <div className="flex items-center justify-between">
                 <p className="flex items-center">
                     <LuVote/>
                     <span className="text-[12px]">{props?.total_votes}</span>
