@@ -17,7 +17,7 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
                         </button>
                     </div>
                     <div className="h-full">
-                        {virtualMeetings?.length || user?.tokens?.access
+                        {virtualMeetings?.length && user?.tokens?.access
                             ? (
                                 <div className="flex flex-wrap">
                                     <div className="container mx-auto p-6">
@@ -37,6 +37,7 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
                                                                 Scheduled End
                                                                 Time: {new Date(elt.scheduled_end_time).toLocaleString()}
                                                             </p>
+                                                            <p className="text-blue underline">{elt?.meeting_url}</p>
                                                         </div>
                                                     </div>
                                                 </div>

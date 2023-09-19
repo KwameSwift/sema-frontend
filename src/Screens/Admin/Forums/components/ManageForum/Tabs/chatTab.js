@@ -19,7 +19,7 @@ function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefet
     }
 
     const returnChatMessages = () => {
-        if (user?.tokens?.access) {
+        if (user?.tokens?.access && chatRooms?.length) {
             return chatRooms?.map((elt, index) =>
                 <ChatCard
                     {...elt}

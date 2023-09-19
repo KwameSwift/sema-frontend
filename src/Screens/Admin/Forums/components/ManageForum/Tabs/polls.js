@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import NoMedia from "../../../../../Forum/";
+import NoMedia from "../../../../../../Assets/images/no-media.png";
 import AddPollModal from "./addPoll";
 import {axiosClientWithHeaders} from "../../../../../../libs/axiosClient";
 import Pagination from "../../../../../../Components/Common/Pagination";
@@ -60,7 +60,7 @@ function AdminPollTab({forumId, user}) {
                         </button>
                     </div>
                     <div className="h-full">
-                        {polls?.length || user?.tokens?.access
+                        {polls?.length && user?.tokens?.access
                             ? (
                                 <div className="flex flex-wrap">
                                     <div className="container p-6">

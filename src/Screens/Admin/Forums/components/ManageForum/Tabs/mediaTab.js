@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import FileUploadModal from "../../../../../Forum/SingleForum/components/fileModal";
-import NoMedia from "../../../../../Forum/";
+import NoMedia from "../../../../../../Assets/images/no-media.png";
 
 function AdminMediaTab({files, forumId, refetch, user}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,7 @@ function AdminMediaTab({files, forumId, refetch, user}) {
                         </button>
                     </div>
                     <div className="h-full">
-                        {files?.length || user?.tokens?.access
+                        {files?.length && user?.tokens?.access
                             ? (
                                 <div className="flex flex-wrap">
                                     <div className="container p-6">
