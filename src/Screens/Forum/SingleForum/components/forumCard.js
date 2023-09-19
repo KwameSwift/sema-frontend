@@ -36,7 +36,7 @@ function AdminForumCard(props) {
     }
 
     return (
-        <div className="admin-forum-card flex flex-col justify-between p-4"
+        <div className={`admin-forum-card flex flex-col justify-between p-4 ${props?.isHome && "bg-white"}`}
              onClick={() => navigate(`/forums/${props.id}`)}>
             <div>
                 <div className="flex justify-between items-center">

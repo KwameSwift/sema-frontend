@@ -14,9 +14,11 @@ import NoData from "../../Assets/images/no-data.png";
 import NoBlog from "../../Assets/images/no-blog.png";
 import "./style.scss";
 import {useSelector} from "react-redux";
+import ForumCard from "../Forum/SingleForum/components/forumCard";
 
 function HomePage() {
     const [blogs, setBlogs] = useState([]);
+    const [forums, setForums] = useState([]);
     const [refetch, setRefetch] = useState(false);
     const [polls, setPolls] = useState([]);
     const [refetchPolls, setRefetchPolls] = useState(false);
@@ -57,6 +59,25 @@ function HomePage() {
 
         getAllBlogs();
     }, [refetch]);
+
+    useEffect(() => {
+        const getAllForums = async () => {
+            try {
+                let resp = null;
+                if (user.access) {
+                    resp = await axiosClientWithHeaders.get('/forum/get-all-forums/1/1/');
+                } else {
+                    resp = await axiosClient.get('/forum/get-all-forums/1/1/');
+                }
+                setForums(resp.data.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        getAllForums();
+    }, [refetch]);
+
 
     return (
         <div className="h-full">
@@ -122,6 +143,35 @@ function HomePage() {
                             </div>
                         )}
                     </div>
+                </div>
+                <div className="recent-articles flex flex-col justify-center mt-20">
+                    <div className="flex flex-col justify-center align-items">
+                        <h1 className="text-[40px] text-center">Forums</h1>
+                        <p className="text-center">Recent Forums</p>
+                    </div>
+                    {forums.length ? (
+                        <div>
+                            <div className="blogs mt-8 px-8">
+                                {forums.slice(0, 3).map((elt, index) => (
+                                    <ForumCard {...elt} key={index} isHome={true}/>
+                                ))}
+                            </div>
+                            {forums.length > 0 && forums.length > 3 && (
+                                <div className="mt-8 flex justify-center items-center">
+                                    <button
+                                        className="py-2 px-4 see-more-btn"
+                                        onClick={() => navigate("/forums")}
+                                    >
+                                        {t("home.seeMore")}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="flex justify-center items-center">
+                            <img src={NoBlog} alt="" className="w-[200px] h-[200px]"/>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
