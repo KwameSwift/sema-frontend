@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import FileUploadModal from "../../../../../Forum/SingleForum/components/fileModal";
 import NoMedia from "../../../../../Forum/";
+import {returnFileFormat} from "../../../../../../utils/helpers";
 
 function AdminFilesTab({files, forumId, refetch, user}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -27,10 +28,10 @@ function AdminFilesTab({files, forumId, refetch, user}) {
                                             {files?.map((elt, index) =>
                                                 <div key={index}
                                                      className="bg-white rounded-lg overflow-hidden shadow-md transition-transform transform hover:scale-105 cursor-pointer">
-                                                    <img src={elt.file_url} alt=""
+                                                    <img src={returnFileFormat(elt?.file_type)} alt=""
                                                          className="w-full h-32 object-contain mt-3"/>
                                                     <div className="p-3">
-                                                        <p className="text-[12px] font-semibold whitespace-normal">{elt.file_name}</p>
+                                                        <p className="text-[12px] font-semibold whitespace-normal">{elt.file_name?.truncate(15)}</p>
                                                         <p className="text-gray-600 text-[11px] whitespace-normal">{elt.description}</p>
                                                     </div>
                                                 </div>
@@ -41,7 +42,7 @@ function AdminFilesTab({files, forumId, refetch, user}) {
                             ) : (
                                 <div className="flex justify-center items-center h-full w-full flex-col">
                                     <img src={NoMedia} alt="No Chat rooms" width={90} height={20}/>
-                                    <p className="mt-3 font-bold">No Media</p>
+                                    <p className="mt-3 font-bold">No Files</p>
                                 </div>
                             )
                         }

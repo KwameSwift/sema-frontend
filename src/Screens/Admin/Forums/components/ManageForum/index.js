@@ -45,7 +45,6 @@ export default function AdminManageForumPage() {
 
     useEffect(() => {
         if (id) {
-            // getSingleForumRequests();
             getSingleForum();
         }
     }, [id, refetch])

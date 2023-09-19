@@ -2,6 +2,9 @@ import {resetUserData, setUserTokens} from "../Redux/slices/userSlice";
 import store from "../Redux/store";
 import enStrings from "../locales/en.json";
 import {axiosClient} from "../libs/axiosClient";
+import PDFFile from "../Assets/images/pdf_image.png";
+import DocFile from "../Assets/images/docx_image.png";
+import OtherFile from "../Assets/images/other_image.png";
 
 const enTrans = enStrings;
 
@@ -264,4 +267,20 @@ export const shareBlog = async (e, props) => {
     } else {
         console.log("Specified data cannot be shared.");
     }
+}
+
+
+export const returnFileFormat = (fileType) => {
+    if (fileType === ".pdf") {
+        return PDFFile;
+    } else if (fileType === ".docx" || fileType === ".doc") {
+        return DocFile;
+    } else {
+        return OtherFile;
+    }
+}
+
+
+String.prototype.truncate = function (n) {
+    return this.substring(0, n - 1) + (this.length > n ? "..." : "");
 }
