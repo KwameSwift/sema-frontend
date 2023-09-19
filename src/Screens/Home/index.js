@@ -15,6 +15,7 @@ import NoBlog from "../../Assets/images/no-blog.png";
 import "./style.scss";
 import {useSelector} from "react-redux";
 import ForumCard from "../Forum/SingleForum/components/forumCard";
+import {BsFillArrowUpCircleFill} from "react-icons/bs";
 
 function HomePage() {
     const [blogs, setBlogs] = useState([]);
@@ -26,6 +27,10 @@ function HomePage() {
     const {t} = useTranslation();
 
     const navigate = useNavigate();
+
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    };
 
     useEffect(() => {
         const getApprovedPolls = async () => {
@@ -174,6 +179,12 @@ function HomePage() {
                     )}
                 </div>
             </div>
+            <BsFillArrowUpCircleFill
+                size={40}
+                fill="#001253"
+                className="fixed right-10 bottom-10 cursor-pointer"
+                onClick={scrollToTop}
+            />
         </div>
     );
 }
