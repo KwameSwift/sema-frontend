@@ -64,7 +64,7 @@ function HomePage() {
         const getAllForums = async () => {
             try {
                 let resp = null;
-                if (user.access) {
+                if (user.tokens.access) {
                     resp = await axiosClientWithHeaders.get('/forum/get-all-forums/1/1/');
                 } else {
                     resp = await axiosClient.get('/forum/get-all-forums/1/1/');
