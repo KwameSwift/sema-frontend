@@ -103,9 +103,9 @@ function PollCard(props) {
                                     : "justify-center"
                             }`}
                         >
-              {elt.choice}
+                            {elt.choice}
                             {loading && selectedId === elt?.id && progress()}
-            </span>
+                        </span>
                     ))}
                 </div>
             </div>

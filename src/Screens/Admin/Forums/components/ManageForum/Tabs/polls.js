@@ -93,7 +93,7 @@ function AdminPollTab({forumId, user}) {
                     </div>
                 </div>
             </div>
-            <AddPollModal isOpen={isOpen} setIsOpen={setIsOpen} forumId={forumId} refetch={refetch}/>
+            <AddPollModal isOpen={isOpen} setIsOpen={setIsOpen} forumId={forumId} refetch={setRefetch}/>
             <Modal
                 data={selectedId}
                 type={"deletePoll"}

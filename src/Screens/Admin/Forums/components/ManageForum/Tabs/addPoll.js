@@ -74,9 +74,9 @@ const AddPollModal = ({isOpen, setIsOpen, forumId, refetch}) => {
         try {
             await axiosClientWithHeaders.post(`/forum/create-forum-poll/${forumId}/`, payload);
             setLoading(false);
+            refetch(prev => !prev);
             toast.success("Poll added successfully");
             toggleModal();
-            refetch(prev => !prev);
         } catch (err) {
             console.error(err);
             setLoading(false);

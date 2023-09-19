@@ -5,15 +5,16 @@ import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import Pagination from "../../../../Components/Common/Pagination";
 import ForumPollCard from "./pollCard";
 
-function PollsTab({user, setRefetch, forumId, suggestedForums}) {
+function PollsTab({user, forumId, suggestedForums}) {
     const [polls, setPolls] = useState([]);
+    const [refetch, setRefetch] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const returnChatMessages = () => {
+    const returnPolls = () => {
         if (user?.tokens?.access) {
             return polls?.map((elt, index) =>
-                <ForumPollCard {...elt} key={index}/>
+                <ForumPollCard {...elt} key={index} setRefetch={setRefetch}/>
             )
         } else {
             return (
@@ -40,7 +41,7 @@ function PollsTab({user, setRefetch, forumId, suggestedForums}) {
 
     useEffect(() => {
         getPolls();
-    }, []);
+    }, [refetch]);
 
     return (
         <>
@@ -48,15 +49,7 @@ function PollsTab({user, setRefetch, forumId, suggestedForums}) {
                 <div className="mr-6 w-full">
                     <div className="h-full">
                         <div className="chat-sect">
-                            <>{returnChatMessages()}</>
-                        </div>
-                        <div>
-                            <Pagination
-                                getData={getPolls}
-                                currentPage={currentPage}
-                                setCurrentPage={setCurrentPage}
-                                totalPages={totalPages}
-                            />
+                            <>{returnPolls()}</>
                         </div>
                     </div>
                 </div>
@@ -65,6 +58,14 @@ function PollsTab({user, setRefetch, forumId, suggestedForums}) {
                     userTokens={user?.tokens}
                     id={forumId}
                     setRefetch={setRefetch}
+                />
+            </div>
+            <div>
+                <Pagination
+                    getData={getPolls}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    totalPages={totalPages}
                 />
             </div>
         </>
