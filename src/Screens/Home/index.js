@@ -16,6 +16,7 @@ import "./style.scss";
 import {useSelector} from "react-redux";
 import ForumCard from "../Forum/SingleForum/components/forumCard";
 import {BsFillArrowUpCircleFill} from "react-icons/bs";
+import Footer from "../../Components/Common/Footer";
 
 function HomePage() {
     const [blogs, setBlogs] = useState([]);
@@ -185,6 +186,7 @@ function HomePage() {
                 className="fixed right-10 bottom-10 cursor-pointer"
                 onClick={scrollToTop}
             />
+            <Footer/>
         </div>
     );
 }

@@ -45,11 +45,11 @@ function ForumsPage() {
         try {
             let resp = null;
             if (user.access) {
-                resp = await axiosClientWithHeaders.post(`/forum/search-forums/${currentPage}/`, {
+                resp = await axiosClientWithHeaders.post(`/forum/search-forums/`, {
                     search_query: searchQuery
                 });
             } else {
-                resp = await axiosClient.post(`/forum/search-forums/${currentPage}/`, {
+                resp = await axiosClient.post(`/forum/search-forums/`, {
                     search_query: searchQuery
                 });
             }
