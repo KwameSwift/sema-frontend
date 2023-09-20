@@ -9,6 +9,7 @@ import {getTransString} from "../../utils/helpers";
 import {BsFillArrowUpCircleFill, BsSearch} from "react-icons/bs";
 import {useTranslation} from "react-i18next";
 import "./style.scss";
+import Footer from "../../Components/Common/Footer";
 
 function ForumsPage() {
     const [forums, setForums] = useState([]);
@@ -71,7 +72,7 @@ function ForumsPage() {
     }, [refetch, currentPage, forumType]);
 
     return (
-        <div>
+        <div className="min-h-screen flex flex-col justify-between">
             <Navbar/>
             <div className='forums mt-3'>
                 {/*<FeedBanners scroll={scrollToElement}/>*/}
@@ -123,6 +124,7 @@ function ForumsPage() {
                 className="fixed right-10 bottom-10 cursor-pointer"
                 onClick={scrollToTop}
             />
+            <Footer/>
         </div>
     );
 }

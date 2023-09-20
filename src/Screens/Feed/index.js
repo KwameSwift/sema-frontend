@@ -6,6 +6,7 @@ import FeedBlogPost from "./components/feedBlogPost";
 import {useSelector} from "react-redux";
 import "./style.scss";
 import Pagination from "../../Components/Common/Pagination";
+import Footer from "../../Components/Common/Footer";
 
 function BlogsPage() {
     const [feed, setFeed] = useState([]);
@@ -68,7 +69,7 @@ function BlogsPage() {
     }, [refetch]);
 
     return (
-        <div>
+        <div className="min-h-screen flex flex-col justify-between">
             <Navbar/>
             <div className='feeds mt-3'>
                 <div className="flex justify-between feed-container">
@@ -110,6 +111,7 @@ function BlogsPage() {
                 setCurrentPage={setCurrentPage}
                 totalPages={totalPages}
             />
+            <Footer/>
         </div>
     );
 }

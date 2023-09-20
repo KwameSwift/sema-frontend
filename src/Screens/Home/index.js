@@ -86,7 +86,7 @@ function HomePage() {
 
 
     return (
-        <div className="h-full">
+        <div className="min-h-screen flex flex-col justify-between">
             <Navbar/>
             <div className="bg-gray-200 pb-8 h-full">
                 <HomeBanners/>
