@@ -280,6 +280,14 @@ export const returnFileFormat = (fileType) => {
     }
 }
 
+// handle download file
+export const handleDownload = (fileUrl) => {
+    const a = document.createElement('a');
+    a.href = fileUrl;
+    a.download = fileUrl;
+    a.click();
+};
+
 
 String.prototype.truncate = function (n) {
     return this.substring(0, n - 1) + (this.length > n ? "..." : "");

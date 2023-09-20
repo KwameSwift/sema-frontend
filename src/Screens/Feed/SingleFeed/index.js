@@ -69,6 +69,10 @@ function SinglePost() {
     }, []);
 
     useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
         if (id) {
             getSingleBlog();
         }
@@ -173,8 +177,8 @@ function SinglePost() {
                                 <div className="flex items-center">
                                     <img
                                         src={
-                                            elt?.commentor_profile_image
-                                                ? elt?.commentor_profile_image
+                                            elt?.commentor__profile_image
+                                                ? elt?.commentor__profile_image
                                                 : Avatar
                                         }
                                         alt=""

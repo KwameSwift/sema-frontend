@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import FileUploadModal from "./fileModal";
 import NoMedia from "../../../../Assets/images/no-media.png";
 import SuggestionsSection from "./suggestionsSection";
+import {handleDownload} from "../../../../utils/helpers";
+import {HiDownload} from "react-icons/hi";
 
 function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +33,18 @@ function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch}) 
                                                     <img src={elt.file_url} alt=""
                                                          className="w-full h-32 object-contain mt-3"/>
                                                     <div className="p-3">
-                                                        <p className="text-[12px] font-semibold whitespace-normal">{elt.file_name?.truncate(15)}</p>
-                                                        <p className="text-gray-600 text-[11px] whitespace-normal">{elt.description}</p>
+                                                        <div className="flex justify-between">
+                                                            <p className="text-[12px] font-semibold whitespace-normal">
+                                                                {elt.file_name?.truncate(15)}
+                                                            </p>
+                                                            <span className="cursor-pointer"
+                                                                  onClick={() => handleDownload(elt.file_url)}>
+                                                                <HiDownload/>
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-gray-600 text-[11px] whitespace-normal">
+                                                            {elt.description}
+                                                        </p>
                                                     </div>
                                                 </div>
                                             )}

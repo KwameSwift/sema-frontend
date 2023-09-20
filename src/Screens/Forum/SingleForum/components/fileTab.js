@@ -5,6 +5,8 @@ import DocFile from "../../../../Assets/images/docx_image.png";
 import OtherFile from "../../../../Assets/images/other_image.png";
 import SuggestionsSection from "./suggestionsSection";
 import NoFiles from "../../../../Assets/images/no-files.png";
+import {HiDownload} from "react-icons/hi";
+import {handleDownload} from "../../../../utils/helpers";
 
 function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +45,15 @@ function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch}) {
                                                 <img src={returnFileFormat(elt.file_type)} alt=""
                                                      className="w-full h-32 object-contain mt-3"/>
                                                 <div className="p-3">
-                                                    <p className="text-[12px] font-semibold whitespace-normal">{elt.file_name?.truncate(15)}</p>
+                                                    <div className="flex justify-between">
+                                                        <p className="text-[12px] font-semibold whitespace-normal">
+                                                            {elt.file_name?.truncate(15)}
+                                                        </p>
+                                                        <span className="cursor-pointer"
+                                                              onClick={() => handleDownload(elt.file_url)}>
+                                                            <HiDownload/>
+                                                        </span>
+                                                    </div>
                                                     <p className="text-gray-600 text-[11px] whitespace-normal">{elt.description}</p>
                                                 </div>
                                             </div>

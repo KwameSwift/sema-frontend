@@ -70,8 +70,8 @@ function VirtualMeetingFormModal(props) {
                             <div className="flex flex-col pb-3 mb-3 overflow-x-auto mt-3">
                                 <div className="form-field">
                                     <label className="mt-3 mb-2">Meeting Agenda</label>
-                                    <input
-                                        type="text"
+                                    <textarea
+                                        rows={3}
                                         name="meeting_agenda"
                                         placeholder="Enter meeting agenda"
                                         onChange={handleInputChange}
@@ -87,15 +87,16 @@ function VirtualMeetingFormModal(props) {
                                     />
                                 </div>
                                 <div className="flex">
-                                    <div className="form-field half">
+                                    <div className="form-field form-half mr-1">
                                         <label className="mt-3 mb-3">Start Date</label>
                                         <input
                                             type="date"
                                             onChange={handleInputChange}
                                             name="scheduled_start_date"
+                                            style={{minWidth: "50%"}}
                                         />
                                     </div>
-                                    <div className="form-field half">
+                                    <div className="form-field form-half">
                                         <label className="mt-3 mb-3">Start Time</label>
                                         <input
                                             type="time"
@@ -105,7 +106,7 @@ function VirtualMeetingFormModal(props) {
                                     </div>
                                 </div>
                                 <div className="flex">
-                                    <div className="form-field half">
+                                    <div className="form-field form-half mr-1">
                                         <label className="mt-3 mb-3">End Date</label>
                                         <input
                                             type="date"
@@ -113,7 +114,7 @@ function VirtualMeetingFormModal(props) {
                                             name="scheduled_end_date"
                                         />
                                     </div>
-                                    <div className="form-field half">
+                                    <div className="form-field form-half">
                                         <label className="mt-3 mb-3">End Time</label>
                                         <input
                                             type="time"

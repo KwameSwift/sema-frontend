@@ -37,7 +37,7 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
                                                                 Scheduled End
                                                                 Time: {new Date(elt.scheduled_end_time).toLocaleString()}
                                                             </p>
-                                                            <p className="text-blue underline">{elt?.meeting_url}</p>
+                                                            <p className="text-blue text-[12px] underline">{elt?.meeting_url}</p>
                                                         </div>
                                                     </div>
                                                 </div>

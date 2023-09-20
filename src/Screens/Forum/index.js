@@ -4,12 +4,15 @@ import {axiosClient, axiosClientWithHeaders} from '../../libs/axiosClient';
 // import {useSelector} from "react-redux";
 import ForumCard from "./SingleForum/components/forumCard";
 import {useSelector} from "react-redux";
-import "./style.scss";
 import Pagination from "../../Components/Common/Pagination";
-import {BsFillArrowUpCircleFill} from "react-icons/bs";
+import {getTransString} from "../../utils/helpers";
+import {BsFillArrowUpCircleFill, BsSearch} from "react-icons/bs";
+import {useTranslation} from "react-i18next";
+import "./style.scss";
 
 function ForumsPage() {
     const [forums, setForums] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [forumType, setForumType] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
@@ -17,6 +20,7 @@ function ForumsPage() {
     const [refetch,] = useState(false);
 
     const elementRef = useRef(null);
+    const {t} = useTranslation();
 
     const scrollToTop = () => {
         window.scrollTo(0, 0);
@@ -36,6 +40,31 @@ function ForumsPage() {
             console.log(err);
         }
     };
+
+    const searchForums = async () => {
+        try {
+            let resp = null;
+            if (user.access) {
+                resp = await axiosClientWithHeaders.post(`/forum/search-forums/${currentPage}/`, {
+                    search_query: searchQuery
+                });
+            } else {
+                resp = await axiosClient.post(`/forum/search-forums/${currentPage}/`, {
+                    search_query: searchQuery
+                });
+            }
+            setForums(resp.data.data);
+            setTotalPages(resp.data.total_pages);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    useEffect(() => {
+        if (searchQuery?.trim()?.length > 0) {
+            searchForums();
+        }
+    }, [searchQuery]);
 
     useEffect(() => {
         getAllForums();
@@ -64,6 +93,15 @@ function ForumsPage() {
                         </div>
                     </aside>
                     <main>
+                        <div className="mx-10 border rounded-lg items-center w-full flex mt-5">
+                            <BsSearch size={22} className="ml-3"/>
+                            <input
+                                type="text"
+                                placeholder={`${t(getTransString("Search"))}...`}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="outline-none p-4 h-[40px] w-[90%]"
+                            />
+                        </div>
                         <div className='flex flex-wrap justify-center pt-8'>
                             {forums.map((elt, index) =>
                                 <ForumCard {...elt} key={index}/>
