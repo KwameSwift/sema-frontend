@@ -41,6 +41,7 @@ import CreatorEditForumPage from "./Screens/ContentCreator/Forums/components/Edi
 import AdminManageForumPage from "./Screens/Admin/Forums/components/ManageForum";
 import ForumsPage from "./Screens/Forum";
 import ForumPost from "./Screens/Forum/SingleForum/components/forumPost";
+import CreatorManageForumPage from "./Screens/ContentCreator/Forums/components/ManageForum";
 
 
 function App() {
@@ -103,6 +104,7 @@ function App() {
                 <Route path="/creator/forums" exact element={<CreatorForumsPage/>}/>
                 <Route path="/creator/forums/add" exact element={<CreatorAddForumPage/>}/>
                 <Route path="/creator/forums/edit/:id" exact element={<CreatorEditForumPage/>}/>
+                <Route path="/creator/forums/manage/:id" exact element={<CreatorManageForumPage/>}/>
                 <Route path="/creator/forums/:id" exact element={<ViewPoll/>}/>
 
             </Routes>

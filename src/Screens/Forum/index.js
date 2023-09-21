@@ -75,7 +75,6 @@ function ForumsPage() {
         <div className="min-h-screen flex flex-col justify-between">
             <Navbar/>
             <div className='forums mt-3'>
-                {/*<FeedBanners scroll={scrollToElement}/>*/}
                 <div className="flex justify-between feed-container">
                     <aside>
                         <div className="pt-10 sidebar-menu">

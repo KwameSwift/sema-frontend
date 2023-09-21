@@ -12,6 +12,7 @@ function CreatorForumCard(props) {
     let dropItems = [
         {id: "edit", name: "Edit", route: `/creator/forums/edit/${props.id}`},
         {id: "view", name: "View", route: `/creator/forums/${props.id}`},
+        {id: "manage", name: "Manage", route: `/creator/forums/manage/${props.id}`},
         {id: "delete", name: "Delete"},
     ];
 
