@@ -3,7 +3,7 @@ import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import {LiaTimesSolid} from "react-icons/lia";
 import {MdOutlineEmojiEmotions} from "react-icons/md";
 import {BsSend} from "react-icons/bs";
-import {formatMessageTime} from "../../../../utils/helpers";
+import {formatMessageTime, returnFileFormat} from "../../../../utils/helpers";
 import EmojiPicker from "emoji-picker-react";
 import {GrAttachment} from "react-icons/gr";
 import AttachmentModal from "./attachmentModal";
@@ -36,8 +36,11 @@ function SingleChat(props) {
                     <h3>{elt.sender__first_name} {elt.sender__last_name}</h3>
                     <div className="flex flex-wrap mt-3">
                         {elt?.media_files?.map((file, index) =>
-                            <img src={file} className="w-[100px] h-[100px] mr-1 mb-3" alt="" key={index}/>
+                            <img src={!elt?.file_type ? file : returnFileFormat(file)}
+                                 className="w-[100px] h-[100px] mr-1 mb-3" alt=""
+                                 key={index}/>
                         )}
+                        {elt.file_type}
                     </div>
                     <p className="message">{elt?.message}</p>
                     <p className="message-time">{formatMessageTime(elt?.created_on)}</p>

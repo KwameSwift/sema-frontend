@@ -64,21 +64,21 @@ export const calculateTime = (date) => {
     }
 };
 
+export const imageExtensions = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "tiff",
+    "bmp",
+    "svg",
+    "raw",
+    "webp",
+];
+
 
 export const isDocumentImage = (file) => {
     const splittedName = file?.split(".");
-    const imageExtensions = [
-        "jpg",
-        "jpeg",
-        "png",
-        "gif",
-        "tiff",
-        "bmp",
-        "svg",
-        "raw",
-        "webp",
-    ];
-
     return imageExtensions?.includes((splittedName[splittedName.length - 1])?.toLowerCase());
 };
 
