@@ -299,3 +299,13 @@
     flex-direction: column;
   }
 }
+
+.discussion-emoji {
+  .EmojiPickerReact {
+    width: 350px !important;
+    position: absolute !important;
+    bottom: -100px !important;
+    left: 13%;
+    height: 350px !important;
+  }
+}

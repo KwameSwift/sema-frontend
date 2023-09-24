@@ -42,6 +42,16 @@ function ForumPost() {
         }
     }
 
+    const fetchDiscussion = async () => {
+        try {
+            const resp = await axiosClientWithHeaders.get(`/forum/get-all-forum-discussions/${id}`);
+            const respData = resp.data;
+            setForum(prevState => ({...prevState, discussions: respData.data}));
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     const handleSelect = (k) => {
         setKey(k);
     }
@@ -103,7 +113,8 @@ function ForumPost() {
                             suggestedForums={forum?.suggested_forums}
                             user={user}
                             forumId={id}
-                            setRefetch={setRefetch}
+                            discussions={forum?.discussions || []}
+                            setRefetch={fetchDiscussion}
                         />
                     </Tab>
                     <Tab eventKey="chats" title="Chats">

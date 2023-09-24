@@ -47,7 +47,7 @@ function PollsTab({user, forumId, suggestedForums}) {
         <>
             <div className="forum-chats-page flex justify-between h-full">
                 <div className="mr-6 w-full">
-                    <div className="h-full">
+                    <div className="h-full flex justify-center">
                         <div className="chat-sect">
                             <>{returnPolls()}</>
                         </div>
