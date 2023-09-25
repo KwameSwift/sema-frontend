@@ -8,7 +8,7 @@ import NoFiles from "../../../../Assets/images/no-files.png";
 import {HiDownload} from "react-icons/hi";
 import {handleDownload} from "../../../../utils/helpers";
 
-function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch}) {
+function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
 
     const returnFileFormat = (fileType) => {
@@ -24,16 +24,8 @@ function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch}) {
     return (
         <div className="forum-chats-page flex justify-between h-full">
             <div className="mr-3 w-full">
-                {/*<div className="flex justify-end ">*/}
-                {/*    <button*/}
-                {/*        className="bg-[#FC8A2B] rounded-1 py-1 px-2 text-[14px] text-[#fff]"*/}
-                {/*        onClick={() => setIsOpen(true)}*/}
-                {/*    >*/}
-                {/*        + New File*/}
-                {/*    </button>*/}
-                {/*</div>*/}
                 <div className="h-full">
-                    {files?.length && user?.tokens?.access
+                    {files?.length && user?.tokens?.access && isMember
                         ? (
                             <div className="flex flex-wrap">
                                 <div className="container mx-auto p-6">
@@ -49,10 +41,12 @@ function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch}) {
                                                         <p className="text-[12px] font-semibold whitespace-normal">
                                                             {elt.file_name?.truncate(15)}
                                                         </p>
-                                                        <span className="cursor-pointer"
-                                                              onClick={() => handleDownload(elt.file_url)}>
-                                                            <HiDownload/>
-                                                        </span>
+                                                        <div className="flex">
+                                                            <span className="cursor-pointer"
+                                                                  onClick={() => handleDownload(elt.file_url)}>
+                                                                <HiDownload/>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                     <p className="text-gray-600 text-[11px] whitespace-normal">{elt.description}</p>
                                                 </div>
@@ -74,6 +68,7 @@ function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch}) {
                 suggestedForums={suggestedForums}
                 userTokens={user?.tokens}
                 id={forumId}
+                isMember={isMember}
                 setRefetch={setRefetch}
             />
         </div>

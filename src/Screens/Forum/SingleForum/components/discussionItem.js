@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
+import {AiOutlineLike, AiTwotoneLike} from "react-icons/ai";
 import {formatDate, getTransString} from "../../../../utils/helpers";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import {useDispatch} from "react-redux";
@@ -67,9 +67,9 @@ const DiscussionItem = ({discussion, user, refetch}) => {
                     <div className="text-gray-500 text-sm flex">
                         {
                             user?.liked_discussions?.includes(discussion.id)
-                                ? <AiFillHeart fill="#3e6d9c" size={16} className="mr-1 cursor-pointer"
-                                               onClick={likeComment}/>
-                                : <AiOutlineHeart size={16} className="mr-1 cursor-pointer" onClick={likeComment}/>
+                                ? <AiTwotoneLike fill="#3e6d9c" size={16} className="mr-1 cursor-pointer"
+                                                 onClick={likeComment}/>
+                                : <AiOutlineLike size={16} className="mr-1 cursor-pointer" onClick={likeComment}/>
                         }{discussion.total_likes}
                     </div>
                     <div className="text-gray-500 text-[12px]">

@@ -9,7 +9,8 @@ import {useTranslation} from 'react-i18next';
 
 function DashboardPage() {
     const [users, setUsers] = useState(0);
-    const [blogsPolls, setBlogsPolls] = useState(0);
+    const [polls, setPolls] = useState(0);
+    const [blogs, setBlogs] = useState(0);
     const [eventsForums, setEventsForums] = useState(0);
 
     const {t} = useTranslation();
@@ -24,8 +25,14 @@ function DashboardPage() {
         {
             cardFill: "#FC8A2B",
             icon: "BsBarChartFill",
-            title: "Blogs & Polls",
-            count: blogsPolls,
+            title: "Blogs",
+            count: blogs,
+        },
+        {
+            cardFill: "#FC8A2B",
+            icon: "BsBarChartFill",
+            title: "Polls",
+            count: polls,
         },
         {
             cardFill: "#FC8A2B",
@@ -41,7 +48,8 @@ function DashboardPage() {
                 const resp = await axiosClientWithHeaders.get('super-admin/system-statistics/');
                 const data = resp.data.data;
                 setUsers(data.total_users);
-                setBlogsPolls(data.total_blogs_and_polls);
+                setPolls(data.total_blogs);
+                setBlogs(data.total_polls);
                 setEventsForums(data.total_events_and_forums);
             } catch (err) {
                 console.log(err);

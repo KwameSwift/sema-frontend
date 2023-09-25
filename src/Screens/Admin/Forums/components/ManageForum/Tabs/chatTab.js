@@ -52,7 +52,7 @@ function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefet
                             </button>
                         </div>
                     }
-                    <div className="h-full">
+                    <div className="min-h-[60vh] flex justify-center">
                         <div className="chat-sect">
                             <>{returnChatMessages()}</>
                         </div>

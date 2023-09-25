@@ -113,6 +113,7 @@ function ForumPost() {
                             suggestedForums={forum?.suggested_forums}
                             user={user}
                             forumId={id}
+                            isMember={forum?.is_member}
                             discussions={forum?.discussions || []}
                             setRefetch={fetchDiscussion}
                         />
@@ -122,6 +123,7 @@ function ForumPost() {
                             chatRooms={forum?.chat_rooms}
                             user={user}
                             forumId={id}
+                            isMember={forum?.is_member}
                             setRefetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
                         />
@@ -133,6 +135,7 @@ function ForumPost() {
                             refetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
                             user={user}
+                            isMember={forum?.is_member}
                             setRefetch={setRefetch}
                         />
                     </Tab>
@@ -143,6 +146,7 @@ function ForumPost() {
                             refetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
                             user={user}
+                            isMember={forum?.is_member}
                             setRefetch={setRefetch}
                         />
                     </Tab>
@@ -152,6 +156,7 @@ function ForumPost() {
                             forumId={id}
                             refetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
+                            isMember={forum?.is_member}
                             user={user}
                         />
                     </Tab>
@@ -160,6 +165,7 @@ function ForumPost() {
                             forumId={id}
                             refetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
+                            isMember={forum?.is_member}
                             user={user}
                         />
                     </Tab>
@@ -170,6 +176,7 @@ function ForumPost() {
                             refetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
                             user={user}
+                            isMember={forum?.is_member}
                         />
                     </Tab>
                     <Tab eventKey="about" title="About">
@@ -179,6 +186,7 @@ function ForumPost() {
                             refetch={setRefetch}
                             suggestedForums={forum?.suggested_forums}
                             user={user}
+                            isMember={forum?.is_member}
                         />
                     </Tab>
                 </Tabs>

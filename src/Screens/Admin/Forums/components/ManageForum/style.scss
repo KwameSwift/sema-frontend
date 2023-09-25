@@ -8,7 +8,11 @@
   }
 
   .tab-content {
-    min-height: 71vh;
+    min-height: 68vh;
+  }
+
+  div[role="tabpanel"] {
+    min-height: 60vh;
   }
 }
 

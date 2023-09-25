@@ -39,7 +39,7 @@ function AdminMediaTab({files, forumId, refetch, user}) {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="flex justify-center items-center h-full w-full flex-col">
+                                <div className="flex justify-center items-center min-h-[60vh] w-full flex-col">
                                     <img src={NoMedia} alt="No Chat rooms" width={90} height={20}/>
                                     <p className="mt-3 font-bold">No Media</p>
                                 </div>

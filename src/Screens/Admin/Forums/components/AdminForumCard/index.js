@@ -19,7 +19,7 @@ function AdminForumCard(props) {
     const dispatch = useDispatch();
 
     let dropItems = [
-        {id: "view", name: "View", route: `/admin/forums/${props.id}`},
+        {id: "view", name: "View", route: `/forums/${props.id}`},
         {
             id: "status",
             name: modalType,
@@ -148,7 +148,7 @@ function AdminForumCard(props) {
                 <div>
                     {props.is_approved && (
                         <span className="text-[#e14d2a] text-[14px] cursor-default">
-              <BiSolidChat/> {props?.chat_rooms?.length}
+              <BiSolidChat/> {props?.total_comments}
             </span>
                     )}
                 </div>

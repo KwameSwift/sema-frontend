@@ -5,23 +5,15 @@ import SuggestionsSection from "./suggestionsSection";
 import {handleDownload} from "../../../../utils/helpers";
 import {HiDownload} from "react-icons/hi";
 
-function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch}) {
+function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
             <div className="forum-chats-page flex justify-between h-full">
                 <div className="mr-3 w-full">
-                    {/*<div className="flex justify-end">*/}
-                    {/*    <button*/}
-                    {/*        className="bg-[#FC8A2B] rounded-1 py-1 px-2 text-[14px] text-[#fff]"*/}
-                    {/*        onClick={() => setIsOpen(true)}*/}
-                    {/*    >*/}
-                    {/*        + New File*/}
-                    {/*    </button>*/}
-                    {/*</div>*/}
                     <div className="h-full">
-                        {files?.length && user?.tokens?.access
+                        {files?.length && user?.tokens?.access && isMember
                             ? (
                                 <div className="flex flex-wrap">
                                     <div className="container p-6">
@@ -37,10 +29,12 @@ function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch}) 
                                                             <p className="text-[12px] font-semibold whitespace-normal">
                                                                 {elt.file_name?.truncate(15)}
                                                             </p>
-                                                            <span className="cursor-pointer"
-                                                                  onClick={() => handleDownload(elt.file_url)}>
+                                                            <div className="flex">
+                                                                <span className="cursor-pointer"
+                                                                      onClick={() => handleDownload(elt.file_url)}>
                                                                 <HiDownload/>
                                                             </span>
+                                                            </div>
                                                         </div>
                                                         <p className="text-gray-600 text-[11px] whitespace-normal">
                                                             {elt.description}
@@ -63,6 +57,7 @@ function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch}) 
                 <SuggestionsSection
                     suggestedForums={suggestedForums}
                     userTokens={user?.tokens}
+                    isMember={isMember}
                     id={forumId}
                     setRefetch={setRefetch}
                 />

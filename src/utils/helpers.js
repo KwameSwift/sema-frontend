@@ -5,6 +5,7 @@ import {axiosClient} from "../libs/axiosClient";
 import PDFFile from "../Assets/images/pdf_image.png";
 import DocFile from "../Assets/images/docx_image.png";
 import OtherFile from "../Assets/images/other_image.png";
+import ExcelFile from "../Assets/images/xls-file.png";
 
 const enTrans = enStrings;
 
@@ -275,6 +276,8 @@ export const returnFileFormat = (fileType) => {
         return PDFFile;
     } else if (fileType === ".docx" || fileType === ".doc") {
         return DocFile;
+    } else if (fileType === ".xlsx" || fileType === ".xls") {
+        return ExcelFile;
     } else {
         return OtherFile;
     }
@@ -287,6 +290,13 @@ export const handleDownload = (fileUrl) => {
     a.download = fileUrl;
     a.click();
 };
+
+export const goToImage = (fileUrl) => {
+    const a = document.createElement('a');
+    a.href = fileUrl;
+    a.target = "_blank";
+    a.click();
+}
 
 
 String.prototype.truncate = function (n) {

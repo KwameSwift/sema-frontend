@@ -1,25 +1,25 @@
 import React, {useEffect, useState} from "react";
-import NoChatRooms from "../../../../Assets/images/no-chats.png";
+import NoPolls from "../../../../Assets/images/no-polls.png";
 import SuggestionsSection from "./suggestionsSection";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import Pagination from "../../../../Components/Common/Pagination";
 import ForumPollCard from "./pollCard";
 
-function PollsTab({user, forumId, suggestedForums}) {
+function PollsTab({user, forumId, suggestedForums, isMember}) {
     const [polls, setPolls] = useState([]);
     const [refetch, setRefetch] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
 
     const returnPolls = () => {
-        if (user?.tokens?.access && polls?.length) {
+        if (user?.tokens?.access && polls?.length && isMember) {
             return polls?.map((elt, index) =>
                 <ForumPollCard {...elt} key={index} setRefetch={setRefetch}/>
             )
         } else {
             return (
                 <div className="flex justify-center items-center w-full flex-col">
-                    <img src={NoChatRooms} alt="No Chat rooms" width={90} height={20}/>
+                    <img src={NoPolls} alt="No Chat rooms" width={90} height={20}/>
                     <p className="mt-3 font-bold">No Polls</p>
                 </div>
             )
@@ -57,17 +57,18 @@ function PollsTab({user, forumId, suggestedForums}) {
                     suggestedForums={suggestedForums}
                     userTokens={user?.tokens}
                     id={forumId}
+                    isMember={isMember}
                     setRefetch={setRefetch}
                 />
             </div>
-            <div>
+            {user?.tokens?.access && polls?.length && isMember && <div>
                 <Pagination
                     getData={getPolls}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     totalPages={totalPages}
                 />
-            </div>
+            </div>}
         </>
     )
 }

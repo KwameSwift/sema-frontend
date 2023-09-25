@@ -2,7 +2,7 @@ import React from "react";
 import {getInitials, getRandomColor} from "../../../../utils/helpers";
 import SuggestionsSection from "./suggestionsSection";
 
-function MembersTab({members, suggestedForums, user, forumId, setRefetch}) {
+function MembersTab({members, suggestedForums, user, forumId, setRefetch, isMember}) {
 
     return (
         <div className="forum-chats-page flex justify-between h-full">
@@ -34,6 +34,7 @@ function MembersTab({members, suggestedForums, user, forumId, setRefetch}) {
                 suggestedForums={suggestedForums}
                 userTokens={user?.tokens}
                 id={forumId}
+                isMember={isMember}
                 setRefetch={setRefetch}
             />
         </div>

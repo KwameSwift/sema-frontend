@@ -6,7 +6,7 @@ import SingleChat from "./singleChat";
 import NoChatRooms from "../../../../Assets/images/no-chats.png";
 import SuggestionsSection from "./suggestionsSection";
 
-function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums}) {
+function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, isMember}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isChatOpened, setIsChatOpened] = useState(false);
     const [selectedChat, setSelectedChat] = useState({});
@@ -23,13 +23,13 @@ function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums}) {
     }
 
     const returnChatMessages = () => {
-        if (user?.tokens?.access && chatRooms?.length) {
+        if (user?.tokens?.access && chatRooms?.length && isMember) {
             return chatRooms?.map((elt, index) =>
                 <ChatCard {...elt} key={index} setSelectedChat={handleChatOpen}/>
             )
         } else {
             return (
-                <div className="flex justify-center items-center w-full flex-col">
+                <div className="flex justify-center items-center w-full h-full flex-col">
                     <img src={NoChatRooms} alt="No Chat rooms" width={90} height={20}/>
                     <p className="mt-3 font-bold">No Chat Rooms</p>
                 </div>
@@ -51,7 +51,7 @@ function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums}) {
                         </div>
                     }
                     <div className="h-full">
-                        <div className="chat-sect">
+                        <div className="chat-sect h-full">
                             <>{returnChatMessages()}</>
                         </div>
                     </div>
@@ -60,6 +60,7 @@ function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums}) {
                     suggestedForums={suggestedForums}
                     userTokens={user?.tokens}
                     id={forumId}
+                    isMember={isMember}
                     setRefetch={setRefetch}
                 />
             </div>

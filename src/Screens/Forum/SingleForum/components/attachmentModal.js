@@ -8,6 +8,7 @@ import DocFile from "../../../../Assets/images/docx_image.png";
 import OtherFile from "../../../../Assets/images/other_image.png";
 import {axiosClientForm} from "../../../../libs/axiosClient";
 import EmojiPicker from "emoji-picker-react";
+import ExcelFile from "../../../../Assets/images/xls-file.png";
 
 function AttachmentModal(props) {
     const [message, setMessage] = useState("");
@@ -41,6 +42,8 @@ function AttachmentModal(props) {
             return <img src={PDFFile} alt="" key={index} className="w-[120px] h-[120px]"/>
         } else if (file.split(".").pop() === "docx" || file.split(".").pop() === "doc") {
             return <img src={DocFile} alt="" key={index} className="w-[120px] h-[120px]"/>
+        } else if (file.split(".").pop() === "xlsx" || file.split(".").pop() === "xls") {
+            return <img src={ExcelFile} alt="" key={index} className="w-[120px] h-[120px]"/>;
         } else {
             return <img src={OtherFile} alt="" key={index} className="w-[120px] h-[120px]"/>
         }

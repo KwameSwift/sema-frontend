@@ -43,7 +43,7 @@ function FileUploadModal(props) {
 
 
     useEffect(() => {
-        setIsDisabled(!description?.trim() || !files?.length);
+        setIsDisabled(!files?.length);
     }, [description, files]);
 
     return (

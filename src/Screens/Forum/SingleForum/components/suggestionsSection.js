@@ -5,7 +5,8 @@ import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import NoForums from "../../../../Assets/images/no-forums.png";
 
 
-function SuggestionsSection({suggestedForums, userTokens, id, setRefetch}) {
+function SuggestionsSection({suggestedForums, userTokens, id, setRefetch, isMember}) {
+    console.log(id);
     const leaveOrJoinForum = async (isMember, forumId = id) => {
         if (!userTokens.access) {
             toast.error("Please login to be able to join this forum.");
@@ -25,13 +26,13 @@ function SuggestionsSection({suggestedForums, userTokens, id, setRefetch}) {
             }
         }
     }
-    
+
     return (
         <div className="info-sect">
             <div className="about p-3 bg-white">
                 <h3 className="font-bold">Suggested Forums</h3>
                 <hr className="mt-2"></hr>
-                {suggestedForums?.length || userTokens?.access
+                {suggestedForums?.length && userTokens?.access && isMember
                     ? (suggestedForums?.map((elt, index) =>
                         <div key={index} className="flex justify-between">
                             <div>
@@ -40,7 +41,7 @@ function SuggestionsSection({suggestedForums, userTokens, id, setRefetch}) {
                                     <GoDot/> {elt?.total_members} members</p>
                             </div>
                             <p className="underline cursor-pointer"
-                               onClick={() => leaveOrJoinForum(elt?.id, false)}>Join</p>
+                               onClick={() => leaveOrJoinForum(false, elt?.id)}>Join</p>
                         </div>
                     ))
                     : (

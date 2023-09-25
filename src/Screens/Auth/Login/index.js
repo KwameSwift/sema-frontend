@@ -61,6 +61,7 @@ function LoginPage() {
                     },
                     user: data.user,
                     liked_blogs: data.liked_blogs,
+                    liked_discussions: data.liked_discussions,
                     permissions: data.permissions
                 };
                 dispatch(setUserData(payload));

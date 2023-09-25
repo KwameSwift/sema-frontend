@@ -7,7 +7,8 @@ import {BsSend} from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 
-function DiscussionTab({suggestedForums, discussions, user, forumId, setRefetch}) {
+function DiscussionTab({suggestedForums, discussions, user, forumId, setRefetch, isMember}) {
+    console.log(isMember)
     const [toggleEmoji, setToggleEmoji] = useState(false);
     const [message, setMessage] = useState("");
 
@@ -28,58 +29,63 @@ function DiscussionTab({suggestedForums, discussions, user, forumId, setRefetch}
     }
 
     return (
-        <div className="forum-chats-page flex justify-between h-full">
-            {discussions?.length && user?.tokens?.access
-                ? (
-                    <div className="flex flex-col w-full">
-                        <div
-                            className="sticky rounded p-3 flex bg-white mt-3 justify-between items-center mx-[13%] max-w-[800px]">
-                            <div className="flex w-[95%] justify-start items-center">
-                                <MdOutlineEmojiEmotions
-                                    size={22}
-                                    className="cursor-pointer mr-1"
-                                    onClick={() => setToggleEmoji(prev => !prev)}
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Send message"
-                                    value={message}
-                                    className="w-full h-[30px] border-0 outline-0"
-                                    onChange={(e) => setMessage(e.target.value)}
-                                />
-                            </div>
-                            <BsSend
+        <div className="forum-chats-page flex justify-between h-full items-center">
+            <div className="flex flex-col w-full">
+                {isMember &&
+                    <div
+                        className="sticky rounded p-3 flex bg-white mt-3 justify-between items-center mx-[13%] max-w-[800px]">
+                        <div className="flex w-[95%] justify-start items-center">
+                            <MdOutlineEmojiEmotions
                                 size={22}
-                                className="cursor-pointer"
-                                onClick={sendMessage}
-                                fill={message.length && "#001253"}
-                                disabled={message?.trim() === ""}
+                                className="cursor-pointer mr-1"
+                                onClick={() => setToggleEmoji(prev => !prev)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Add Comment"
+                                value={message}
+                                className="w-full h-[30px] border-0 outline-0"
+                                onChange={(e) => setMessage(e.target.value)}
                             />
                         </div>
-                        <div className="w-full px-[13%] py-4">
-                            {discussions.map((discussion) => (
-                                <DiscussionItem refetch={setRefetch} user={user} key={discussion.id}
-                                                discussion={discussion}/>
-                            ))}
-                        </div>
-                        {toggleEmoji && (
-                            <div className="discussion-emoji">
-                                <EmojiPicker onEmojiClick={handleEmojiClick}/>
+                        <BsSend
+                            size={22}
+                            className="cursor-pointer"
+                            onClick={sendMessage}
+                            fill={message.length && "#001253"}
+                            disabled={message?.trim() === ""}
+                        />
+                    </div>
+                }
+                {discussions?.length && user?.tokens?.access && isMember
+                    ? (
+                        <div className="flex flex-col w-full">
+                            <div className="w-full px-[13%] py-4">
+                                {discussions.map((discussion) => (
+                                    <DiscussionItem refetch={setRefetch} user={user} key={discussion.id}
+                                                    discussion={discussion}/>
+                                ))}
                             </div>
-                        )}
-                    </div>
-                )
-                : (
-                    <div className="flex justify-center items-center w-full flex-col">
-                        <img src={NoDiscussion} alt="No Chat rooms" width={120} height={120}/>
-                        <p className="mt-3 font-bold">No Discussions</p>
-                    </div>
-                )
-            }
+                            {toggleEmoji && (
+                                <div className="discussion-emoji">
+                                    <EmojiPicker onEmojiClick={handleEmojiClick}/>
+                                </div>
+                            )}
+                        </div>
+                    )
+                    : (
+                        <div className="flex justify-center items-center mt-3 w-full flex-col">
+                            <img src={NoDiscussion} alt="No Chat rooms" width={120} height={120}/>
+                            <p className="mt-3 font-bold">No Discussions</p>
+                        </div>
+                    )
+                }
+            </div>
             <SuggestionsSection
                 suggestedForums={suggestedForums}
                 userTokens={user?.tokens}
                 id={forumId}
+                isMember={isMember}
                 setRefetch={setRefetch}
             />
         </div>

@@ -4,7 +4,7 @@ import SuggestionsSection from "./suggestionsSection";
 import NoMeetings from "../../../../Assets/images/no-meetings.png";
 import RegisterMeetingFormModal from "./registerMeetingModal";
 
-function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums, user}) {
+function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums, user, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
     const [meetingId, setMeetingId] = useState(null);
@@ -18,16 +18,8 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
         <>
             <div className="forum-chats-page flex justify-between h-full">
                 <div className="mr-3 w-full">
-                    {/*<div className="flex justify-end">*/}
-                    {/*    <button*/}
-                    {/*        className="bg-[#FC8A2B] rounded-1 py-1 px-2 text-[14px] text-[#fff]"*/}
-                    {/*        onClick={() => setIsOpen(true)}*/}
-                    {/*    >*/}
-                    {/*        + New Meeting*/}
-                    {/*    </button>*/}
-                    {/*</div>*/}
                     <div className="h-full">
-                        {virtualMeetings?.length && user?.tokens?.access
+                        {virtualMeetings?.length && user?.tokens?.access && isMember
                             ? (
                                 <div className="flex flex-wrap">
                                     <div className="container mx-auto p-6">
@@ -77,6 +69,7 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
                     suggestedForums={suggestedForums}
                     userTokens={user?.tokens}
                     id={forumId}
+                    isMember={isMember}
                     setRefetch={refetch}
                 />
             </div>

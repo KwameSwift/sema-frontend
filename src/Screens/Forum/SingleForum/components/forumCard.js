@@ -79,7 +79,7 @@ function AdminForumCard(props) {
                 <div className="flex justify-between items-center">
                     <div className="flex mt-3 items-center justify-between">
                         {props.is_approved && (<span className="text-[#e14d2a] text-[14px] cursor-default">
-                  <BiSolidChat/> {props?.chat_rooms?.length}
+                  <BiSolidChat/> {props?.total_comments}
                 </span>
                         )}
                     </div>

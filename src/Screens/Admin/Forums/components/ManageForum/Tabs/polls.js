@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import NoMedia from "../../../../../../Assets/images/no-media.png";
+import NoPolls from "../../../../../../Assets/images/no-polls.png";
 import AddPollModal from "./addPoll";
 import {axiosClientWithHeaders} from "../../../../../../libs/axiosClient";
 import Pagination from "../../../../../../Components/Common/Pagination";
@@ -84,9 +84,9 @@ function AdminPollTab({forumId, user}) {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="flex justify-center items-center h-full w-full flex-col">
-                                    <img src={NoMedia} alt="No Chat rooms" width={90} height={20}/>
-                                    <p className="mt-3 font-bold">No Media</p>
+                                <div className="flex justify-center items-center h-full min-h-[60vh] w-full flex-col">
+                                    <img src={NoPolls} alt="No Polls" width={90} height={20}/>
+                                    <p className="mt-3 font-bold">No Polls</p>
                                 </div>
                             )
                         }

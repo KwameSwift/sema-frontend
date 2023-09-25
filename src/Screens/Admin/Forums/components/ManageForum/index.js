@@ -59,9 +59,7 @@ export default function AdminManageForumPage() {
                     </div>
                     <div>
                         <h1>Manage Forums</h1>
-                        <p className="text-white mt-3">
-                            {/*{totalForums} Requests*/}
-                        </p>
+                        <p className="text-white mt-3">{forum?.topic}</p>
                     </div>
                 </div>
                 <div className="tabs mt-3">
