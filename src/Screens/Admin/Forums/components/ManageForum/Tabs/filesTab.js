@@ -31,7 +31,7 @@ function AdminFilesTab({files, forumId, refetch, user}) {
                                                     <img src={returnFileFormat(elt?.file_type)} alt=""
                                                          className="w-full h-32 object-contain mt-3"/>
                                                     <div className="p-3">
-                                                        <p className="text-[12px] font-semibold whitespace-normal">{elt.file_name?.truncate(15)}</p>
+                                                        <p className="text-[12px] font-semibold whitespace-normal">{elt.file_name?.truncate(25)}</p>
                                                         <p className="text-gray-600 text-[11px] whitespace-normal">{elt.description}</p>
                                                     </div>
                                                 </div>
