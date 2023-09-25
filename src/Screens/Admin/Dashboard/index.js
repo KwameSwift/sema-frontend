@@ -50,7 +50,7 @@ function DashboardPage() {
                 setUsers(data.total_users);
                 setPolls(data.total_blogs);
                 setBlogs(data.total_polls);
-                setEventsForums(data.total_events_and_forums);
+                setEventsForums(data.total_forums);
             } catch (err) {
                 console.log(err);
             }
