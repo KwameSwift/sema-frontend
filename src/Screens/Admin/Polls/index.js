@@ -5,14 +5,12 @@ import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
 import {debounce} from "lodash";
 import Layout from "../../../Components/Dashboard/Layout";
-// import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
 import {axiosClientWithHeaders} from "../../../libs/axiosClient";
 import Modal from "../../../Components/Modal";
-// import AdminCreatorBlogCard from "../../../Components/Admin/BlogPost";
-import {getTransString} from "../../../utils/helpers";
-
-import "./style.scss";
 import AdminPollCard from "./components/AdminPollCard";
+import {getTransString} from "../../../utils/helpers";
+import "./style.scss";
+import NoBlog from "../../../Assets/images/no-blog.png";
 
 function AdminPollsPage() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -68,30 +66,12 @@ function AdminPollsPage() {
         }
     }
 
-    // const deletePoll = async () => {
-    //   setLoading(true);
-    //   try {
-    //     await axiosClientWithHeaders.delete(
-    //       `/blog/delete-blog-post/${selectedId}/`
-    //     );
-    //     setLoading(false);
-    //     toast.success("Blog deleted successfully");
-    //     await new Promise((r) => setTimeout(r, 2000));
-    //     setModalOpen(false);
-    //     getAllPolls(pollType, false);
-    //   } catch (err) {
-    //     setLoading(false);
-    //     console.error(err);
-    //   }
-    // };
-
     const filterBlogs = (e) => {
         setPollType(e.target.value);
         getAllPolls(e.target.value, false);
     };
 
     const searchPolls = async (term) => {
-        console.log(term.length)
         try {
             const resp = await axiosClientWithHeaders.post(
                 "/polls/search-polls/1/",
@@ -198,19 +178,27 @@ function AdminPollsPage() {
                             </button>
                         </div>
                     </div>
-                    <div className="creator-blogs mt-10">
-                        {polls?.map((elt, index) => (
-                            <>
-                                <AdminPollCard
-                                    setModalOpen={setModalOpen}
-                                    setSelectedID={setSelectedID}
-                                    setModalType={setModalState}
-                                    {...elt}
-                                    key={index}
-                                />
-                            </>
-                        ))}
-                    </div>
+                    {polls.length
+                        ? (
+                            <div className="creator-blogs mt-10">
+                                {polls?.map((elt, index) => (
+                                    <>
+                                        <AdminPollCard
+                                            setModalOpen={setModalOpen}
+                                            setSelectedID={setSelectedID}
+                                            setModalType={setModalState}
+                                            {...elt}
+                                            key={index}
+                                        />
+                                    </>
+                                ))}
+                            </div>)
+                        : (
+                            <div className="flex justify-center items-center min-h-[58vh]">
+                                <img src={NoBlog} alt="no-blog" className="w-[200px] h-[200px]"/>
+                            </div>
+                        )
+                    }
                     {totalPages !== currentPage && (
                         <div className="flex justify-center mb-3">
                             <button

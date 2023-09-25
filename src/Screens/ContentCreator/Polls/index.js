@@ -13,6 +13,7 @@ import CreatorPollCard from "./components/CreatorPollCard";
 import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
 
 import "./style.scss";
+import NoBlog from "../../../Assets/images/no-blog.png";
 
 function CreatorPollsPage() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -148,20 +149,27 @@ function CreatorPollsPage() {
                             </button>
                         </div>
                     </div>
-                    <div className="creator-blogs mt-10">
-                        {polls?.map((elt, index) => (
-                            <>
-                                <CreatorPollCard
-                                    setModalOpen={setModalOpen}
-                                    setSelectedID={setSelectedID}
-                                    setModalType={setModalState}
-                                    {...elt}
-                                    key={index}
-                                />
-                            </>
-                        ))}
-                    </div>
-                    {totalPages !== currentPage && (
+                    {polls.length
+                        ? (
+                            <div className="creator-blogs mt-10">
+                                {polls?.map((elt, index) => (
+                                    <>
+                                        <CreatorPollCard
+                                            setModalOpen={setModalOpen}
+                                            setSelectedID={setSelectedID}
+                                            setModalType={setModalState}
+                                            {...elt}
+                                            key={index}
+                                        />
+                                    </>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex justify-center items-center min-h-[58vh]">
+                                <img src={NoBlog} alt="no-blog" className="w-[200px] h-[200px]"/>
+                            </div>
+                        )}
+                    {polls.length && totalPages !== currentPage && (
                         <div className="flex justify-center mb-3">
                             <button
                                 className="see-more-btn"

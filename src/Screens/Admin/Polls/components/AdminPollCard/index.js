@@ -41,8 +41,7 @@ function AdminPollCard(props) {
     };
 
     const getToggleText = (status) => {
-        const text = props.is_ended ? "result" : "choices";
-        return status + ' ' + text;
+        return status + ' ' + "choices";
     }
 
     const pollInProgress = () => {

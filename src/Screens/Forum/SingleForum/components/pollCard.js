@@ -17,7 +17,7 @@ const endedPollResult = (data, choice) => {
                         items-center justify-around ${(choice === elt?.id) && "bg-gray-200 text-[#fff]"}`}
                     >
                         <span className="text-[#000] z-20">{elt?.choice}</span>
-                        <span className="text-[#000] z-20">{elt?.votes}%</span>
+                        <span className="text-[#000] z-20">{elt?.votes}</span>
                         <span className="poll-progress z-10 bg-gray-200 absolute bottom-0 left-0 top-0 ri"
                               style={{width: `${elt.vote_percentage}%`, borderRadius: "20px"}}></span>
                     </span>

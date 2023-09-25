@@ -12,6 +12,7 @@ import Modal from "../../../Components/Modal";
 import AdminForumCard from "./components/AdminForumCard";
 import {getTransString} from "../../../utils/helpers";
 import "./style.scss";
+import NoBlog from "../../../Assets/images/no-blog.png";
 
 function AdminForumsPage() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -185,19 +186,27 @@ function AdminForumsPage() {
                             </button>
                         </div>
                     </div>
-                    <div className="creator-blogs mt-10">
-                        {forums?.map((elt, index) => (
-                            <>
-                                <AdminForumCard
-                                    {...elt}
-                                    key={index}
-                                    setModalOpen={setModalOpen}
-                                    setSelectedID={setSelectedID}
-                                    setModalType={setModalState}
-                                />
-                            </>
-                        ))}
-                    </div>
+                    {forums?.length
+                        ? (
+                            <div className="creator-blogs mt-10">
+                                {forums?.map((elt, index) => (
+                                    <>
+                                        <AdminForumCard
+                                            {...elt}
+                                            key={index}
+                                            setModalOpen={setModalOpen}
+                                            setSelectedID={setSelectedID}
+                                            setModalType={setModalState}
+                                        />
+                                    </>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex justify-center items-center min-h-[58vh]">
+                                <img src={NoBlog} alt="no-blog" className="w-[200px] h-[200px]"/>
+                            </div>
+                        )
+                    }
                     {totalPages !== currentPage && (
                         <div className="flex justify-center mb-3">
                             <button

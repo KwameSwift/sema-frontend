@@ -208,7 +208,7 @@ export const cleanMessageDate = (timestamp) => {
 
     return splittedDate[0];
 };
-export const formatMessageTime = (timestamp) => {
+export const formatMessageTime = (timestamp, defaultFormat = true) => {
     if (timestamp) {
         const messageDate = new Date(cleanMessageDate(timestamp));
         const currentDate = new Date();
@@ -221,10 +221,16 @@ export const formatMessageTime = (timestamp) => {
         ) {
             const hours = messageDate.getHours();
             const minutes = messageDate.getMinutes();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const formattedHours = hours % 12 || 12;
-            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-            return `${formattedHours}:${formattedMinutes} ${ampm}`;
+            if (defaultFormat) {
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const formattedHours = hours % 12 || 12;
+                const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                return `${formattedHours}:${formattedMinutes} ${ampm}`;
+            } else {
+                const formattedHours = hours < 10 ? '0' + hours : hours;
+                const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                return `${formattedHours}:${formattedMinutes}`;
+            }
         } else {
             // Check if the message was sent yesterday
             const yesterday = new Date();

@@ -39,9 +39,10 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
                                                                 Scheduled End
                                                                 Time: {new Date(elt.scheduled_end_time).toLocaleString()}
                                                             </p>
-                                                            <p className="mt-2 mb-3 text-[12px] text-[#0000FF] underline">
+                                                            <a href={elt?.meeting_url}
+                                                               className="mt-2 mb-3 text-[12px] text-[#0000FF] underline">
                                                                 {elt?.meeting_url}
-                                                            </p>
+                                                            </a>
 
                                                             {!elt?.is_registered && <button
                                                                 onClick={() => handleRegisterModal(elt.id)}
