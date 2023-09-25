@@ -12,7 +12,19 @@
   "home": {
     "seeMore": "See More",
     "recentBlogs": "Recent Blogs",
-    "mostRecentBlogs": "Most Recent Posts"
+    "recentForums": "Recent Forums",
+    "mostRecentBlogs": "Most Recent Posts",
+    "trendingPolls": "Trending Polls",
+    "joined": "Joined",
+    "joinNow": "Join Now",
+    "private": "Private",
+    "public": "Public"
+  },
+  "footer": {
+    "pages": "Pages",
+    "allRightsReserved": "All Rights Reserved.",
+    "email": "Email",
+    "phone": "Phone"
   },
   "editBlogs": {
     "coverImage": "Cover Image",

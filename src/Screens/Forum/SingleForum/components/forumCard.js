@@ -7,8 +7,10 @@ import {BiSolidChat} from "react-icons/bi";
 import {GoDotFill} from "react-icons/go";
 import "./style.scss";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 function AdminForumCard(props) {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const modalType = props.is_approved ? "Unapprove" : "Approve";
 
@@ -61,7 +63,7 @@ function AdminForumCard(props) {
                     </div>
                     <div className="flex items-center forum-type">
                         <GoDotFill fill="#3e6d9c"/>
-                        <span>{props?.is_public ? "Public" : "Private"}</span>
+                        <span>{props?.is_public ? t("home.public") : t("home.private")}</span>
                     </div>
                 </div>
                 <div className="mt-4">
@@ -85,8 +87,8 @@ function AdminForumCard(props) {
                     </div>
                     <div className="flex mt-3 items-center justify-between status">
                         <p>{props.is_member
-                            ? <span>Joined</span>
-                            : <span><u>Join now</u></span>}
+                            ? <span>{t('home.joined')}</span>
+                            : <span><u>{t('home.joinNow')}</u></span>}
                         </p>
                     </div>
                 </div>

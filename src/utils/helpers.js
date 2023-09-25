@@ -297,14 +297,10 @@ export const handleDownload = (fileUrl) => {
     a.click();
 };
 
-export const goToImage = (fileUrl) => {
-    const a = document.createElement('a');
-    a.href = fileUrl;
-    a.target = "_blank";
-    a.click();
-}
-
-
 String.prototype.truncate = function (n) {
     return this.substring(0, n - 1) + (this.length > n ? "..." : "");
+}
+
+String.prototype.getTranslationKey = function () {
+    return getTransString(this);
 }

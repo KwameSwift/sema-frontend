@@ -12,7 +12,19 @@
   "home": {
     "seeMore": "Ona zaidi",
     "recentBlogs": "Blogu za Hivi Punde",
-    "mostRecentBlogs": "Machapisho ya Hivi Karibuni"
+    "recentForums": "Mabaraza ya Hivi Punde",
+    "mostRecentBlogs": "Machapisho ya Hivi Karibuni",
+    "trendingPolls": "Kura Zinazovuma",
+    "joined": "Imejiunga",
+    "joinNow": "Jiunge sasa",
+    "private": "Privat",
+    "public": "Hadharani"
+  },
+  "footer": {
+    "pages": "Kurasa",
+    "allRightsReserved": "Haki zote zimehifadhiwa.",
+    "email": "Barua pepe",
+    "phone": "Simu"
   },
   "editBlogs": {
     "coverImage": "Picha ya Jalada",

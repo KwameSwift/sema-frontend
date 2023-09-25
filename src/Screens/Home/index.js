@@ -123,7 +123,7 @@ function HomePage() {
                     <div className="recent-articles w-[100%] flex flex-col justify-center">
                         <div className="flex flex-col justify-center align-items">
                             <h1 className="text-[35px] mt-3 mx-8 text-left">
-                                Trending Polls
+                                {t("home.trendingPolls")}
                             </h1>
                         </div>
                         {polls.length ? (
@@ -144,7 +144,8 @@ function HomePage() {
                         )}
                         {polls.length > 0 && polls.length > 3 && (
                             <div className="mt-8 mb-3 flex justify-center items-center">
-                                <button className="py-2 px-4 see-more-btn" onClick={() => navigate('/feed')}>See More
+                                <button className="py-2 px-4 see-more-btn" onClick={() => navigate('/feed')}>
+                                    {t("home.seeMore")}
                                 </button>
                             </div>
                         )}
@@ -152,8 +153,8 @@ function HomePage() {
                 </div>
                 <div className="recent-articles flex flex-col justify-center mt-20">
                     <div className="flex flex-col justify-center align-items">
-                        <h1 className="text-[40px] text-center">Forums</h1>
-                        <p className="text-center">Recent Forums</p>
+                        <h1 className="text-[40px] text-center">{t('admin.forums')}</h1>
+                        <p className="text-center">{t('home.recentForums')}</p>
                     </div>
                     {forums.length ? (
                         <div>

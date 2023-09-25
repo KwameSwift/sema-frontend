@@ -1,9 +1,11 @@
 import React from 'react';
 import Logo from "../../../Assets/images/logo-small.png";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const Footer = () => {
     const navigate = useNavigate();
+    const {t} = useTranslation();
     return (
         <footer className="bg-[#001253] text-white py-6">
             <div className="container mx-auto flex flex-wrap justify-between">
@@ -15,20 +17,20 @@ const Footer = () => {
 
                 {/* Pages */}
                 <div className="w-full md:w-1/4">
-                    <h3 className="text-xl font-semibold mb-2">Pages</h3>
+                    <h3 className="text-xl font-semibold mb-2">{t('footer.pages')}</h3>
                     <ul>
-                        <li className="mb-1"><a href="/">Home</a></li>
-                        <li className="mb-1"><a href="/feed">Feed</a></li>
-                        <li className="mb-1"><a href="/forums">Forums</a></li>
+                        <li className="mb-1"><a href="/">{t('navbar.home')}</a></li>
+                        <li className="mb-1"><a href="/feed">{t('navbar.feed')}</a></li>
+                        <li className="mb-1"><a href="/forums">{t('admin.forums')}</a></li>
                     </ul>
                 </div>
 
                 {/* Copyright and Other Info */}
                 <div className="w-full md:w-1/2">
-                    <p className="mb-4">© {new Date().getFullYear()} SEMA. All rights reserved.</p>
+                    <p className="mb-4">© {new Date().getFullYear()} SEMA. {t('footer.allRightsReserved')}</p>
                     <p>Mbezi Beach Goigi, Dar es salaam - Tanzania</p>
-                    <p>Email: info@africanchildprojects.org</p>
-                    <p>Phone: +255 744 622 344 </p>
+                    <p>{t('footer.email')}: info@africanchildprojects.org</p>
+                    <p>{t('footer.phone')}: +255 744 622 344 </p>
                 </div>
             </div>
         </footer>
