@@ -29,7 +29,7 @@ function DiscussionTab({suggestedForums, discussions, user, forumId, setRefetch,
     }
 
     return (
-        <div className="forum-chats-page flex justify-between h-full items-center">
+        <div className="forum-chats-page flex justify-between h-full">
             <div className="flex flex-col w-full">
                 {isMember &&
                     <div
