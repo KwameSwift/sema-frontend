@@ -3,16 +3,42 @@ import VirtualMeetingFormModal from "./virtualMeetingForm";
 import SuggestionsSection from "./suggestionsSection";
 import NoMeetings from "../../../../Assets/images/no-meetings.png";
 import RegisterMeetingFormModal from "./registerMeetingModal";
+import VirtualMeetingAttendeesModal from "./virtualMeetingAttendeesModal";
+import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 
 function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums, user, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
+    const [openAttendeesModal, setOpenAttendeesModal] = useState(false);
     const [meetingId, setMeetingId] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [attendees, setAttendees] = useState([]);
+    const [totalPages, setTotalPages] = useState(0);
+    const [, setTotalAttendees] = useState(0);
 
     const handleRegisterModal = (id) => {
         setMeetingId(id);
         setRegisterModal(true);
     }
+
+    const getMeetingAttendees = async (id) => {
+        try {
+            const resp = await axiosClientWithHeaders.get(
+                `forum/get-meeting-attendants/${id}/${currentPage}/`
+            );
+            setTotalPages(resp.data.total_pages);
+            setTotalAttendees(resp.data.total_data);
+            setAttendees(resp.data.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const handleAttendeesModal = (id) => {
+        getMeetingAttendees(id);
+        setOpenAttendeesModal(true);
+    }
+
 
     return (
         <>
@@ -39,6 +65,18 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
                                                                 Scheduled End
                                                                 Time: {new Date(elt.scheduled_end_time).toLocaleString()}
                                                             </p>
+                                                            <p className="text-gray-600 text-[13px]">
+                                                                Attendees
+                                                            </p>
+                                                            <div className="flex mb-3">
+                                                                <p className={`text-[13px] text-[#0000FF]
+                                                                cursor-pointer underline`
+                                                                }
+                                                                   onClick={() => handleAttendeesModal(elt.id)}>View</p>
+                                                            </div>
+                                                            <p className="text-gray-600 text-[13px] mb-1">
+                                                                Meeting Link
+                                                            </p>
                                                             <a href={elt?.meeting_url}
                                                                className="mt-2 mb-3 text-[12px] text-[#0000FF] underline">
                                                                 {elt?.meeting_url}
@@ -49,7 +87,8 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
                                                                 className="text-blue-500 underline text-[13px]"
                                                             >
                                                                 Register
-                                                            </button>}
+                                                            </button>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -86,6 +125,15 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
                 setIsOpen={setRegisterModal}
                 meetingId={meetingId}
                 refetch={refetch}
+            />
+            <VirtualMeetingAttendeesModal
+                forumId={forumId}
+                attendees={attendees}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+                getMeetingAttendees={getMeetingAttendees}
+                isOpen={openAttendeesModal}
+                setIsOpen={setOpenAttendeesModal}
             />
         </>
     )
