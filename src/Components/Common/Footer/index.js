@@ -26,9 +26,9 @@ const Footer = () => {
                 {/* Copyright and Other Info */}
                 <div className="w-full md:w-1/2">
                     <p className="mb-4">© {new Date().getFullYear()} SEMA. All rights reserved.</p>
-                    <p>1234 Main Street, City, State, Zip Code</p>
-                    <p>Email: info@example.com</p>
-                    <p>Phone: +1 (123) 456-7890</p>
+                    <p>Mbezi Beach Goigi, Dar es salaam - Tanzania</p>
+                    <p>Email: info@africanchildprojects.org</p>
+                    <p>Phone: +255 744 622 344 </p>
                 </div>
             </div>
         </footer>
