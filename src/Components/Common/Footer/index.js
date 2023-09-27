@@ -22,6 +22,7 @@ const Footer = () => {
                         <li className="mb-1"><a href="/">{t('navbar.home')}</a></li>
                         <li className="mb-1"><a href="/feed">{t('navbar.feed')}</a></li>
                         <li className="mb-1"><a href="/forums">{t('admin.forums')}</a></li>
+                        <li className="mb-1"><a href="/document-vault">{t('admin.documentsVault')}</a></li>
                     </ul>
                 </div>
 
