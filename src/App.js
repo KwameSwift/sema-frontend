@@ -44,6 +44,7 @@ import ForumPost from "./Screens/Forum/SingleForum/components/forumPost";
 import CreatorManageForumPage from "./Screens/ContentCreator/Forums/components/ManageForum";
 import AdminDocumentsVault from "./Screens/Admin/DocumentsVault";
 import CreatorDocumentsVaultPage from "./Screens/ContentCreator/DocumentsVault";
+import DocumentsVaultPage from "./Screens/DocumentsVault";
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
                 <Route path="/blog/:id" element={<SinglePost/>}/>
                 <Route path="/feed" element={<BlogsPage/>}/>
                 <Route path="/forums" element={<ForumsPage/>}/>
+                <Route path="/document-vault" element={<DocumentsVaultPage/>}/>
                 <Route path="/forums/:id" element={<ForumPost/>}/>
 
                 {/* Admin Dashboard */}

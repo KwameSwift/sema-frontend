@@ -34,7 +34,7 @@ function Navbar() {
         {id: "feed", name: "Feed", route: "/feed", otherRoute: "/blog/"},
         {id: "forums", name: "Forums", route: "/forums"},
         // {id: "events", name: "Events", route: "/events"},
-        // {id: "donations", name: "Donations", route: "/donations"},
+        {id: "document-vault", name: "Documents Vault", route: "/document-vault"},
     ];
 
     const selectRoute = (route, otherRoute) => {
