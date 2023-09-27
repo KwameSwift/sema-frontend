@@ -14,9 +14,10 @@ import NoBlog from "../../../Assets/images/no-blog.png";
 import DocumentUploadModal from "./singleDocument/documentUploadModal";
 import "./style.scss";
 import DeleteDocumentModal from "./singleDocument/deleteDocumentModal";
+import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
 
 
-function AdminDocumentsVault() {
+function AdminDocumentsVault({isCreator = false}) {
     const [currentPage, setCurrentPage] = useState(1);
     const [documents, setDocuments] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
@@ -34,11 +35,14 @@ function AdminDocumentsVault() {
 
     // const firstRunRef = useRef(true);
     const {t} = useTranslation();
+    const adminGetUrl = "/super-admin/get-vault-documents/";
+    const creatorGetUrl = "/users/get-my-vault-documents/";
 
     const getAllDocuments = async () => {
+        const url = isCreator ? creatorGetUrl : adminGetUrl;
         try {
             const resp = await axiosClientWithHeaders.get(
-                `/super-admin/get-vault-documents/${currentPage}/`
+                `${url}/${currentPage}/`
             );
             const data = resp.data;
             setTotalPages(data.total_pages);
@@ -54,151 +58,85 @@ function AdminDocumentsVault() {
         setCurrentId(id);
     }
 
-    // const declinePoll = async () => {
-    //     try {
-    //         await axiosClientWithHeaders.put(
-    //             `/super-admin/decline-forum/${selectedId}/`,
-    //             {
-    //                 comments: declineComment.comments,
-    //             }
-    //         );
-    //         toast.success("Forum declined");
-    //         await new Promise((r) => setTimeout(r, 2000));
-    //         setModalOpen(false);
-    //         setRefetch((prev) => !prev);
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // };
-    //
-    // const filterBlogs = (e) => {
-    //     setForumType(e.target.value);
-    //     getAllForums(e.target.value, false);
-    // };
+    const PageContent = () => {
+        return (
+            <div className="admin-blog-page mx-3">
+                {!isCreator && <div className="p-8 mt-5 flex flex-col blog-header">
+                    <h1>{t("admin.documentsVault")}</h1>
+                    <p className="text-[#fff]">
+                        {t("admin.totalDocumentsVault")} ({totalDocuments})
+                    </p>
+                </div>}
+                <div className="flex justify-end mt-3 items-center">
+                    <div className="mt-5 mr-3">
+                        <button
+                            className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
+                            onClick={() => setModalOpen(true)}
+                        >
+                            <BsPlus size={25}/>
+                            {t("admin.documentsVault")}
+                        </button>
+                    </div>
+                </div>
+                {documents?.length
+                    ? (
+                        <div className="flex flex-wrap">
+                            <div className="container p-6">
+                                <div
+                                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                                    {documents?.map((elt, index) => (
+                                        <>
+                                            <DocumentCard
+                                                {...elt}
+                                                key={index}
+                                                isCreator={isCreator}
+                                                handleModalOpen={handleModalOpen}
+                                            />
+                                        </>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex justify-center items-center min-h-[58vh]">
+                            <img src={NoBlog} alt="no-blog" className="w-[200px] h-[200px]"/>
+                        </div>
+                    )
+                }
+                {totalPages !== currentPage && (
+                    <div className="flex justify-center mb-3">
+                        <button
+                            className="see-more-btn"
+                            onClick={() => setCurrentPage((prev) => prev + 1)}
+                        >
+                            {t("home.seeMore")}
+                        </button>
+                    </div>
+                )}
+            </div>
 
-    // const searchForums = async (term) => {
-    //     try {
-    //         const resp = await axiosClientWithHeaders.post(
-    //             "/forum/search-forums/1/",
-    //             {
-    //                 search_query: term,
-    //             }
-    //         );
-    //         setForums(resp.data.data);
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // };
-
-    // const updatePollApproval = async (approvalType, approvalId) => {
-    //     setLoading(true);
-    //     try {
-    //         await axiosClientWithHeaders.put(
-    //             `/super-admin/approve-disapprove-forum/${approvalId}/${selectedId}/`
-    //         );
-    //         setRefetch((prev) => !prev);
-    //         setLoading(false);
-    //         toast.success(`Forum ${approvalType} successfully`);
-    //         await new Promise((r) => setTimeout(r, 2000));
-    //         setModalOpen(false);
-    //     } catch (error) {
-    //         setLoading(false);
-    //         console.log(error);
-    //     }
-    // };
-
-    // const getCallbackAction = async (type, data) => {
-    //     if (type === "declinePoll") {
-    //         await declinePoll(data);
-    //     } else if (type === "approveForum") {
-    //         await updatePollApproval("approved", 1);
-    //     } else {
-    //         await updatePollApproval("disapproved", 0);
-    //     }
-    // };
-
-    // const handleSetData = (data) => {
-    //     if (modalState === "declinePoll") {
-    //         setDeclineComment({comments: data});
-    //     }
-    // };
-
-    // const debouncedSearch = debounce((term) => {
-    //     // Perform your search logic here
-    //     searchForums(term);
-    // }, 300); // Adjust the debounce delay as per your requirements
-    //
-    // useEffect(() => {
-    //     if (searchQuery.length) {
-    //         debouncedSearch(searchQuery);
-    //     }
-    // }, [searchQuery]);
-    //
-    // useEffect(() => {
-    //     getAllForums(forumType, true);
-    // }, [currentPage]);
-    //
+        )
+    }
     useEffect(() => {
         getAllDocuments();
     }, [refetch]);
 
     return (
         <>
-            <Layout>
-                <div className="admin-blog-page mx-3">
-                    <div className="p-8 mt-5 flex flex-col blog-header">
-                        <h1>{t("admin.documentsVault")}</h1>
-                        <p className="text-[#fff]">
-                            {t("admin.totalDocumentsVault")} ({totalDocuments})
-                        </p>
-                    </div>
-                    <div className="flex justify-end mt-3 items-center">
-                        <div className="mt-5 mr-3">
-                            <button
-                                className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
-                                onClick={() => setModalOpen(true)}
-                            >
-                                <BsPlus size={25}/>
-                                {t("admin.documentsVault")}
-                            </button>
-                        </div>
-                    </div>
-                    {documents?.length
-                        ? (
-                            <div className="flex flex-wrap">
-                                <div className="container p-6">
-                                    <div
-                                        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                                        {documents?.map((elt, index) => (
-                                            <>
-                                                <DocumentCard
-                                                    {...elt}
-                                                    key={index}
-                                                    handleModalOpen={handleModalOpen}
-                                                />
-                                            </>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="flex justify-center items-center min-h-[58vh]">
-                                <img src={NoBlog} alt="no-blog" className="w-[200px] h-[200px]"/>
-                            </div>
-                        )
-                    }
-                    {totalPages !== currentPage && (
-                        <div className="flex justify-center mb-3">
-                            <button
-                                className="see-more-btn"
-                                onClick={() => setCurrentPage((prev) => prev + 1)}
-                            >
-                                {t("home.seeMore")}
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </Layout>
+            {!isCreator
+                ? (
+                    <Layout>
+                        <PageContent></PageContent>
+                    </Layout>
+                ) : (
+                    <ContentCreatorLayout
+                        header={t("admin.documentsVault")}
+                        subChild={<>{t("admin.totalDocumentsVault")} ({totalDocuments})</>}
+                    >
+                        <PageContent></PageContent>
+                    </ContentCreatorLayout>
+                )
+            }
 
             <DocumentUploadModal
                 isOpen={modalOpen}
