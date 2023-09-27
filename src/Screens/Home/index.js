@@ -38,11 +38,11 @@ function HomePage() {
             try {
                 if (user?.tokens?.access) {
                     const resp = await axiosClientWithHeaders.get(
-                        "/users/approved-polls/"
+                        "/users/approved-polls/1/"
                     );
                     setPolls(resp.data.data);
                 } else {
-                    const resp = await axiosClient.get("/polls/all-approved-polls/");
+                    const resp = await axiosClient.get("/polls/all-approved-polls/1/");
                     setPolls(resp.data.data);
                 }
             } catch (err) {

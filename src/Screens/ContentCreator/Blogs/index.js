@@ -7,10 +7,9 @@ import ContentCreatorLayout from "../../../Components/ContentCreator/Layout";
 import EmptyImg from "../../../Assets/images/Empty-icon.jpg";
 import {axiosClientWithHeaders} from "../../../libs/axiosClient";
 import ContentCreatorBlogCard from "../../../Components/ContentCreator/BlogPost";
-import Modal from "../../../Components/Modal";
-
-import "./style.scss";
 import NoBlog from "../../../Assets/images/no-blog.png";
+import Modal from "../../../Components/Modal";
+import "./style.scss";
 
 function CreatorBlogs() {
     const [blogs, setBlogs] = useState([]);

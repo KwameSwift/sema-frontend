@@ -209,6 +209,22 @@ export const cleanMessageDate = (timestamp) => {
 
     return splittedDate[0];
 };
+
+const calculateTimeDifference = (messageDate, defaultFormat) => {
+    const hours = messageDate.getHours();
+    const minutes = messageDate.getMinutes();
+    if (defaultFormat) {
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12;
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${formattedHours}:${formattedMinutes} ${ampm}`;
+    } else {
+        const formattedHours = hours < 10 ? '0' + hours : hours;
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${formattedHours}:${formattedMinutes}`;
+    }
+}
+
 export const formatMessageTime = (timestamp, defaultFormat = true) => {
     if (timestamp) {
         const messageDate = new Date(cleanMessageDate(timestamp));
@@ -220,18 +236,7 @@ export const formatMessageTime = (timestamp, defaultFormat = true) => {
             messageDate.getMonth() === currentDate.getMonth() &&
             messageDate.getFullYear() === currentDate.getFullYear()
         ) {
-            const hours = messageDate.getHours();
-            const minutes = messageDate.getMinutes();
-            if (defaultFormat) {
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                const formattedHours = hours % 12 || 12;
-                const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-                return `${formattedHours}:${formattedMinutes} ${ampm}`;
-            } else {
-                const formattedHours = hours < 10 ? '0' + hours : hours;
-                const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-                return `${formattedHours}:${formattedMinutes}`;
-            }
+            calculateTimeDifference(messageDate, defaultFormat);
         } else {
             // Check if the message was sent yesterday
             const yesterday = new Date();

@@ -1,6 +1,6 @@
 import React from 'react'
 import {BiUserCircle} from 'react-icons/bi';
-import {BsBarChartFill, BsChatDots, BsGear, BsPencilSquare} from "react-icons/bs";
+import {BsBarChartFill, BsChatDots, BsFileLock2, BsGear, BsPencilSquare} from "react-icons/bs";
 import {FaEdit} from 'react-icons/fa';
 import {FiLock, FiLogOut} from 'react-icons/fi';
 
@@ -45,12 +45,12 @@ export const blogLinks = [
     //     route: "/admin/donations",
     //     icon: <BsFillHeartFill size={20} className="mr-2"/>,
     // },
-    // {
-    //     id: "documentVault",
-    //     name: "Documents Vault",
-    //     route: "/admin/document-vault",
-    //     icon: <BsFileLock2 size={20} className="mr-2"/>,
-    // },
+    {
+        id: "documentVault",
+        name: "Documents Vault",
+        route: "/admin/document-vault",
+        icon: <BsFileLock2 size={20} className="mr-2"/>,
+    },
 ];
 
 export const creatorBlogLinks = [
@@ -78,12 +78,12 @@ export const creatorBlogLinks = [
         route: "/creator/forums",
         icon: <BsChatDots size={20} className="mr-2"/>,
     },
-    // {
-    //     id: "documentVault",
-    //     name: "Documents Vault",
-    //     route: "/creator/document-vault",
-    //     icon: <BsFileLock2 size={20} className="mr-2"/>,
-    // },
+    {
+        id: "documentVault",
+        name: "Documents Vault",
+        route: "/creator/document-vault",
+        icon: <BsFileLock2 size={20} className="mr-2"/>,
+    },
 ];
 
 export const roleLinks = [

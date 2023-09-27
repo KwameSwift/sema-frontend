@@ -42,6 +42,7 @@ import AdminManageForumPage from "./Screens/Admin/Forums/components/ManageForum"
 import ForumsPage from "./Screens/Forum";
 import ForumPost from "./Screens/Forum/SingleForum/components/forumPost";
 import CreatorManageForumPage from "./Screens/ContentCreator/Forums/components/ManageForum";
+import AdminDocumentsVault from "./Screens/Admin/DocumentsVault";
 
 
 function App() {
@@ -81,6 +82,9 @@ function App() {
                 <Route path="/admin/forums/edit/:id" exact element={<AdminEditForumPage/>}/>
                 <Route path="/admin/forums/manage/:id" exact element={<AdminManageForumPage/>}/>
                 <Route path="/admin/forums/:id" exact element={<AdminViewForumPage/>}/>
+
+                {/* Document Vault */}
+                <Route path="/admin/document-vault" exact element={<AdminDocumentsVault/>}/>
 
                 {/* Profile */}
                 <Route path="/admin/profile" exact element={<AdminProfilePage/>}/>
