@@ -6,6 +6,7 @@ import PDFFile from "../Assets/images/pdf_image.png";
 import DocFile from "../Assets/images/docx_image.png";
 import OtherFile from "../Assets/images/other_image.png";
 import ExcelFile from "../Assets/images/xls-file.png";
+import PowerPointFile from "../Assets/images/ppt.png";
 
 const enTrans = enStrings;
 
@@ -284,6 +285,8 @@ export const returnFileFormat = (fileType) => {
         return DocFile;
     } else if (fileType === ".xlsx" || fileType === ".xls") {
         return ExcelFile;
+    } else if (fileType === ".ppt" || fileType === ".pptx") {
+        return PowerPointFile;
     } else {
         return OtherFile;
     }

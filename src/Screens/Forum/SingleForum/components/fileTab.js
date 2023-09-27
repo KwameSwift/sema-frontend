@@ -1,25 +1,12 @@
 import React, {useState} from "react";
 import FileUploadModal from "./fileModal";
-import PDFFile from "../../../../Assets/images/pdf_image.png";
-import DocFile from "../../../../Assets/images/docx_image.png";
-import OtherFile from "../../../../Assets/images/other_image.png";
 import SuggestionsSection from "./suggestionsSection";
 import NoFiles from "../../../../Assets/images/no-files.png";
 import {HiDownload} from "react-icons/hi";
-import {handleDownload} from "../../../../utils/helpers";
+import {handleDownload, returnFileFormat} from "../../../../utils/helpers";
 
 function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
-
-    const returnFileFormat = (fileType) => {
-        if (fileType === ".pdf") {
-            return PDFFile;
-        } else if (fileType === ".docx" || fileType === ".doc") {
-            return DocFile;
-        } else {
-            return OtherFile;
-        }
-    }
 
     return (
         <div className="forum-chats-page flex justify-between h-full">
@@ -39,7 +26,7 @@ function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch, is
                                                 <div className="p-3">
                                                     <div className="flex justify-between">
                                                         <p className="text-[12px] font-semibold whitespace-normal">
-                                                            {elt.file_name?.truncate(15)}
+                                                            {elt.file_name?.truncate(13)}
                                                         </p>
                                                         <div className="flex">
                                                             <span className="cursor-pointer"
