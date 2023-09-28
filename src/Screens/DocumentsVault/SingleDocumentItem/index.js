@@ -39,7 +39,10 @@ const DocumentItem = ({item}) => {
                 </div>
                 <p className="text-gray-700 text-sm mt-2 mb-2">{owner__organization}</p>
             </div>
-            <p className="text-gray-500 text-[12px] text-right">{formatDate(created_on)}</p>
+            <div className="flex justify-between mt-3">
+                <a href={file_url} className="underline text-[12px]">Link</a>
+                <p className="text-gray-500 text-[12px] text-right">{formatDate(created_on)}</p>
+            </div>
         </div>
     );
 };
