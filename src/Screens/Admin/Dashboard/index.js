@@ -10,8 +10,8 @@ import {useTranslation} from 'react-i18next';
 function DashboardPage() {
     const [users, setUsers] = useState(0);
     const [polls, setPolls] = useState(0);
-    const [blogs, setBlogs] = useState(0);
-    const [eventsForums, setEventsForums] = useState(0);
+    const [blogsForums, setBlogsForums] = useState(0);
+    const [dccumentVaults, setDocumentVault] = useState(0);
 
     const {t} = useTranslation();
 
@@ -25,8 +25,8 @@ function DashboardPage() {
         {
             cardFill: "#FC8A2B",
             icon: "BsBarChartFill",
-            title: "Blogs",
-            count: blogs,
+            title: "Blogs & Forums",
+            count: blogsForums,
         },
         {
             cardFill: "#FC8A2B",
@@ -36,10 +36,11 @@ function DashboardPage() {
         },
         {
             cardFill: "#FC8A2B",
-            icon: "BsCalendar2Event",
-            title: "Forums",
-            count: eventsForums,
+            icon: "BsFiles",
+            title: "Documents Vault",
+            count: dccumentVaults,
         },
+
     ]
 
     useEffect(() => {
@@ -47,10 +48,11 @@ function DashboardPage() {
             try {
                 const resp = await axiosClientWithHeaders.get('super-admin/system-statistics/');
                 const data = resp.data.data;
+                console.log(data);
                 setUsers(data.total_users);
                 setPolls(data.total_blogs);
-                setBlogs(data.total_polls);
-                setEventsForums(data.total_forums);
+                setBlogsForums(data.total_blogs_and_forums);
+                setDocumentVault(data.total_document_vault);
             } catch (err) {
                 console.log(err);
             }

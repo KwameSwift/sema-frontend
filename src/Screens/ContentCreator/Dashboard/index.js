@@ -31,6 +31,11 @@ function ContentCreatorDashboardPage() {
             count: statistics?.total_polls || 0,
             icon: "BsFillHeartFill",
         },
+        {
+            name: "Documents Vault",
+            count: statistics?.total_document_vault || 0,
+            icon: "BsFiles",
+        },
     ];
 
     useEffect(() => {
