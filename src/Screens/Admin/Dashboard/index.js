@@ -48,9 +48,8 @@ function DashboardPage() {
             try {
                 const resp = await axiosClientWithHeaders.get('super-admin/system-statistics/');
                 const data = resp.data.data;
-                console.log(data);
                 setUsers(data.total_users);
-                setPolls(data.total_blogs);
+                setPolls(data.total_polls);
                 setBlogsForums(data.total_blogs_and_forums);
                 setDocumentVault(data.total_document_vault);
             } catch (err) {

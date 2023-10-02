@@ -1,6 +1,7 @@
 import React from 'react';
 import {formatDate, imageExtensions, returnFileFormat} from "../../../../utils/helpers";
 import {BsCheckCircleFill, BsTrash} from "react-icons/bs";
+import {LiaDownloadSolid} from "react-icons/lia";
 
 const DocumentCard = (document) => {
     const {
@@ -23,7 +24,7 @@ const DocumentCard = (document) => {
                 <div>
                     {!isCreator && <div className="flex justify-between">
                         <div className="mr-2">
-                            <h2 className="text-[13px] font-bold mb-2">{file_name}</h2>
+                            <h2 className="text-[13px] font-bold mb-2">{file_name.truncate(15)}</h2>
                             <p className="text-gray-600 text-[13px] mb-2">{description}</p>
                         </div>
                         <div>
@@ -40,7 +41,7 @@ const DocumentCard = (document) => {
                     {isCreator
                         ? (
                             <>
-                                <h2 className="text-[13px] font-bold mb-2">{file_name}</h2>
+                                <h2 className="text-[13px] font-bold mb-2">{file_name.truncate(15)}</h2>
                                 <p className="text-gray-600 text-[13px] mb-2">{description}</p>
                             </>
                         )
@@ -60,7 +61,9 @@ const DocumentCard = (document) => {
                 </div>
                 <div className="flex justify-between items-center mt-2">
                     <p className="text-blue">
-                        <a href={file_url} className="text-[12px] underline" target="_blank" rel="noreferrer">Link</a>
+                        <a href={file_url} className="text-[12px] underline" target="_blank" rel="noreferrer">
+                            <LiaDownloadSolid size={15}/>
+                        </a>
                     </p>
                     <span className="text-[12px] text-gray-400">{formatDate(created_on, false)}</span>
                 </div>
