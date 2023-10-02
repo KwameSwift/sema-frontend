@@ -26,7 +26,6 @@ function FeedBlogPost(props) {
         e.stopPropagation();
         try {
             const resp = await axiosClientWithHeaders.put(`/blog/like-blog-post/${props.id}/`);
-            console.log(resp.data.liked_blogs);
             dispatch(setLikedBlogs(resp.data.liked_blogs));
             props.refetch(prev => !prev);
         } catch (e) {
