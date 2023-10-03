@@ -29,7 +29,7 @@ const DocumentItem = ({item}) => {
                     } alt={file_name}
                          className="mb-4 absolute top-0 left-0 w-full h-full object-contain"/>
                 </div>
-                <p className="text-gray-700 text-sm mt-3 mb-2">{description}</p>
+                <p className="text-gray-700 text-sm mt-3 mb-2 h-[20px]">{description?.truncate(20)}</p>
                 <div className="flex items-center">
                 <span className="text-gray-700 text-sm mb-2">
                     {owner__first_name} {owner__last_name}
