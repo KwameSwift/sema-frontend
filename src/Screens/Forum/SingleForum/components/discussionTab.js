@@ -6,11 +6,12 @@ import {MdOutlineEmojiEmotions} from "react-icons/md";
 import {BsSend} from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
+import {useTranslation} from "react-i18next";
 
 function DiscussionTab({suggestedForums, discussions, user, forumId, setRefetch, isMember}) {
-    console.log(isMember)
     const [toggleEmoji, setToggleEmoji] = useState(false);
     const [message, setMessage] = useState("");
+    const {t} = useTranslation();
 
     const handleEmojiClick = (item) => {
         setMessage(prev => prev + item.emoji);
@@ -42,7 +43,7 @@ function DiscussionTab({suggestedForums, discussions, user, forumId, setRefetch,
                             />
                             <input
                                 type="text"
-                                placeholder="Add Comment"
+                                placeholder={t('forum.addComment')}
                                 value={message}
                                 className="w-full h-[30px] border-0 outline-0"
                                 onChange={(e) => setMessage(e.target.value)}
@@ -76,7 +77,7 @@ function DiscussionTab({suggestedForums, discussions, user, forumId, setRefetch,
                     : (
                         <div className="flex justify-center items-center mt-3 w-full flex-col">
                             <img src={NoDiscussion} alt="No Chat rooms" width={120} height={120}/>
-                            <p className="mt-3 font-bold">No Discussions</p>
+                            <p className="mt-3 font-bold">{t("forum.no")} {t('forum.discussions')}</p>
                         </div>
                     )
                 }

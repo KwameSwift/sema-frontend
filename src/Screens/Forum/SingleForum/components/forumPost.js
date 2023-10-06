@@ -16,11 +16,13 @@ import DiscussionTab from "./discussionTab";
 import DefaultForumBanner from "../../../../Assets/images/default-forum-banner.png";
 import "./style.scss";
 import PollsTab from "./polls";
+import {useTranslation} from "react-i18next";
 
 
 function ForumPost() {
     // const navigate = useNavigate();
     const {id} = useParams();
+    const {t} = useTranslation();
     const [forum, setForum] = useState({});
     const [key, setKey] = useState("discussion");
     const [refetch, setRefetch] = useState(false);
@@ -92,14 +94,19 @@ function ForumPost() {
                 <div>
                     <h2 className="topic">{forum.topic}</h2>
                     <p className="flex items-center forum-info">
-                        {forum?.is_public ? "Public" : "Private"}
+                        {forum?.is_public ? t("home.public") : t("home.private")}
                         <GoDot size={8} className="ml-1"/>
-                        <span>{forum?.total_members} member{forum?.total_members > 1 && 's'}</span>
+                        <span>
+                            {forum?.total_members} {" "}
+                            {t("members".getPlural(forum?.total_members?.length).getTranslationKey())}
+                        </span>
                     </p>
                 </div>
                 <div className="flex items-center">
                     <button className="act-btn"
-                            onClick={() => leaveOrJoinForum()}>{forum?.is_member ? "Leave" : "Join"}</button>
+                            onClick={() => leaveOrJoinForum()}>
+                        {forum?.is_member ? t('forum.leave') : t('forum.join')}
+                    </button>
                 </div>
             </div>
             <div className="tabs">
@@ -108,7 +115,7 @@ function ForumPost() {
                     activeKey={key}
                     onSelect={handleSelect}
                 >
-                    <Tab eventKey="discussion" title="Discussion">
+                    <Tab eventKey="discussion" title={t('forum.discussions')}>
                         <DiscussionTab
                             suggestedForums={forum?.suggested_forums}
                             user={user}
@@ -118,7 +125,7 @@ function ForumPost() {
                             setRefetch={fetchDiscussion}
                         />
                     </Tab>
-                    <Tab eventKey="chats" title="Chats">
+                    <Tab eventKey="chats" title={t('forum.chats')}>
                         <ChatsTab
                             chatRooms={forum?.chat_rooms}
                             user={user}
@@ -128,7 +135,7 @@ function ForumPost() {
                             suggestedForums={forum?.suggested_forums}
                         />
                     </Tab>
-                    <Tab eventKey="media" title="Media">
+                    <Tab eventKey="media" title={t('forum.media')}>
                         <MediaTab
                             files={forum?.media_files}
                             forumId={id}
@@ -139,7 +146,7 @@ function ForumPost() {
                             setRefetch={setRefetch}
                         />
                     </Tab>
-                    <Tab eventKey="files" title="Files">
+                    <Tab eventKey="files" title={t('forum.files')}>
                         <FileTab
                             files={forum?.files}
                             forumId={id}
@@ -150,7 +157,7 @@ function ForumPost() {
                             setRefetch={setRefetch}
                         />
                     </Tab>
-                    <Tab eventKey="virtualMeetings" title="Virtual Meetings">
+                    <Tab eventKey="virtualMeetings" title={t('forum.virtualMeetings')}>
                         <VirtualMeetingsTab
                             virtualMeetings={forum?.virtual_meetings}
                             forumId={id}
@@ -160,7 +167,7 @@ function ForumPost() {
                             user={user}
                         />
                     </Tab>
-                    <Tab eventKey="polls" title="Polls">
+                    <Tab eventKey="polls" title={t('admin.polls')}>
                         <PollsTab
                             forumId={id}
                             refetch={setRefetch}
@@ -169,7 +176,7 @@ function ForumPost() {
                             user={user}
                         />
                     </Tab>
-                    <Tab eventKey="members" title="Members" className="members-tab">
+                    <Tab eventKey="members" title={String(t('feed.members')).titleWord()} className="members-tab">
                         <MembersTab
                             members={forum?.members}
                             forumId={id}
@@ -179,7 +186,7 @@ function ForumPost() {
                             isMember={forum?.is_member}
                         />
                     </Tab>
-                    <Tab eventKey="about" title="About">
+                    <Tab eventKey="about" title={t('forum.about')}>
                         <AboutTab
                             about={forum?.description}
                             forumId={id}

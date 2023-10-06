@@ -4,11 +4,14 @@ import SuggestionsSection from "./suggestionsSection";
 import NoMeetings from "../../../../Assets/images/no-meetings.png";
 import RegisterMeetingFormModal from "./registerMeetingModal";
 import {BsPersonFill} from "react-icons/bs";
+import {useTranslation} from "react-i18next";
 
 function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums, user, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
     const [meetingId, setMeetingId] = useState(null);
+
+    const {t} = useTranslation();
 
     const handleRegisterModal = (id) => {
         setMeetingId(id);
@@ -34,26 +37,26 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
                                                         <div className="px-6 pt-4">
                                                             <h2 className="text-[14px] font-semibold mb-2">{elt.meeting_agenda}</h2>
                                                             <p className="text-gray-600 text-[13px] mb-4">
-                                                                Scheduled Start
-                                                                Time: {new Date(elt.scheduled_start_time).toLocaleString()}
+                                                                {t('forum.scheduledStartTime')}: {" "}
+                                                                {new Date(elt.scheduled_start_time).toLocaleString()}
                                                             </p>
                                                             <p className="text-gray-600 text-[13px] mb-4">
-                                                                Scheduled End
-                                                                Time: {new Date(elt.scheduled_end_time).toLocaleString()}
+                                                                {t('forum.scheduledEndTime')}: {" "}
+                                                                {new Date(elt.scheduled_end_time).toLocaleString()}
                                                             </p>
                                                             <p className="text-gray-600 text-[13px] mb-1">
-                                                                Meeting Link
+                                                                {t('forum.meetingLink')}
                                                             </p>
                                                             <a href={elt?.meeting_url}
                                                                className="mt-2 mb-3 text-[12px] text-[#0000FF] underline">
-                                                                {elt?.meeting_url}
+                                                                {t('forum.link')}
                                                             </a>
 
                                                             {!elt?.is_registered && <button
                                                                 onClick={() => handleRegisterModal(elt.id)}
                                                                 className="text-blue-500 underline text-[13px]"
                                                             >
-                                                                Register
+                                                                {t('forum.register')}
                                                             </button>
                                                             }
                                                         </div>
@@ -70,7 +73,9 @@ function VirtualMeetingsTab({virtualMeetings, forumId, refetch, suggestedForums,
                             ) : (
                                 <div className="flex justify-center items-center h-full w-full flex-col">
                                     <img src={NoMeetings} alt="No Chat rooms" width={90} height={20}/>
-                                    <p className="mt-3 font-bold">No virtual meetings</p>
+                                    <p className="mt-3 font-bold">
+                                        {t("forum.no")} {t('forum.virtualMeetings')}
+                                    </p>
                                 </div>
                             )
                         }

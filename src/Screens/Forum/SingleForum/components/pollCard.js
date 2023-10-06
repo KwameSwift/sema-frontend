@@ -5,6 +5,7 @@ import {ClipLoader} from "react-spinners";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import {GoDotFill} from "react-icons/go";
 import {LuVote} from "react-icons/lu";
+import {useTranslation} from "react-i18next";
 
 const endedPollResult = (data, choice) => {
     return (
@@ -32,6 +33,7 @@ const endedPollResult = (data, choice) => {
 function ForumPollCard(props) {
     const [selectedId, setSelectedId] = useState(null);
     const [loading, setLoading] = useState(false);
+    const {t} = useTranslation();
 
     // const cancelSelection = () => {
     //     setSelectedID("");
@@ -106,7 +108,8 @@ function ForumPollCard(props) {
                         <p className="font-bold text-[14px]">{props.question}</p>
                         <div className="flex items-center forum-type">
                             <GoDotFill fill="#3e6d9c"/>
-                            <span className="text-[12px]">{!props?.is_ended ? "In progress" : "Ended"}</span>
+                            <span className="text-[12px]">
+                                {!props?.is_ended ? t('forum.inProgress') : t('forum.ended')}</span>
                         </div>
                     </div>
                 </div>

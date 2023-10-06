@@ -9,10 +9,12 @@ import OtherFile from "../../../../Assets/images/other_image.png";
 import {axiosClientForm} from "../../../../libs/axiosClient";
 import EmojiPicker from "emoji-picker-react";
 import ExcelFile from "../../../../Assets/images/xls-file.png";
+import {useTranslation} from "react-i18next";
 
 function AttachmentModal(props) {
     const [message, setMessage] = useState("");
     const [toggleEmoji, setToggleEmoji] = useState(false);
+    const {t} = useTranslation();
 
     const sendFormMessage = async () => {
         const formData = new FormData();
@@ -59,7 +61,9 @@ function AttachmentModal(props) {
                         className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
                         <div className="modal-content p-4">
                             <div className="flex justify-between">
-                                <h3 className="font-bold">Send Files</h3>
+                                <h3 className="font-bold">
+                                    {t('feed.send')} {t('forum.files')}
+                                </h3>
                                 <LiaTimesSolid size={20} className="cursor-pointer"
                                                onClick={() => props?.setIsOpen(false)}/>
                             </div>
@@ -77,7 +81,7 @@ function AttachmentModal(props) {
                                     />
                                     <input
                                         type="text"
-                                        placeholder="Send message"
+                                        placeholder={t('forum.sendMessage')}
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
                                     />

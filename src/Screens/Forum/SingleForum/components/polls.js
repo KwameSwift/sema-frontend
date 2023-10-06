@@ -4,12 +4,16 @@ import SuggestionsSection from "./suggestionsSection";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import Pagination from "../../../../Components/Common/Pagination";
 import ForumPollCard from "./pollCard";
+import {useTranslation} from "react-i18next";
 
 function PollsTab({user, forumId, suggestedForums, isMember}) {
     const [polls, setPolls] = useState([]);
     const [refetch, setRefetch] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+
+    const {t} = useTranslation();
+
 
     const returnPolls = () => {
         if (user?.tokens?.access && polls?.length && isMember) {
@@ -20,7 +24,9 @@ function PollsTab({user, forumId, suggestedForums, isMember}) {
             return (
                 <div className="flex justify-center items-center w-full flex-col">
                     <img src={NoPolls} alt="No Chat rooms" width={90} height={20}/>
-                    <p className="mt-3 font-bold">No Polls</p>
+                    <p className="mt-3 font-bold">
+                        {t("forum.no")} {t('admin.polls')}
+                    </p>
                 </div>
             )
         }

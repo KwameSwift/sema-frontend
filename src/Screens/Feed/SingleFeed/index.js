@@ -11,6 +11,7 @@ import {calculateTime} from "../../../utils/helpers";
 import BlogPost from "./components/blogPost";
 
 import "./style.scss";
+import {useTranslation} from "react-i18next";
 
 function SinglePost() {
     const {id} = useParams();
@@ -20,6 +21,7 @@ function SinglePost() {
     const [blogs, setBlogs] = useState([]);
 
     const user = useSelector((store) => store.user);
+    const {t} = useTranslation();
 
     const getSingleBlog = async () => {
         try {
@@ -150,7 +152,7 @@ function SinglePost() {
                     <div className="mx-[10%] comment-sect">
                         <div className="element">
                             <div className="left-bar"></div>
-                            <div className="text">Other Blogs</div>
+                            <div className="text">{t('feed.otherBlogs')}</div>
                             <div className="right-bar"></div>
                         </div>
                     </div>
@@ -167,7 +169,7 @@ function SinglePost() {
                     <div className="comment-sect">
                         <div className="element">
                             <div className="left-bar"></div>
-                            <div className="text">{blog.total_comments} Comments</div>
+                            <div className="text">{blog.total_comments} {t('feed.comments')}</div>
                             <div className="right-bar"></div>
                         </div>
                     </div>
@@ -210,15 +212,15 @@ function SinglePost() {
                     <div className="comment-sect">
                         <div className="element">
                             <div className="left-bar"></div>
-                            <div className="text">Leave a comment</div>
+                            <div className="text">{t('feed.leaveComment')}</div>
                             <div className="right-bar"></div>
                         </div>
                     </div>
                     <div className="flex flex-col mt-8">
-                        <label className="text-[16px]">Comment</label>
+                        <label className="text-[16px]">{t('feed.comment')}</label>
                         <textarea
                             value={comment}
-                            placeholder="Leave a comment"
+                            placeholder={t('feed.leaveComment')}
                             onChange={(e) => setComment(e.target.value)}
                             className="mt-3 leave-comment border border-gray-700"
                             rows={4}
@@ -230,7 +232,7 @@ function SinglePost() {
                             type="button"
                             className="bg-[#e14d2a] text-[#fff] py-1 px-3"
                         >
-                            Send
+                            {t('feed.send')}
                         </button>
                     </div>
                 </div>

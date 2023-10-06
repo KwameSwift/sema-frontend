@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import "./style.scss";
 import Pagination from "../../Components/Common/Pagination";
 import Footer from "../../Components/Common/Footer";
+import {useTranslation} from "react-i18next";
 
 function BlogsPage() {
     const [feed, setFeed] = useState([]);
@@ -17,6 +18,7 @@ function BlogsPage() {
     const user = useSelector((store) => store.user);
 
     const elementRef = useRef(null);
+    const {t} = useTranslation();
 
     const getAllFeed = async (page = 1) => {
         try {
@@ -76,15 +78,18 @@ function BlogsPage() {
                     <aside>
                         <div className="pt-10 sidebar-menu">
                             <ul>
-                                <li>Menu</li>
+                                <li>{t('feed.menu')}</li>
                                 <li className={category === "All" && "selected"}
-                                    onClick={() => setCategory("All")}>All
+                                    onClick={() => setCategory("All")}>
+                                    {t("admin.all")}
                                 </li>
                                 <li className={category === "Blogs" && "selected"}
-                                    onClick={() => setCategory("Blogs")}>Blogs
+                                    onClick={() => setCategory("Blogs")}>
+                                    {t("admin.blogs")}
                                 </li>
                                 <li className={category === "Polls" && "selected"}
-                                    onClick={() => setCategory("Polls")}>Polls
+                                    onClick={() => setCategory("Polls")}>
+                                    {t("admin.polls")}
                                 </li>
                             </ul>
                         </div>

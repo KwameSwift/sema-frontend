@@ -2,7 +2,6 @@ import React from "react";
 import {BsPersonCircle} from "react-icons/bs";
 
 function ChatCard({setSelectedChat, ...props}) {
-
     return (
         <div className="chat-card bg-white pt-3 pb-2 p-3 flex flex-row justify-between cursor-pointer"
              onClick={() => setSelectedChat(props)}>

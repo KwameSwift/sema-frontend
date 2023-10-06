@@ -312,3 +312,11 @@ String.prototype.truncate = function (n) {
 String.prototype.getTranslationKey = function () {
     return getTransString(this);
 }
+
+String.prototype.getPlural = function (count, plural = '') {
+    return count > 1 ? plural || `${this}s` : this;
+}
+
+String.prototype.titleWord = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}

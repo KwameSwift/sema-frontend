@@ -4,9 +4,12 @@ import SuggestionsSection from "./suggestionsSection";
 import NoFiles from "../../../../Assets/images/no-files.png";
 import {HiDownload} from "react-icons/hi";
 import {handleDownload, returnFileFormat} from "../../../../utils/helpers";
+import {useTranslation} from "react-i18next";
 
 function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
+    const {t} = useTranslation();
+
 
     return (
         <div className="forum-chats-page flex justify-between h-full">
@@ -45,7 +48,9 @@ function FileTab({files, forumId, refetch, suggestedForums, user, setRefetch, is
                         ) : (
                             <div className="flex justify-center items-center h-full w-full flex-col">
                                 <img src={NoFiles} alt="No Chat rooms" width={90} height={20}/>
-                                <p className="mt-3 font-bold">No Files</p>
+                                <p className="mt-3 font-bold">
+                                    {t("forum.no")} {t('forum.files')}
+                                </p>
                             </div>
                         )}
                 </div>

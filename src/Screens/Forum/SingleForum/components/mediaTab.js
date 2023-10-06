@@ -4,9 +4,12 @@ import NoMedia from "../../../../Assets/images/no-media.png";
 import SuggestionsSection from "./suggestionsSection";
 import {handleDownload} from "../../../../utils/helpers";
 import {HiDownload} from "react-icons/hi";
+import {useTranslation} from "react-i18next";
 
 function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
+    const {t} = useTranslation();
+
 
     return (
         <>
@@ -48,7 +51,9 @@ function MediaTab({files, forumId, refetch, user, suggestedForums, setRefetch, i
                             ) : (
                                 <div className="flex justify-center items-center h-full w-full flex-col">
                                     <img src={NoMedia} alt="No Chat rooms" width={90} height={20}/>
-                                    <p className="mt-3 font-bold">No Media</p>
+                                    <p className="mt-3 font-bold">
+                                        {t("forum.no")} {t('forum.media')}
+                                    </p>
                                 </div>
                             )
                         }

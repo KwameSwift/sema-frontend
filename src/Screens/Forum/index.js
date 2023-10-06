@@ -79,15 +79,18 @@ function ForumsPage() {
                     <aside>
                         <div className="pt-10 sidebar-menu">
                             <ul>
-                                <li>Menu</li>
+                                <li>{t("feed.menu")}</li>
                                 <li className={forumType === 1 && "selected"}
-                                    onClick={() => setForumType(1)}>All
+                                    onClick={() => setForumType(1)}>
+                                    {t("admin.all")}
                                 </li>
                                 <li className={forumType === 2 && "selected"}
-                                    onClick={() => setForumType(2)}>Public
+                                    onClick={() => setForumType(2)}>
+                                    {t("home.public")}
                                 </li>
                                 <li className={forumType === 3 && "selected"}
-                                    onClick={() => setForumType(3)}>Private
+                                    onClick={() => setForumType(3)}>
+                                    {t("home.private")}
                                 </li>
                             </ul>
                         </div>

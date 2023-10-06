@@ -5,11 +5,14 @@ import {toast} from "react-toastify";
 import SingleChat from "./singleChat";
 import NoChatRooms from "../../../../Assets/images/no-chats.png";
 import SuggestionsSection from "./suggestionsSection";
+import {useTranslation} from "react-i18next";
 
 function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, isMember}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isChatOpened, setIsChatOpened] = useState(false);
     const [selectedChat, setSelectedChat] = useState({});
+
+    const {t} = useTranslation();
 
     const setStatus = (status) => {
         if (status === "Completed") {
@@ -31,7 +34,9 @@ function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, isMemb
             return (
                 <div className="flex justify-center items-center w-full h-full flex-col">
                     <img src={NoChatRooms} alt="No Chat rooms" width={90} height={20}/>
-                    <p className="mt-3 font-bold">No Chat Rooms</p>
+                    <p className="mt-3 font-bold">
+                        {t("forum.no")} {t('forum.chats')}
+                    </p>
                 </div>
             )
         }

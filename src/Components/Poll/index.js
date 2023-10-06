@@ -8,6 +8,7 @@ import {formatDate} from "../../utils/helpers";
 import {axiosClient, axiosClientWithHeaders} from "../../libs/axiosClient";
 import "./style.scss";
 import {BsCheckCircleFill} from "react-icons/bs";
+import {useTranslation} from "react-i18next";
 
 
 const endedPollResult = (data) => {
@@ -37,6 +38,8 @@ function PollCard(props) {
     const [loading, setLoading] = useState(false);
     const [openComments, setOpenComments] = useState(false);
     const [comments, setComments] = useState(props.voter_comments);
+
+    const {t} = useTranslation();
 
     const progress = () => {
         return <ClipLoader size={15} color={loading ? "#fff" : ""}/>;
@@ -234,12 +237,12 @@ function PollCard(props) {
                                     </div>
                                 )}
                                 <span onClick={() => setShowChoices((prev) => !prev)}>
-                                    {getToggleText("Hide")}
+                                    {t(getToggleText("Hide").getTranslationKey())}
                                 </span>
                             </>
                         ) : (
                             <span onClick={() => setShowChoices((prev) => !prev)}>
-                                {getToggleText("View")}
+                                {t(getToggleText("View").getTranslationKey())}
                             </span>
                         )
                     }
@@ -250,7 +253,7 @@ function PollCard(props) {
                         props.is_ended ? "text-[#e14d2a]" : "text-gray-400"
                     }`}
                 >
-                    {props?.is_ended ? "Poll ended" : "Poll in progress"}
+                    {props?.is_ended ? t("home.pollEnded") : t("home.pollInProgress")}
                 </p>
                 <div className="flex items-center justify-between">
                     <div className="flex justify-between items-center">
@@ -263,7 +266,7 @@ function PollCard(props) {
                         </div>
                     </div>
                     <div>
-                        <span>{props.total_votes} Votes</span>
+                        <span>{props.total_votes} {t("home.votes")}</span>
                     </div>
                 </div>
             </div>

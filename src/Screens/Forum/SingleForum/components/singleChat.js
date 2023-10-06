@@ -7,6 +7,7 @@ import {formatMessageTime, returnFileFormat} from "../../../../utils/helpers";
 import EmojiPicker from "emoji-picker-react";
 import {GrAttachment} from "react-icons/gr";
 import AttachmentModal from "./attachmentModal";
+import {useTranslation} from "react-i18next";
 
 function SingleChat(props) {
     const [chat, setChat] = useState({});
@@ -19,6 +20,8 @@ function SingleChat(props) {
     const firstRunRef = useRef(true);
     const chatBodyRef = useRef(null);
     const filesRef = useRef(null);
+
+    const {t} = useTranslation();
 
     const getSingleChat = async () => {
         try {
@@ -116,7 +119,10 @@ function SingleChat(props) {
             <div className="chat-head">
                 <div>
                     <h3>{chat?.room_name}</h3>
-                    <p>{chat?.total_members} members</p>
+                    <p>
+                        {chat?.total_members} {" "}
+                        {t("member".getPlural(chat?.total_members).getTranslationKey())}
+                    </p>
                 </div>
                 <div>
                     <LiaTimesSolid
@@ -156,7 +162,7 @@ function SingleChat(props) {
                         />
                         <input
                             type="text"
-                            placeholder="Send message"
+                            placeholder={t('forum.sendMessage')}
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                         />
