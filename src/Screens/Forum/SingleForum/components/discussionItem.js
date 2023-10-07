@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {AiOutlineLike, AiTwotoneLike} from "react-icons/ai";
-import {formatDate, formatMessageTime, getTransString} from "../../../../utils/helpers";
+import {formatDate, getTransString} from "../../../../utils/helpers";
 import {axiosClientWithHeaders} from "../../../../libs/axiosClient";
 import {useDispatch} from "react-redux";
 import {setLikedDiscussions} from "../../../../Redux/slices/userSlice";
@@ -13,6 +13,8 @@ const DiscussionItem = ({discussion, user, refetch}) => {
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {t} = useTranslation();
+
+    console.log(discussion);
 
     const likeComment = async () => {
         try {
@@ -58,7 +60,7 @@ const DiscussionItem = ({discussion, user, refetch}) => {
                                 <div className="text-[13px] text-gray-500">Forum Admin</div>
                             )}
                         </div>
-                        {discussion.is_forum_admin &&
+                        {(discussion.is_forum_admin || discussion.commentor__user_key === user.user.user_key) &&
                             <div><BsTrash fill="#e14d2a" className="cursor-pointer" onClick={toggleModal}/></div>}
                     </div>
                 </div>
@@ -73,7 +75,7 @@ const DiscussionItem = ({discussion, user, refetch}) => {
                         }{discussion.total_likes}
                     </div>
                     <div className="text-gray-500 text-[12px]">
-                        {formatDate(discussion.created_on)}, {formatMessageTime(discussion.created_on, false)}
+                        {formatDate(discussion.created_on)}
                     </div>
                 </div>
             </div>

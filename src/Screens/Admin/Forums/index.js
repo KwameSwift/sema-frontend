@@ -172,7 +172,7 @@ function AdminForumsPage() {
                                     <option value={0}>{t("admin.all")}</option>
                                     <option value={1}>{t("admin.approved")}</option>
                                     <option value={2}>{t("admin.unApproved")}</option>
-                                    <option value={3}>Declined</option>
+                                    <option value={3}>{t('admin.declined')}</option>
                                 </select>
                             </div>
                         </div>

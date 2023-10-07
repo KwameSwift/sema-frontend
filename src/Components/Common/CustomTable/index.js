@@ -3,6 +3,7 @@ import {BsChevronLeft, BsChevronRight, BsThreeDotsVertical} from "react-icons/bs
 import {useNavigate} from "react-router-dom";
 import "./style.scss";
 import {convertToSnakeCase} from "../../../utils/helpers";
+import {useTranslation} from "react-i18next";
 
 function CustomTable({
                          dropItems,
@@ -19,6 +20,7 @@ function CustomTable({
                      }) {
     const [openDropdownIndex, setOpenDropdownIndex] = useState(-1);
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -74,7 +76,7 @@ function CustomTable({
                 <tr>
                     {headers.map((elt, index) => (
                         <th className="py-2 px-2 border-b text-left" key={index}>
-                            {elt}
+                            {t(elt.getTranslationKey()).titleWord()}
                         </th>
                     ))}
                 </tr>

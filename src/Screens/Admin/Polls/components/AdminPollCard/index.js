@@ -6,6 +6,7 @@ import Avatar from "../../../../../Assets/images/no-profile-img.webp";
 import "./style.scss";
 import {formatDate} from "../../../../../utils/helpers";
 import {FaTimes} from "react-icons/fa";
+import {useTranslation} from "react-i18next";
 
 
 function AdminPollCard(props) {
@@ -13,9 +14,15 @@ function AdminPollCard(props) {
     const [showChoices, setShowChoices] = useState(false);
     const modalType = props.is_approved ? "Unapprove" : "Approve";
 
+    const {t} = useTranslation();
+
     let dropItems = [
-        {id: "view", name: "View", route: `/admin/polls/${props.id}`},
-        {id: "status", name: modalType, modalType: props.is_approved ? "unapprovePoll" : "approvePoll"},
+        {id: "view", name: t('admin.view'), route: `/admin/polls/${props.id}`},
+        {
+            id: "status",
+            name: t(modalType.getTranslationKey()),
+            modalType: props.is_approved ? "unapprovePoll" : "approvePoll"
+        },
     ];
 
     if (props.is_owner) {
@@ -121,7 +128,7 @@ function AdminPollCard(props) {
                 )}
             </div>
             {props.snapshot_location && (
-                <div className="document-img flex justify-center items-center">
+                <div className="document-img my-2 flex justify-center items-center">
                     <img src={props?.snapshot_location} alt="" className="w-[100%] h-[250px]"/>
                 </div>
             )}
@@ -130,11 +137,11 @@ function AdminPollCard(props) {
                 {showChoices
                     ? (
                         <span onClick={() => setShowChoices((prev) => !prev)}>
-                            {getToggleText("Hide")}
+                            {t(getToggleText("Hide").getTranslationKey())}
                          </span>
                     ) : (
                         <span onClick={() => setShowChoices((prev) => !prev)}>
-                                {getToggleText("View")}
+                                {t(getToggleText("View").getTranslationKey())}
                             </span>
                     )
                 }
@@ -146,15 +153,17 @@ function AdminPollCard(props) {
                     <div className="flex justify-between items-center">
                         <div className="flex mt-3 items-center justify-between">
                             <div className="flex flex-col">
-                                <span className="text-[13px]">Approved: {formatDate(props.approved_on)}</span>
                                 <span
-                                    className="text-[13px]">By: {props.approved_by__first_name} {props.approved_by__last_name}</span>
+                                    className="text-[13px]">{t('admin.approved')}: {formatDate(props.approved_on)}</span>
+                                <span
+                                    className="text-[13px]">{t('admin.by')}: {props.approved_by__first_name} {props.approved_by__last_name}</span>
                             </div>
                         </div>
                         <div>
                             {props.is_ended
-                                ? <span className="text-[#e14d2a] text-[14px] cursor-default">Closed</span>
-                                : <span className="text-[green] text-[14px] cursor-default">In progress</span>
+                                ? <span className="text-[#e14d2a] text-[14px] cursor-default">{t('feed.ended')}</span>
+                                :
+                                <span className="text-[green] text-[14px] cursor-default">{t('feed.inProgress')}</span>
                             }
                         </div>
                     </div>

@@ -28,7 +28,12 @@ function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, isMemb
     const returnChatMessages = () => {
         if (user?.tokens?.access && chatRooms?.length && isMember) {
             return chatRooms?.map((elt, index) =>
-                <ChatCard {...elt} key={index} setSelectedChat={handleChatOpen}/>
+                <ChatCard
+                    {...elt}
+                    key={index}
+                    setSelectedChat={handleChatOpen}
+                    setRefetch={setRefetch}
+                />
             )
         } else {
             return (

@@ -12,10 +12,12 @@ import SocialLoginButtons from "../../../Components/SocialLoginButtons";
 import logo from "../../../Assets/images/logo-small.png"
 
 import "../style.scss";
+import {useTranslation} from "react-i18next";
 
 function LoginPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const [state, setState] = useState({});
     const [btnDisabled, setBtnDisabled] = useState(false);
@@ -92,17 +94,19 @@ function LoginPage() {
                         <h1 className='company-header'>SEMA</h1>
                     </div>
                     <div className="head-sect">
-                        <h1 className="mb-2">Login to your account</h1>
+                        <h1 className="mb-2">{t('auth.loginIntoAccount')}</h1>
                         <SocialLoginButtons/>
                         <p>
-                            Don&apos;t have an account?
-                            <span onClick={() => navigate("/register")}>Sign up!</span>
+                            {t('auth.dontHaveAccount')}
+                            <span onClick={() => navigate("/register")}>
+                                {t('navbar.signup')}!
+                            </span>
                         </p>
                     </div>
                     <div className="input-group">
                         <UnBorderedInput
                             type="email"
-                            placeholder="Email Address"
+                            placeholder={t('auth.emailAddress')}
                             iconName="BsMailbox"
                             onChange={handleChange}
                             name="email"
@@ -110,7 +114,7 @@ function LoginPage() {
                         />
                         {userType !== "Guest" && <UnBorderedInput
                             type="password"
-                            placeholder="Password"
+                            placeholder={t('auth.password')}
                             iconName="BsKey"
                             name="password"
                             onChange={handleChange}
@@ -124,7 +128,7 @@ function LoginPage() {
                                 }`}
                                 onClick={() => changeUserType("Guest")}
                             >
-                                Guest
+                                {t('auth.guest')}
                             </div>
                             <div
                                 className={`type-item ${
@@ -132,16 +136,16 @@ function LoginPage() {
                                 }`}
                                 onClick={() => changeUserType("Content Creator")}
                             >
-                                Content Creator
+                                {t('auth.contentCreator')}
                             </div>
                         </div>
                     </div>
                     <div className="other-input-group">
             <span>
-              <input type="checkbox"/> Remember me
+              <input type="checkbox"/> {t('auth.rememberMe')}
             </span>
                         <span onClick={() => navigate("/forgot-password")}>
-              Forgot Password?
+              {t('auth.forgotPassword')}?
             </span>
                     </div>
                     <div className="submit-btn">
@@ -150,7 +154,7 @@ function LoginPage() {
                             onClick={handleLogin}
                             loading={loading}
                             disabled={loading || btnDisabled}
-                            text="Login"
+                            text={t('navbar.login')}
                         />
                     </div>
                 </div>

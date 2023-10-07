@@ -9,6 +9,7 @@ import Layout from "../../../../../Components/Dashboard/Layout";
 import {formatDate} from "../../../../../utils/helpers";
 import {BsArrowLeft} from "react-icons/bs";
 import {useNavigate} from "react-router";
+import {useTranslation} from "react-i18next";
 
 ChartJS.register(
     CategoryScale,
@@ -23,6 +24,7 @@ export default function AdminViewPoll() {
     const [datasets, setDatasets] = useState([]);
 
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const createDataset = (data) => {
         return {
@@ -95,31 +97,33 @@ export default function AdminViewPoll() {
 
     return (
         <Layout>
-            <div className="p-8 mt-3 flex flex-row blog-header">
-                <div className="mr-3 flex items-start justify-center cursor-pointer">
-                    <BsArrowLeft fill="#fff" size={28} onClick={() => navigate(-1)}/>
+            <div className="mx-4 mb-3">
+                <div className="p-8 mt-3 flex flex-row blog-header">
+                    <div className="mr-3 flex items-start justify-center cursor-pointer">
+                        <BsArrowLeft fill="#fff" size={28} onClick={() => navigate(-1)}/>
+                    </div>
+                    <div>
+                        <h1>{poll?.question}</h1>
+                        <p className="text-white mt-3">{formatDate(poll?.start_date)} - {formatDate(poll?.end_date)}</p>
+                    </div>
+                </div>
+                <h1 className="mt-3">{t('admin.result')}</h1>
+                <div className="mt-3 flex justify-center p-4 bg-[#fff] bar-chart">
+                    <Bar options={options} data={data}/>
                 </div>
                 <div>
-                    <h1>{poll?.question}</h1>
-                    <p className="text-white mt-3">{formatDate(poll?.start_date)} - {formatDate(poll?.end_date)}</p>
+                    <h1 className="mt-5 mb-3">{t('feed.comments')}</h1>
+                    <CustomTable
+                        totalPages={1}
+                        data={poll?.poll_votes || []}
+                        headers={["Name", "Choice", "Comment"]}
+                        idType={"user_key"}
+                        currentPage={1}
+                        isEditable={false}
+                        isPaginated={false}
+                        headerValues={["voter__first_name", "poll_choice__choice", "comments"]}
+                    />
                 </div>
-            </div>
-            <h1 className="mt-3">Result</h1>
-            <div className="mt-3 flex justify-center p-4 bg-[#fff] bar-chart">
-                <Bar options={options} data={data}/>
-            </div>
-            <div>
-                <h1 className="mt-5 mb-3">Comments</h1>
-                <CustomTable
-                    totalPages={1}
-                    data={poll?.poll_votes || []}
-                    headers={["Name", "Choice", "Comment"]}
-                    idType={"user_key"}
-                    currentPage={1}
-                    isEditable={false}
-                    isPaginated={false}
-                    headerValues={["voter__first_name", "poll_choice__choice", "comments"]}
-                />
             </div>
         </Layout>
     )

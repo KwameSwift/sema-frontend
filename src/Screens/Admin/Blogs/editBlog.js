@@ -165,22 +165,6 @@ function EditAdminBlogPage() {
         );
     };
 
-    // const handleImageUpload = async (file) => {
-    //   const formData = new FormData();
-    //   formData.append('image', file);
-
-    //   try {
-    //     const response = await axios.post('/api/upload-image', formData);
-    //     const imageUrl = response.data.imageUrl;
-    //     const quill = document.querySelector('.ql-editor');
-    //     const range = quill.getSelection();
-    //     quill.insertEmbed(range.index, 'image', imageUrl);
-    //     quill.setSelection(range.index + 1);
-    //   } catch (error) {
-    //     console.log('Image upload failed:', error);
-    //   }
-    // };
-
     const handleLinkAddition = () => {
         setLinkItems([...linkItems, linkItem()]);
     };
@@ -386,20 +370,20 @@ function EditAdminBlogPage() {
                     </div>
                     <div className="mt-8">
                         <label className="text-[18px] font-bold">
-                            Blog Content<span className="text-[#e14d2a]">*</span>
+                            {t('admin.blogContent')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <CustomEditor
                             className="mt-5"
-                            placeholder="Write here..."
+                            placeholder={t("admin.writeHere")}
                             setData={handleSetContent}
                             data={state.content}
                         />
                     </div>
                     <div className="mt-8">
-                        <label className="text-[18px] font-bold">Censored Content</label>
+                        <label className="text-[18px] font-bold">{t('admin.censoredContent')}</label>
                         <textarea
                             onChange={handleChange}
-                            placeholder="Add blog description..."
+                            placeholder={t("admin.addBlogDescription")}
                             name="description"
                             value={censoredContent}
                             disabled
@@ -409,7 +393,7 @@ function EditAdminBlogPage() {
                     </div>
                     <div className="flex mt-8 items-center">
                         <p className="text-[18px] font-bold">
-                            Are you the author of this blog?
+                            {t("admin.areYouTheAuthorOfTheBlog")}
                         </p>
                         <div className="toggle ml-3">
                             <input
@@ -424,7 +408,9 @@ function EditAdminBlogPage() {
                     </div>
                     {!isOwned && (
                         <div className="reference_links flex flex-col justify-start mt-8">
-                            <label className="text-[18px] font-bold">References</label>
+                            <label className="text-[18px] font-bold">
+                                {t('admin.references')}
+                            </label>
                             <div className="mt-3">{referenceItems}</div>
                             <button
                                 type="button"
@@ -432,7 +418,9 @@ function EditAdminBlogPage() {
                                 className="text-left mt-3 min-w-[200px] bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
                             >
                                 <BsPlusCircle fill="#001253" className="mr-1" size={20}/>
-                                <span className="text-['#001253']">Add reference link</span>
+                                <span className="text-['#001253']">
+                                    {t('admin.addReferenceLinks')}
+                                </span>
                             </button>
                         </div>
                     )}
@@ -440,7 +428,7 @@ function EditAdminBlogPage() {
                         <AdminAccordionItem
                             cBg="#fff"
                             bg="#e5e7eb"
-                            title="Links"
+                            title={t("admin.links")}
                             className="text-[18px] font-bold"
                             pClassName="mt-5"
                         >
@@ -451,13 +439,15 @@ function EditAdminBlogPage() {
                                 className="text-left mt-3 bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
                             >
                                 <BsPlusCircle fill="#000" className="mr-1" size={20}/>
-                                <span className="text-[#000] mt-1">Add Link</span>
+                                <span className="text-[#000] mt-1">
+                                    {t('admin.add')} {t('admin.link')}
+                                </span>
                             </button>
                         </AdminAccordionItem>
                         <AdminAccordionItem
                             cBg="#fff"
                             bg="#e5e7eb"
-                            title="Other Files"
+                            title={t('admin.otherFiles')}
                             className="text-[18px] font-bold"
                             pClassName="mt-5"
                         >
@@ -481,7 +471,9 @@ function EditAdminBlogPage() {
                                 className="text-left mt-3 bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
                             >
                                 <BsPlusCircle fill="#001253" className="mr-1" size={20}/>
-                                <span className="text-['#001253']">Add Files</span>
+                                <span className="text-['#001253']">
+                                    {t('admin.add')} {t('forum.files')}
+                                </span>
                             </button>
                         </AdminAccordionItem>
                     </div>
@@ -492,7 +484,7 @@ function EditAdminBlogPage() {
                                 onClick={() => navigate("/admin/blogs")}
                                 className="border rounded px-3 py-2"
                             >
-                                Cancel
+                                {t('modal.cancel')}
                             </button>
                             <button
                                 type="button"
@@ -500,7 +492,7 @@ function EditAdminBlogPage() {
                                 onClick={handleSave}
                                 disabled={loading}
                             >
-                                {loading ? "Saving..." : "Save"}
+                                {loading ? t('admin.saving') : t('modal.save')}
                             </button>
                         </div>
                     </div>

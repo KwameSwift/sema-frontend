@@ -10,19 +10,21 @@ import {BiSolidChat} from "react-icons/bi";
 import "./style.scss";
 import {useDispatch} from "react-redux";
 import {setForum} from "../../../../../Redux/slices/forumSlice";
+import {useTranslation} from "react-i18next";
 
 function AdminForumCard(props) {
     const navigate = useNavigate();
+    const {t} = useTranslation();
     const [, setShowChoices] = useState(false);
     const modalType = props.is_approved ? "Unapprove" : "Approve";
 
     const dispatch = useDispatch();
 
     let dropItems = [
-        {id: "view", name: "View", route: `/forums/${props.id}`},
+        {id: "view", name: t('admin.view'), route: `/forums/${props.id}`},
         {
             id: "status",
-            name: modalType,
+            name: t(modalType.getTranslationKey()),
             modalType: props.is_approved ? "unapproveForum" : "approveForum",
         },
     ];
@@ -31,12 +33,12 @@ function AdminForumCard(props) {
         const addedItems = [];
         addedItems.push({
             id: "edit",
-            name: "Edit",
+            name: t('admin.edit'),
             route: `/admin/forums/edit/${props.id}`,
         });
         addedItems.push({
             id: "manage",
-            name: "Manage",
+            name: t('admin.manage'),
             route: `/admin/forums/manage/${props.id}`,
         });
         dropItems = [...dropItems, ...addedItems];
@@ -45,7 +47,7 @@ function AdminForumCard(props) {
     if (!props.is_declined && !props.owner) {
         dropItems.push({
             id: "decline",
-            name: "Decline forum",
+            name: t('admin.declineForum'),
             modalType: "declineForum",
         });
     }
@@ -133,15 +135,15 @@ function AdminForumCard(props) {
                         {props?.is_approved ? (
                             <>
                 <span className="text-[13px]">
-                  Approved: {formatDate(props.approved_on)}
+                  {t('admin.approved')}: {formatDate(props.approved_on)}
                 </span>
                                 <span className="text-[13px]">
-                  By: {props.approved_by__first_name}{" "}
+                  {t('admin.by')}: {props.approved_by__first_name}{" "}
                                     {props.approved_by__last_name}
                 </span>
                             </>
                         ) : (
-                            <span className="text-[13px]">Not approved</span>
+                            <span className="text-[13px]">{t('admin.notApproved')}</span>
                         )}
                     </div>
                 </div>
