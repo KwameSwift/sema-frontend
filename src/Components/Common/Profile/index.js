@@ -11,6 +11,7 @@ import {setUserInfo} from "../../../Redux/slices/userSlice";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import "./style.scss";
+import {useTranslation} from "react-i18next";
 
 function Profile() {
     const user = useSelector((store) => store.user.user);
@@ -24,6 +25,8 @@ function Profile() {
     const fileRef = useRef(null);
     const cropperRef = useRef(null);
     const dispatch = useDispatch();
+
+    const {t} = useTranslation();
 
     const handleSetImage = (e) => {
         const file = e.target.files[0];
@@ -146,7 +149,7 @@ function Profile() {
             <div className="profile flex justify-center">
                 <div className="bg-[#fff] w-[55%] py-3 px-4">
                     <div className="flex items-center justify-between">
-                        <h1>Edit Profile</h1>
+                        <h1>{t('admin.edit')} {t('admin.profile')}</h1>
                         <div className="flex">
               <span>
                 <img
@@ -169,10 +172,10 @@ function Profile() {
                     <input onChange={handleSetImage} ref={fileRef} type="file" hidden/>
                     <div className="flex w-full flex-wrap mt-8">
                         <div className="flex m-2 w-[40%] flex-col">
-                            <label>First Name</label>
+                            <label>{t('auth.firstName')}</label>
                             <input
                                 type="text"
-                                placeholder="First Name"
+                                placeholder={t('admin.enterFirstName')}
                                 name="first_name"
                                 value={state.first_name}
                                 onChange={handleChange}
@@ -180,25 +183,25 @@ function Profile() {
                             />
                         </div>
                         <div className="flex m-2 w-[40%] flex-col">
-                            <label>Last Name</label>
+                            <label>{t('auth.lastName')}</label>
                             <input
                                 type="text"
                                 name="last_name"
                                 value={state.last_name}
                                 onChange={handleChange}
-                                placeholder="Last Name"
+                                placeholder={t('admin.enterLastName')}
                                 className="border p-2"
                             />
                         </div>
                     </div>
                     <div className="flex mx-2 w-full flex-col mt-8">
-                        <label>Email Address</label>
+                        <label>{t('auth.emailAddress')}</label>
                         <input
                             type="email"
                             name="email"
                             value={state.email}
                             onChange={handleChange}
-                            placeholder="Email"
+                            placeholder={t('admin.enterEmail')}
                             className="border p-2"
                             disabled
                         />
@@ -206,7 +209,7 @@ function Profile() {
 
                     <div className="flex w-full flex-wrap mt-8">
                         <div className="flex w-[40%] m-2 flex-col">
-                            <label>Mobile Number </label>
+                            <label>{t('auth.mobileNumber')}</label>
                             <div className="border flex mobile-input">
                                 <div className="flex w-[110px] p-2 pointer-events-none bg-gray-200">
                                     <img
@@ -222,7 +225,7 @@ function Profile() {
                                         name="mobile_number"
                                         value={state.mobile_number}
                                         onChange={handleChange}
-                                        placeholder="Enter mobile number"
+                                        placeholder={t('admin.enterMobileNumber')}
                                         className="mt-0 w-full p-2"
                                         disabled
                                     />
@@ -231,7 +234,7 @@ function Profile() {
                         </div>
 
                         <div className="flex w-[40%] m-2 flex-col">
-                            <label>Country</label>
+                            <label>{t('auth.country')}</label>
                             <input
                                 className="mt-2 border p-2"
                                 name="country_id"
@@ -241,20 +244,20 @@ function Profile() {
                         </div>
                     </div>
                     <div className="flex mx-2 w-full flex-col mt-8">
-                        <label>Organization</label>
+                        <label>{t('auth.organization')}</label>
                         <input
                             type="text"
                             name="organization"
                             value={state.organization}
                             onChange={handleChange}
-                            placeholder="Enter organization"
+                            placeholder={t('admin.enterOrganization')}
                             className="border p-2"
                         />
                     </div>
                     <div className="flex mx-2 w-full flex-col mt-8">
                         <label>Bio</label>
                         <textarea
-                            placeholder="Write here..."
+                            placeholder={t('admin.writeHere')}
                             rows={3}
                             name="bio"
                             value={state.bio}
@@ -264,7 +267,7 @@ function Profile() {
                     </div>
                     <div className="flex mx-2 w-full flex-col mt-8">
                         <label>
-                            Links <span className="text-[#8d8c8c]">(comma separated)</span>
+                            {t('admin.links')} <span className="text-[#8d8c8c]">({t('admin.commaSeparated')})</span>
                         </label>
                         <textarea
                             placeholder="eg: https://google.com, https://youtube.com"
@@ -280,7 +283,7 @@ function Profile() {
                             className="profile-save py-2 px-4 text-[#fff]"
                             onClick={updateUserProfile}
                         >
-                            {loading ? "Loading..." : "Save"}
+                            {loading ? `${t('modal.loading')}...` : t('modal.save')}
                         </button>
                     </div>
                 </div>
@@ -289,7 +292,7 @@ function Profile() {
                 <div className="modal-bg fixed flex justify-center items-center top-0 bottom-0 left-0 right-0">
                     <div className="bg-[#fff] border-lg p-4 max-w-[400px]">
                         <div className="flex justify-between">
-                            <h1 className="mb-3">Crop Image</h1>
+                            <h1 className="mb-3">{t('admin.cropImage')}</h1>
                             <div onClick={() => setCropModalOpen(false)}
                                  className="bg-gray-200 cursor-pointer w-[30px] h-[30px] flex items-center justify-center rounded-full">
                                 <IoMdClose/></div>
@@ -307,7 +310,7 @@ function Profile() {
                                 className="mt-3 profile-save py-2 px-3"
                                 onClick={cropImage}
                             >
-                                Crop
+                                {t('admin.crop')}
                             </button>
                         </div>
                     </div>

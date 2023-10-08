@@ -152,66 +152,66 @@ const Modal = ({
                 <div className="mt-5 add-admin-form">
                     <div className="flex flex-col">
                         <label>
-                            First Name<span className="text-[#e14d2a]">*</span>
+                            {t('auth.firstName')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
                             name="first_name"
                             className="border mt-3 h-[40px]"
-                            placeholder="Enter first name"
+                            placeholder={t('admin.enterFirstName')}
                             onChange={setData}
                             id="first_name"
                         />
                     </div>
                     <div className="flex flex-col">
                         <label>
-                            Last Name<span className="text-[#e14d2a]">*</span>
+                            {t('auth.lastName')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
                             name="last_name"
                             className="border mt-3 h-[40px]"
-                            placeholder="Enter last name"
+                            placeholder={t('admin.enterLastName')}
                             onChange={setData}
                             id="last_name"
                         />
                     </div>
                     <div className="flex flex-col">
                         <label>
-                            Email<span className="text-[#e14d2a]">*</span>
+                            {t('footer.email')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="email"
                             name="email"
                             className="border mt-3 h-[40px]"
-                            placeholder="Enter email address"
+                            placeholder={t('admin.enterEmailAddress')}
                             id="email"
                             onChange={setData}
                         />
                     </div>
                     <div className="flex flex-col">
                         <label>
-                            Mobile Number<span className="text-[#e14d2a]">*</span>
+                            {t('auth.mobileNumber')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
                             name="mobile_number"
                             className="border mt-3 h-[40px]"
-                            placeholder="Enter mobile number"
+                            placeholder={t('admin.enterMobileNumber')}
                             id="mobile_number"
                             onChange={setData}
                         />
                     </div>
                     <div className="flex max-w-[215px] flex-col">
                         <label>
-                            Country<span className="text-[#e14d2a]">*</span>
+                            {t('auth.country')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <select
                             onChange={setData}
                             className="border mt-3 h-[40px]"
                             name="country_id"
                         >
-                            <option>Select country</option>
+                            <option>{t('auth.selectCountry')}</option>
                             {modalData?.map((elt) => (
                                 <option value={elt.id} key={elt.id}>
                                     {elt.name}
@@ -221,27 +221,27 @@ const Modal = ({
                     </div>
                     <div className="flex flex-col">
                         <label>
-                            Organization<span className="text-[#e14d2a]">*</span>
+                            {t('auth.organization')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
                             name="organization"
                             className="border mt-3 h-[40px]"
-                            placeholder="Enter organization name"
+                            placeholder={t('admin.enterOrganization')}
                             id="organization"
                             onChange={setData}
                         />
                     </div>
                     <div className="flex max-w-[220px] flex-col">
                         <label>
-                            Role<span className="text-[#e14d2a]">*</span>
+                            {t('admin.role')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <select
                             onChange={setData}
                             className="border mt-3 h-[40px]"
                             name="role_id"
                         >
-                            <option>Select role</option>
+                            <option>{t('admin.selectRole')}</option>
                             {extraModalData?.roles?.map((elt) => (
                                 <option value={elt.id} key={elt.id}>
                                     {elt.name}
@@ -251,16 +251,16 @@ const Modal = ({
                     </div>
                     <div className="flex max-w-[215px] flex-col">
                         <label>
-                            Account type<span className="text-[#e14d2a]">*</span>
+                            {t('admin.accountType')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <select
                             onChange={setData}
                             className="border mt-3 h-[40px]"
                             name="account_type"
                         >
-                            <option>Select account type</option>
-                            <option value="Content Creator">Content Creator</option>
-                            <option value="Super Admin">Super Admin</option>
+                            <option>{t('admin.selectAccountType')}</option>
+                            <option value="Content Creator">{t('auth.contentCreator')}</option>
+                            <option value="Super Admin">{t('admin.superAdmin')}</option>
                         </select>
                     </div>
                 </div>
@@ -299,57 +299,59 @@ const Modal = ({
             buttonBgFill: "#001253",
             content: (
                 <div className="mt-5 flex flex-col">
-                    <p className="font-bold">Add a new user role.</p>
+                    <p className="font-bold">{t('admin.addANewUserRole')}.</p>
                     <div className="flex flex-col">
-                        <label className="mt-4 font-bold">Name</label>
+                        <label className="mt-4 font-bold">
+                            {t('admin.name')}
+                        </label>
                         <input
                             type="text"
                             className="placeholder:px-3 px-3 rounded mt-2 border h-[50px] w-[80%]"
-                            placeholder="Enter a title"
+                            placeholder={t('admin.enterName')}
                             onChange={(e) => handleSetData("name", e.target.value)}
                         />
                     </div>
                     <div className="mt-5">
-                        <p className="mb-3 font-bold">Access Levels</p>
+                        <p className="mb-3 font-bold">{t('admin.accessLevels')}</p>
                         <div className="access-levels-wrapper mb-3">
                             {modalData?.map((elt) => (
                                 <div key={elt.id} className="flex">
-                                    <span className="w-[35%]">{elt.name}</span>
+                                    <span className="w-[35%]">{t(elt.name.getTranslationKey())}</span>
                                     <div className="flex">
-                    <span className="mr-4">
-                      <CustomRadioInput
-                          onChange={(e) =>
-                              handleSetData("moduleData", e.target.value, elt.id)
-                          }
-                          optionKey="No Access"
-                          defaultChecked={true}
-                          name={elt.id}
-                          value={0}
-                          val={`${elt.id}-0`}
-                      />
-                    </span>
                                         <span className="mr-4">
-                      <CustomRadioInput
-                          optionKey="Read"
-                          onChange={(e) =>
-                              handleSetData("moduleData", e.target.value, elt.id)
-                          }
-                          name={elt.id}
-                          value={1}
-                          val={`${elt.id}-1`}
-                      />
-                    </span>
+                                          <CustomRadioInput
+                                              onChange={(e) =>
+                                                  handleSetData("moduleData", e.target.value, elt.id)
+                                              }
+                                              optionKey={t('admin.noAccess')}
+                                              defaultChecked={true}
+                                              name={elt.id}
+                                              value={0}
+                                              val={`${elt.id}-0`}
+                                          />
+                                        </span>
                                         <span className="mr-4">
-                      <CustomRadioInput
-                          optionKey="Edit"
-                          onChange={(e) =>
-                              handleSetData("moduleData", e.target.value, elt.id)
-                          }
-                          name={elt.id}
-                          value={2}
-                          val={`${elt.id}-2`}
-                      />
-                    </span>
+                                          <CustomRadioInput
+                                              optionKey={t('admin.read')}
+                                              onChange={(e) =>
+                                                  handleSetData("moduleData", e.target.value, elt.id)
+                                              }
+                                              name={elt.id}
+                                              value={1}
+                                              val={`${elt.id}-1`}
+                                          />
+                                        </span>
+                                        <span className="mr-4">
+                                          <CustomRadioInput
+                                              optionKey={t('admin.edit')}
+                                              onChange={(e) =>
+                                                  handleSetData("moduleData", e.target.value, elt.id)
+                                              }
+                                              name={elt.id}
+                                              value={2}
+                                              val={`${elt.id}-2`}
+                                          />
+                                        </span>
                                     </div>
                                 </div>
                             ))}

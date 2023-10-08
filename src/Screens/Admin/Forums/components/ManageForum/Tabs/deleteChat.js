@@ -37,20 +37,20 @@ function DeleteChatRoom({chatId, isOpen, setIsOpen, refetch}) {
                         >
                             <div className="flex justify-between">
                                 <h2 className="text-xl font-bold mb-4">
-                                    Delete Chat Room
+                                    {t('modal.delete')} {t('admin.chatRoom')}
                                 </h2>
                                 <span className="close-btn" onClick={toggleModal}>
                   <IoCloseOutline size={20} fill="#eee"/>
                 </span>
                             </div>
 
-                            <p>Are you sure you want to delete this chat room?</p>
+                            <p>{t('admin.areSureYouWantToDeleteThisChatRoom')}</p>
                             <div className="flex mt-8 justify-end items-center">
                                 <button
                                     className="text-[14px] border rounded px-3 py-2"
                                     onClick={toggleModal}
                                 >
-                                    Cancel
+                                    {t('modal.cancel')}
                                 </button>
                                 <button
                                     className="text-[14px] ml-2 text-white px-3 py-2 rounded"

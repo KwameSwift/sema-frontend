@@ -63,63 +63,67 @@ function VirtualMeetingFormModal(props) {
                         className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
                         <div className="modal-content p-4">
                             <div className="flex justify-between">
-                                <h3 className="font-bold">Upload File</h3>
+                                <h3 className="font-bold">{t('admin.new')} {t('admin.meeting')}</h3>
                                 <LiaTimesSolid size={20} className="cursor-pointer"
                                                onClick={() => props?.setIsOpen(false)}/>
                             </div>
                             <div className="flex flex-col pb-3 mb-3 overflow-x-auto mt-3">
                                 <div className="form-field">
-                                    <label className="mt-3 mb-2">Meeting Agenda</label>
+                                    <label className="mt-3 mb-2">{t('admin.meetingAgenda')}</label>
                                     <textarea
                                         rows={3}
                                         name="meeting_agenda"
-                                        placeholder="Enter meeting agenda"
+                                        placeholder={t('admin.enterMeetingAgenda')}
                                         onChange={handleInputChange}
                                     />
                                 </div>
                                 <div className="form-field">
-                                    <label className="mt-3 mb-2">Meeting Link</label>
+                                    <label className="mt-3 mb-2">{t('admin.meetingLink')}</label>
                                     <input
                                         type="text"
                                         name="meeting_url"
-                                        placeholder="Enter meeting link"
+                                        placeholder={t('admin.enterMeetingLink')}
                                         onChange={handleInputChange}
                                     />
                                 </div>
                                 <div className="flex">
-                                    <div className="form-field form-half mr-1">
-                                        <label className="mt-3 mb-3">Start Date</label>
+                                    <div className="mr-1">
+                                        <label className="mt-3 mb-3">{t('admin.startDate')}</label>
                                         <input
                                             type="date"
                                             onChange={handleInputChange}
                                             name="scheduled_start_date"
                                             style={{minWidth: "50%"}}
+                                            className="border p-2"
                                         />
                                     </div>
-                                    <div className="form-field form-half">
-                                        <label className="mt-3 mb-3">Start Time</label>
+                                    <div className="border-gray-200">
+                                        <label className="mt-3 mb-3">{t('admin.startTime')}</label>
                                         <input
                                             type="time"
                                             onChange={handleInputChange}
                                             name="scheduled_start_time"
+                                            className="border p-2"
                                         />
                                     </div>
                                 </div>
                                 <div className="flex">
-                                    <div className="form-field form-half mr-1">
-                                        <label className="mt-3 mb-3">End Date</label>
+                                    <div className="mr-1">
+                                        <label className="mt-3 mb-3">{t('admin.endDate')}</label>
                                         <input
                                             type="date"
                                             onChange={handleInputChange}
                                             name="scheduled_end_date"
+                                            className="border p-2"
                                         />
                                     </div>
-                                    <div className="form-field form-half">
-                                        <label className="mt-3 mb-3">End Time</label>
+                                    <div className="">
+                                        <label className="mt-3 mb-3">{t('admin.endTime')}</label>
                                         <input
                                             type="time"
                                             onChange={handleInputChange}
                                             name="scheduled_end_time"
+                                            className="border p-2"
                                         />
                                     </div>
                                 </div>

@@ -60,7 +60,7 @@ const EditChatRoomModal = ({isOpen, setIsOpen, className, chat, refetch}) => {
                         >
                             <div className="flex justify-between">
                                 <h2 className="text-xl font-bold mb-4">
-                                    Edit Chat Room
+                                    {t('admin.edit')} {t('admin.chatRoom')}
                                 </h2>
                                 <span className="close-btn" onClick={toggleModal}>
                                   <IoCloseOutline size={20} fill="#eee"/>
@@ -68,20 +68,20 @@ const EditChatRoomModal = ({isOpen, setIsOpen, className, chat, refetch}) => {
                             </div>
                             <div>
                                 <div className="form-field">
-                                    <label>Room name</label>
+                                    <label>{t('admin.roomName')}</label>
                                     <input
                                         type="text"
-                                        placeholder="Enter room name"
+                                        placeholder={t('admin.enterRoomName')}
                                         name="room_name"
                                         onChange={handleChange}
                                         value={state?.room_name}
                                     />
                                 </div>
                                 <div className="form-field">
-                                    <label>Description</label>
+                                    <label>{t('editBlogs.description')}</label>
                                     <input
                                         type="text"
-                                        placeholder="Enter description"
+                                        placeholder={t('admin.enterDescription')}
                                         name="description"
                                         onChange={handleChange}
                                         value={state?.description}
@@ -100,7 +100,7 @@ const EditChatRoomModal = ({isOpen, setIsOpen, className, chat, refetch}) => {
                                     onClick={editChatRoom}
                                     disabled={loading || disabled}
                                 >
-                                    {loading ? "Loading..." : "Save"}
+                                    {loading ? `${t('modal.loading')}...` : t('modal.save')}
                                 </button>
                             </div>
                         </div>

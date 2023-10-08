@@ -4,6 +4,7 @@ import NoMeetings from "../../../../../../Assets/images/no-meetings.png";
 import {axiosClientWithHeaders} from "../../../../../../libs/axiosClient";
 import VirtualMeetingAttendeesModal from "../../../../../Forum/SingleForum/components/virtualMeetingAttendeesModal";
 import {BsPersonFill} from "react-icons/bs";
+import {useTranslation} from "react-i18next";
 
 function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,8 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
     const [attendees, setAttendees] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
     const [, setTotalAttendees] = useState(0);
+
+    const {t} = useTranslation();
 
     const getMeetingAttendees = async (id) => {
         try {
@@ -40,7 +43,7 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
                             className="bg-[#FC8A2B] rounded-1 py-1 px-2 text-[14px] text-[#fff]"
                             onClick={() => setIsOpen(true)}
                         >
-                            + New Meeting
+                            + {t('admin.new')} {t('admin.meeting')}
                         </button>
                     </div>
                     <div className="h-full">
@@ -57,21 +60,23 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
                                                         <div className="px-6 pt-4">
                                                             <h2 className="text-[14px] font-semibold mb-2">{elt.meeting_agenda}</h2>
                                                             <p className="text-gray-600 text-[13px] mb-4">
-                                                                Scheduled Start
-                                                                Time: {new Date(elt.scheduled_start_time).toLocaleString()}
+                                                                {t('forum.scheduledStartTime')}: {" "}
+                                                                {new Date(elt.scheduled_start_time).toLocaleString()}
                                                             </p>
                                                             <p className="text-gray-600 text-[13px] mb-4">
-                                                                Scheduled End
-                                                                Time: {new Date(elt.scheduled_end_time).toLocaleString()}
+                                                                {t('forum.scheduledEndTime')}: {" "}
+                                                                {new Date(elt.scheduled_end_time).toLocaleString()}
                                                             </p>
                                                             <p className="text-gray-600 text-[13px]">
-                                                                Attendees
+                                                                {t('admin.attendees')}
                                                             </p>
                                                             <div className="flex mb-3">
                                                                 <p className={`text-[13px] text-[#0000FF]
                                                                 cursor-pointer underline`
                                                                 }
-                                                                   onClick={() => handleAttendeesModal(elt.id)}>View</p>
+                                                                   onClick={() => handleAttendeesModal(elt.id)}>
+                                                                    {t('admin.view')}
+                                                                </p>
                                                             </div>
                                                             <p className="text-blue text-[12px] underline">{elt?.meeting_url}</p>
                                                         </div>
@@ -88,7 +93,7 @@ function AdminVirtualMeetingsTab({virtualMeetings, forumId, refetch, user}) {
                             ) : (
                                 <div className="flex justify-center items-center min-h-[60vh] w-full flex-col">
                                     <img src={NoMeetings} alt="No virtual meetings" width={90} height={20}/>
-                                    <p className="mt-3 font-bold">No virtual meetings</p>
+                                    <p className="mt-3 font-bold">{t("forum.no")} {t('forum.virtualMeetings')}</p>
                                 </div>
                             )
                         }

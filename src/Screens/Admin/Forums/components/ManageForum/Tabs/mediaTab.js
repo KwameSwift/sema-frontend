@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import FileUploadModal from "../../../../../Forum/SingleForum/components/fileModal";
 import NoMedia from "../../../../../../Assets/images/no-media.png";
+import {useTranslation} from "react-i18next";
 
 function AdminMediaTab({files, forumId, refetch, user}) {
     const [isOpen, setIsOpen] = useState(false);
+    const {t} = useTranslation();
 
     return (
         <>
@@ -14,7 +16,7 @@ function AdminMediaTab({files, forumId, refetch, user}) {
                             className="bg-[#FC8A2B] rounded-1 py-1 px-2 text-[14px] text-[#fff]"
                             onClick={() => setIsOpen(true)}
                         >
-                            + New File
+                            + {t('admin.new')} {t('admin.file')}
                         </button>
                     </div>
                     <div className="h-full">

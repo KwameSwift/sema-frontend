@@ -6,6 +6,7 @@ import Pagination from "../../../../../../Components/Common/Pagination";
 import AdminForumPollCard from "./pollCard";
 import Modal from "../../../../../../Components/Modal";
 import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 function AdminPollTab({forumId, user}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -17,12 +18,13 @@ function AdminPollTab({forumId, user}) {
     const [totalPages, setTotalPages] = useState(1);
     const [refetch, setRefetch] = useState(false);
 
+    const {t} = useTranslation();
+
     const getPolls = async () => {
         try {
             const resp = await axiosClientWithHeaders.get(
                 `/forum/get-all-forum-polls/${forumId}/${currentPage}/`
             );
-            console.log(resp.data);
             const respData = resp.data;
             setPolls(respData.data);
             setTotalPages(respData.total_pages);
@@ -56,7 +58,7 @@ function AdminPollTab({forumId, user}) {
                             className="bg-[#FC8A2B] rounded-1 py-1 px-2 text-[14px] text-[#fff]"
                             onClick={() => setIsOpen(true)}
                         >
-                            + New Poll
+                            + {t('admin.new')} {t('admin.poll')}
                         </button>
                     </div>
                     <div className="h-full">
@@ -86,7 +88,9 @@ function AdminPollTab({forumId, user}) {
                             ) : (
                                 <div className="flex justify-center items-center h-full min-h-[60vh] w-full flex-col">
                                     <img src={NoPolls} alt="No Polls" width={90} height={20}/>
-                                    <p className="mt-3 font-bold">No Polls</p>
+                                    <p className="mt-3 font-bold">
+                                        {t("forum.no")} {t('admin.polls')}
+                                    </p>
                                 </div>
                             )
                         }

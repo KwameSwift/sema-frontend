@@ -4,15 +4,17 @@ import {useNavigate} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
 import "./style.scss";
 import {FaTimes} from "react-icons/fa";
+import {useTranslation} from "react-i18next";
 
 function CreatorPollCard(props) {
     const navigate = useNavigate();
+    const {t} = useTranslation();
     const [showChoices, setShowChoices] = useState(false);
 
     let dropItems = [
-        {id: "edit", name: "Edit", route: `/creator/polls/edit/${props.id}`},
-        {id: "view", name: "View", route: `/creator/polls/${props.id}`},
-        {id: "delete", name: "Delete"},
+        {id: "edit", name: t('admin.edit'), route: `/creator/polls/edit/${props.id}`},
+        {id: "view", name: t('admin.view'), route: `/creator/polls/${props.id}`},
+        {id: "delete", name: t('modal.delete')},
     ];
 
     const handleDropClick = (item) => {
@@ -24,7 +26,7 @@ function CreatorPollCard(props) {
             props.setModalOpen(true);
         }
     };
-    
+
     const getToggleText = (status) => {
         const text = props.is_ended ? "result" : "choices";
         return status + ' ' + text;
@@ -64,7 +66,7 @@ function CreatorPollCard(props) {
           <span
               className={`text-[14px] ${props.is_ended ? "text-[#e14d2a]" : "text-[green]"}`}
           >
-            {props.is_ended ? "Closed" : "In progress"}
+            {props.is_ended ? t('feed.ended') : t('feed.inProgress')}
           </span>
                 </div>
                 <div className="flex justify-between items-center">
@@ -101,11 +103,11 @@ function CreatorPollCard(props) {
                 {showChoices
                     ? (
                         <span onClick={() => setShowChoices((prev) => !prev)}>
-                            {getToggleText("Hide")}
+                            {t(getToggleText("Hide").getTranslationKey())}
                          </span>
                     ) : (
                         <span onClick={() => setShowChoices((prev) => !prev)}>
-                                {getToggleText("View")}
+                                {t(getToggleText("View").getTranslationKey())}
                             </span>
                     )
                 }

@@ -111,8 +111,8 @@ function CreatorPollsPage() {
     return (
         <>
             <ContentCreatorLayout
-                header="Polls"
-                subChild={`Total Count (${totalPolls})`}
+                header={t('admin.polls')}
+                subChild={`${t('contentCreator.totalCount')} (${totalPolls})`}
             >
                 <div className="admin-blog-page creator-polls mx-3">
                     <div className="flex justify-between mt-3 items-center">

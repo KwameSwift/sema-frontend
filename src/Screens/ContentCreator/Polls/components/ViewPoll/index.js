@@ -7,6 +7,7 @@ import {Bar} from 'react-chartjs-2';
 
 import "./style.scss";
 import CustomTable from "../../../../../Components/Common/CustomTable";
+import {useTranslation} from "react-i18next";
 
 ChartJS.register(
     CategoryScale,
@@ -19,6 +20,8 @@ export default function ViewPoll() {
     const [poll, setPoll] = useState({});
     const [labels, setLabels] = useState([]);
     const [datasets, setDatasets] = useState([]);
+
+    const {t} = useTranslation();
 
     const createDataset = (data) => {
         return {
@@ -48,14 +51,14 @@ export default function ViewPoll() {
                 display: true,
                 title: {
                     display: true,
-                    text: 'No. of Votes',
+                    text: t('admin.noOfVotes'),
                 },
             },
             y: {
                 display: true,
                 title: {
                     display: true,
-                    text: 'Choices',
+                    text: t('admin.choices'),
                 },
             },
         },
@@ -91,12 +94,12 @@ export default function ViewPoll() {
 
     return (
         <ContentCreatorLayout header={poll?.question || ""}>
-            <h1 className="mt-3">Result</h1>
+            <h1 className="mt-3">{t('admin.result')}</h1>
             <div className="mt-3 flex justify-center p-4 bg-[#fff] bar-chart">
                 <Bar options={options} data={data}/>
             </div>
             <div>
-                <h1 className="mt-5 mb-3">Comments</h1>
+                <h1 className="mt-5 mb-3">{t('feed.comments')}</h1>
                 <CustomTable
                     totalPages={1}
                     data={poll?.poll_votes || []}

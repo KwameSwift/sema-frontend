@@ -56,7 +56,7 @@ function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, isMemb
                             <button
                                 className="add-chat-btn"
                                 onClick={() => setIsModalOpen(true)}
-                            >+ New Chat
+                            >+ {t('forum.newChat')}
                             </button>
                         </div>
                     }

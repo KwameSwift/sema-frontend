@@ -6,6 +6,7 @@ import {isRequiredFieldValuesPassed} from "../../../../../utils/helpers";
 import {axiosClientWithHeaders} from "../../../../../libs/axiosClient";
 import ContentCreatorLayout from "../../../../../Components/ContentCreator/Layout";
 import {BsPlusCircle, BsTrash} from "react-icons/bs";
+import {useTranslation} from "react-i18next";
 
 const letters = ["A", "B", "C", "D", "E"]
 
@@ -25,6 +26,9 @@ function CreatorEditPollPage() {
 
     const navigate = useNavigate();
     const {id} = useParams();
+    const {t} = useTranslation();
+
+
     const handleChange = (e) => {
         setState({
             ...state,
@@ -153,7 +157,7 @@ function CreatorEditPollPage() {
                         className="flex flex-col cursor-pointer mt-5 mb-8"
                     >
                         <label className="text-[18px] font-bold mb-3">
-                            Document
+                            {t('admin.document')}
                         </label>
                         {snapShot && <img src={snapShot} alt="" className="w-[300px] h-[300px]"/>}
 
@@ -169,53 +173,51 @@ function CreatorEditPollPage() {
                     </div>
                     <div>
                         <label className="text-[18px] font-bold">
-                            Question<span className="text-[#e14d2a]">*</span>
+                            {t('admin.question')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
                             name="question"
                             value={state.question}
                             onChange={handleChange}
-                            placeholder="Enter Title"
+                            placeholder={t('admin.enterQuestion')}
                             className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                         />
                     </div>
                     <div className="mt-4">
                         <label className="text-[18px] font-bold">
-                            Choices<span className="text-[#e14d2a]">*</span>
+                            {t('admin.choices')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <div className="mt-3">
                             {Object.keys(choices).map((elt, index) => choiceField(letters[index], index))}
                             {(choiceLength < 5) && <div className="add-choice mt-3" onClick={addChoice}>
                                 <BsPlusCircle fill="#000" className="mr-1" size={20}/>
-                                <span className="mt-1 cursor-pointer">Add Choice</span>
+                                <span className="mt-1 cursor-pointer">{t('admin.addChoice')}</span>
                             </div>}
                         </div>
                     </div>
                     <div className="flex mt-4">
                         <div>
                             <label className="text-[18px] font-bold">
-                                Start Date<span className="text-[#e14d2a]">*</span>
+                                {t('admin.startDate')}<span className="text-[#e14d2a]">*</span>
                             </label>
                             <input
                                 type="date"
                                 name="start_date"
                                 onChange={handleChange}
                                 value={state.start_date}
-                                placeholder="Enter Description"
                                 className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                             />
                         </div>
                         <div className="ml-8">
                             <label className="text-[18px] font-bold">
-                                End Date<span className="text-[#e14d2a]">*</span>
+                                {t('admin.endDate')}<span className="text-[#e14d2a]">*</span>
                             </label>
                             <input
                                 type="date"
                                 name="end_date"
                                 onChange={handleChange}
                                 value={state.end_date}
-                                placeholder="Enter Description"
                                 className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                             />
                         </div>
@@ -227,7 +229,7 @@ function CreatorEditPollPage() {
                             onClick={handleUpdate}
                             disabled={disabled || loading}
                         >
-                            {loading ? "Loading..." : "Update"}
+                            {loading ? `${t('modal.loading')}...` : t('modal.save')}
                         </button>
                     </div>
                 </div>

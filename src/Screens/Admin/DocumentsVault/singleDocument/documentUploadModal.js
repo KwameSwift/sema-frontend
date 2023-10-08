@@ -56,22 +56,22 @@ function DocumentUploadModal(props) {
                         className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
                         <div className="modal-content p-4">
                             <div className="flex justify-between">
-                                <h3 className="font-bold">Upload File(s)</h3>
+                                <h3 className="font-bold">{t('admin.uploadFiles')}</h3>
                                 <LiaTimesSolid size={20} className="cursor-pointer"
                                                onClick={() => props?.setIsOpen(false)}/>
                             </div>
                             <div className="flex flex-col pb-3 mb-3 overflow-x-auto mt-3">
                                 <div className="form-field">
-                                    <label className="mt-3 mb-2">Description</label>
+                                    <label className="mt-3 mb-2">{t('editBlogs.description')}</label>
                                     <textarea
                                         rows={3}
                                         name="description"
-                                        placeholder="Enter description"
+                                        placeholder={t('admin.enterDescription')}
                                         onChange={(e) => setDescription(e.target.value)}
                                     ></textarea>
                                 </div>
                                 <div className="form-field">
-                                    <label className="mt-3 mb-3">File(s)</label>
+                                    <label className="mt-3 mb-3">{t('forum.files')}</label>
                                     <input type="file" onChange={handleFileChange} multiple/>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@ function DocumentUploadModal(props) {
                                 >
                                     {loading
                                         ? `${t(getTransString("Loading"))}...`
-                                        : "Upload"}
+                                        : t('admin.upload')}
                                 </button>
                             </div>
                         </div>

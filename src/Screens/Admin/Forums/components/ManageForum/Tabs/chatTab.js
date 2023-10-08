@@ -5,11 +5,15 @@ import {toast} from "react-toastify";
 import NoChatRooms from "../../../../../../Assets/images/no-chats.png";
 import EditChatRoomModal from "./editChat";
 import DeleteChatRoom from "./deleteChat";
+import {useTranslation} from "react-i18next";
 
 function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefetch, forumId}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editChat, setEditChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
+
+    const {t} = useTranslation();
+
 
     const setStatus = (status) => {
         if (status === "Completed") {
@@ -33,7 +37,7 @@ function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefet
             return (
                 <div className="flex justify-center items-center w-full flex-col">
                     <img src={NoChatRooms} alt="No Chat rooms" width={90} height={20}/>
-                    <p className="mt-3 font-bold">No Chat Rooms</p>
+                    <p className="mt-3 font-bold">{t("forum.no")} {t('forum.chats')}</p>
                 </div>
             )
         }
@@ -48,7 +52,7 @@ function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefet
                             <button
                                 className="add-chat-btn"
                                 onClick={() => setIsModalOpen(true)}
-                            >+ New Chat
+                            >+ {t('forum.newChat')}
                             </button>
                         </div>
                     }

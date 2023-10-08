@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react";
 import {axiosClientWithHeaders} from "../../../../../../libs/axiosClient";
 import {Pagination} from "react-bootstrap";
 import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 function AdminForumRefactorTab({forumId}) {
     const [forumRequests, setForumRequests] = useState([]);
+    const {t} = useTranslation();
 
     const getForumRequests = async () => {
         try {
@@ -36,6 +38,10 @@ function AdminForumRefactorTab({forumId}) {
         }
     }
 
+    const getTranslatedText = (elt) => {
+        return t(elt.getTranslationKey());
+    }
+
     useEffect(() => {
         getForumRequests();
     }, []);
@@ -48,7 +54,7 @@ function AdminForumRefactorTab({forumId}) {
                     <tr>
                         {["Name", "Email", "Actions"].map((elt, index) => (
                             <th className="py-2 px-2 border-b text-left" key={index}>
-                                {elt}
+                                {getTranslatedText(elt)}
                             </th>
                         ))}
                     </tr>
@@ -66,10 +72,11 @@ function AdminForumRefactorTab({forumId}) {
                                 <button
                                     className="text-[13px] text-white mr-1 bg-[#e14d2a] p-1"
                                     onClick={() => declineRequest(item.id)}
-                                >Disprove
+                                >{t('modal.decline')}
                                 </button>
                                 <button className="text-[13px] text-white bg-[#001253] p-1"
-                                        onClick={() => approveRequest(item.id)}>Approve
+                                        onClick={() => approveRequest(item.id)}>
+                                    {t('admin.approve')}
                                 </button>
                             </td>
                         </tr>

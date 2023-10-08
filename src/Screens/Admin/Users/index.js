@@ -9,6 +9,7 @@ import Modal from "../../../Components/Modal";
 import "./style.scss";
 import {debounce} from "lodash";
 import RightSidebarModal from "../../../Components/Common/RightSidebarModal";
+import {useTranslation} from "react-i18next";
 
 function UsersPage() {
     const [users, setUsers] = useState([]);
@@ -28,6 +29,7 @@ function UsersPage() {
     const [isSidebarOpen, setIsOpenSidebar] = useState(false);
     const [userVerifyBtnLoading, setUserVerifyBtnLoading] = useState(false);
     const [refetchSingleUser, setRefetchSingleUser] = useState(false);
+    const {t} = useTranslation();
 
     const headers = ["Name", "Email", "Country", "Role", "Account Type", ""];
 
@@ -121,10 +123,10 @@ function UsersPage() {
     console.log(selectedUser);
 
     const dropItems = [
-        {id: "verify", name: "Verify", type: "func", func: verifyUser},
-        {id: "assignRole", name: "Assign Role", type: "func", func: openRoleAssignModal},
-        {id: "view", name: "View", type: "func", func: viewUser},
-        {id: "delete", name: "Delete", type: "func", func: deleteUser},
+        {id: "verify", name: t('admin.verify'), type: "func", func: verifyUser},
+        {id: "assignRole", name: t('admin.assignRole'), type: "func", func: openRoleAssignModal},
+        {id: "view", name: t('admin.view'), type: "func", func: viewUser},
+        {id: "delete", name: t('modal.delete'), type: "func", func: deleteUser},
     ];
 
     const getAllUsers = async (page = 1, accountType = userType) => {
@@ -221,7 +223,7 @@ function UsersPage() {
             <Layout>
                 <div className="mx-5 users-page">
                     <div className="p-5 mt-5 flex justify-between blog-header">
-                        <h1>Users</h1>
+                        <h1>{t('admin.leftSidebar.users').titleWord()}</h1>
                     </div>
                     <div className="flex justify-between mt-3 items-center">
                         <div className="flex w-[80%]">
@@ -229,21 +231,21 @@ function UsersPage() {
                                 <BsSearch size={22} className="ml-3"/>
                                 <input
                                     type="text"
-                                    placeholder="Search..."
+                                    placeholder={t('admin.search')}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="outline-none p-4 h-[40px] w-[90%]"
                                 />
                             </div>
                             <div className="ml-10 mt-4 flex flex-col">
-                                <label>User Type</label>
+                                <label>{t('admin.userType')}</label>
                                 <select
                                     onChange={filterUsers}
                                     className="border mt-2 rounded-lg p-1 w-[200px] h-[40px]"
                                 >
-                                    <option value="All">All</option>
-                                    <option value="Content Creator">Content Creator</option>
-                                    <option value="Guest">Guest</option>
-                                    <option value="Super Admin">Super Admin</option>
+                                    <option value="All">{t('admin.all')}</option>
+                                    <option value="Content Creator">{t('auth.contentCreator')}</option>
+                                    <option value="Guest">{t('auth.guest')}</option>
+                                    <option value="Super Admin">{t('admin.superAdmin')}</option>
                                 </select>
                             </div>
                         </div>
@@ -252,7 +254,7 @@ function UsersPage() {
                                 className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
                                 onClick={handleModalOpen}
                             >
-                                <BsPlus size={25}/>Users
+                                <BsPlus size={25}/>{t('admin.leftSidebar.users').titleWord()}
                             </button>
                         </div>
                     </div>

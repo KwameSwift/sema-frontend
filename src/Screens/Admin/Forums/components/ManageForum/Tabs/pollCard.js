@@ -3,12 +3,14 @@ import {BsThreeDotsVertical} from "react-icons/bs";
 import {Dropdown} from "react-bootstrap";
 import {formatDate} from "../../../../../../utils/helpers";
 import "../style.scss";
+import {useTranslation} from "react-i18next";
 
 
 function AdminForumPollCard(props) {
+    const {t} = useTranslation();
 
     let dropItems = [
-        {id: "delete", name: "Delete"},
+        {id: "delete", name: t("modal.delete")},
     ];
 
     const handleDropClick = () => {

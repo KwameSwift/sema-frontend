@@ -9,6 +9,7 @@ import Select from "react-select";
 import {forumTags} from "../../../../../utils/data";
 import makeAnimated from "react-select/animated";
 import ContentCreatorLayout from "../../../../../Components/ContentCreator/Layout";
+import CustomRadioInput from "../../../../../Components/Common/CustomRadioButton";
 
 const animatedComponents = makeAnimated();
 
@@ -101,7 +102,7 @@ function CreatorEditForumPage() {
     }, [id]);
 
     return (
-        <ContentCreatorLayout header="Add Forum">
+        <ContentCreatorLayout header={t('admin.editForum')}>
             <div className="mx-3">
                 <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>
                     <img src={coverImage} className="w-[500px] h-[350px]" alt=""/>
@@ -142,33 +143,33 @@ function CreatorEditForumPage() {
                 )}
                 <div>
                     <label className="text-[18px] font-bold">
-                        Topic<span className="text-[#e14d2a]">*</span>
+                        {t('admin.topic')}<span className="text-[#e14d2a]">*</span>
                     </label>
                     <input
                         type="text"
                         name="topic"
                         onChange={handleChange}
                         value={state.topic}
-                        placeholder="Enter topic"
+                        placeholder={t('admin.enterTopic')}
                         className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                     />
                 </div>
                 <div className="mt-3">
                     <label className="text-[18px] font-bold">
-                        Description<span className="text-[#e14d2a]">*</span>
+                        {t('editBlogs.description')}<span className="text-[#e14d2a]">*</span>
                     </label>
                     <textarea
                         name="description"
                         rows={3}
                         value={state.description}
                         onChange={handleChange}
-                        placeholder="Enter description"
+                        placeholder={t('admin.enterDescription')}
                         className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                     ></textarea>
                 </div>
                 <div className="mt-3">
                     <label className="text-[18px] mb-2 font-bold">
-                        Tags<span className="text-[#e14d2a]">*</span>
+                        {t('admin.tags')}<span className="text-[#e14d2a]">*</span>
                     </label>
                     <Select
                         closeMenuOnSelect={false}
@@ -180,11 +181,33 @@ function CreatorEditForumPage() {
                             return {label: elt, value: elt}
                         })}
                         isClearable={true}
-                        placeholder="Start typing..."
+                        placeholder={t('admin.writeHere')}
                         name="state"
                         value={tags}
                         onChange={(e) => setTags(e)}
                     />
+                </div>
+                <div className="mt-3">
+                    <label className="text-[18px] mb-2 font-bold">
+                        {t('admin.accessLevel')}<span className="text-[#e14d2a]">*</span>
+                    </label>
+                    <div>
+                        <CustomRadioInput
+                            optionKey={t('home.public')}
+                            onChange={handleChange}
+                            name={"is_public"}
+                            value={"True"}
+                            val={"pub1"}
+                            defaultChecked={true}
+                        />
+                        <CustomRadioInput
+                            optionKey={t('home.private')}
+                            onChange={handleChange}
+                            name={"is_public"}
+                            value={"False"}
+                            val={"pub2"}
+                        />
+                    </div>
                 </div>
                 {/*<div*/}
                 {/*    className="flex flex-col cursor-pointer mt-3 mb-8"*/}
@@ -201,7 +224,7 @@ function CreatorEditForumPage() {
                         onClick={handleSave}
                         disabled={disabled || loading}
                     >
-                        {loading ? "Loading..." : "Save"}
+                        {loading ? `${t('modal.loading')}...` : t('modal.save')}
                     </button>
                 </div>
             </div>

@@ -11,6 +11,7 @@ import AdminMediaTab from "../../../../Admin/Forums/components/ManageForum/Tabs/
 import AdminPollTab from "../../../../Admin/Forums/components/ManageForum/Tabs/polls";
 import ContentCreatorLayout from "../../../../../Components/ContentCreator/Layout";
 import "./style.scss";
+import {useTranslation} from "react-i18next";
 
 
 export default function CreatorManageForumPage() {
@@ -23,6 +24,7 @@ export default function CreatorManageForumPage() {
     const [refetch, setRefetch] = useState(false);
     // const [totalForums, setTotalForums] = useState(0);
     // const selectedForum = useSelector((store) => store.forum);
+    const {t} = useTranslation();
 
     const getSingleForum = async () => {
         try {
@@ -47,7 +49,7 @@ export default function CreatorManageForumPage() {
 
 
     return (
-        <ContentCreatorLayout header="Manage Forum">
+        <ContentCreatorLayout header={`${t('admin.manage')} ${t('admin.forum')}`}>
             <div className="manage-forum">
                 <div className="tabs mt-3">
                     <Tabs
@@ -55,7 +57,7 @@ export default function CreatorManageForumPage() {
                         activeKey={key}
                         onSelect={setKey}
                     >
-                        <Tab eventKey="chats" title="Chats">
+                        <Tab eventKey="chats" title={t('forum.chats')}>
                             <AdminChatsTab
                                 chatRooms={forum?.chat_rooms}
                                 user={user}
@@ -65,7 +67,7 @@ export default function CreatorManageForumPage() {
                                 setSelectedChat={setSelectedChat}
                             />
                         </Tab>
-                        <Tab eventKey="media" title="Media">
+                        <Tab eventKey="media" title={t('forum.media')}>
                             <AdminMediaTab
                                 files={forum?.media_files}
                                 forumId={id}
@@ -74,7 +76,7 @@ export default function CreatorManageForumPage() {
                                 setRefetch={setRefetch}
                             />
                         </Tab>
-                        <Tab eventKey="files" title="Files">
+                        <Tab eventKey="files" title={t('forum.files')}>
                             <AdminFilesTab
                                 files={forum?.files}
                                 forumId={id}
@@ -83,7 +85,7 @@ export default function CreatorManageForumPage() {
                                 setRefetch={setRefetch}
                             />
                         </Tab>
-                        <Tab eventKey="virtualMeetings" title="Virtual Meetings">
+                        <Tab eventKey="virtualMeetings" title={t('forum.virtualMeetings')}>
                             <AdminVirtualMeetingsTab
                                 virtualMeetings={forum?.virtual_meetings}
                                 forumId={id}
@@ -92,13 +94,13 @@ export default function CreatorManageForumPage() {
                                 setRefetch={setRefetch}
                             />
                         </Tab>
-                        <Tab eventKey="polls" title="Polls">
+                        <Tab eventKey="polls" title={t('admin.polls')}>
                             <AdminPollTab
                                 forumId={id}
                                 user={user}
                             />
                         </Tab>
-                        <Tab eventKey="requests" title="Forum Requests">
+                        <Tab eventKey="requests" title={t('admin.forumRequests')}>
                             <AdminForumRefactorTab forumId={id}/>
                         </Tab>
                     </Tabs>

@@ -361,7 +361,7 @@ function EditAdminBlogPage() {
                         <label className="text-[18px] font-bold">{t("editBlogs.description")}</label>
                         <textarea
                             onChange={handleChange}
-                            placeholder="Add blog description..."
+                            placeholder={t("admin.enterDescription")}
                             name="description"
                             value={state.description}
                             rows={2}

@@ -1,12 +1,14 @@
 import React from "react";
 import {BsPersonCircle, BsThreeDotsVertical} from "react-icons/bs";
 import {Dropdown} from "react-bootstrap";
+import {useTranslation} from "react-i18next";
 
 function ChatCard({setSelectedChat, setDeleteChat, setEditChat, ...props}) {
+    const {t} = useTranslation();
 
     let dropItems = [
-        {id: "edit", name: "Edit"},
-        {id: "delete", name: "Delete"},
+        {id: "edit", name: t('admin.edit')},
+        {id: "delete", name: t('modal.delete')},
     ];
 
     const handleDropClick = (key) => {

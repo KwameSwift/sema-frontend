@@ -54,7 +54,7 @@ const AddPollModal = ({isOpen, setIsOpen, forumId, refetch}) => {
                 type="text"
                 name={`opt${index + 1}`}
                 onChange={handleChoices}
-                placeholder={`Enter Choice ${index + 1}`}
+                placeholder={t('admin.enterChoice')}
                 className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
             />
             <BsTrash fill="#e14d2a" size={30} className="ml-2 mt-3 cursor-pointer"
@@ -103,7 +103,7 @@ const AddPollModal = ({isOpen, setIsOpen, forumId, refetch}) => {
                         >
                             <div className="flex justify-between">
                                 <h2 className="text-xl font-bold mb-4">
-                                    Add Poll
+                                    {t('admin.add')} {t('admin.poll')}
                                 </h2>
                                 <span className="close-btn" onClick={toggleModal}>
                                   <IoCloseOutline size={20} fill="#eee"/>
@@ -111,16 +111,16 @@ const AddPollModal = ({isOpen, setIsOpen, forumId, refetch}) => {
                             </div>
                             <div>
                                 <div className="form-field">
-                                    <label>Question</label>
+                                    <label>{t('admin.question')}</label>
                                     <input
                                         type="text"
-                                        placeholder="Enter question"
+                                        placeholder={t('admin.enterQuestion')}
                                         name="question"
                                         onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-field">
-                                    <label>Choices</label>
+                                    <label>{t('admin.choices')}</label>
                                     <div className="mt-3">
                                         <div className="flex items-center mb-3">
                                             <label
@@ -131,7 +131,7 @@ const AddPollModal = ({isOpen, setIsOpen, forumId, refetch}) => {
                                                 type="text"
                                                 name="opt1"
                                                 onChange={handleChoices}
-                                                placeholder="Enter Choice 1"
+                                                placeholder={t('admin.enterChoice')}
                                                 className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                                             />
                                         </div>
@@ -144,7 +144,7 @@ const AddPollModal = ({isOpen, setIsOpen, forumId, refetch}) => {
                                                 type="text"
                                                 name="opt2"
                                                 onChange={handleChoices}
-                                                placeholder="Enter Choice 2"
+                                                placeholder={t('admin.enterChoice')}
                                                 className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                                             />
                                         </div>
@@ -157,33 +157,31 @@ const AddPollModal = ({isOpen, setIsOpen, forumId, refetch}) => {
                                                 type="text"
                                                 name="opt3"
                                                 onChange={handleChoices}
-                                                placeholder="Enter Choice 3"
+                                                placeholder={t('admin.enterChoice')}
                                                 className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                                             />
                                         </div>
                                         <>{choiceElts}</>
                                         {(choiceLength < 5) && <div className="add-choice mt-3" onClick={addChoice}>
                                             <BsPlusCircle fill="#000" className="mr-1" size={20}/>
-                                            <span className="mt-1 cursor-pointer">Add Choice</span>
+                                            <span className="mt-1 cursor-pointer">{t('admin.addChoice')}</span>
                                         </div>}
                                     </div>
                                 </div>
                             </div>
                             <div className="flex">
                                 <div className="form-field half">
-                                    <label>Start Date</label>
+                                    <label>{t('admin.startDate')}</label>
                                     <input
                                         type="date"
-                                        placeholder="Enter start date"
                                         name="start_date"
                                         onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-field half">
-                                    <label>End Date</label>
+                                    <label>{t('admin.endDate')}</label>
                                     <input
                                         type="date"
-                                        placeholder="Enter end date"
                                         name="end_date"
                                         onChange={handleChange}
                                     />
@@ -201,7 +199,7 @@ const AddPollModal = ({isOpen, setIsOpen, forumId, refetch}) => {
                                     onClick={addPoll}
                                     disabled={loading || disabled}
                                 >
-                                    {loading ? "Loading..." : "Save"}
+                                    {loading ? `${t('modal.loading')}...` : t('modal.save')}
                                 </button>
                             </div>
                         </div>

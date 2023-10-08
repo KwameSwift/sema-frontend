@@ -49,8 +49,8 @@ function CustomTable({
 
     const getDropContent = (item, elt) => {
         if (elt.id === "verify") {
-            if (item.is_verified) return "Unverify";
-            else return "Verify";
+            if (item.is_verified) return t("admin.unverify");
+            else return t("admin.verify");
         } else {
             return elt.name
         }

@@ -35,7 +35,7 @@ function AdminAddPollPage() {
                 type="text"
                 name={`opt${index + 1}`}
                 onChange={handleChoices}
-                placeholder={`Enter Choice ${index + 1}`}
+                placeholder={t('admin.enterChoice')}
                 className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
             />
             <BsTrash fill="#e14d2a" size={30} className="ml-2 mt-3 cursor-pointer"
@@ -123,25 +123,25 @@ function AdminAddPollPage() {
                         className="flex flex-col cursor-pointer mt-5 mb-8"
                     >
                         <label className="text-[18px] font-bold mb-3">
-                            Document
+                            {t('admin.document')}
                         </label>
                         <input type="file" ref={fileRef} onChange={handleSetImage}/>
                     </div>
                     <div>
                         <label className="text-[18px] font-bold">
-                            Question<span className="text-[#e14d2a]">*</span>
+                            {t('admin.question')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
                             name="question"
                             onChange={handleChange}
-                            placeholder="Enter Question"
+                            placeholder={t('admin.enterQuestion')}
                             className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                         />
                     </div>
                     <div className="mt-4">
                         <label className="text-[18px] font-bold">
-                            Choices<span className="text-[#e14d2a]">*</span>
+                            {t('admin.choices')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <div className="mt-3">
                             <div className="flex items-center mb-3">
@@ -153,7 +153,7 @@ function AdminAddPollPage() {
                                     type="text"
                                     name="opt1"
                                     onChange={handleChoices}
-                                    placeholder="Enter Choice 1"
+                                    placeholder={t('admin.enterChoice')}
                                     className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                                 />
                             </div>
@@ -166,7 +166,7 @@ function AdminAddPollPage() {
                                     type="text"
                                     name="opt2"
                                     onChange={handleChoices}
-                                    placeholder="Enter Choice 2"
+                                    placeholder={t('admin.enterChoice')}
                                     className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                                 />
                             </div>
@@ -179,39 +179,37 @@ function AdminAddPollPage() {
                                     type="text"
                                     name="opt3"
                                     onChange={handleChoices}
-                                    placeholder="Enter Choice 3"
+                                    placeholder={t('admin.enterChoice')}
                                     className="w-full mt-2 ml-6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                                 />
                             </div>
                             <>{choiceElts}</>
                             {(choiceLength < 5) && <div className="add-choice mt-3" onClick={addChoice}>
                                 <BsPlusCircle fill="#000" className="mr-1" size={20}/>
-                                <span className="mt-1 cursor-pointer">Add Choice</span>
+                                <span className="mt-1 cursor-pointer">{t('admin.addChoice')}</span>
                             </div>}
                         </div>
                     </div>
                     <div className="flex mt-4">
                         <div>
                             <label className="text-[18px] font-bold">
-                                Start Date<span className="text-[#e14d2a]">*</span>
+                                {t('admin.startDate')}<span className="text-[#e14d2a]">*</span>
                             </label>
                             <input
                                 type="date"
                                 name="start_date"
                                 onChange={handleChange}
-                                placeholder="Enter Description"
                                 className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                             />
                         </div>
                         <div className="ml-8">
                             <label className="text-[18px] font-bold">
-                                End Date<span className="text-[#e14d2a]">*</span>
+                                {t('admin.endDate')}<span className="text-[#e14d2a]">*</span>
                             </label>
                             <input
                                 type="date"
                                 name="end_date"
                                 onChange={handleChange}
-                                placeholder="Enter Description"
                                 className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                             />
                         </div>
@@ -223,7 +221,7 @@ function AdminAddPollPage() {
                             onClick={handleSave}
                             disabled={disabled || loading}
                         >
-                            {loading ? "Loading..." : "Save"}
+                            {loading ? `${t('modal.loading')}...` : t('modal.save')}
                         </button>
                     </div>
                 </div>

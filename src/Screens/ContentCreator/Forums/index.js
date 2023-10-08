@@ -111,8 +111,8 @@ function CreatorForumsPage() {
     return (
         <>
             <ContentCreatorLayout
-                header="Forums"
-                subChild={`Total Count (${totalForums})`}
+                header={t("admin.forums")}
+                subChild={`${t('contentCreator.totalCount')} (${totalForums})`}
             >
                 <div className="admin-blog-page creator-polls mx-3">
                     <div className="flex justify-between mt-3 items-center">
@@ -135,7 +135,7 @@ function CreatorForumsPage() {
                                     <option value={0}>{t("admin.all")}</option>
                                     <option value={1}>{t("admin.approved")}</option>
                                     <option value={2}>{t("admin.unApproved")}</option>
-                                    <option value={3}>Declined</option>
+                                    <option value={3}>{t('admin.declined')}</option>
                                 </select>
                             </div>
                         </div>

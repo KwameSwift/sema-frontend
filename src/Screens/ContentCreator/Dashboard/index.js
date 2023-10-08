@@ -6,9 +6,11 @@ import {axiosClientWithHeaders} from "../../../libs/axiosClient";
 import {useSelector} from "react-redux";
 import {DAYS} from "../../../utils/data";
 import {formatDateWithBar} from "../../../utils/helpers";
+import {useTranslation} from "react-i18next";
 
 function ContentCreatorDashboardPage() {
     const [statistics, setStatistics] = useState({});
+    const {t} = useTranslation();
 
     const user = useSelector((store) => store.user.user);
 
@@ -53,7 +55,7 @@ function ContentCreatorDashboardPage() {
 
     return (
         <ContentCreatorLayout
-            header={`Welcome, ${user.first_name}`}
+            header={`${t('contentCreator.welcome')}, ${user.first_name}`}
             subChild={`${DAYS[day]}, ${formatDateWithBar(today)}`}
         >
             <div className="creator-dashboard">

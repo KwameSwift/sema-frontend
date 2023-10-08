@@ -5,15 +5,17 @@ import {Dropdown} from "react-bootstrap";
 import "./style.scss";
 import {FaTimes} from "react-icons/fa";
 import {tagColors} from "../../../../../utils/data";
+import {useTranslation} from "react-i18next";
 
 function CreatorForumCard(props) {
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     let dropItems = [
-        {id: "edit", name: "Edit", route: `/creator/forums/edit/${props.id}`},
-        {id: "view", name: "View", route: `/forums/${props.id}`},
-        {id: "manage", name: "Manage", route: `/creator/forums/manage/${props.id}`},
-        {id: "delete", name: "Delete"},
+        {id: "edit", name: t('admin.edit'), route: `/creator/forums/edit/${props.id}`},
+        {id: "view", name: t('admin.view'), route: `/forums/${props.id}`},
+        {id: "manage", name: t('admin.manage'), route: `/creator/forums/manage/${props.id}`},
+        {id: "delete", name: t('modal.delete')},
     ];
 
     const handleDropClick = (item) => {
@@ -33,7 +35,7 @@ function CreatorForumCard(props) {
           <span
               className={`text-[14px] ${props.is_ended ? "text-[#e14d2a]" : "text-[green]"}`}
           >
-            {props.is_approved ? "Approved" : "Not approved"}
+            {props.is_approved ? t('admin.approved') : t('admin.notApproved')}
           </span>
                 </div>
                 <div className="flex justify-between items-center">

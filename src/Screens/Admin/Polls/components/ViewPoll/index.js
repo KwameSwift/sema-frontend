@@ -54,14 +54,14 @@ export default function AdminViewPoll() {
                 display: true,
                 title: {
                     display: true,
-                    text: 'No. of Votes',
+                    text: t('admin.noOfVotes'),
                 },
             },
             y: {
                 display: true,
                 title: {
                     display: true,
-                    text: 'Choices',
+                    text: t('admin.choices'),
                 },
             },
         },

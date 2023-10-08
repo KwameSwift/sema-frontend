@@ -10,11 +10,12 @@ import ContentCreatorLayout from "../../../../../Components/ContentCreator/Layou
 import Select from "react-select";
 import "./style.scss";
 import CustomRadioInput from "../../../../../Components/Common/CustomRadioButton";
+import {useTranslation} from "react-i18next";
 
 const animatedComponents = makeAnimated();
 
 function CreatorAddForumPage() {
-    // const {t} = useTranslation();
+    const {t} = useTranslation();
     const [state, setState] = useState({
         is_public: "True",
     });
@@ -88,7 +89,7 @@ function CreatorAddForumPage() {
     }, [tags]);
 
     return (
-        <ContentCreatorLayout header="Add Forum">
+        <ContentCreatorLayout header={t('admin.addForums')}>
             <div>
                 <div className="p-4">
                     <div className={`mt-5 mb-8 ${!coverImageType && "hidden"}`}>
@@ -100,7 +101,7 @@ function CreatorAddForumPage() {
                         } mt-5 mb-8`}
                     >
                         <label className="text-[18px] font-bold mb-5">
-                            Header Image
+                            {t('admin.headerImage')}
                         </label>
                         <input type="file" ref={fileRef} onChange={handleSetImage}/>
                     </div>
@@ -111,7 +112,7 @@ function CreatorAddForumPage() {
                                 onClick={() => fileRef.current.click()}
                                 className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
                             >
-                                Change cover image
+                                {t('admin.changeCoverImage')}
                             </button>
                             <span className="ml-3">
                 <BsTrash
@@ -125,31 +126,31 @@ function CreatorAddForumPage() {
                     )}
                     <div>
                         <label className="text-[18px] font-bold">
-                            Topic<span className="text-[#e14d2a]">*</span>
+                            {t('admin.topic')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
                             name="topic"
                             onChange={handleChange}
-                            placeholder="Enter topic"
+                            placeholder={t('admin.enterTopic')}
                             className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                         />
                     </div>
                     <div className="mt-3">
                         <label className="text-[18px] font-bold">
-                            Description<span className="text-[#e14d2a]">*</span>
+                            {t('editBlogs.description')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <textarea
                             name="description"
                             rows={3}
                             onChange={handleChange}
-                            placeholder="Enter description"
+                            placeholder={t('admin.enterDescription')}
                             className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                         ></textarea>
                     </div>
                     <div className="mt-3">
                         <label className="text-[18px] mb-2 font-bold">
-                            Tags<span className="text-[#e14d2a]">*</span>
+                            {t('admin.tags')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <Select
                             closeMenuOnSelect={false}
@@ -161,7 +162,7 @@ function CreatorAddForumPage() {
                                 return {label: elt, value: elt}
                             })}
                             isClearable={true}
-                            placeholder="Start typing..."
+                            placeholder={t('admin.writeHere')}
                             name="state"
                             value={tags}
                             onChange={(e) => setTags(e)}
@@ -177,24 +178,24 @@ function CreatorAddForumPage() {
                     {/*</div>*/}
                     <div className="mt-3">
                         <label className="text-[18px] mb-2 font-bold">
-                        Access Level<span className="text-[#e14d2a]">*</span>
+                            {t('admin.accessLevel')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <div>
-                        <CustomRadioInput
-                            optionKey="Public"
-                            onChange={handleChange}
-                            name={"is_public"}
-                            value={"True"}
-                            val={"pub1"}
-                            defaultChecked={true}
-                        />
-                        <CustomRadioInput
-                            optionKey="Private"
-                            onChange={handleChange}
-                            name={"is_public"}
-                            value={"False"}
-                            val={"pub2"}
-                        />
+                            <CustomRadioInput
+                                optionKey={t('home.public')}
+                                onChange={handleChange}
+                                name={"is_public"}
+                                value={"True"}
+                                val={"pub1"}
+                                defaultChecked={true}
+                            />
+                            <CustomRadioInput
+                                optionKey={t('home.private')}
+                                onChange={handleChange}
+                                name={"is_public"}
+                                value={"False"}
+                                val={"pub2"}
+                            />
                         </div>
                     </div>
                     <div className="mt-8 flex items-center justify-center">
@@ -204,7 +205,7 @@ function CreatorAddForumPage() {
                             onClick={handleSave}
                             disabled={disabled || loading}
                         >
-                            {loading ? "Loading..." : "Save"}
+                            {loading ? `${t('modal.loading')}...` : t('modal.save')}
                         </button>
                     </div>
                 </div>

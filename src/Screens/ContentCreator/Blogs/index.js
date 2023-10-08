@@ -10,6 +10,8 @@ import ContentCreatorBlogCard from "../../../Components/ContentCreator/BlogPost"
 import NoBlog from "../../../Assets/images/no-blog.png";
 import Modal from "../../../Components/Modal";
 import "./style.scss";
+import {useTranslation} from "react-i18next";
+import {getTransString} from "../../../utils/helpers";
 
 function CreatorBlogs() {
     const [blogs, setBlogs] = useState([]);
@@ -24,6 +26,7 @@ function CreatorBlogs() {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const firstRunRef = useRef(true);
     const filterBlogs = (e) => {
@@ -105,8 +108,8 @@ function CreatorBlogs() {
     return (
         <>
             <ContentCreatorLayout
-                header="Blogs"
-                subChild={`Total Count (${totalBlogs})`}
+                header={t('admin.blogs')}
+                subChild={`${t('contentCreator.totalCount')} (${totalBlogs})`}
             >
                 <div className="flex justify-between mt-3 items-center">
                     <div className="flex items-center w-[80%]">
@@ -114,20 +117,20 @@ function CreatorBlogs() {
                             <BsSearch size={22} className="ml-3"/>
                             <input
                                 type="text"
-                                placeholder="Search..."
+                                placeholder={`${t(getTransString("Search"))}...`}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="outline-none p-4 h-[40px] w-[90%]"
                             />
                         </div>
                         <div className="ml-10 mt-4 flex flex-col">
-                            <label>Blog Type</label>
+                            <label>{t("admin.blogType")}</label>
                             <select
                                 className="border mt-2 rounded-lg p-1 w-[200px] h-[40px]"
                                 onChange={filterBlogs}
                             >
-                                <option value={0}>All</option>
-                                <option value={1}>Approved</option>
-                                <option value={2}>Unapproved</option>
+                                <option value={0}>{t("admin.all")}</option>
+                                <option value={1}>{t("admin.approved")}</option>
+                                <option value={2}>{t("admin.unApproved")}</option>
                             </select>
                         </div>
                     </div>
@@ -136,7 +139,7 @@ function CreatorBlogs() {
                             className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
                             onClick={() => navigate("/creator/blogs/add")}
                         >
-                            <BsPlus size={25}/>Blogs
+                            <BsPlus size={25}/>{t("admin.blogs")}
                         </button>
                     </div>
                 </div>

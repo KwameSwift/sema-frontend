@@ -9,6 +9,7 @@ import CustomEditor from "../../../Components/Common/CustomEditor";
 import {isDocumentImage} from "../../../utils/helpers";
 
 import "./style.scss";
+import {useTranslation} from "react-i18next";
 
 function AddBlogPage() {
     const [state, setState] = useState({});
@@ -27,6 +28,7 @@ function AddBlogPage() {
     const [files, setFiles] = useState([]);
 
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const handleChange = (e) => {
         setState({
@@ -243,7 +245,7 @@ function AddBlogPage() {
                         } mt-5 mb-8`}
                     >
                         <label className="text-[18px] font-bold mb-5">
-                            Cover Image / Document
+                            {t("editBlogs.coverImage")} / {t("editBlogs.document")}
                         </label>
                         <input type="file" ref={fileRef} onChange={handleSetImage}/>
                     </div>
@@ -254,7 +256,7 @@ function AddBlogPage() {
                                 onClick={() => fileRef.current.click()}
                                 className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
                             >
-                                Change cover image
+                                {t("editBlogs.changeCoverImage")}
                             </button>
                             <span className="ml-3">
                 <BsTrash
@@ -268,21 +270,21 @@ function AddBlogPage() {
                     )}
                     <div>
                         <label className="text-[18px] font-bold">
-                            Title<span className="text-[#e14d2a]">*</span>
+                            {t("editBlogs.title")}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <input
                             type="text"
                             name="title"
                             onChange={handleChange}
-                            placeholder="Add Title"
+                            placeholder={t("editBlogs.addTitle")}
                             className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                         />
                     </div>
                     <div className="mt-8">
-                        <label className="text-[18px] font-bold">Description</label>
+                        <label className="text-[18px] font-bold">{t("editBlogs.description")}</label>
                         <textarea
                             onChange={handleChange}
-                            placeholder="Add blog description..."
+                            placeholder={t("admin.enterDescription")}
                             name="description"
                             rows={2}
                             className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
@@ -290,18 +292,18 @@ function AddBlogPage() {
                     </div>
                     <div className="mt-8">
                         <label className="text-[18px] mb-5 font-bold">
-                            Blog Content<span className="text-[#e14d2a]">*</span>
+                            {t('admin.blogContent')}<span className="text-[#e14d2a]">*</span>
                         </label>
                         <CustomEditor
                             className="mt-5"
-                            placeholder="Write here..."
+                            placeholder={t("admin.writeHere")}
                             setData={handleSetContent}
                             data={state.content}
                         />
                     </div>
                     <div className="flex mt-8 items-center">
                         <p className="text-[18px] font-bold">
-                            Are you the author of this blog?
+                            {t("admin.areYouTheAuthorOfTheBlog")}
                         </p>
                         <div className="toggle ml-3">
                             <input
@@ -316,7 +318,9 @@ function AddBlogPage() {
                     </div>
                     {!isOwned && (
                         <div className="reference_links flex flex-col justify-start mt-8">
-                            <label className="text-[18px] font-bold">References</label>
+                            <label className="text-[18px] font-bold">
+                                {t('admin.references')}
+                            </label>
                             <div className="mt-3">{referenceItems}</div>
                             <button
                                 type="button"
@@ -324,7 +328,7 @@ function AddBlogPage() {
                                 className="text-left mt-3 min-w-[200px] bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
                             >
                                 <BsPlusCircle fill="#001253" className="mr-1" size={20}/>
-                                <span className="text-['#001253']">Add reference link</span>
+                                <span className="text-['#001253']">{t('admin.addReferenceLinks')}</span>
                             </button>
                         </div>
                     )}
@@ -332,7 +336,7 @@ function AddBlogPage() {
                         <AdminAccordionItem
                             cBg="#fff"
                             bg="#e5e7eb"
-                            title="Links"
+                            title={t("admin.links")}
                             className="text-[18px] font-bold"
                             pClassName="mt-5"
                         >
@@ -343,13 +347,13 @@ function AddBlogPage() {
                                 className="text-left mt-3 bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
                             >
                                 <BsPlusCircle fill="#000" className="mr-1" size={20}/>
-                                <span className="text-[#000] mt-1">Add Link</span>
+                                <span className="text-[#000] mt-1">{t('admin.add')} {t('admin.link')}</span>
                             </button>
                         </AdminAccordionItem>
                         <AdminAccordionItem
                             cBg="#fff"
                             bg="#e5e7eb"
-                            title="Other Files"
+                            title={t('admin.otherFiles')}
                             className="text-[18px] font-bold"
                             pClassName="mt-5"
                         >
@@ -360,7 +364,7 @@ function AddBlogPage() {
                                 className="text-left mt-3 bg-[#fff] w-[150px] flex items-center p-2 rounded-lg"
                             >
                                 <BsPlusCircle fill="#001253" className="mr-1" size={20}/>
-                                <span className="text-['#001253']">Add Files</span>
+                                <span className="text-['#001253']">{t('admin.add')} {t('forum.files')}</span>
                             </button>
                         </AdminAccordionItem>
                     </div>
@@ -371,7 +375,7 @@ function AddBlogPage() {
                                 onClick={() => navigate("/admin/blogs")}
                                 className="border rounded px-3 py-2"
                             >
-                                Cancel
+                                {t('modal.cancel')}
                             </button>
                             <button
                                 type="button"
@@ -379,7 +383,8 @@ function AddBlogPage() {
                                 onClick={handleSave}
                                 disabled={loading}
                             >
-                                Save
+                                {loading ? t('admin.saving') : t('modal.save')}
+
                             </button>
                         </div>
                     </div>

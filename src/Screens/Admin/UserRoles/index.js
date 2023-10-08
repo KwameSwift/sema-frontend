@@ -7,6 +7,7 @@ import {axiosClientWithHeaders} from "../../../libs/axiosClient";
 import "./style.scss";
 import Modal from "../../../Components/Modal";
 import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 function UserRolesPage() {
     const [userRoles, setUserRoles] = useState([]);
@@ -20,6 +21,7 @@ function UserRolesPage() {
     const [moduleData, setModuleData] = useState({});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const headers = ["Name", "View", "Edit", ""];
 
@@ -75,8 +77,7 @@ function UserRolesPage() {
     };
 
     const dropItems = [
-        {id: "edit", name: "Edit", route: "/profile"},
-        {id: "delete", name: "Delete", type: "func", func: deleteRoles},
+        {id: "delete", name: t('modal.delete'), type: "func", func: deleteRoles},
     ];
 
     const getViewItem = (viewItems) => {
@@ -152,6 +153,10 @@ function UserRolesPage() {
         }
     }
 
+    const getTranslatedHeader = (elt) => {
+        return t(elt.getTranslationKey()).titleWord();
+    }
+
     useEffect(() => {
         const getModules = async () => {
             try {
@@ -178,7 +183,7 @@ function UserRolesPage() {
             <Layout>
                 <div className=" mx-5 users-roles-page">
                     <div className="p-5 mt-5 flex justify-between blog-header">
-                        <h1>User Roles</h1>
+                        <h1>{t('admin.userRoles')}</h1>
                     </div>
                     <div className="mt-10">
                         <div className="flex justify-end mb-8">
@@ -186,7 +191,7 @@ function UserRolesPage() {
                                 className="text-[#fff] flex items-center rounded-md bg-[#001253] px-3 py-2"
                                 onClick={handleModalOpen}
                             >
-                                <BsPlus size={25}/>User Role
+                                <BsPlus size={25}/>{t('admin.userRole')}
                             </button>
                         </div>
                         <div className="w-full">
@@ -195,7 +200,7 @@ function UserRolesPage() {
                                 <tr>
                                     {headers.map((elt, index) => (
                                         <th className="py-2 px-2 border-b text-left" key={index}>
-                                            {elt}
+                                            {getTranslatedHeader(elt)}
                                         </th>
                                     ))}
                                 </tr>

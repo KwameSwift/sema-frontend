@@ -151,33 +151,33 @@ function AdminEditForumPage() {
                 )}
                 <div>
                     <label className="text-[18px] font-bold">
-                        Topic<span className="text-[#e14d2a]">*</span>
+                        {t('admin.topic')}<span className="text-[#e14d2a]">*</span>
                     </label>
                     <input
                         type="text"
                         name="topic"
                         onChange={handleChange}
                         value={state.topic}
-                        placeholder="Enter topic"
+                        placeholder={t('admin.enterTopic')}
                         className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                     />
                 </div>
                 <div className="mt-3">
                     <label className="text-[18px] font-bold">
-                        Description<span className="text-[#e14d2a]">*</span>
+                        {t('editBlogs.description')}<span className="text-[#e14d2a]">*</span>
                     </label>
                     <textarea
                         name="description"
                         rows={3}
                         value={state.description}
                         onChange={handleChange}
-                        placeholder="Enter description"
+                        placeholder={t('admin.enterDescription')}
                         className="w-full mt-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-[#3e6d9c]"
                     ></textarea>
                 </div>
                 <div className="mt-3">
                     <label className="text-[18px] mb-2 font-bold">
-                        Tags<span className="text-[#e14d2a]">*</span>
+                        {t('admin.tags')}<span className="text-[#e14d2a]">*</span>
                     </label>
                     <Select
                         closeMenuOnSelect={false}
@@ -189,7 +189,7 @@ function AdminEditForumPage() {
                             return {label: elt, value: elt}
                         })}
                         isClearable={true}
-                        placeholder="Start typing..."
+                        placeholder={t('admin.writeHere')}
                         name="state"
                         value={tags}
                         onChange={(e) => setTags(e)}
@@ -205,7 +205,7 @@ function AdminEditForumPage() {
                 {/*</div>*/}
                 <div className="mt-3">
                     <label className="text-[18px] mb-2 font-bold">
-                        Access Level<span className="text-[#e14d2a]">*</span>
+                        {t('admin.accessLevel')}<span className="text-[#e14d2a]">*</span>
                     </label>
                     <div>
                         <CustomRadioInput
@@ -225,14 +225,14 @@ function AdminEditForumPage() {
                         />
                     </div>
                 </div>
-                <div className="mt-8 flex items-center justify-center">
+                <div className="mt-8 mb-3 flex items-center justify-center">
                     <button
                         type="button"
                         className="ml-2 px-3 py-2 rounded-md text-[#fff] bg-[#001253]"
                         onClick={handleSave}
                         disabled={disabled || loading}
                     >
-                        {loading ? "Loading..." : "Save"}
+                        {loading ? `${t('modal.loading')}...` : t('modal.save')}
                     </button>
                 </div>
             </div>
