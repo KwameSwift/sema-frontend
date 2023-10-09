@@ -38,17 +38,17 @@ function ContentCreatorBlogCard({
 
     const accountLinks = [
         {id: "approve", name: status, type: "func", func: deactivatePost},
-        {id: "delete", name: "Delete", type: "func", func: deletePost},
+        {id: "delete", name: t('modal.delete'), type: "func", func: deletePost},
     ];
 
     const blogList = [
         {
             id: "edit",
-            name: "Edit",
+            name: t('admin.edit'),
             type: "func",
             func: () => navigate(`/${getUserType()}/blogs/edit/${id}`),
         },
-        {id: "delete", name: "Delete", type: "func", func: deletePost},
+        {id: "delete", name: t('modal.delete'), type: "func", func: deletePost},
     ];
 
     const dropTypes = {
@@ -103,7 +103,7 @@ function ContentCreatorBlogCard({
                                 {openDropdown && (
                                     <div
                                         ref={dropdownRef}
-                                        className="absolute z-20 right-0 top-[40px] h-[100px] mt-8 py-2 w-48 bg-white rounded-md shadow-lg"
+                                        className="absolute z-20 right-0 top-[75px] h-[100px] mt-8 py-2 w-48 bg-white rounded-md shadow-lg"
                                     >
                                         {getDropList().map((elt) => (
                                             <button

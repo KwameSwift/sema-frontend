@@ -138,7 +138,8 @@
     "unApproveTextBlog": "Je, una uhakika unataka kutoidhinisha blogu hii?",
     "unApproveTextPoll": "Je, una uhakika unataka kutoidhinisha kura hii?",
     "unApproveTextForum": "Je, una uhakika unataka kutoidhinisha jukwaa hili?",
-    "deleteTextPoll": "Je, una uhakika unataka kufuta kura hii?"
+    "deleteTextPoll": "Je, una uhakika unataka kufuta kura hii?",
+    "deleteModalText": "Je, una uhakika unataka kufuta blogu hii?"
   },
   "admin": {
     "all": "Wote",
@@ -268,6 +269,7 @@
     "startTime": "Wakati wa Kuanza",
     "endTime": "Wakati wa Mwisho",
     "poll": "Kura",
+    "update": "Sasisha",
     "leftSidebar": {
       "apps": "programu",
       "users": "watumiaji",

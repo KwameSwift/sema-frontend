@@ -51,11 +51,11 @@ function AdminCreatorBlogCard({
     const blogList = [
         {
             id: "edit",
-            name: "Edit",
+            name: t('admin.edit'),
             type: "func",
             func: () => navigate(`/${getUserType()}/blogs/edit/${id}`),
         },
-        {id: "delete", name: "Delete", type: "func", func: deletePost},
+        {id: "delete", name: t('admin.delete'), type: "func", func: deletePost},
     ];
 
     const dropTypes = {

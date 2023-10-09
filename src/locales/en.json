@@ -136,7 +136,8 @@
     "unApproveTextBlog": "Are you sure you want to disapprove this blog?",
     "unApproveTextPoll": "Are you sure you want to disapprove this poll?",
     "unApproveTextForum": "Are you sure you want to disapprove this forum?",
-    "deleteTextPoll": "Are you sure you want to delete this poll?"
+    "deleteTextPoll": "Are you sure you want to delete this poll?",
+    "deleteModalText": "Are you sure you want to delete this blog?"
   },
   "admin": {
     "all": "All",
@@ -266,6 +267,7 @@
     "startTime": "Start Time",
     "endTime": "End Time",
     "poll": "Poll",
+    "update": "Update",
     "leftSidebar": {
       "apps": "apps",
       "users": "users",

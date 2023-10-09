@@ -277,7 +277,7 @@ function EditCreatorBlogPage() {
     }, [id]);
 
     return (
-        <ContentCreatorLayout header="Update Blog">
+        <ContentCreatorLayout header={`${t('admin.update')} ${t('admin.blogs')}`}>
             <div className="creator admin-add-blog">
                 <form>
                     <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>

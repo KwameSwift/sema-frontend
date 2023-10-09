@@ -230,7 +230,7 @@ function AddCreatorBlogPage() {
     };
 
     return (
-        <ContentCreatorLayout header="New Blog">
+        <ContentCreatorLayout header={`${t('admin.new')} ${t('admin.blogs')}`}>
             <div className="creator admin-add-blog">
                 <form>
                     <div className={`mt-5 mb-8 ${!coverImage && "hidden"}`}>
