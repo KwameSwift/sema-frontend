@@ -373,7 +373,7 @@ const Modal = ({
             });
             setRefetch((prev) => !prev);
             setLoading(false);
-            toast.success(`Blog ${approvalType} successfully`);
+            toast.success(t(`Blog ${approvalType} successfully`.getTranslationKey()));
             await new Promise((r) => setTimeout(r, 2000));
             toggleModal();
         } catch (error) {

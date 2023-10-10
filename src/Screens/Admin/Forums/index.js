@@ -62,7 +62,7 @@ function AdminForumsPage() {
                     comments: declineComment.comments,
                 }
             );
-            toast.success("Forum declined");
+            toast.success(t('alerts.forumDeclined'));
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
             setRefetch((prev) => !prev);
@@ -98,7 +98,7 @@ function AdminForumsPage() {
             );
             setRefetch((prev) => !prev);
             setLoading(false);
-            toast.success(`Forum ${approvalType} successfully`);
+            toast.success(t(`Forum ${approvalType} successfully`.getTranslationKey()));
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
         } catch (error) {

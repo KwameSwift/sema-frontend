@@ -28,7 +28,7 @@ function FileUploadModal(props) {
         try {
             await axiosClientForm.post(`/forum/upload-forum-files/${props.forumId}/`, formData);
             setLoading(false);
-            toast.success("Files uploaded successfully");
+            toast.success(t('alerts.filesUploaded'));
             props.setIsOpen(false);
             props.refetch(prev => !prev);
         } catch (err) {

@@ -68,7 +68,7 @@ function LoginPage() {
                 };
                 dispatch(setUserData(payload));
                 setLoading(false);
-                toast.success("Login successful");
+                toast.success(t('alerts.loginSuccess'));
                 await new Promise((r) => setTimeout(r, 2000));
                 navigate(routeUser(data));
             } else {

@@ -49,7 +49,7 @@ function AdminEditForumPage() {
         try {
             await axiosClientWithHeaders.put(`/forum/update-forum/${id}/`, formData);
             setLoading(false);
-            toast.success("Forum updated successfully");
+            toast.success(t('alerts.forumUpdated'));
             await new Promise((r) => setTimeout(r, 2000));
             navigate("/admin/forums");
         } catch (err) {

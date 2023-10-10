@@ -61,7 +61,7 @@ function CreatorForumsPage() {
                 `/forum/delete-forum/${selectedId}/`
             );
             setLoading(false);
-            toast.success("Forum deleted successfully");
+            toast.success(t('alerts.forumDeleted'));
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
             getAllForums(pollType, false);

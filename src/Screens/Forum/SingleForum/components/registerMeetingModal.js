@@ -33,7 +33,7 @@ function RegisterMeetingFormModal(props) {
         setLoading(true);
         try {
             await axiosClientWithHeaders.post(`/forum/register-virtual-meeting/${props.meetingId}/`, state);
-            toast.success("Meeting registered, please check your email for the meeting information");
+            toast.success(t('alerts.meetingRegistered'));
             props.setIsOpen(false);
             props.refetch(prev => !prev);
         } catch (err) {

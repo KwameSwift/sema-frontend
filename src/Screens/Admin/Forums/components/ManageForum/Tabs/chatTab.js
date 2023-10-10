@@ -17,7 +17,7 @@ function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefet
 
     const setStatus = (status) => {
         if (status === "Completed") {
-            toast.success("Chat added successfully");
+            toast.success(t('alerts.chatAdded'));
             setRefetch(prev => !prev);
         }
     }

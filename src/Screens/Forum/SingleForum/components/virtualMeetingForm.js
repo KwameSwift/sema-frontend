@@ -25,7 +25,7 @@ function VirtualMeetingFormModal(props) {
         try {
             await axiosClientWithHeaders.post(`/forum/create-virtual-meeting/${props.forumId}/`, payload);
             setLoading(false);
-            toast.success("Meeting created successfully");
+            toast.success(t('alerts.meetingCreated'));
             props.setIsOpen(false);
             props.refetch(prev => !prev);
         } catch (err) {

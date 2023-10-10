@@ -53,7 +53,7 @@ function AdminEditPollPage() {
         try {
             await axiosClientWithHeaders.put(`/polls/update-poll/${id}/`, formData);
             setLoading(false);
-            toast.success("Poll updated successfully");
+            toast.success(t('alerts.pollUpdated'));
             await new Promise((r) => setTimeout(r, 2000));
             navigate("/admin/polls");
         } catch (err) {

@@ -55,7 +55,7 @@ function AdminAddForumPage() {
         try {
             await axiosClientWithHeaders.post("/forum/create-forum/", formData);
             setLoading(false);
-            toast.success("Forum added successfully");
+            toast.success(t('alerts.forumAdded'));
             await new Promise((r) => setTimeout(r, 2000));
             navigate("/admin/forums");
         } catch (err) {

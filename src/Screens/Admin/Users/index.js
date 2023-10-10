@@ -60,7 +60,7 @@ function UsersPage() {
                 role_id: id
             });
             setLoading(false);
-            toast.success("Role assigned successfully");
+            toast.success(t('alerts.roleAssigned'));
             getAllUsers();
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
@@ -75,7 +75,7 @@ function UsersPage() {
         try {
             await axiosClientWithHeaders.delete(`/super-admin/delete-single-user/${userKey}/`);
             setLoading(false);
-            toast.success("User deleted successfully");
+            toast.success(t('alerts.userDeleted'));
             getAllUsers();
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
@@ -97,7 +97,7 @@ function UsersPage() {
                 setUserVerifyBtnLoading(false);
                 viewUser(userKey, true);
             }
-            toast.success("User status updated");
+            toast.success(t('alerts.userStatusUpdated'));
             setModalOpen(false);
             getAllUsers(currentPage);
         } catch (err) {
@@ -154,7 +154,7 @@ function UsersPage() {
         try {
             await axiosClientWithHeaders.post("/super-admin/add-users/", addAdminData);
             setLoading(false);
-            toast.success("User added successfully");
+            toast.success(t('alerts.userAdded'));
             await new Promise((r) => setTimeout(r, 2000));
             setAddAdminModalOpen(false);
         } catch (err) {

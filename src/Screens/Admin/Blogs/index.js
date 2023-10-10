@@ -60,7 +60,7 @@ function AdminBlogsPage() {
                 `/blog/delete-blog-post/${selectedId}/`
             );
             setLoading(false);
-            toast.success("Blog deleted successfully");
+            toast.success(t("alerts.blogDeleted"));
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
             getAllBlogs(blogType, false);

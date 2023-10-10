@@ -22,13 +22,13 @@ function PasswordReset() {
         setLoading(true);
         if (state.confirm_password !== state.new_password) {
             setLoading(false);
-            toast.error("Passwords do not match");
+            toast.error(t('alerts.passwordsDoNotMatch'));
             return;
         }
         try {
             await axiosClientWithHeaders.put("/auth/change-password/", state);
             setLoading(false);
-            toast.success("Password changed successfully");
+            toast.success(t('alerts.passwordChanged'));
         } catch (e) {
             setLoading(false);
             console.error(e);

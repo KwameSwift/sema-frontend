@@ -17,7 +17,7 @@ function DeleteDocumentModal({documentId, isOpen, setIsOpen, refetch}) {
         setLoading(true);
         try {
             await axiosClientWithHeaders.delete(`/document-vault/delete-vault-document/${documentId}/`);
-            toast.success("Document deleted successfully");
+            toast.success(t('alerts.documentDeleted'));
             toggleModal();
             refetch(prev => !prev);
             setLoading(false);

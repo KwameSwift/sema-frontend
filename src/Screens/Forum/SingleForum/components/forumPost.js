@@ -60,16 +60,16 @@ function ForumPost() {
 
     const leaveOrJoinForum = async (forumId = id, isMember = forum?.is_member) => {
         if (!userTokens.access) {
-            toast.error("Please login to be able to join this forum.");
+            toast.error(t('alerts.pleaseLoginToBeAbleToJoin'));
         } else {
             try {
                 if (isMember) {
                     await axiosClientWithHeaders.post(`/forum/leave-forum/${forumId}/`);
-                    toast.success("You have left this forum");
+                    toast.success(t('alerts.youHaveLeftThisForum'));
                     setRefetch(!refetch);
                 } else {
                     await axiosClientWithHeaders.post(`/forum/join-forum/${forumId}/`);
-                    toast.success("You have joined this forum");
+                    toast.success(t('alerts.youHaveJoinedThisForum'));
                     setRefetch(!refetch);
                 }
             } catch (err) {

@@ -21,7 +21,7 @@ function AdminForumRefactorTab({forumId}) {
     const approveRequest = async (id) => {
         try {
             await axiosClientWithHeaders.post(`users/approve-forum-request/${id}/`);
-            toast.success("Forum request approved successfully");
+            toast.success(t('alerts.forumRequestApproved'));
             getForumRequests();
         } catch (err) {
             console.log(err);
@@ -31,7 +31,7 @@ function AdminForumRefactorTab({forumId}) {
     const declineRequest = async (id) => {
         try {
             await axiosClientWithHeaders.post(`users/decline-forum-request/${id}/`);
-            toast.success("Forum request approved successfully");
+            toast.success(t('alerts.forumRequestDeclined'));
             getForumRequests();
         } catch (err) {
             console.log(err);

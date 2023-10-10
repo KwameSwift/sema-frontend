@@ -59,7 +59,7 @@ function SignupPage() {
         };
         dispatch(setUserData(payload));
         setLoading(false);
-        toast.success("Registration successful");
+        toast.success(t('alerts.registerSuccess'));
         await new Promise(r => setTimeout(r, 2000));
         navigate(userType === "Guest" ? "/" : "/creator/dashboard");
     };

@@ -86,7 +86,7 @@ function CreatorAddPollPage() {
         try {
             await axiosClientWithHeaders.post("/polls/create-poll/", formData);
             setLoading(false);
-            toast.success("Poll Added successfully");
+            toast.success(t('alerts.pollAdded'));
             await new Promise((r) => setTimeout(r, 2000));
             navigate("/creator/polls");
         } catch (err) {

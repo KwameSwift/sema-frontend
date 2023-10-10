@@ -38,7 +38,7 @@ function SinglePost() {
 
     const addComment = async () => {
         if (!user?.tokens?.access) {
-            toast.error("Please login to add a comment");
+            toast.error(t('alerts.pleaseLoginToAddComment'))
         } else {
             try {
                 setComment("");
@@ -46,7 +46,7 @@ function SinglePost() {
                     comment,
                     blog_post_id: id,
                 });
-                toast.success("Comment added successfully");
+                toast.success(t('alerts.commentAdded'));
                 getSingleBlog();
             } catch (e) {
                 console.error(e);

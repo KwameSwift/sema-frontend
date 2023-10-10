@@ -80,7 +80,7 @@ function Profile() {
         }
         try {
             await axiosClientForm.put("/users/update-my-profile/", formData);
-            toast.success("Profile updated successfully");
+            toast.success(t('alerts.profileUpdated'));
             getMyData();
             setLoading(false);
         } catch (err) {

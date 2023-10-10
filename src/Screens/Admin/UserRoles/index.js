@@ -143,7 +143,7 @@ function UserRolesPage() {
         try {
             await axiosClientWithHeaders.post("/super-admin/add-user-role/", payload);
             setLoading(false);
-            toast.success("User role added successfully");
+            toast.success(t('alerts.userRoleAdded'));
             setModalOpen(false);
             await new Promise((r) => setTimeout(r, 2000));
             getAllUserRoles();

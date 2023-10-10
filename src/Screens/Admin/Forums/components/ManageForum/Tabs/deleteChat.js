@@ -17,7 +17,7 @@ function DeleteChatRoom({chatId, isOpen, setIsOpen, refetch}) {
         setLoading(true);
         try {
             await axiosClientWithHeaders.delete(`/chats/delete-chat-room/${chatId}/`);
-            toast.success("Chat room deleted successfully");
+            toast.success(t('alerts.chatRoomDeleted'));
             toggleModal();
             refetch(prev => !prev);
             setLoading(false);

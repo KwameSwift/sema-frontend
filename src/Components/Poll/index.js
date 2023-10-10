@@ -68,7 +68,7 @@ function PollCard(props) {
                 comments: comments
             });
             setLoading(false);
-            toast.success("Comment updated");
+            toast.success(t('alerts.commentUpdated'));
             props.refetch((prev) => !prev);
         } catch (err) {
             setLoading(false);
@@ -77,7 +77,7 @@ function PollCard(props) {
 
     const handleCommentOpen = (id) => {
         if (!props.access) {
-            toast.error("Register or login to vote on this poll");
+            toast.error(t('alerts.registerOrLogin'));
             return;
         }
         setSelectedID(id);

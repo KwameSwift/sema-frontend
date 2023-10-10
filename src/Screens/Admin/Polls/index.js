@@ -57,7 +57,7 @@ function AdminPollsPage() {
             await axiosClientWithHeaders.put(`/super-admin/decline-poll/${selectedId}/`, {
                 comments: declineComment.comments
             });
-            toast.success("Poll declined");
+            toast.success(t('alerts.pollDeclined'));
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
             setRefetch(prev => !prev);
@@ -93,7 +93,7 @@ function AdminPollsPage() {
             );
             setRefetch((prev) => !prev);
             setLoading(false);
-            toast.success(`Poll ${approvalType} successfully`);
+            toast.success(t(`Poll ${approvalType} successfully`.getTranslationKey()));
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
         } catch (error) {

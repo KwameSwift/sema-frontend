@@ -25,7 +25,7 @@ function VerificationCode() {
                 email: user.email,
                 reset_code: otp
             });
-            toast.success("Code Verified");
+            toast.success(t('alerts.codeVerified'));
             await new Promise(r => setTimeout(r, 2000));
             navigate("/reset-password");
         } catch (err) {

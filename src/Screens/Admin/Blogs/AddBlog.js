@@ -56,17 +56,17 @@ function AddBlogPage() {
     const handleSave = async () => {
         setLoading(true);
         if (!isOwned && Object.values(references).length === 0) {
-            toast.error("At least one reference link is required");
+            toast.error(t('alerts.atLeastReferenceRequired'));
             return;
         }
 
         if (!state.title) {
-            toast.error("Blog title is empty");
+            toast.error(t('alerts.blogTitleEmpty'));
             return;
         }
 
         if (!state.content) {
-            toast.error("Blog content is empty");
+            toast.error(t('alerts.blogContentEmpty'));
             return;
         }
 
@@ -98,7 +98,7 @@ function AddBlogPage() {
         try {
             await axiosClientForm.post("/blog/create-blog/", formData);
             setLoading(false);
-            toast.success("Blog Added successfully");
+            toast.success(t('alerts.blogAdded'));
             await new Promise((r) => setTimeout(r, 2000));
             navigate("/admin/blogs");
         } catch (err) {

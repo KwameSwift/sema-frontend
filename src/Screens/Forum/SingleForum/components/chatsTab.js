@@ -16,7 +16,7 @@ function ChatsTab({chatRooms, user, setRefetch, forumId, suggestedForums, isMemb
 
     const setStatus = (status) => {
         if (status === "Completed") {
-            toast.success("Chat added successfully");
+            toast.success(t('forum.chatAdded'));
             setRefetch(prev => !prev);
         }
     }

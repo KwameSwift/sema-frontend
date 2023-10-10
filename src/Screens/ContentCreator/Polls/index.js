@@ -61,7 +61,7 @@ function CreatorPollsPage() {
                 `/polls/delete-poll/${selectedId}/`
             );
             setLoading(false);
-            toast.success("Poll deleted successfully");
+            toast.success(t('alerts.pollDeleted'));
             await new Promise((r) => setTimeout(r, 2000));
             setModalOpen(false);
             getAllPolls(pollType, false);

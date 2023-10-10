@@ -29,7 +29,7 @@ function ResetPasswordPage() {
                 email: user.email,
             });
             setLoading(false);
-            toast.success("Password reset successfully");
+            toast.success(t('alerts.passwordReset'));
             await new Promise((r) => setTimeout(r, 2000));
             navigate("/login");
         } catch (err) {

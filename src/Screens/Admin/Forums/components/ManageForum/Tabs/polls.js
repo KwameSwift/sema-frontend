@@ -37,7 +37,7 @@ function AdminPollTab({forumId, user}) {
         setLoading(true);
         try {
             await axiosClientWithHeaders.delete("forum/delete-forum-poll/" + selectedId + "/");
-            toast.success("Poll deleted");
+            toast.success(t('alerts.pollDeleted'));
             setIsDeleteOpen(false);
             setRefetch(prev => !prev);
         } catch (err) {

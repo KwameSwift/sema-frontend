@@ -184,16 +184,16 @@ function EditAdminBlogPage() {
     const handleSave = async () => {
         setLoading(true);
         if (!isOwned && Object.values(references).length === 0) {
-            toast.error("At least one reference link is required");
+            toast.error(t('alerts.atLeastReferenceRequired'));
         }
 
         if (!state.title) {
-            toast.error("Blog title is empty");
+            toast.error(t('alerts.blogTitleEmpty'));
             return;
         }
 
         if (!state.content) {
-            toast.error("Blog content is empty");
+            toast.error(t('alerts.blogContentEmpty'));
             return;
         }
 
@@ -227,7 +227,7 @@ function EditAdminBlogPage() {
         try {
             await axiosClientForm.put("/blog/update-blog-post/", formData);
             setLoading(false);
-            toast.success("Blog updated successfully");
+            toast.success(t('alerts.blogUpdated'));
             await new Promise((r) => setTimeout(r, 2000));
             navigate("/admin/blogs");
         } catch (err) {
