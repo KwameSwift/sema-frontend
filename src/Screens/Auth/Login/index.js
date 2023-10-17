@@ -167,9 +167,10 @@ function LoginPage() {
                                                             onClick={() => handleMobileData(elt)}
                                                             className="flex"
                                                         >
-                                                            <img src={elt.flag} width={30} height={30}
-                                                                 className="mr-1" alt=""/>
-                                                            {elt.calling_code}
+                                                            <span className="text-[13px]">{elt.name}</span>
+                                                            <img src={elt.flag} width={25} height={25}
+                                                                 className="mx-1" alt=""/>
+                                                            <span className="mr-2 text-[13px]">{elt.calling_code}</span>
                                                         </Dropdown.Item>
                                                     ))}
                                                 </Dropdown.Menu>
