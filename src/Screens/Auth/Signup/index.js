@@ -6,7 +6,6 @@ import RegisterSecondStep from "./secondStep";
 import CustomButton from "../../../Components/Common/CustomButton";
 import {axiosClient} from "../../../libs/axiosClient";
 import {isRequiredFieldsPassed} from "../../../utils/helpers";
-import SocialLoginButtons from "../../../Components/SocialLoginButtons";
 import {useDispatch} from "react-redux";
 import {setUserData} from "../../../Redux/slices/userSlice";
 import logo from "../../../Assets/images/logo-small.png"
@@ -47,6 +46,7 @@ function SignupPage() {
 
     const createUser = async () => {
         setLoading(true);
+        state.mobile_number = state.mobile_number.replace(/^0+/, '');
         const response = await axiosClient.post("auth/register/", {...state});
         const data = response.data.data;
         const payload = {
@@ -83,7 +83,7 @@ function SignupPage() {
     };
 
     useEffect(() => {
-        setBtnDisabled(!isRequiredFieldsPassed(state, requiredFieldsLength, "eq"));
+        setBtnDisabled(!isRequiredFieldsPassed(state, requiredFieldsLength, "gtF"));
     }, [state, progress]);
 
     useLayoutEffect(() => {
@@ -106,11 +106,15 @@ function SignupPage() {
                                 <span className="sema">SEMA</span> {t('auth.needMoreInformation')}
                             </p>
                         )}
-                        <SocialLoginButtons/>
+                        {/*<SocialLoginButtons/>*/}
                     </div>
                     <div className="input-group">
                         {!progress ? (
-                            <RegisterFirstStep handleChange={handleChange}/>
+                            <RegisterFirstStep
+                                handleChange={handleChange}
+                                options={countries}
+                                userType={userType}
+                            />
                         ) : (
                             <RegisterSecondStep handleChange={handleChange} options={countries}/>
                         )}

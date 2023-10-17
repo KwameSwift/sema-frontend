@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {toast} from "react-toastify";
 import AuthSidebar from "../../../Components/Auth/Sidebar";
 import UnBorderedInput from "../../../Components/Common/UnBorderedInput";
@@ -8,21 +8,24 @@ import {useDispatch} from "react-redux";
 import {setUserData} from "../../../Redux/slices/userSlice";
 import CustomButton from "../../../Components/Common/CustomButton";
 import {isRequiredFieldsPassed} from "../../../utils/helpers";
-import SocialLoginButtons from "../../../Components/SocialLoginButtons";
 import logo from "../../../Assets/images/logo-small.png"
 
 import "../style.scss";
 import {useTranslation} from "react-i18next";
+import CustomRadioInput from "../../../Components/Common/CustomRadioButton";
+import {Dropdown} from "react-bootstrap";
 
 function LoginPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {t} = useTranslation();
-
+    const [loginType, setLoginType] = useState("Email");
+    const [countries, setCountries] = useState([]);
     const [state, setState] = useState({});
     const [btnDisabled, setBtnDisabled] = useState(false);
     const [loading, setLoading] = useState(false);
     const [userType, setUserType] = useState("Guest");
+    const [country, setCountry] = useState({});
 
     const handleChange = (e) => {
         setState({
@@ -51,9 +54,18 @@ function LoginPage() {
 
     const handleLogin = async () => {
         setLoading(true);
+        const payload = {...state};
+        console.log(userType);
+        if (userType === "Guest") {
+            if (loginType === "Mobile") {
+                const stripZeroMobile = state.mobile_number.replace(/^0+/, '');
+                payload.mobile_number = country.calling_code + stripZeroMobile;
+            }
+            payload.login_type = loginType;
+        }
         try {
             const url = userType === "Guest" ? "/auth/guest-login/" : "auth/login/";
-            const resp = await axiosClient.post(url, {...state});
+            const resp = await axiosClient.post(url, {...payload});
             if (resp.status === 200) {
                 const data = resp.data.data;
                 const payload = {
@@ -80,6 +92,30 @@ function LoginPage() {
         }
     };
 
+    const handleRadioButtonChange = (e) => {
+        setState({});
+        setLoginType(e.target.value);
+    }
+
+    const getCountries = async () => {
+        try {
+            const response = await axiosClient.get("utilities/dropdowns/2/");
+            const data = response.data.data;
+            setCountries(data);
+            setCountry(data[0]);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleMobileData = (data) => {
+        setCountry(data);
+    }
+
+    useLayoutEffect(() => {
+        getCountries();
+    }, [])
+
     useEffect(() => {
         setBtnDisabled(!isRequiredFieldsPassed(state, userType === "Guest" ? 1 : 2, "eq"));
     }, [state]);
@@ -95,7 +131,7 @@ function LoginPage() {
                     </div>
                     <div className="head-sect">
                         <h1 className="mb-2">{t('auth.loginIntoAccount')}</h1>
-                        <SocialLoginButtons/>
+                        {/*<SocialLoginButtons/>*/}
                         <p>
                             {t('auth.dontHaveAccount')}
                             <span onClick={() => navigate("/register")}>
@@ -104,21 +140,87 @@ function LoginPage() {
                         </p>
                     </div>
                     <div className="input-group">
-                        <UnBorderedInput
-                            type="email"
-                            placeholder={t('auth.emailAddress')}
-                            iconName="BsMailbox"
-                            onChange={handleChange}
-                            name="email"
-                            autoFocus
-                        />
-                        {userType !== "Guest" && <UnBorderedInput
-                            type="password"
-                            placeholder={t('auth.password')}
-                            iconName="BsKey"
-                            name="password"
-                            onChange={handleChange}
-                        />}
+                        {userType === "Guest" &&
+                            (<>
+                                    {loginType === "Email" ?
+                                        <UnBorderedInput
+                                            type="email"
+                                            placeholder={t('auth.emailAddress')}
+                                            iconName="BsMailbox"
+                                            onChange={handleChange}
+                                            name="email"
+                                            autoFocus
+                                        /> :
+                                        <div className="flex mt-2 w-[100%]">
+                                            <Dropdown>
+                                                <Dropdown.Toggle>
+                                                    <span className="country_code">
+                                                        <img src={country.flag} width={50} height={50}
+                                                             className="mr-1" alt=""/>
+                                                        {country.calling_code}
+                                                    </span>
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    {countries.map((elt) => (
+                                                        <Dropdown.Item
+                                                            key={elt.id}
+                                                            onClick={() => handleMobileData(elt)}
+                                                            className="flex"
+                                                        >
+                                                            <img src={elt.flag} width={30} height={30}
+                                                                 className="mr-1" alt=""/>
+                                                            {elt.calling_code}
+                                                        </Dropdown.Item>
+                                                    ))}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                            <input
+                                                type="text"
+                                                className="ml-2 form-control"
+                                                name="mobile_number"
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                    }
+                                </>
+                            )}
+                        {userType === "Guest" && <div className="flex mt-3">
+                            <CustomRadioInput
+                                optionKey={t('auth.emailAddress')}
+                                onChange={handleRadioButtonChange}
+                                defaultChecked={true}
+                                name={"login_type"}
+                                value={"Email"}
+                                val={"email"}
+                            />
+                            <CustomRadioInput
+                                optionKey={t('auth.mobileNumber')}
+                                onChange={handleRadioButtonChange}
+                                name={"login_type"}
+                                value={"Mobile"}
+                                val={'mobile'}
+                            />
+                        </div>
+                        }
+                        {userType !== "Guest" &&
+                            (<>
+                                <UnBorderedInput
+                                    type="email"
+                                    placeholder={t('auth.emailAddress')}
+                                    iconName="BsMailbox"
+                                    onChange={handleChange}
+                                    name="email"
+                                    autoFocus
+                                />
+                                <UnBorderedInput
+                                    type="password"
+                                    placeholder={t('auth.password')}
+                                    iconName="BsKey"
+                                    name="password"
+                                    onChange={handleChange}
+                                />
+                            </>)
+                        }
                     </div>
                     <div className="flex justify-center">
                         <div className="flex user-type-sect">

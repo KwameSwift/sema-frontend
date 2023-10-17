@@ -43,7 +43,8 @@
     "verifyCodeMessage": "Enter your verification code.",
     "verificationCode": "Verification Code",
     "requestNewCode": "Request a new code",
-    "in": "in"
+    "in": "in",
+    "noCountryCode": "67XXXXXXXX (No country code)"
   },
   "home": {
     "seeMore": "See More",

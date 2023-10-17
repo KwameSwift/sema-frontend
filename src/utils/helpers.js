@@ -22,6 +22,11 @@ export const isRequiredFieldsPassed = (obj, fields, type) => {
             Object.keys(obj).length >= fields.length &&
             fields.every((elt) => Object.keys(obj).includes(elt) && obj[elt] !== "")
         );
+    } else if (type === "gtF") {
+        return (
+            Object.keys(obj).length >= fields &&
+            Object.values(obj).every((elt) => elt !== "")
+        );
     }
 
     return false;

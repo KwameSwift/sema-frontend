@@ -43,7 +43,8 @@
     "verifyCodeMessage": "Weka nambari yako ya uthibitishaji.",
     "verificationCode": "Nambari ya Uthibitishaji",
     "requestNewCode": "Omba msimbo mpya",
-    "in": "ndani"
+    "in": "ndani",
+    "noCountryCode": "67XXXXXXXX (Hakuna msimbo wa nchi)"
   },
   "home": {
     "seeMore": "Ona zaidi",
