@@ -22,7 +22,7 @@ function SignupPage() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
 
     const [state, setState] = useState({});
 
@@ -47,6 +47,7 @@ function SignupPage() {
     const createUser = async () => {
         setLoading(true);
         state.mobile_number = state.mobile_number.replace(/^0+/, '');
+        state.language = i18n.language;
         const response = await axiosClient.post("auth/register/", {...state});
         const data = response.data.data;
         const payload = {

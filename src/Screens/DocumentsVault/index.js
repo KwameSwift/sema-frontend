@@ -37,7 +37,7 @@ function DocumentsVaultPage() {
                         <div className="flex flex-wrap w-full">
                             {documents.map((item) => (
                                 <div key={item.document_id}
-                                     className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/5 px-4 mb-4">
+                                     className="w-full sm:w-1/2 md:w-1/4 lg:w-1/3 xl:w-1/3 px-4 mb-4">
                                     <DocumentItem item={item}/>
                                 </div>
                             ))}
