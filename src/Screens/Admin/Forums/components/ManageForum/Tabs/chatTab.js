@@ -7,7 +7,7 @@ import EditChatRoomModal from "./editChat";
 import DeleteChatRoom from "./deleteChat";
 import {useTranslation} from "react-i18next";
 
-function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefetch, forumId}) {
+function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefetch, forumId, authorDetails}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editChat, setEditChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
@@ -43,11 +43,17 @@ function AdminChatsTab({chatRooms, selectedChat, setSelectedChat, user, setRefet
         }
     }
 
+    const isDocumentCreator = () => {
+        return authorDetails?.author__first_name === user?.user?.first_name &&
+            authorDetails?.author__last_name === user?.user?.last_name &&
+            authorDetails?.author__organization === user?.user?.organization;
+    }
+
     return (
         <>
             <div className="forum-chats-page flex justify-between h-full">
                 <div className="mr-6 w-full">
-                    {user?.user?.is_admin &&
+                    {isDocumentCreator() === true &&
                         <div className="flex justify-end items-start mb-2">
                             <button
                                 className="add-chat-btn"

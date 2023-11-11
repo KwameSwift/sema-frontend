@@ -2,6 +2,7 @@ import React from 'react';
 import {formatDate, imageExtensions, returnFileFormat} from "../../../../utils/helpers";
 import {BsCheckCircleFill, BsTrash} from "react-icons/bs";
 import {LiaDownloadSolid} from "react-icons/lia";
+import {useSelector} from "react-redux";
 
 const DocumentCard = (document) => {
     const {
@@ -18,6 +19,15 @@ const DocumentCard = (document) => {
         handleModalOpen,
         isCreator
     } = document;
+
+    const user = useSelector((store) => store.user.user);
+
+    const isDocumentCreator = () => {
+        return owner__first_name === user?.first_name &&
+            owner__last_name === user?.last_name &&
+            owner__organization === user?.organization;
+    }
+
     return (
         <>
             <div className="bg-white rounded-md shadow-md p-4 mb-4 w-full flex flex-col justify-between">
@@ -28,8 +38,9 @@ const DocumentCard = (document) => {
                             <p className="text-gray-600 text-[13px] mb-2">{description}</p>
                         </div>
                         <div>
-                            <BsTrash fill="#e14d2a" className="cursor-pointer" size={13}
-                                     onClick={() => handleModalOpen(document_id)}/>
+                            {isDocumentCreator() === true &&
+                                <BsTrash fill="#e14d2a" className="cursor-pointer" size={13}
+                                         onClick={() => handleModalOpen(document_id)}/>}
                         </div>
                     </div>}
                     <div className="relative w-full h-48 mb-2 overflow-hidden">
@@ -41,7 +52,11 @@ const DocumentCard = (document) => {
                     {isCreator
                         ? (
                             <>
-                                <h2 className="text-[13px] font-bold mb-2">{file_name.truncate(15)}</h2>
+                                <div className="flex justify-between">
+                                    <h2 className="text-[13px] font-bold mb-2">{file_name.truncate(15)}</h2>
+                                    <BsTrash fill="#e14d2a" className="cursor-pointer" size={13}
+                                             onClick={() => handleModalOpen(document_id)}/>
+                                </div>
                                 <p className="text-gray-600 text-[13px] mb-2">{description}</p>
                             </>
                         )

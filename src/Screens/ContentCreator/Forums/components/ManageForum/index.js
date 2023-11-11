@@ -20,10 +20,7 @@ export default function CreatorManageForumPage() {
     const [forum, setForum] = useState([]);
     const [key, setKey] = useState("chats");
     const [selectedChat, setSelectedChat] = useState(null);
-    // const [forumRequests, setForumRequests] = useState([]);
     const [refetch, setRefetch] = useState(false);
-    // const [totalForums, setTotalForums] = useState(0);
-    // const selectedForum = useSelector((store) => store.forum);
     const {t} = useTranslation();
 
     const getSingleForum = async () => {
@@ -65,6 +62,11 @@ export default function CreatorManageForumPage() {
                                 selectedChat={selectedChat}
                                 setRefetch={setRefetch}
                                 setSelectedChat={setSelectedChat}
+                                authorDetails={{
+                                    author__first_name: forum?.author__first_name,
+                                    author__last_name: forum?.author__last_name,
+                                    author__organization: forum?.author__organization
+                                }}
                             />
                         </Tab>
                         <Tab eventKey="media" title={t('forum.media')}>

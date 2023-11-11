@@ -23,17 +23,10 @@ function AdminDocumentsVault({isCreator = false}) {
     const [modalOpen, setModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [currentId, setCurrentId] = useState(0);
-    // const [modalState, setModalState] = useState("");
-    // const [selectedId, setSelectedID] = useState(0);
     const [refetch, setRefetch] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
     const [totalDocuments, setTotalDocuments] = useState(0);
-    // const [forumType, setForumType] = useState(0);
-    // const [loading, setLoading] = useState(false);
-    // const [searchQuery, setSearchQuery] = useState("");
-    // const [declineComment, setDeclineComment] = useState({});
 
-    // const firstRunRef = useRef(true);
     const {t} = useTranslation();
     const adminGetUrl = "/super-admin/get-vault-documents/";
     const creatorGetUrl = "/users/get-my-vault-documents/";
